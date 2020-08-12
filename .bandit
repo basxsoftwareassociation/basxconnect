@@ -1,0 +1,6 @@
+exclude_dirs:
+  - .hg
+  - .venv
+  - .eggs
+  - .tox
+  - migrations

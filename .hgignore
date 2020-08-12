@@ -1,0 +1,7 @@
+.sqlite3
+local.py
+^uploads
+.venv
+.pyc
+^static/
+^media/
