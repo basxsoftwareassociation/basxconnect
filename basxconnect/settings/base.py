@@ -31,9 +31,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
-    # my_app
-] + BREAD_DEPENDENCIES
+INSTALLED_APPS = ["person"] + BREAD_DEPENDENCIES
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

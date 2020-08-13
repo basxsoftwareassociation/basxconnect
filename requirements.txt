@@ -1,1 +1,5 @@
 hg+https://hg.basx.dev/pythonpackages/bread
+django-phonenumber-field
+phonenumbers
+django-pyuwsgi
+pex
