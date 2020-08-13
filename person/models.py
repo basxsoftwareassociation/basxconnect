@@ -125,3 +125,5 @@ class Relationship(models.Model):
         Person, on_delete=models.CASCADE, related_name="relationships_from",
     )
     person_b.verbose_name = _("Person B")
+    start_date = models.DateField(_("Starts on"), blank=True, null=True)
+    end_date = models.DateField(_("Ends on"), blank=True, null=True)
