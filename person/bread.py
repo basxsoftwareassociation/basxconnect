@@ -10,8 +10,8 @@ from . import models
 @register
 class Person(BreadAdmin):
     model = models.Person
-    browse_view = views.BrowseView.customize(fields=["name", "preferred_channel"])
-    edit_view = views.EditView.customize(
+    browse_view = views.BrowseView._with(fields=["name", "preferred_channel"])
+    edit_view = views.EditView._with(
         fields=Layout(
             Tabs(
                 Tab(_("Person"), "name"),
@@ -50,19 +50,19 @@ class Person(BreadAdmin):
             ),
         )
     )
-    add_view = views.AddView.customize(fields=edit_view.fields)
+    add_view = views.AddView._with(fields=edit_view.fields)
 
 
 @register
 class AddressType(BreadAdmin):
     model = models.AddressType
-    browse_view = views.BrowseView.customize(fields=[])
+    browse_view = views.BrowseView._with(fields=[])
 
 
 @register
 class Relationship(BreadAdmin):
     model = models.Relationship
-    edit_view = views.EditView.customize(
+    edit_view = views.EditView._with(
         fields=Layout(
             Div(
                 Div(
@@ -77,10 +77,10 @@ class Relationship(BreadAdmin):
             )
         )
     )
-    add_view = views.AddView.customize(fields=edit_view.fields)
+    add_view = views.AddView._with(fields=edit_view.fields)
 
 
 @register
 class RelationshipType(BreadAdmin):
     model = models.RelationshipType
-    browse_view = views.BrowseView.customize(fields=[])
+    browse_view = views.BrowseView._with(fields=[])
