@@ -93,6 +93,8 @@ class Phone(Address):
 class Postal(Address):
     country = CountryField(_("Country"))
     address = models.TextField(_("Address"))
+    postcode = models.TextField(_("Post Code"), default='')
+    city = models.TextField(_("City"), default='')
 
     def __str__(self):
         return mark_safe(linebreaks(self.address))

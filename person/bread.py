@@ -23,7 +23,11 @@ class Person(BreadAdmin):
                             InlineLayout(
                                 "person_postal_list",
                                 Row.with_columns(
-                                    ("type", 2), ("country", 2), ("address", 8)
+                                    ("type", 2),
+                                    ("country", 2),
+                                    ("address", 8),
+                                    ("postcode", 2),
+                                    ("city", 4),
                                 ),
                             ),
                         ),
