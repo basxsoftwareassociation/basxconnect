@@ -1,6 +1,6 @@
 from bread import views
 from bread.admin import BreadAdmin, register
-from bread.forms.layout import InlineLayout, Row, Tab, Tabs
+from bread.layout import InlineLayout, Row, Tab, Tabs
 from crispy_forms.layout import Div, Fieldset, Layout
 from django.utils.translation import gettext as _
 
