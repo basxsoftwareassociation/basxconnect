@@ -5,3 +5,4 @@ phonenumbers
 django-pyuwsgi
 pex
 django-birthday
+django-language-field

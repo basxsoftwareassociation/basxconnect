@@ -7,6 +7,20 @@ from django.utils.translation import gettext as _
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 from birthday.fields import BirthdayField
+from languages.fields import LanguageField
+
+
+class PersonStatus(models.Model):
+    # eg. active, died, inactive
+    name = models.CharField(_("Name for person status"), max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _("Person status")
+        verbose_name_plural = _("Person stati")
 
 
 class Person(models.Model):
@@ -26,10 +40,14 @@ class Person(models.Model):
     # id is the internal key, connect_key is the key that might be used communicated to the person
     connect_key = models.CharField(_("Name"), max_length=255, default="")
 
+    status = models.ForeignKey(PersonStatus, null=True, on_delete=models.SET_NULL)
+    status.verbose_name = _("Status")
+
     # eg. Frau, Firma
     salutation = models.CharField(_("Salutation"), max_length=255, null=True)
     # eg. Liebe Angela, Sehr geehrte Frau Graber, Liebe Freunde, Sehr geehrte Damen und Herren,
     salutation_letter = models.CharField(_("Salutation Letter"), max_length=255, null=True)
+    preferred_language = LanguageField(max_length=8, null=True)
 
     # preferred address
     content_type = models.ForeignKey(
@@ -49,18 +67,46 @@ class Person(models.Model):
         ordering = ["name"]
 
 
+class Gender(models.Model):
+    # eg. male, female, unknown
+    name = models.CharField(_("Name for Gender"), max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _("Gender")
+        verbose_name_plural = _("Genders")
+
+
+class Title(models.Model):
+    # eg. Herr, Frau, Frau Dr.
+    name = models.CharField(_("Title"), max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _("Title")
+        verbose_name_plural = _("Titles")
+
+
 class NaturalPerson(Person):
     first_name = models.CharField(_("First Name"), max_length=255)
     middle_name = models.CharField(_("Middle Name"), max_length=255)
     last_name = models.CharField(_("Last Name"), max_length=255)
     # eg. Dr.
-    # TODO: should this be a lookup table instead?
-    title = models.CharField(_("Title"), max_length=255)
+    title = models.ForeignKey(Title, null=True, on_delete=models.SET_NULL)
+    title.verbose_name = _("Title")
     # eg. Nurse
     # TODO: is that something specific for the customer? does this need to be in core?
     profession = models.CharField(_("profession"), max_length=255)
     # https://pypi.org/project/django-birthday/
     date_of_birth: BirthdayField()
+    gender = models.ForeignKey(Gender, null=True, on_delete=models.SET_NULL)
+    gender.verbose_name = _("Gender")
 
 
 # eg. household or family
@@ -102,6 +148,19 @@ class AddressType(models.Model):
         verbose_name_plural = _("Address types")
 
 
+class AddressStatus(models.Model):
+    # eg. active, moved, inactive
+    name = models.CharField(_("Name for address status"), max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _("Address status")
+        verbose_name_plural = _("Address stati")
+
+
 class Address(models.Model):
     person = models.ForeignKey(
         Person, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_list",
@@ -109,6 +168,8 @@ class Address(models.Model):
     person.verbose_name = _("Person")
     type = models.ForeignKey(AddressType, null=True, on_delete=models.SET_NULL)
     type.verbose_name = _("Type")
+    status = models.ForeignKey(AddressStatus, null=True, on_delete=models.SET_NULL)
+    status.verbose_name = _("Status")
 
     def send_message(self, subject, message):
         """Should be implemented by subclasses in order send a message to this address"""
