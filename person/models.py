@@ -20,12 +20,18 @@ class Person(models.Model):
 
     name = models.CharField(_("Name"), max_length=255)
 
+    # abbreviation of the name, for quick search of persons
+    abbreviation_key = models.CharField(_("Name"), max_length=255, default="")
+    legacy_key = models.CharField(_("Name"), max_length=255, default="")
+    # id is the internal key, connect_key is the key that might be used communicated to the person
+    connect_key = models.CharField(_("Name"), max_length=255, default="")
+
     # eg. Frau, Firma
     salutation = models.CharField(_("Salutation"), max_length=255, null=True)
     # eg. Liebe Angela, Sehr geehrte Frau Graber, Liebe Freunde, Sehr geehrte Damen und Herren,
     salutation_letter = models.CharField(_("Salutation Letter"), max_length=255, null=True)
 
-    # prefered address
+    # preferred address
     content_type = models.ForeignKey(
         ContentType, on_delete=models.CASCADE, blank=True, null=True
     )
@@ -38,6 +44,7 @@ class Person(models.Model):
         return self.name
 
     class Meta:
+        #must not be abstract. we are using multi table inheritance
         #abstract = True
         ordering = ["name"]
 
