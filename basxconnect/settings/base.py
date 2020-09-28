@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = ["person"] + BREAD_DEPENDENCIES
+INSTALLED_APPS = ["core"] + BREAD_DEPENDENCIES
 
 ROOT_URLCONF = "basxconnect.urls"
 
