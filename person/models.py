@@ -6,7 +6,6 @@ from django.utils.html import format_html, linebreaks, mark_safe
 from django.utils.translation import gettext as _
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
-from birthday.fields import BirthdayField
 from languages.fields import LanguageField
 
 
@@ -103,8 +102,7 @@ class NaturalPerson(Person):
     # eg. Nurse
     # TODO: is that something specific for the customer? does this need to be in core?
     profession = models.CharField(_("profession"), max_length=255)
-    # https://pypi.org/project/django-birthday/
-    date_of_birth: BirthdayField()
+    date_of_birth: models.DateField(_("Date of Birth"), null=True)
     gender = models.ForeignKey(Gender, null=True, on_delete=models.SET_NULL)
     gender.verbose_name = _("Gender")
 
