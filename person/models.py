@@ -11,8 +11,9 @@ from languages.fields import LanguageField
 
 class Category(models.Model):
     name = models.CharField(_("Name"), max_length=255)
-     # slug is human-readable, to make the referencing easier
-    slug = models.SlugField(_("Slug"), unique=True)
+    slug = models.SlugField(_("Slug"),
+        unique=True,
+        help_text=_("slug is human-readable, to make the referencing easier"))
 
     def __str__(self):
         return self.name
@@ -43,25 +44,40 @@ class Person(models.Model):
 
     name = models.CharField(_("Name"), max_length=255)
 
-    # abbreviation of the name, for quick search of persons
-    abbreviation_key = models.CharField(_("Name"), max_length=255, default="")
-    legacy_key = models.CharField(_("Name"), max_length=255, default="")
+    abbreviation_key = models.CharField(_("Abbreviation"),
+        max_length=255,
+        default="",
+        help_text=_("abbreviation of the name, for quick search of persons"))
+    legacy_key = models.CharField(_("Legacy Key"), max_length=255, default="")
     # id is the internal key, connect_key is the key that might be used communicated to the person
-    connect_key = models.CharField(_("Name"), max_length=255, default="")
+    connect_key = models.CharField(_("Connect Key"),
+        max_length=255,
+        default="",
+        help_text=_("This key can be communicated publically"))
 
-    # eg. active, died, inactive
-    status = models.ForeignKey(Term, on_delete=models.SET_NULL, null=True, related_name='personstatus', limit_choices_to={'category__slug': 'personstatus'})
+    status = models.ForeignKey(Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='personstatus',
+        limit_choices_to={'category__slug': 'personstatus'},
+        help_text=_("eg. active, died, inactive"))
     status.verbose_name = _("Status")
 
-    # eg. Frau, Firma
-    salutation = models.CharField(_("Salutation"), max_length=255, null=True)
-    # eg. Liebe Angela, Sehr geehrte Frau Graber, Liebe Freunde, Sehr geehrte Damen und Herren,
-    salutation_letter = models.CharField(_("Salutation Letter"), max_length=255, null=True)
+    salutation = models.CharField(_("Salutation"),
+        max_length=255,
+        null=True,
+        help_text=_("eg. Frau, Firma"))
+    salutation_letter = models.CharField(_("Salutation Letter"),
+        max_length=255,
+        null=True,
+        help_text=_("eg. Liebe Angela, Sehr geehrte Frau Graber, Liebe Freunde, Sehr geehrte Damen und Herren,"))
     preferred_language = LanguageField(max_length=8, null=True)
 
-    # preferred address
     content_type = models.ForeignKey(
-        ContentType, on_delete=models.CASCADE, blank=True, null=True
+        ContentType,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
     )
     object_id = models.PositiveIntegerField(blank=True, null=True)
     preferred_address = GenericForeignKey("content_type", "object_id")
@@ -72,8 +88,6 @@ class Person(models.Model):
         return self.name
 
     class Meta:
-        #must not be abstract. we are using multi table inheritance
-        #abstract = True
         ordering = ["name"]
 
 
@@ -81,15 +95,24 @@ class NaturalPerson(Person):
     first_name = models.CharField(_("First Name"), max_length=255)
     middle_name = models.CharField(_("Middle Name"), max_length=255)
     last_name = models.CharField(_("Last Name"), max_length=255)
-    # eg. Herr, Frau, Frau Dr.
-    title = models.ForeignKey(Term, on_delete=models.SET_NULL, null=True, related_name='title', limit_choices_to={'category__slug': 'title'})
+    title = models.ForeignKey(Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='title',
+        limit_choices_to={'category__slug': 'title'},
+        help_text = _("eg. Herr, Frau, Frau Dr."))
     title.verbose_name = _("Title")
-    # eg. Nurse
     # TODO: is that something specific for the customer? does this need to be in core?
-    profession = models.CharField(_("profession"), max_length=255)
+    profession = models.CharField(_("profession"),
+        max_length=255,
+        help_text=_("e.g. nurse, carpenter"))
     date_of_birth: models.DateField(_("Date of Birth"), null=True)
-    # eg. male, female, unknown
-    gender = models.ForeignKey(Term, on_delete=models.SET_NULL, null=True, related_name='gender', limit_choices_to={'category__slug': 'gender'})
+    gender = models.ForeignKey(Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='gender',
+        limit_choices_to={'category__slug': 'gender'},
+        help_text=_("eg. male, female, unknown"))
     gender.verbose_name = _("Gender")
 
 
@@ -102,8 +125,9 @@ class GroupPerson(Person):
 
 
 class LegalType(models.Model):
-    # eg. Company, Church, Association
-    name = models.CharField(_("Name for legal type"), max_length=255)
+    name = models.CharField(_("Name for legal type"),
+        max_length=255,
+        help_text=_("eg. Company, Church, Association"))
 
     def __str__(self):
         return self.name
@@ -120,8 +144,9 @@ class LegalPerson(Person):
 
 
 class AddressType(models.Model):
-    # eg. private, business
-    name = models.CharField(_("Name for address type"), max_length=255)
+    name = models.CharField(_("Name for address type"),
+        max_length=255,
+        help_text=_("eg. private, business"))
 
     def __str__(self):
         return self.name
@@ -140,8 +165,12 @@ class Address(models.Model):
     type = models.ForeignKey(AddressType, null=True, on_delete=models.SET_NULL)
     type.verbose_name = _("Type")
 
-    # eg. active, moved, inactive
-    status = models.ForeignKey(Term, on_delete=models.SET_NULL, null=True, related_name='%(app_label)s_%(class)s_status', limit_choices_to={'category__slug': 'addressstatus'})
+    status = models.ForeignKey(Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='%(app_label)s_%(class)s_status',
+        limit_choices_to={'category__slug': 'addressstatus'},
+        help_text=_("eg. active, moved, inactive"))
     status.verbose_name = _("Status")
 
     def send_message(self, subject, message):
@@ -169,8 +198,9 @@ class Email(Address):
 
 
 class PhoneType(models.Model):
-    # eg. landline, mobile, fax, direct dial
-    name = models.CharField(_("Name for phone type"), max_length=255)
+    name = models.CharField(_("Name for phone type"),
+        max_length=255,
+        help_text=_("eg. landline, mobile, fax, direct dial"))
 
     def __str__(self):
         return self.name
