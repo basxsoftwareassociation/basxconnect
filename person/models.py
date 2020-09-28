@@ -9,17 +9,27 @@ from phonenumber_field.modelfields import PhoneNumberField
 from languages.fields import LanguageField
 
 
-class PersonStatus(models.Model):
-    # eg. active, died, inactive
-    name = models.CharField(_("Name for person status"), max_length=255)
+class Category(models.Model):
+    name = models.CharField(_("Name"), max_length=255)
+     # slug is human-readable, to make the referencing easier
+    slug = models.SlugField(_("Slug"), unique=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
         ordering = ["name"]
-        verbose_name = _("Person status")
-        verbose_name_plural = _("Person stati")
+
+class Term(models.Model):
+    category = models.ForeignKey(Category, null=False, on_delete=models.CASCADE)
+    category.verbose_name = _("Category")
+    term = models.CharField(_("Term"), max_length=255)
+
+    def __str__(self):
+        return self.term
+
+    class Meta:
+        ordering = ["term"]
 
 
 class Person(models.Model):
@@ -39,7 +49,8 @@ class Person(models.Model):
     # id is the internal key, connect_key is the key that might be used communicated to the person
     connect_key = models.CharField(_("Name"), max_length=255, default="")
 
-    status = models.ForeignKey(PersonStatus, null=True, on_delete=models.SET_NULL)
+    # eg. active, died, inactive
+    status = models.ForeignKey(Term, on_delete=models.SET_NULL, null=True, related_name='personstatus', limit_choices_to={'category__slug': 'personstatus'})
     status.verbose_name = _("Status")
 
     # eg. Frau, Firma
@@ -66,44 +77,19 @@ class Person(models.Model):
         ordering = ["name"]
 
 
-class Gender(models.Model):
-    # eg. male, female, unknown
-    name = models.CharField(_("Name for Gender"), max_length=255)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name = _("Gender")
-        verbose_name_plural = _("Genders")
-
-
-class Title(models.Model):
-    # eg. Herr, Frau, Frau Dr.
-    name = models.CharField(_("Title"), max_length=255)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name = _("Title")
-        verbose_name_plural = _("Titles")
-
-
 class NaturalPerson(Person):
     first_name = models.CharField(_("First Name"), max_length=255)
     middle_name = models.CharField(_("Middle Name"), max_length=255)
     last_name = models.CharField(_("Last Name"), max_length=255)
-    # eg. Dr.
-    title = models.ForeignKey(Title, null=True, on_delete=models.SET_NULL)
+    # eg. Herr, Frau, Frau Dr.
+    title = models.ForeignKey(Term, on_delete=models.SET_NULL, null=True, related_name='title', limit_choices_to={'category__slug': 'title'})
     title.verbose_name = _("Title")
     # eg. Nurse
     # TODO: is that something specific for the customer? does this need to be in core?
     profession = models.CharField(_("profession"), max_length=255)
     date_of_birth: models.DateField(_("Date of Birth"), null=True)
-    gender = models.ForeignKey(Gender, null=True, on_delete=models.SET_NULL)
+    # eg. male, female, unknown
+    gender = models.ForeignKey(Term, on_delete=models.SET_NULL, null=True, related_name='gender', limit_choices_to={'category__slug': 'gender'})
     gender.verbose_name = _("Gender")
 
 
@@ -146,19 +132,6 @@ class AddressType(models.Model):
         verbose_name_plural = _("Address types")
 
 
-class AddressStatus(models.Model):
-    # eg. active, moved, inactive
-    name = models.CharField(_("Name for address status"), max_length=255)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name = _("Address status")
-        verbose_name_plural = _("Address stati")
-
-
 class Address(models.Model):
     person = models.ForeignKey(
         Person, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_list",
@@ -166,7 +139,9 @@ class Address(models.Model):
     person.verbose_name = _("Person")
     type = models.ForeignKey(AddressType, null=True, on_delete=models.SET_NULL)
     type.verbose_name = _("Type")
-    status = models.ForeignKey(AddressStatus, null=True, on_delete=models.SET_NULL)
+
+    # eg. active, moved, inactive
+    status = models.ForeignKey(Term, on_delete=models.SET_NULL, null=True, related_name='%(app_label)s_%(class)s_status', limit_choices_to={'category__slug': 'addressstatus'})
     status.verbose_name = _("Status")
 
     def send_message(self, subject, message):
