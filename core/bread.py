@@ -21,7 +21,7 @@ class Core(BreadAdmin):
                         Tab(
                             "Postal Addresses",
                             InlineLayout(
-                                "person_postal_list",
+                                "core_postal_list",
                                 Row.with_columns(
                                     ("type", 2),
                                     ("country", 2),
@@ -34,14 +34,14 @@ class Core(BreadAdmin):
                         Tab(
                             "Email Addresses",
                             InlineLayout(
-                                "person_email_list",
+                                "core_email_list",
                                 Row.with_columns(("type", 2), ("email", 10)),
                             ),
                         ),
                         Tab(
                             "Phone Numbers",
                             InlineLayout(
-                                "person_phone_list",
+                                "core_phone_list",
                                 Row.with_columns(("type", 2), ("number", 10)),
                             ),
                         ),
