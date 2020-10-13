@@ -1,4 +1,5 @@
 from bread.forms.fields import GenericForeignKeyField
+from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -286,3 +287,24 @@ class Relationship(models.Model):
     person_b.verbose_name = _("Person B")
     start_date = models.DateField(_("Starts on"), blank=True, null=True)
     end_date = models.DateField(_("Ends on"), blank=True, null=True)
+
+
+class Note(models.Model):
+    note = models.TextField()
+    user = models.ForeignKey(
+        get_user_model(), on_delete=models.SET_NULL, null=True, editable=False
+    )
+    created = models.DateTimeField(auto_now=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey("content_type", "object_id")
+
+    def __str__(self):
+        ret = f"{self.note}<br/><small><i>{(self.created or datetime.datetime.now() ).date()}"
+        if self.user:
+            ret += f" - {self.user}"
+        ret += "</i></small>"
+        return mark_safe(ret)
+
+    class Meta:
+        ordering = ["-created"]
