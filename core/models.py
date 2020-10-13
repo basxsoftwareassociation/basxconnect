@@ -237,6 +237,18 @@ class Postal(Address):
     postcode = models.TextField(_("Post Code"), default="")
     city = models.TextField(_("City"), default="")
     county = models.ForeignKey(County, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return mark_safe(linebreaks(self.address))
+
+    class Meta:
+        verbose_name = _("Postal address")
+        verbose_name_plural = _("Postal addresses")
+
+
+class POBox(Address):
+    country = CountryField(_("Country"))
+    county = models.ForeignKey(County, null=True, on_delete=models.SET_NULL)
     pobox_name = models.TextField(_("POBox Name"), default="")
     pobox_postcode = models.TextField(_("POBox Post Code"), default="")
     pobox_city = models.TextField(_("POBox City"), default="")
@@ -245,8 +257,8 @@ class Postal(Address):
         return mark_safe(linebreaks(self.address))
 
     class Meta:
-        verbose_name = _("Postal address")
-        verbose_name_plural = _("Postal addresses")
+        verbose_name = _("Post office box")
+        verbose_name_plural = _("Post office boxes")
 
 
 class RelationshipType(models.Model):
