@@ -15,12 +15,6 @@ class Core(BreadAdmin):
 
 
 @register
-class AddressType(BreadAdmin):
-    model = models.AddressType
-    browse_view = views.BrowseView._with(fields=[])
-
-
-@register
 class Relationship(BreadAdmin):
     model = models.Relationship
     edit_view = views.EditView._with(

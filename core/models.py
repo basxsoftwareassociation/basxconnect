@@ -143,7 +143,7 @@ class Address(models.Model):
     type = models.ForeignKey(Term,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='addresstype',
+        related_name='%(app_label)s_%(class)s_type',
         limit_choices_to={'category__slug': 'addresstype'},
         help_text=_("eg. private, business"))
     type.verbose_name = _("Type")
