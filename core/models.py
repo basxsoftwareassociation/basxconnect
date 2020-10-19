@@ -125,37 +125,14 @@ class GroupPerson(Person):
         verbose_name_plural = _("Groups")
 
 
-class LegalType(models.Model):
-    name = models.CharField(_("Name for legal type"),
-        max_length=255,
-        help_text=_("eg. Company, Church, Association"))
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name = _("Legal type")
-        verbose_name_plural = _("Legal types")
-
-
 class LegalPerson(Person):
-    type = models.ForeignKey(LegalType, null=True, on_delete=models.SET_NULL)
+    type = models.ForeignKey(Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='legaltype',
+        limit_choices_to={'category__slug': 'legaltype'},
+        help_text=_("eg. Church, Business, Association"))
     type.verbose_name = _("Type")
-
-
-class AddressType(models.Model):
-    name = models.CharField(_("Name for address type"),
-        max_length=255,
-        help_text=_("eg. private, business"))
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name = _("Address type")
-        verbose_name_plural = _("Address types")
 
 
 class Address(models.Model):
@@ -163,7 +140,12 @@ class Address(models.Model):
         Person, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_list",
     )
     person.verbose_name = _("Person")
-    type = models.ForeignKey(AddressType, null=True, on_delete=models.SET_NULL)
+    type = models.ForeignKey(Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='addresstype',
+        limit_choices_to={'category__slug': 'addresstype'},
+        help_text=_("eg. private, business"))
     type.verbose_name = _("Type")
 
     status = models.ForeignKey(Term,
