@@ -8,7 +8,7 @@ from . import models
 
 
 @register
-class Person(BreadAdmin):
+class Core(BreadAdmin):
     model = models.Person
     browse_view = views.BrowseView._with(fields=["name", "preferred_channel"])
     edit_view = views.EditView._with(fields=["name", "person_postal_list"])

@@ -4,3 +4,4 @@ django-phonenumber-field
 phonenumbers
 django-pyuwsgi
 pex
+django-language-field
