@@ -47,13 +47,13 @@ class Person(models.Model):
 
     abbreviation_key = models.CharField(_("Abbreviation"),
         max_length=255,
-        default="",
+        blank=True,
         help_text=_("abbreviation of the name, for quick search of persons"))
-    legacy_key = models.CharField(_("Legacy Key"), max_length=255, default="")
+    legacy_key = models.CharField(_("Legacy Key"), max_length=255, blank=True)
     # id is the internal key, connect_key is the key that might be used communicated to the person
     connect_key = models.CharField(_("Connect Key"),
         max_length=255,
-        default="",
+        blank=True,
         help_text=_("This key can be communicated publically"))
 
     status = models.ForeignKey(Term,
@@ -216,9 +216,9 @@ class County(models.Model):
 class Postal(Address):
     country = CountryField(_("Country"))
     address = models.TextField(_("Address"))
-    supplemental_address = models.TextField(_("Supplemental Address"), default="")
-    postcode = models.TextField(_("Post Code"), default="")
-    city = models.TextField(_("City"), default="")
+    supplemental_address = models.TextField(_("Supplemental Address"), blank=True)
+    postcode = models.TextField(_("Post Code"), blank=True)
+    city = models.TextField(_("City"), blank=True)
     county = models.ForeignKey(County, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
@@ -232,9 +232,9 @@ class Postal(Address):
 class POBox(Address):
     country = CountryField(_("Country"))
     county = models.ForeignKey(County, null=True, on_delete=models.SET_NULL)
-    pobox_name = models.TextField(_("POBox Name"), default="")
-    pobox_postcode = models.TextField(_("POBox Post Code"), default="")
-    pobox_city = models.TextField(_("POBox City"), default="")
+    pobox_name = models.TextField(_("POBox Name"), blank=True)
+    pobox_postcode = models.TextField(_("POBox Post Code"), blank=True)
+    pobox_city = models.TextField(_("POBox City"), blank=True)
 
     def __str__(self):
         return mark_safe(linebreaks(self.address))
