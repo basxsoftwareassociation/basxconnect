@@ -1,6 +1,5 @@
 from bread import views
 from bread.admin import BreadAdmin, register
-from bread.layout import InlineLayout
 from crispy_forms.layout import Div, Fieldset, Layout
 from django.utils.translation import gettext as _
 
@@ -8,10 +7,20 @@ from . import models
 
 
 @register
-class Core(BreadAdmin):
+class Person(BreadAdmin):
     model = models.Person
     browse_view = views.BrowseView._with(fields=["name", "preferred_channel"])
     edit_view = views.EditView._with(fields=["name", "person_postal_list"])
+
+
+@register
+class Term(BreadAdmin):
+    model = models.Term
+
+
+@register
+class Category(BreadAdmin):
+    model = models.Category
 
 
 @register
