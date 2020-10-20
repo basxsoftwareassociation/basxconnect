@@ -12,15 +12,18 @@ from languages.fields import LanguageField
 
 class Category(models.Model):
     name = models.CharField(_("Name"), max_length=255)
-    slug = models.SlugField(_("Slug"),
+    slug = models.SlugField(
+        _("Slug"),
         unique=True,
-        help_text=_("slug is human-readable, to make the referencing easier"))
+        help_text=_("slug is human-readable, to make the referencing easier"),
+    )
 
     def __str__(self):
         return self.name
 
     class Meta:
         ordering = ["name"]
+
 
 class Term(models.Model):
     category = models.ForeignKey(Category, null=False, on_delete=models.CASCADE)
@@ -45,40 +48,46 @@ class Person(models.Model):
 
     name = models.CharField(_("Name"), max_length=255)
 
-    abbreviation_key = models.CharField(_("Abbreviation"),
+    abbreviation_key = models.CharField(
+        _("Abbreviation"),
         max_length=255,
         blank=True,
-        help_text=_("abbreviation of the name, for quick search of persons"))
+        help_text=_("abbreviation of the name, for quick search of persons"),
+    )
     legacy_key = models.CharField(_("Legacy Key"), max_length=255, blank=True)
     # id is the internal key, connect_key is the key that might be used communicated to the person
-    connect_key = models.CharField(_("Connect Key"),
+    connect_key = models.CharField(
+        _("Connect Key"),
         max_length=255,
         blank=True,
-        help_text=_("This key can be communicated publically"))
+        help_text=_("This key can be communicated publically"),
+    )
 
-    status = models.ForeignKey(Term,
+    status = models.ForeignKey(
+        Term,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='personstatus',
-        limit_choices_to={'category__slug': 'personstatus'},
-        help_text=_("eg. active, died, inactive"))
+        related_name="personstatus",
+        limit_choices_to={"category__slug": "personstatus"},
+        help_text=_("eg. active, died, inactive"),
+    )
     status.verbose_name = _("Status")
 
-    salutation = models.CharField(_("Salutation"),
+    salutation = models.CharField(
+        _("Salutation"), max_length=255, null=True, help_text=_("eg. Frau, Firma")
+    )
+    salutation_letter = models.CharField(
+        _("Salutation Letter"),
         max_length=255,
         null=True,
-        help_text=_("eg. Frau, Firma"))
-    salutation_letter = models.CharField(_("Salutation Letter"),
-        max_length=255,
-        null=True,
-        help_text=_("eg. Liebe Angela, Sehr geehrte Frau Graber, Liebe Freunde, Sehr geehrte Damen und Herren,"))
+        help_text=_(
+            "eg. Liebe Angela, Sehr geehrte Frau Graber, Liebe Freunde, Sehr geehrte Damen und Herren,"
+        ),
+    )
     preferred_language = LanguageField(max_length=8, null=True)
 
     content_type = models.ForeignKey(
-        ContentType,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True
+        ContentType, on_delete=models.CASCADE, blank=True, null=True
     )
     object_id = models.PositiveIntegerField(blank=True, null=True)
     preferred_address = GenericForeignKey("content_type", "object_id")
@@ -96,42 +105,47 @@ class NaturalPerson(Person):
     first_name = models.CharField(_("First Name"), max_length=255)
     middle_name = models.CharField(_("Middle Name"), max_length=255)
     last_name = models.CharField(_("Last Name"), max_length=255)
-    title = models.ForeignKey(Term,
+    title = models.ForeignKey(
+        Term,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='title',
-        limit_choices_to={'category__slug': 'title'},
-        help_text = _("eg. Herr, Frau, Frau Dr."))
+        related_name="title",
+        limit_choices_to={"category__slug": "title"},
+        help_text=_("eg. Herr, Frau, Frau Dr."),
+    )
     title.verbose_name = _("Title")
     # TODO: is that something specific for the customer? does this need to be in core?
-    profession = models.CharField(_("profession"),
-        max_length=255,
-        help_text=_("e.g. nurse, carpenter"))
+    profession = models.CharField(
+        _("profession"), max_length=255, help_text=_("e.g. nurse, carpenter")
+    )
     date_of_birth = models.DateField(_("Date of Birth"), null=True)
-    gender = models.ForeignKey(Term,
+    gender = models.ForeignKey(
+        Term,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='gender',
-        limit_choices_to={'category__slug': 'gender'},
-        help_text=_("eg. male, female, unknown"))
+        related_name="gender",
+        limit_choices_to={"category__slug": "gender"},
+        help_text=_("eg. male, female, unknown"),
+    )
     gender.verbose_name = _("Gender")
 
 
 # eg. household or family
 class GroupPerson(Person):
-
     class Meta:
         verbose_name = _("Group")
         verbose_name_plural = _("Groups")
 
 
 class LegalPerson(Person):
-    type = models.ForeignKey(Term,
+    type = models.ForeignKey(
+        Term,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='legaltype',
-        limit_choices_to={'category__slug': 'legaltype'},
-        help_text=_("eg. Church, Business, Association"))
+        related_name="legaltype",
+        limit_choices_to={"category__slug": "legaltype"},
+        help_text=_("eg. Church, Business, Association"),
+    )
     type.verbose_name = _("Type")
 
 
@@ -140,20 +154,24 @@ class Address(models.Model):
         Person, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_list",
     )
     person.verbose_name = _("Person")
-    type = models.ForeignKey(Term,
+    type = models.ForeignKey(
+        Term,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='%(app_label)s_%(class)s_type',
-        limit_choices_to={'category__slug': 'addresstype'},
-        help_text=_("eg. private, business"))
+        related_name="%(app_label)s_%(class)s_type",
+        limit_choices_to={"category__slug": "addresstype"},
+        help_text=_("eg. private, business"),
+    )
     type.verbose_name = _("Type")
 
-    status = models.ForeignKey(Term,
+    status = models.ForeignKey(
+        Term,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='%(app_label)s_%(class)s_status',
-        limit_choices_to={'category__slug': 'addressstatus'},
-        help_text=_("eg. active, moved, inactive"))
+        related_name="%(app_label)s_%(class)s_status",
+        limit_choices_to={"category__slug": "addressstatus"},
+        help_text=_("eg. active, moved, inactive"),
+    )
     status.verbose_name = _("Status")
 
     def send_message(self, subject, message):
@@ -181,9 +199,11 @@ class Email(Address):
 
 
 class PhoneType(models.Model):
-    name = models.CharField(_("Name for phone type"),
+    name = models.CharField(
+        _("Name for phone type"),
         max_length=255,
-        help_text=_("eg. landline, mobile, fax, direct dial"))
+        help_text=_("eg. landline, mobile, fax, direct dial"),
+    )
 
     def __str__(self):
         return self.name
