@@ -107,7 +107,7 @@ class NaturalPerson(Person):
     profession = models.CharField(_("profession"),
         max_length=255,
         help_text=_("e.g. nurse, carpenter"))
-    date_of_birth: models.DateField(_("Date of Birth"), null=True)
+    date_of_birth = models.DateField(_("Date of Birth"), null=True)
     gender = models.ForeignKey(Term,
         on_delete=models.SET_NULL,
         null=True,
