@@ -10,7 +10,18 @@ from . import models
 class Person(BreadAdmin):
     model = models.Person
     browse_view = views.BrowseView._with(fields=["name", "preferred_channel"])
-    edit_view = views.EditView._with(fields=["name", "person_postal_list"])
+    edit_view = views.EditView._with(
+        fields=Layout(
+            Div(
+                Div(
+                    Fieldset(_("Name"), "name", ),
+                    css_class="col s6",
+                ),
+            )
+        )
+    )
+
+    add_view = views.AddView._with(fields=["name"])
 
 
 @register
@@ -26,11 +37,12 @@ class Category(BreadAdmin):
 @register
 class Relationship(BreadAdmin):
     model = models.Relationship
+    browse_view = views.BrowseView._with(fields=["person_a", "type", "person_b"])
     edit_view = views.EditView._with(
         fields=Layout(
             Div(
                 Div(
-                    Fieldset(_("Relationship"), "type", "person_a", "person_b"),
+                    Fieldset(_("Relationship"), "person_a", "type", "person_b"),
                     css_class="col s6",
                 ),
                 Div(
@@ -47,4 +59,3 @@ class Relationship(BreadAdmin):
 @register
 class RelationshipType(BreadAdmin):
     model = models.RelationshipType
-    browse_view = views.BrowseView._with(fields=[])
