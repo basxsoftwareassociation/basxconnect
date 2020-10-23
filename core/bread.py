@@ -13,10 +13,49 @@ class Person(BreadAdmin):
     edit_view = views.EditView._with(
         fields=Layout(
             Div(
+                # Name
                 Div(
-                    Fieldset(_("Name"), "name", ),
+                    Fieldset(_("Name"), "name", "salutation", "salutation_letter", "preferred_language"),
                     css_class="col s6",
                 ),
+                # Postal Address
+                #Div(
+                #    Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
+                #    css_class="col s6",
+                #),
+            )
+        )
+    )
+
+    add_view = views.AddView._with(fields=["name"])
+
+
+@register
+class NaturalPerson(BreadAdmin):
+    model = models.NaturalPerson
+    browse_view = views.BrowseView._with(fields=["name", "preferred_channel"])
+    edit_view = views.EditView._with(
+        fields=Layout(
+            Div(
+                # Name of NaturalPerson
+                Div(
+                    Fieldset(_("Name"), "name",
+                        "title",
+                        "first_name", "middle_name", "last_name", "salutation", "salutation_letter", "preferred_language"),
+                    css_class="col s6",
+                ),
+                # Other attributes of NaturalPerson
+                Div(
+                    Fieldset(_("Person Details"),
+                        # TODO "gender",
+                        "date_of_birth", "profession"),
+                    css_class="col s6",
+                ),
+                # Postal Address
+                #Div(
+                #    Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
+                #    css_class="col s6",
+                #),
             )
         )
     )
