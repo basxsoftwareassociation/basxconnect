@@ -48,7 +48,7 @@ class NaturalPerson(BreadAdmin):
                 # Other attributes of NaturalPerson
                 Div(
                     Fieldset(_("Person Details"),
-                        # TODO "gender",
+                        "gender",
                         "date_of_birth", "profession"),
                     css_class="col s6",
                 ),
