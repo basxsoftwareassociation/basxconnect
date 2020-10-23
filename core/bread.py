@@ -39,9 +39,10 @@ class NaturalPerson(BreadAdmin):
             Div(
                 # Name of NaturalPerson
                 Div(
-                    Fieldset(_("Name"), "name",
-                        "title",
-                        "first_name", "middle_name", "last_name", "salutation", "salutation_letter", "preferred_language"),
+                    Fieldset(_("Name"),
+                        "title", "first_name", "middle_name", "last_name",
+                        "salutation", "salutation_letter",
+                        "preferred_language"),
                     css_class="col s6",
                 ),
                 # Other attributes of NaturalPerson
@@ -60,7 +61,7 @@ class NaturalPerson(BreadAdmin):
         )
     )
 
-    add_view = views.AddView._with(fields=["name"])
+    add_view = views.AddView._with(fields=["first_name", "last_name"])
 
 
 @register
