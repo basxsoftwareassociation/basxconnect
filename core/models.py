@@ -117,7 +117,10 @@ class NaturalPerson(Person):
     )
     title.verbose_name = _("Title")
     profession = models.CharField(
-        _("profession"), max_length=255, blank=True, help_text=_("e.g. nurse, carpenter")
+        _("profession"),
+        max_length=255,
+        blank=True,
+        help_text=_("e.g. nurse, carpenter"),
     )
     date_of_birth = models.DateField(_("Date of Birth"), blank=True)
     gender = models.ForeignKey(

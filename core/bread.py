@@ -15,14 +15,20 @@ class Person(BreadAdmin):
             Div(
                 # Name
                 Div(
-                    Fieldset(_("Name"), "name", "salutation", "salutation_letter", "preferred_language"),
+                    Fieldset(
+                        _("Name"),
+                        "name",
+                        "salutation",
+                        "salutation_letter",
+                        "preferred_language",
+                    ),
                     css_class="col s6",
                 ),
                 # Postal Address
-                #Div(
+                # Div(
                 #    Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
                 #    css_class="col s6",
-                #),
+                # ),
             )
         )
     )
@@ -39,24 +45,30 @@ class NaturalPerson(BreadAdmin):
             Div(
                 # Name of NaturalPerson
                 Div(
-                    Fieldset(_("Name"),
-                        "title", "first_name", "middle_name", "last_name",
-                        "salutation", "salutation_letter",
-                        "preferred_language"),
+                    Fieldset(
+                        _("Name"),
+                        "title",
+                        "first_name",
+                        "middle_name",
+                        "last_name",
+                        "salutation",
+                        "salutation_letter",
+                        "preferred_language",
+                    ),
                     css_class="col s6",
                 ),
                 # Other attributes of NaturalPerson
                 Div(
-                    Fieldset(_("Person Details"),
-                        "gender",
-                        "date_of_birth", "profession"),
+                    Fieldset(
+                        _("Person Details"), "gender", "date_of_birth", "profession"
+                    ),
                     css_class="col s6",
                 ),
                 # Postal Address
-                #Div(
+                # Div(
                 #    Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
                 #    css_class="col s6",
-                #),
+                # ),
             )
         )
     )
