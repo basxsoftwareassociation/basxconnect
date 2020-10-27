@@ -105,7 +105,7 @@ class Person(models.Model):
 
 class NaturalPerson(Person):
     first_name = models.CharField(_("First Name"), max_length=255)
-    middle_name = models.CharField(_("Middle Name"), max_length=255)
+    middle_name = models.CharField(_("Middle Name"), max_length=255, blank=True)
     last_name = models.CharField(_("Last Name"), max_length=255)
     title = models.ForeignKey(
         Term,
@@ -116,11 +116,10 @@ class NaturalPerson(Person):
         help_text=_("eg. Herr, Frau, Frau Dr."),
     )
     title.verbose_name = _("Title")
-    # TODO: is that something specific for the customer? does this need to be in core?
     profession = models.CharField(
-        _("profession"), max_length=255, help_text=_("e.g. nurse, carpenter")
+        _("profession"), max_length=255, blank=True, help_text=_("e.g. nurse, carpenter")
     )
-    date_of_birth = models.DateField(_("Date of Birth"), null=True)
+    date_of_birth = models.DateField(_("Date of Birth"), blank=True)
     gender = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,

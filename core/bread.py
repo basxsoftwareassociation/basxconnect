@@ -10,7 +10,58 @@ from . import models
 class Person(BreadAdmin):
     model = models.Person
     browse_view = views.BrowseView._with(fields=["name", "preferred_channel"])
-    edit_view = views.EditView._with(fields=["name", "person_postal_list"])
+    edit_view = views.EditView._with(
+        fields=Layout(
+            Div(
+                # Name
+                Div(
+                    Fieldset(_("Name"), "name", "salutation", "salutation_letter", "preferred_language"),
+                    css_class="col s6",
+                ),
+                # Postal Address
+                #Div(
+                #    Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
+                #    css_class="col s6",
+                #),
+            )
+        )
+    )
+
+    add_view = views.AddView._with(fields=["name"])
+
+
+@register
+class NaturalPerson(BreadAdmin):
+    model = models.NaturalPerson
+    browse_view = views.BrowseView._with(fields=["name", "preferred_channel"])
+    edit_view = views.EditView._with(
+        fields=Layout(
+            Div(
+                # Name of NaturalPerson
+                Div(
+                    Fieldset(_("Name"),
+                        "title", "first_name", "middle_name", "last_name",
+                        "salutation", "salutation_letter",
+                        "preferred_language"),
+                    css_class="col s6",
+                ),
+                # Other attributes of NaturalPerson
+                Div(
+                    Fieldset(_("Person Details"),
+                        "gender",
+                        "date_of_birth", "profession"),
+                    css_class="col s6",
+                ),
+                # Postal Address
+                #Div(
+                #    Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
+                #    css_class="col s6",
+                #),
+            )
+        )
+    )
+
+    add_view = views.AddView._with(fields=["first_name", "last_name"])
 
 
 @register
@@ -26,11 +77,12 @@ class Category(BreadAdmin):
 @register
 class Relationship(BreadAdmin):
     model = models.Relationship
+    browse_view = views.BrowseView._with(fields=["person_a", "type", "person_b"])
     edit_view = views.EditView._with(
         fields=Layout(
             Div(
                 Div(
-                    Fieldset(_("Relationship"), "type", "person_a", "person_b"),
+                    Fieldset(_("Relationship"), "person_a", "type", "person_b"),
                     css_class="col s6",
                 ),
                 Div(
@@ -47,4 +99,3 @@ class Relationship(BreadAdmin):
 @register
 class RelationshipType(BreadAdmin):
     model = models.RelationshipType
-    browse_view = views.BrowseView._with(fields=[])
