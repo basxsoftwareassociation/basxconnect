@@ -155,7 +155,9 @@ class LegalPerson(Person):
 
 class Address(models.Model):
     person = models.ForeignKey(
-        Person, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_list",
+        Person,
+        on_delete=models.CASCADE,
+        related_name="%(app_label)s_%(class)s_list",
     )
     person.verbose_name = _("Person")
     type = models.ForeignKey(
@@ -288,7 +290,9 @@ class Relationship(models.Model):
     )
     person_a.verbose_name = _("Person A")
     person_b = models.ForeignKey(
-        Person, on_delete=models.CASCADE, related_name="relationships_from",
+        Person,
+        on_delete=models.CASCADE,
+        related_name="relationships_from",
     )
     person_b.verbose_name = _("Person B")
     start_date = models.DateField(_("Starts on"), blank=True, null=True)
