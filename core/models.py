@@ -48,7 +48,11 @@ class Person(models.Model):
             objects.extend(getattr(instance, fieldname).all())
         return GenericForeignKeyField.objects_to_choices(objects, required=False)
 
-    name = models.CharField(_("Name"), max_length=255)
+    name = models.CharField(
+        _("Display Name"),
+        max_length=255,
+        help_text=_("This is how the person should be displayed"),
+    )
 
     abbreviation_key = models.CharField(
         _("Abbreviation"),
@@ -98,6 +102,11 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.name:
+            self.name = self.first_name + " " + self.last_name
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ["name"]
