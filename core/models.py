@@ -1,6 +1,7 @@
 import datetime
 
 from bread.forms.fields import GenericForeignKeyField
+from bread.models import AccessConcreteInstanceMixin
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -39,7 +40,7 @@ class Term(models.Model):
         ordering = ["term"]
 
 
-class Person(models.Model):
+class Person(AccessConcreteInstanceMixin, models.Model):
     def preferred_address_choices(field, request, instance):
         if instance is None:
             return []
