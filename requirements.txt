@@ -5,3 +5,4 @@ phonenumbers
 django-pyuwsgi
 pex
 django-language-field
+django-formtools
