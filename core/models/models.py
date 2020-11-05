@@ -1,6 +1,5 @@
 import datetime
 
-from bread.forms.fields import GenericForeignKeyField
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -11,13 +10,15 @@ from django_countries.fields import CountryField
 from languages.fields import LanguageField
 from phonenumber_field.modelfields import PhoneNumberField
 
+from bread.forms.fields import GenericForeignKeyField
+
 
 class Category(models.Model):
-    name = models.CharField(_("Name"), max_length=255)
+    name = models.CharField(_("Name"), max_length=255, unique=True)
     slug = models.SlugField(
         _("Slug"),
         unique=True,
-        help_text=_("slug is human-readable, to make the referencing easier"),
+        help_text=_("slug is human-readable, to make referencing easier"),
     )
 
     def __str__(self):
@@ -25,6 +26,8 @@ class Category(models.Model):
 
     class Meta:
         ordering = ["name"]
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
 
 
 class Term(models.Model):
@@ -37,6 +40,8 @@ class Term(models.Model):
 
     class Meta:
         ordering = ["term"]
+        verbose_name = _("Term")
+        verbose_name_plural = _("Terms")
 
 
 class Person(models.Model):
@@ -122,7 +127,7 @@ class NaturalPerson(Person):
         blank=True,
         help_text=_("e.g. nurse, carpenter"),
     )
-    date_of_birth = models.DateField(_("Date of Birth"), blank=True)
+    date_of_birth = models.DateField(_("Date of Birth"), null=True)
     gender = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,
@@ -133,15 +138,20 @@ class NaturalPerson(Person):
     )
     gender.verbose_name = _("Gender")
 
-
-# eg. household or family
-class GroupPerson(Person):
     class Meta:
-        verbose_name = _("Group")
-        verbose_name_plural = _("Groups")
+        ordering = ["name"]
+        verbose_name = _("Natural Person")
+        verbose_name_plural = _("Natural Persons")
 
 
-class LegalPerson(Person):
+class PersonAssociation(Person):
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _("Person Association")
+        verbose_name_plural = _("Person Associations")
+
+
+class JuristicPerson(Person):
     type = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,
@@ -151,6 +161,11 @@ class LegalPerson(Person):
         help_text=_("eg. Church, Business, Association"),
     )
     type.verbose_name = _("Type")
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _("Juristic Person")
+        verbose_name_plural = _("Juristic Persons")
 
 
 class Address(models.Model):
@@ -177,10 +192,6 @@ class Address(models.Model):
         help_text=_("eg. active, moved, inactive"),
     )
     status.verbose_name = _("Status")
-
-    def send_message(self, subject, message):
-        """Should be implemented by subclasses in order send a message to this address"""
-        raise NotImplementedError()
 
     @classmethod
     def get_contact_related_fieldnames(cls):
