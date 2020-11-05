@@ -47,6 +47,7 @@ class NaturalPerson(BreadAdmin):
                 Div(
                     Fieldset(
                         _("Name"),
+                        "name",
                         "title",
                         "first_name",
                         "middle_name",

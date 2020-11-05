@@ -58,8 +58,13 @@ class NaturalPerson(Person):
     )
     gender.verbose_name = _("Gender")
 
+    def save(self, *args, **kwargs):
+        if not self.name:
+            self.name = self.first_name + " " + self.last_name
+        super().save(*args, **kwargs)
+
     class Meta:
-        ordering = ["name"]
+        ordering = ["last_name", "first_name"]
         verbose_name = _("Natural Person")
         verbose_name_plural = _("Natural Persons")
 
