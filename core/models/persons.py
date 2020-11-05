@@ -19,6 +19,7 @@ class PersonManager(models.Manager):
 
 
 class Person(models.Model):
+    created = models.DateField(_("Created"), editable=False, auto_now_add=True)
     name = models.CharField(_("Name"), max_length=255)
     deleted = models.BooleanField(_("Deleted"), default=False)
     salutation = models.ForeignKey(
@@ -63,7 +64,7 @@ class NaturalPerson(Person):
         blank=True,
         help_text=_("e.g. Nurse, Carpenter"),
     )
-    date_of_birth = models.DateField(_("Date of Birth"), null=True,)
+    date_of_birth = models.DateField(_("Date of Birth"), null=True)
     gender = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,
