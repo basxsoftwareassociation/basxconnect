@@ -17,24 +17,36 @@ default_terms = [
     {"category": "addresstype", "term": "Private"},
     {"category": "addressstatus", "term": "Active"},
     {"category": "addressstatus", "term": "Inactive"},
+    {"category": "phonetype", "term": "Private"},
+    {"category": "phonetype", "term": "Business"},
+    {"category": "salutation", "term": "Mr."},
+    {"category": "salutation", "term": "Ms."},
+    {"category": "salutation", "term": "Mrs."},
+    {"category": "salutation", "term": "Dr."},
 ]
+
 
 class Migration(migrations.Migration):
     def create_core_terms(apps, schema_editor):
         Term = apps.get_model("core.Term")
         Category = apps.get_model("core.Category")
         for values in default_terms:
-            Term.objects.create(category=Category.objects.get(slug=values['category']), term=values['term'])
-
+            Term.objects.create(
+                category=Category.objects.get(slug=values["category"]),
+                term=values["term"],
+            )
 
     def delete_core_terms(apps, schema_editor):
         Term = apps.get_model("core.Term")
         Category = apps.get_model("core.Category")
         for values in default_terms:
-            Term.objects.filter(category=Category.objects.get(slug=values['category']), term=values['term']).delete()
+            Term.objects.filter(
+                category=Category.objects.get(slug=values["category"]),
+                term=values["term"],
+            ).delete()
 
     dependencies = [
-        ('core', '0006_preload_categories'),
+        ("core", "0006_preload_categories"),
     ]
 
     operations = [migrations.RunPython(create_core_terms, delete_core_terms)]

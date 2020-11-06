@@ -2,6 +2,6 @@ hg+https://hg.basx.dev/pythonpackages/bread
 hg+https://hg.basx.dev/pythonpackages/excel2django
 django-phonenumber-field
 phonenumbers
-django-pyuwsgi
-pex
-django-language-field
+# using a forked version because the public release has a backward incompatability with django 2
+git+https://github.com/basxltd/django-language-field
+django-formtools

@@ -9,6 +9,8 @@ default_categories = [
     {"name": "Legal Type", "slug": "legaltype"},
     {"name": "Address Type", "slug": "addresstype"},
     {"name": "Address Status", "slug": "addressstatus"},
+    {"name": "Phone Type", "slug": "phonetype"},
+    {"name": "Salutation", "slug": "salutation"},
 ]
 
 
