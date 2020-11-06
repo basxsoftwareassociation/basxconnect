@@ -2,6 +2,13 @@ from bread import views
 from bread.admin import BreadAdmin, register
 from crispy_forms.layout import Div, Fieldset, Layout
 from django.utils.translation import gettext as _
+from bread.layout import (
+    DIV,
+    HTML,
+    FieldLabel,
+    FieldValue,
+    InlineLayout,
+)
 
 from . import models
 
@@ -66,10 +73,15 @@ class NaturalPerson(BreadAdmin):
                     css_class="col s6",
                 ),
                 # Postal Address
-                # Div(
-                #    Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
-                #    css_class="col s6",
-                # ),
+                Div(
+                    InlineLayout(
+                        "core_postal_list",
+                        Div(
+                            Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
+                        ),
+                        formset_kwargs={"extra": 1, "max_num": 1},
+                    ),
+                ),
             )
         )
     )
