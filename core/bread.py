@@ -3,6 +3,17 @@ from bread.admin import BreadAdmin, register
 from crispy_forms.layout import Div, Fieldset, Layout
 from django.utils.translation import gettext as _
 
+from bread.layout import (
+    DIV,
+    HTML,
+    FieldLabel,
+    FieldValue,
+    InlineLayout,
+    Grid,
+    Row,
+    Col,
+)
+
 from . import models
 
 
@@ -47,16 +58,19 @@ class NaturalPerson(BreadAdmin):
                 Div(
                     Fieldset(
                         _("Name"),
-                        "name",
-                        "title",
-                        "first_name",
-                        "middle_name",
-                        "last_name",
-                        "salutation",
-                        "salutation_letter",
-                        "preferred_language",
+                        Grid(
+                            Row(
+                                Col("name"), Col("title")
+                            ),  # without breakpoint and width: even distribution of columns
+                            Row(Col("first_name"), Col("last_name")),
+                            Row(  # use breakpoint and width to change the number of "units" used for one cell
+                                Col("salutation", breakpoint="lg", width=3),
+                                Col("salutation_letter", breakpoint="lg", width=4),
+                            ),
+                        #"middle_name",
+                        #"preferred_language",
+                        ),
                     ),
-                    css_class="col s6",
                 ),
                 # Other attributes of NaturalPerson
                 Div(
@@ -66,10 +80,15 @@ class NaturalPerson(BreadAdmin):
                     css_class="col s6",
                 ),
                 # Postal Address
-                # Div(
-                #    Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
-                #    css_class="col s6",
-                # ),
+                Div(
+                    InlineLayout(
+                        "core_postal_list",
+                        Div(
+                            Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
+                        ),
+                        formset_kwargs={"extra": 1, "max_num": 1},
+                    ),
+                ),
             )
         )
     )
