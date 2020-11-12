@@ -5,3 +5,4 @@ local.py
 .pyc
 ^static/
 ^media/
+django.mo
