@@ -59,8 +59,7 @@ class NaturalPerson(BreadAdmin):
                         Col(
                             Row(
                                 Fieldset(
-                                    # TODO translation
-                                    _("Stammdaten"),
+                                    _("Base data"),
                                     Grid(
                                         Row(Col("first_name"), Col("last_name")),
                                         Row(Col("name")),
@@ -69,8 +68,7 @@ class NaturalPerson(BreadAdmin):
                             ),
                             Row(
                                 Fieldset(
-                                    # TODO translation
-                                    _("Adressen"),
+                                    _("Addresses"),
                                     Grid(
                                         # TODO Domizil
                                         Row(Col("address")),
@@ -89,8 +87,7 @@ class NaturalPerson(BreadAdmin):
                         Col(
                             Row(
                                 Fieldset(
-                                    # TODO translation
-                                    _("Personendaten"),
+                                    _("Personal data"),
                                     Grid(
                                         Row(Col("salutation"), Col("title"), Col("preferred_language")),
                                         # TODO Anrede formal, Briefanrede
@@ -106,8 +103,7 @@ class NaturalPerson(BreadAdmin):
                         Col(
                             Row(
                                 Fieldset(
-                                    # TODO translation
-                                    _("Kategorien"),
+                                    _("Categories"),
                                     Grid(
                                         # TODO Suche
                                         # TODO Kategorien Labels
