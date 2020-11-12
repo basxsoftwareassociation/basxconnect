@@ -54,44 +54,113 @@ class NaturalPerson(BreadAdmin):
     edit_view = views.EditView._with(
         fields=Layout(
             Div(
-                # Name of NaturalPerson
-                Div(
-                    Fieldset(
-                        _("Name"),
-                        Grid(
+                Grid(
+                    Row(
+                        Col(
                             Row(
-                                Col("name"), Col("title")
-                            ),  # without breakpoint and width: even distribution of columns
-                            Row(Col("first_name"), Col("last_name")),
-                            Row(  # use breakpoint and width to change the number of "units" used for one cell
-                                Col("salutation", breakpoint="lg", width=3),
-                                Col("salutation_letter", breakpoint="lg", width=4),
+                                Fieldset(
+                                    # TODO translation
+                                    _("Stammdaten"),
+                                    Grid(
+                                        Row(Col("first_name"), Col("last_name")),
+                                        Row(Col("name")),
+                                    )
+                                )
                             ),
-                        #"middle_name",
-                        #"preferred_language",
+                            Row(
+                                Fieldset(
+                                    # TODO translation
+                                    _("Adressen"),
+                                    Grid(
+                                        # TODO Domizil
+                                        Row(Col("address")),
+                                        Row(Col("postcode"), Col("city"), Col("country")),
+                                        # TODO Postfach
+                                        Row(Col("pobox_name")),
+                                        Row(Col("postcode"), Col("city"), Col("country")),
+                                        # TODO Button "more addresses"
+                                        # TODO Mailing-Sperre
+                                        # TODO Adressherkunft
+                                    )
+                                )
+                            ),
+                        ),
+
+                        Col(
+                            Row(
+                                Fieldset(
+                                    # TODO translation
+                                    _("Personendaten"),
+                                    Grid(
+                                        Row(Col("salutation"), Col("title"), Col("preferred_language")),
+                                        # TODO Anrede formal, Briefanrede
+                                        Row(Col("date_of_birth"), Col("salutation_letter")),
+                                    )
+                                )
+                            ),
+                            # TODO Verknüpfung
+                            # TODO Kommunikationskanäle
                         ),
                     ),
-                ),
-                # Other attributes of NaturalPerson
-                Div(
-                    Fieldset(
-                        _("Person Details"), "gender", "date_of_birth", "profession"
-                    ),
-                    css_class="col s6",
-                ),
-                # Postal Address
-                Div(
-                    InlineLayout(
-                        "core_postal_list",
-                        Div(
-                            Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
+                    Row(
+                        Col(
+                            Row(
+                                Fieldset(
+                                    # TODO translation
+                                    _("Kategorien"),
+                                    Grid(
+                                        # TODO Suche
+                                        # TODO Kategorien Labels
+                                        )
+                                    ),
+                                )
                         ),
-                        formset_kwargs={"extra": 1, "max_num": 1},
-                    ),
+                        Col(
+                            # TODO Bemerkungen
+                            )
+                        )
                 ),
             )
         )
-    )
+      )
+
+#                Div(
+#                    Fieldset(
+#                        _("Name"),
+#                        Grid(
+#                            Row(
+#                                Col("name"), Col("title")
+#                            ),  # without breakpoint and width: even distribution of columns
+#                            Row(Col("first_name"), Col("last_name")),
+#                            Row(  # use breakpoint and width to change the number of "units" used for one cell
+##                                Col("salutation", breakpoint="lg", width=3),
+#                                Col("salutation_letter", breakpoint="lg", width=4),
+#                            ),
+#                        #"middle_name",
+#                        #"preferred_language",
+#                        ),
+#                    ),
+#                ),
+#                # Other attributes of NaturalPerson
+#                Div(
+#                    Fieldset(
+#                        _("Person Details"), "gender", "date_of_birth", "profession"
+#                    ),
+#                    css_class="col s6",
+#                ),
+#                # Postal Address
+#                Div(
+#                    InlineLayout(
+#                        "core_postal_list",
+#                        Div(
+#                            Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
+#                        ),
+#                        formset_kwargs={"extra": 1, "max_num": 1},
+#                    ),
+#                ),
+#            )
+#        )
+#    )
 
     add_view = views.AddView._with(fields=["first_name", "last_name"])
 
