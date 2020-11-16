@@ -1,8 +1,8 @@
-from bread import views
-from bread.admin import BreadAdmin, BreadGenericAdmin, register
-from bread.layout.components import plisplate
-from crispy_forms.layout import Div, Fieldset, Layout
 from django.utils.translation import gettext_lazy as _
+
+from bread import layout as plisplate
+from bread import menu, views
+from bread.admin import BreadAdmin, BreadGenericAdmin, register
 
 from . import models
 
@@ -12,35 +12,12 @@ class MenuItems(BreadGenericAdmin):
     app_label = "core"
 
     def menuitems(self):
-        return ()
+        return (menu.Item(menu.Link(Person().reverse("browse")), "Person"),)
 
 
 @register
 class Person(BreadAdmin):
     model = models.Person
-    browse_view = views.BrowseView._with(fields=["name", "preferred_channel"])
-    edit_view = views.EditView._with(
-        layout=plisplate.DIV(
-            # Name
-            Div(
-                Fieldset(
-                    _("Name"),
-                    "name",
-                    "salutation",
-                    "salutation_letter",
-                    "preferred_language",
-                ),
-                css_class="col s6",
-            ),
-            # Postal Address
-            # Div(
-            #    Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
-            #    css_class="col s6",
-            # ),
-        )
-    )
-
-    add_view = views.AddView._with(fields=["name"])
 
     def menuitems(self):
         return ()
@@ -164,44 +141,6 @@ class NaturalPerson(BreadAdmin):
         )
     )
 
-    #                Div(
-    #                    Fieldset(
-    #                        _("Name"),
-    #                        Grid(
-    #                            Row(
-    #                                Col("name"), Col("title")
-    #                            ),  # without breakpoint and width: even distribution of columns
-    #                            Row(Col("first_name"), Col("last_name")),
-    #                            Row(  # use breakpoint and width to change the number of "units" used for one cell
-    ##                                Col("salutation", breakpoint="lg", width=3),
-    #                                Col("salutation_letter", breakpoint="lg", width=4),
-    #                            ),
-    #                        #"middle_name",
-    #                        #"preferred_language",
-    #                        ),
-    #                    ),
-    #                ),
-    #                # Other attributes of NaturalPerson
-    #                Div(
-    #                    Fieldset(
-    #                        _("Person Details"), "gender", "date_of_birth", "profession"
-    #                    ),
-    #                    css_class="col s6",
-    #                ),
-    #                # Postal Address
-    #                Div(
-    #                    InlineLayout(
-    #                        "core_postal_list",
-    #                        Div(
-    #                            Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
-    #                        ),
-    #                        formset_kwargs={"extra": 1, "max_num": 1},
-    #                    ),
-    #                ),
-    #            )
-    #        )
-    #    )
-
     add_view = views.AddView._with(
         layout=plisplate.BaseElement(
             plisplate.form.FormField("first_name"),
@@ -234,21 +173,19 @@ class Relationship(BreadAdmin):
     model = models.Relationship
     browse_view = views.BrowseView._with(fields=["person_a", "type", "person_b"])
     edit_view = views.EditView._with(
-        fields=Layout(
-            Div(
-                Div(
-                    Fieldset(_("Relationship"), "person_a", "type", "person_b"),
-                    css_class="col s6",
-                ),
-                Div(
-                    Fieldset(_("Duration"), "start_date", "end_date"),
-                    css_class="col s6",
-                ),
-                css_class="row",
-            )
+        layout=plisplate.DIV(
+            plisplate.DIV(
+                plisplate.FIELDSET(_("Relationship"), "person_a", "type", "person_b"),
+                css_class="col s6",
+            ),
+            plisplate.DIV(
+                plisplate.FIELDSET(_("Duration"), "start_date", "end_date"),
+                css_class="col s6",
+            ),
+            css_class="row",
         )
     )
-    add_view = views.AddView._with(fields=edit_view.fields)
+    add_view = views.AddView._with(layout=edit_view.layout)
 
     def menuitems(self):
         return ()
