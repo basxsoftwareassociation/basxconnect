@@ -5,6 +5,7 @@ from bread import menu, views
 from bread.admin import BreadAdmin, BreadGenericAdmin, register
 
 from . import models
+from .wizards.add_person import AddPersonWizard
 
 
 @register
@@ -35,6 +36,7 @@ class MenuItems(BreadGenericAdmin):
 @register
 class Person(BreadAdmin):
     model = models.Person
+    add_view = AddPersonWizard
 
     def menuitems(self):
         return ()
