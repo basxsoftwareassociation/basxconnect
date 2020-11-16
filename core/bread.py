@@ -1,11 +1,18 @@
-from crispy_forms.layout import Div, Fieldset, Layout
-from django.utils.translation import gettext as _
-
 from bread import views
-from bread.admin import BreadAdmin, register
+from bread.admin import BreadAdmin, BreadGenericAdmin, register
 from bread.layout.components import plisplate
+from crispy_forms.layout import Div, Fieldset, Layout
+from django.utils.translation import gettext_lazy as _
 
 from . import models
+
+
+@register
+class MenuItems(BreadGenericAdmin):
+    app_label = "core"
+
+    def menuitems(self):
+        return ()
 
 
 @register
@@ -35,11 +42,14 @@ class Person(BreadAdmin):
 
     add_view = views.AddView._with(fields=["name"])
 
+    def menuitems(self):
+        return ()
+
 
 @register
 class NaturalPerson(BreadAdmin):
     model = models.NaturalPerson
-    browse_view = views.BrowseView._with(fields=["name", "preferred_channel"])
+    # browse_view = views.BrowseView._with(layout=["name", "preferred_channel"])
     edit_view = views.EditView._with(
         layout=plisplate.DIV(
             plisplate.DIV(
@@ -192,17 +202,31 @@ class NaturalPerson(BreadAdmin):
     #        )
     #    )
 
-    add_view = views.AddView._with(fields=["first_name", "last_name"])
+    add_view = views.AddView._with(
+        layout=plisplate.BaseElement(
+            plisplate.form.FormField("first_name"),
+            plisplate.form.FormField("last_name"),
+        )
+    )
+
+    def menuitems(self):
+        return ()
 
 
 @register
 class Term(BreadAdmin):
     model = models.Term
 
+    def menuitems(self):
+        return ()
+
 
 @register
 class Category(BreadAdmin):
     model = models.Category
+
+    def menuitems(self):
+        return ()
 
 
 @register
@@ -226,7 +250,13 @@ class Relationship(BreadAdmin):
     )
     add_view = views.AddView._with(fields=edit_view.fields)
 
+    def menuitems(self):
+        return ()
+
 
 @register
 class RelationshipType(BreadAdmin):
     model = models.RelationshipType
+
+    def menuitems(self):
+        return ()
