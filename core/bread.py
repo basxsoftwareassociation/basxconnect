@@ -12,7 +12,24 @@ class MenuItems(BreadGenericAdmin):
     app_label = "core"
 
     def menuitems(self):
-        return (menu.Item(menu.Link(Person().reverse("browse")), "Person"),)
+        category_settings = [
+            menu.Item(
+                menu.Link(
+                    Term().reverse("browse", query_arguments={"category__slug": slug}),
+                    category,
+                ),
+                _("Settings"),
+            )
+            for category, slug in [
+                ("Gender", "gender"),
+                ("Title", "title"),
+            ]  # need to think about translation because the category are in the database (not translated)
+        ]
+        return [
+            menu.Item(
+                menu.Link(Person().reverse("browse"), _("Persons")), _("Persons")
+            ),
+        ] + category_settings
 
 
 @register
@@ -155,6 +172,7 @@ class NaturalPerson(BreadAdmin):
 @register
 class Term(BreadAdmin):
     model = models.Term
+    filterset_fields = ["category__slug"]
 
     def menuitems(self):
         return ()
