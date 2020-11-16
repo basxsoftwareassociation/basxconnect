@@ -10,7 +10,9 @@ from .utils import Term
 
 class Address(models.Model):
     person = models.ForeignKey(
-        Person, on_delete=models.CASCADE, related_name="%(app_label)s_%(class)s_list",
+        Person,
+        on_delete=models.CASCADE,
+        related_name="%(app_label)s_%(class)s_list",
     )
     person.verbose_name = _("Person")
     type = models.ForeignKey(

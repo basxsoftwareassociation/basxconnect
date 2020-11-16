@@ -1,296 +1,296 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) 2020
+# This file is distributed under the same license as the basxconnect package.
+# basx GmbH <info@basx.ch>, 2020.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-12 06:27+0100\n"
+"POT-Creation-Date: 2020-11-16 04:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: core/bread.py:30 core/models/persons.py:23 core/models/utils.py:12
-msgid "Name"
-msgstr "Name"
-
-#: core/bread.py:62
+#: core/bread.py:38
 msgid "Base data"
 msgstr "Stammdaten"
 
-#: core/bread.py:71
+#: core/bread.py:54
 msgid "Addresses"
 msgstr "Adressen"
 
-#: core/bread.py:90
+#: core/bread.py:104
 msgid "Personal data"
 msgstr "Person"
 
-#: core/bread.py:106 core/models/utils.py:25
+#: core/bread.py:127 core/models/utils.py:25
 msgid "Categories"
 msgstr "Kategorien"
 
-#: core/bread.py:182 core/models/relationships.py:34
+#: core/bread.py:178 core/models/relationships.py:36
 msgid "Relationship"
 msgstr "Verknüpfungen"
 
-#: core/bread.py:186
+#: core/bread.py:182
 msgid "Duration"
-msgstr ""
+msgstr "Dauer"
 
-#: core/models/addresses.py:15
+#: core/models/addresses.py:17
 msgid "Person"
-msgstr ""
-
-#: core/models/addresses.py:22 core/models/addresses.py:79
-msgid "eg. Private, Business"
-msgstr ""
+msgstr "Person"
 
 #: core/models/addresses.py:24 core/models/addresses.py:81
+msgid "eg. Private, Business"
+msgstr "z. B. Privat, Geschäftlich"
+
+#: core/models/addresses.py:26 core/models/addresses.py:83
 #: core/models/persons.py:96 core/models/relationships.py:21
 msgid "Type"
-msgstr ""
-
-#: core/models/addresses.py:32
-msgid "eg. active, moved, inactive"
-msgstr ""
+msgstr "Typ"
 
 #: core/models/addresses.py:34
-msgid "Status"
-msgstr ""
+msgid "eg. active, moved, inactive"
+msgstr "z. B. Aktiv, Weggezogen, Inaktiv"
 
-#: core/models/addresses.py:46
+#: core/models/addresses.py:36
+msgid "Status"
+msgstr "Status"
+
+#: core/models/addresses.py:48
 msgid "Email"
 msgstr "E-Mail"
 
-#: core/models/addresses.py:52
+#: core/models/addresses.py:54
 msgid "Email address"
 msgstr "E-Mail Adresse"
 
-#: core/models/addresses.py:53
+#: core/models/addresses.py:55
 msgid "Email addresses"
 msgstr "E-Mail Adressen"
 
-#: core/models/addresses.py:58
+#: core/models/addresses.py:60
 msgid "Name for phone type"
 msgstr ""
 
-#: core/models/addresses.py:60
+#: core/models/addresses.py:62
 msgid "eg. landline, mobile, fax, direct dial"
 msgstr ""
 
-#: core/models/addresses.py:68
+#: core/models/addresses.py:70
 msgid "Phone type"
-msgstr ""
+msgstr "Telefontype"
 
-#: core/models/addresses.py:69
+#: core/models/addresses.py:71
 msgid "Phone types"
-msgstr ""
+msgstr "Telefontypen"
 
-#: core/models/addresses.py:73
+#: core/models/addresses.py:75
 msgid "Number"
-msgstr ""
+msgstr "Nummer"
 
-#: core/models/addresses.py:87
+#: core/models/addresses.py:89
 msgid "Phone number"
-msgstr ""
+msgstr "Telefonnummer"
 
-#: core/models/addresses.py:88
+#: core/models/addresses.py:90
 msgid "Phone numbers"
-msgstr ""
+msgstr "Telefonnummern"
 
-#: core/models/addresses.py:92
+#: core/models/addresses.py:94
 msgid "Name of county or state"
-msgstr ""
+msgstr "Name des Kantons"
 
-#: core/models/addresses.py:93
+#: core/models/addresses.py:95
 msgid "Abbreviation"
 msgstr "Abkürzung"
 
-#: core/models/addresses.py:94 core/models/addresses.py:98
-#: core/models/addresses.py:125
+#: core/models/addresses.py:96 core/models/addresses.py:100
+#: core/models/addresses.py:127
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
-#: core/models/addresses.py:100 core/models/addresses.py:127
+#: core/models/addresses.py:102 core/models/addresses.py:129
 msgid "County"
-msgstr ""
+msgstr "Kanton"
 
-#: core/models/addresses.py:101
+#: core/models/addresses.py:103
 msgid "Address"
 msgstr ""
 
-#: core/models/addresses.py:102
+#: core/models/addresses.py:104
 msgid "Supplemental Address"
-msgstr ""
+msgstr "Addresszusatz"
 
-#: core/models/addresses.py:103 core/models/addresses.py:129
+#: core/models/addresses.py:105 core/models/addresses.py:131
 msgid "Post Code"
 msgstr "Postleitzahl"
 
-#: core/models/addresses.py:104 core/models/addresses.py:130
+#: core/models/addresses.py:106 core/models/addresses.py:132
 msgid "City"
 msgstr "Ort"
 
-#: core/models/addresses.py:120
+#: core/models/addresses.py:122
 msgid "Postal address"
 msgstr "Anschrift"
 
-#: core/models/addresses.py:121
+#: core/models/addresses.py:123
 msgid "Postal addresses"
 msgstr "Anschriften"
 
-#: core/models/addresses.py:128
+#: core/models/addresses.py:130
 msgid "POBox"
 msgstr "Postfach"
 
-#: core/models/addresses.py:144
+#: core/models/addresses.py:146
 msgid "Post office box"
 msgstr "Postfach"
 
-#: core/models/addresses.py:145
+#: core/models/addresses.py:147
 msgid "Post office boxes"
 msgstr "Postfächer"
 
 #: core/models/persons.py:22
 msgid "Created"
-msgstr ""
+msgstr "Erstellt"
+
+#: core/models/persons.py:23 core/models/utils.py:12
+msgid "Name"
+msgstr "Name"
 
 #: core/models/persons.py:24
 msgid "Deleted"
-msgstr ""
+msgstr "Gelöscht"
 
 #: core/models/persons.py:31
 msgid "Salutation"
-msgstr ""
+msgstr "Anrede"
 
 #: core/models/persons.py:33
 msgid "Salutation Letter"
-msgstr ""
+msgstr "Anrede Schriftlich"
 
 #: core/models/persons.py:36
 msgid "e.g. Dear Mr. Smith, Hi Bob"
-msgstr ""
+msgstr "z. B. Sehr geehrter Herr Meier, Hallo Ruth"
 
 #: core/models/persons.py:38
 msgid "Prefered Language"
-msgstr ""
+msgstr "Bevorzugte Sprache"
 
 #: core/models/persons.py:50
 msgid "First Name"
-msgstr ""
+msgstr "Vorname"
 
 #: core/models/persons.py:51
 msgid "Middle Name"
-msgstr ""
+msgstr "Mittelname(n)"
 
 #: core/models/persons.py:52
 msgid "Last Name"
-msgstr ""
+msgstr "Nachname"
 
 #: core/models/persons.py:60
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: core/models/persons.py:62
 msgid "Profession"
-msgstr ""
+msgstr "Beruf"
 
 #: core/models/persons.py:65
 msgid "e.g. Nurse, Carpenter"
-msgstr ""
+msgstr "z. B. Krankenschwester, Zimmerman"
 
 #: core/models/persons.py:67
 msgid "Date of Birth"
-msgstr ""
+msgstr "Geburtsdatum"
 
 #: core/models/persons.py:75
 msgid "Gender"
-msgstr ""
+msgstr "Geschlecht"
 
 #: core/models/persons.py:84
 msgid "Natural Person"
-msgstr ""
+msgstr "Natürliche Person"
 
 #: core/models/persons.py:85
 msgid "Natural Persons"
-msgstr ""
+msgstr "Natürliche Personen"
 
 #: core/models/persons.py:94
 msgid "eg. Church, Business, Association"
-msgstr ""
+msgstr "z. B. Kirche, Firma, Verbund"
 
 #: core/models/persons.py:100
 msgid "Juristic Person"
-msgstr ""
+msgstr "Juristische Person"
 
 #: core/models/persons.py:101
 msgid "Juristic Persons"
-msgstr ""
+msgstr "Juristische Persons"
 
 #: core/models/persons.py:107
 msgid "Person Association"
-msgstr ""
+msgstr "Personenverbindung"
 
 #: core/models/persons.py:108
 msgid "Person Associations"
-msgstr ""
+msgstr "Personenverbindungen"
 
 #: core/models/relationships.py:8
 msgid "Name for relationship type"
-msgstr ""
+msgstr "Name des Beziehungstypes"
 
 #: core/models/relationships.py:15
 msgid "Relationship type"
-msgstr ""
+msgstr "Beziehungstyp"
 
 #: core/models/relationships.py:16
 msgid "Relationship types"
-msgstr ""
+msgstr "Beziehungstypen"
 
 #: core/models/relationships.py:25
 msgid "Person A"
-msgstr ""
-
-#: core/models/relationships.py:29
-msgid "Person B"
-msgstr ""
-
-#: core/models/relationships.py:30
-msgid "Starts on"
-msgstr ""
+msgstr "Person A"
 
 #: core/models/relationships.py:31
-msgid "Ends on"
-msgstr ""
+msgid "Person B"
+msgstr "Person B"
 
-#: core/models/relationships.py:35
+#: core/models/relationships.py:32
+msgid "Starts on"
+msgstr "Startet am"
+
+#: core/models/relationships.py:33
+msgid "Ends on"
+msgstr "Endet am"
+
+#: core/models/relationships.py:37
 msgid "Relationships"
-msgstr ""
+msgstr "Beziehungen"
 
 #: core/models/utils.py:14
 msgid "Slug"
-msgstr ""
+msgstr "Slug"
 
 #: core/models/utils.py:16
 msgid "slug is human-readable, to make referencing easier"
-msgstr ""
+msgstr "Slug ist eine interne id welche einfach lesbar ist"
 
 #: core/models/utils.py:24 core/models/utils.py:30
 msgid "Category"
-msgstr ""
+msgstr "Kategorie"
 
 #: core/models/utils.py:31 core/models/utils.py:38
 msgid "Term"
-msgstr ""
+msgstr "Begriff"
 
 #: core/models/utils.py:39
 msgid "Terms"
-msgstr ""
+msgstr "Begriffe"

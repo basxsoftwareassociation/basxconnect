@@ -6,7 +6,7 @@ from ..models import NaturalPerson, Person, Term
 
 
 class SearchForm(forms.Form):
-    subject = forms.CharField(max_length=255, blank=True)
+    subject = forms.CharField(max_length=255, required=False)
 
 
 PERSON_TYPES = {
@@ -47,6 +47,7 @@ class AddPersonWizard(SessionWizardView):
         CreateNaturalPerson,
         CreateJuristicPerson,
     ]
+    template_name = "core/wizards/add_person.html"
 
     def get_form_kwargs(self, step):
         if step == "2":

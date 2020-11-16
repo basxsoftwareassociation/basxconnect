@@ -1,174 +1,191 @@
-from bread import views
-from bread.admin import BreadAdmin, register
-from crispy_forms.layout import Div, Fieldset, Layout
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
-from bread.layout import (
-    DIV,
-    HTML,
-    FieldLabel,
-    FieldValue,
-    InlineLayout,
-    Grid,
-    Row,
-    Col,
-)
+from bread import layout as plisplate
+from bread import menu, views
+from bread.admin import BreadAdmin, BreadGenericAdmin, register
 
 from . import models
+from .wizards.add_person import AddPersonWizard
+
+
+@register
+class MenuItems(BreadGenericAdmin):
+    app_label = "core"
+
+    def menuitems(self):
+        category_settings = [
+            menu.Item(
+                menu.Link(
+                    Term().reverse("browse", query_arguments={"category__slug": slug}),
+                    category,
+                ),
+                _("Settings"),
+            )
+            for category, slug in [
+                ("Gender", "gender"),
+                ("Title", "title"),
+            ]  # need to think about translation because the category are in the database (not translated)
+        ]
+        return [
+            menu.Item(
+                menu.Link(Person().reverse("browse"), _("Persons")), _("Persons")
+            ),
+        ] + category_settings
 
 
 @register
 class Person(BreadAdmin):
     model = models.Person
-    browse_view = views.BrowseView._with(fields=["name", "preferred_channel"])
-    edit_view = views.EditView._with(
-        fields=Layout(
-            Div(
-                # Name
-                Div(
-                    Fieldset(
-                        _("Name"),
-                        "name",
-                        "salutation",
-                        "salutation_letter",
-                        "preferred_language",
-                    ),
-                    css_class="col s6",
-                ),
-                # Postal Address
-                # Div(
-                #    Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
-                #    css_class="col s6",
-                # ),
-            )
-        )
-    )
+    add_view = AddPersonWizard
 
-    add_view = views.AddView._with(fields=["name"])
+    def menuitems(self):
+        return ()
 
 
 @register
 class NaturalPerson(BreadAdmin):
     model = models.NaturalPerson
-    browse_view = views.BrowseView._with(fields=["name", "preferred_channel"])
+    # browse_view = views.BrowseView._with(layout=["name", "preferred_channel"])
     edit_view = views.EditView._with(
-        fields=Layout(
-            Div(
-                Grid(
-                    Row(
-                        Col(
-                            Row(
-                                Fieldset(
-                                    _("Base data"),
-                                    Grid(
-                                        Row(Col("first_name"), Col("last_name")),
-                                        Row(Col("name")),
-                                    )
+        layout=plisplate.DIV(
+            plisplate.DIV(
+                plisplate.grid.Grid(
+                    plisplate.grid.Row(
+                        plisplate.grid.Col(
+                            plisplate.grid.Row(
+                                plisplate.FIELDSET(
+                                    plisplate.LEGEND(_("Base data")),
+                                    plisplate.grid.Grid(
+                                        plisplate.grid.Row(
+                                            plisplate.grid.Col(
+                                                plisplate.form.FormField("first_name")
+                                            ),
+                                            plisplate.grid.Col(
+                                                plisplate.form.FormField("last_name")
+                                            ),
+                                        ),
+                                        plisplate.grid.Row(plisplate.grid.Col("name")),
+                                    ),
                                 )
                             ),
-                            Row(
-                                Fieldset(
+                            plisplate.grid.Row(
+                                plisplate.FIELDSET(
                                     _("Addresses"),
-                                    Grid(
+                                    plisplate.grid.Grid(
                                         # TODO Domizil
-                                        Row(Col("address")),
-                                        Row(Col("postcode"), Col("city"), Col("country")),
+                                        plisplate.form.FormSetField(
+                                            "core_postal_list",
+                                            plisplate.grid.Row(
+                                                plisplate.grid.Col("Home")
+                                            ),
+                                            plisplate.grid.Row(
+                                                plisplate.grid.Col(
+                                                    plisplate.form.FormField("address")
+                                                )
+                                            ),
+                                            plisplate.grid.Row(
+                                                plisplate.grid.Col(
+                                                    plisplate.form.FormField(
+                                                        "postcode"
+                                                    ),
+                                                ),
+                                                plisplate.grid.Col(
+                                                    plisplate.form.FormField("city")
+                                                ),
+                                            ),
+                                            plisplate.grid.Row(
+                                                plisplate.grid.Col(
+                                                    plisplate.form.FormField("country")
+                                                )
+                                            ),
+                                            max_num=1,
+                                            extra=1,
+                                        ),
                                         # TODO Postfach
-                                        Row(Col("pobox_name")),
-                                        Row(Col("postcode"), Col("city"), Col("country")),
+                                        plisplate.grid.Row(
+                                            plisplate.grid.Col("pobox_name")
+                                        ),
+                                        plisplate.grid.Row(
+                                            plisplate.grid.Col("postcode"),
+                                            plisplate.grid.Col("city"),
+                                            plisplate.grid.Col("country"),
+                                        ),
                                         # TODO Button "more addresses"
                                         # TODO Mailing-Sperre
                                         # TODO Adressherkunft
-                                    )
+                                    ),
                                 )
                             ),
                         ),
-
-                        Col(
-                            Row(
-                                Fieldset(
+                        plisplate.grid.Col(
+                            plisplate.grid.Row(
+                                plisplate.FIELDSET(
                                     _("Personal data"),
-                                    Grid(
-                                        Row(Col("salutation"), Col("title"), Col("preferred_language")),
+                                    plisplate.grid.Grid(
+                                        plisplate.grid.Row(
+                                            plisplate.grid.Col("salutation"),
+                                            plisplate.grid.Col("title"),
+                                            plisplate.grid.Col("preferred_language"),
+                                        ),
                                         # TODO Anrede formal, Briefanrede
-                                        Row(Col("date_of_birth"), Col("salutation_letter")),
-                                    )
+                                        plisplate.grid.Row(
+                                            plisplate.grid.Col("date_of_birth"),
+                                            plisplate.grid.Col("salutation_letter"),
+                                        ),
+                                    ),
                                 )
                             ),
                             # TODO Verknüpfung
                             # TODO Kommunikationskanäle
                         ),
                     ),
-                    Row(
-                        Col(
-                            Row(
-                                Fieldset(
+                    plisplate.grid.Row(
+                        plisplate.grid.Col(
+                            plisplate.grid.Row(
+                                plisplate.FIELDSET(
                                     _("Categories"),
-                                    Grid(
+                                    plisplate.grid.Grid(
                                         # TODO Suche
                                         # TODO Kategorien Labels
-                                        )
                                     ),
-                                )
-                        ),
-                        Col(
-                            # TODO Bemerkungen
+                                ),
                             )
-                        )
+                        ),
+                        plisplate.grid.Col(
+                            # TODO Bemerkungen
+                        ),
+                    ),
                 ),
             )
         )
-      )
+    )
 
-#                Div(
-#                    Fieldset(
-#                        _("Name"),
-#                        Grid(
-#                            Row(
-#                                Col("name"), Col("title")
-#                            ),  # without breakpoint and width: even distribution of columns
-#                            Row(Col("first_name"), Col("last_name")),
-#                            Row(  # use breakpoint and width to change the number of "units" used for one cell
-##                                Col("salutation", breakpoint="lg", width=3),
-#                                Col("salutation_letter", breakpoint="lg", width=4),
-#                            ),
-#                        #"middle_name",
-#                        #"preferred_language",
-#                        ),
-#                    ),
-#                ),
-#                # Other attributes of NaturalPerson
-#                Div(
-#                    Fieldset(
-#                        _("Person Details"), "gender", "date_of_birth", "profession"
-#                    ),
-#                    css_class="col s6",
-#                ),
-#                # Postal Address
-#                Div(
-#                    InlineLayout(
-#                        "core_postal_list",
-#                        Div(
-#                            Fieldset(_("Address"), "supplemental_address", "address", "postcode", "city", "country"),
-#                        ),
-#                        formset_kwargs={"extra": 1, "max_num": 1},
-#                    ),
-#                ),
-#            )
-#        )
-#    )
+    add_view = views.AddView._with(
+        layout=plisplate.BaseElement(
+            plisplate.form.FormField("first_name"),
+            plisplate.form.FormField("last_name"),
+        )
+    )
 
-    add_view = views.AddView._with(fields=["first_name", "last_name"])
+    def menuitems(self):
+        return ()
 
 
 @register
 class Term(BreadAdmin):
     model = models.Term
+    filterset_fields = ["category__slug"]
+
+    def menuitems(self):
+        return ()
 
 
 @register
 class Category(BreadAdmin):
     model = models.Category
+
+    def menuitems(self):
+        return ()
 
 
 @register
@@ -176,23 +193,27 @@ class Relationship(BreadAdmin):
     model = models.Relationship
     browse_view = views.BrowseView._with(fields=["person_a", "type", "person_b"])
     edit_view = views.EditView._with(
-        fields=Layout(
-            Div(
-                Div(
-                    Fieldset(_("Relationship"), "person_a", "type", "person_b"),
-                    css_class="col s6",
-                ),
-                Div(
-                    Fieldset(_("Duration"), "start_date", "end_date"),
-                    css_class="col s6",
-                ),
-                css_class="row",
-            )
+        layout=plisplate.DIV(
+            plisplate.DIV(
+                plisplate.FIELDSET(_("Relationship"), "person_a", "type", "person_b"),
+                css_class="col s6",
+            ),
+            plisplate.DIV(
+                plisplate.FIELDSET(_("Duration"), "start_date", "end_date"),
+                css_class="col s6",
+            ),
+            css_class="row",
         )
     )
-    add_view = views.AddView._with(fields=edit_view.fields)
+    add_view = views.AddView._with(layout=edit_view.layout)
+
+    def menuitems(self):
+        return ()
 
 
 @register
 class RelationshipType(BreadAdmin):
     model = models.RelationshipType
+
+    def menuitems(self):
+        return ()
