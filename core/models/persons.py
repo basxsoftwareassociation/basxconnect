@@ -5,19 +5,6 @@ from languages.fields import LanguageField
 from .utils import Term
 
 
-# https://docs.djangoproject.com/en/3.1/topics/db/managers/
-# modifies default queryset
-class PersonManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(deleted=False)
-
-    def deleted(self):
-        return super().get_queryset().filter(deleted=True)
-
-    def include_deleted(self):
-        return super().get_queryset()
-
-
 class Person(models.Model):
     created = models.DateField(_("Created"), editable=False, auto_now_add=True)
     name = models.CharField(_("Name"), max_length=255)
@@ -36,8 +23,6 @@ class Person(models.Model):
         help_text=_("e.g. Dear Mr. Smith, Hi Bob"),
     )
     preferred_language = LanguageField(_("Prefered Language"), blank=True)
-
-    objects = PersonManager()
 
     def __str__(self):
         return self.name
