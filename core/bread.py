@@ -13,13 +13,15 @@ class MenuItems(BreadGenericAdmin):
     app_label = "core"
 
     def menuitems(self):
+        settingsgroup = menu.Group(_("Settings"), icon="settings")
+        persongroup = menu.Group(_("Persons"), icon="group")
         category_settings = [
             menu.Item(
                 menu.Link(
                     Term().reverse("browse", query_arguments={"category__slug": slug}),
                     category,
                 ),
-                _("Settings"),
+                settingsgroup,
             )
             for category, slug in [
                 ("Gender", "gender"),
@@ -27,9 +29,7 @@ class MenuItems(BreadGenericAdmin):
             ]  # need to think about translation because the category are in the database (not translated)
         ]
         return [
-            menu.Item(
-                menu.Link(Person().reverse("browse"), _("Persons")), _("Persons")
-            ),
+            menu.Item(menu.Link(Person().reverse("browse"), _("Persons")), persongroup),
         ] + category_settings
 
 
