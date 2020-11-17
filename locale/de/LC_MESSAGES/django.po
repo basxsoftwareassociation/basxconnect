@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 04:14+0000\n"
+"POT-Creation-Date: 2020-11-17 08:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: core/bread.py:38
+#: core/bread.py:16
+msgid "Settings"
+msgstr ""
+
+#: core/bread.py:17 core/bread.py:32
+#, fuzzy
+#| msgid "Person"
+msgid "Persons"
+msgstr "Personen"
+
+#: core/bread.py:57
 msgid "Base data"
 msgstr "Stammdaten"
 
-#: core/bread.py:54
+#: core/bread.py:73
 msgid "Addresses"
 msgstr "Adressen"
 
-#: core/bread.py:104
+#: core/bread.py:123
 msgid "Personal data"
 msgstr "Person"
 
-#: core/bread.py:127 core/models/utils.py:25
+#: core/bread.py:146 core/models/utils.py:25
 msgid "Categories"
 msgstr "Kategorien"
 
-#: core/bread.py:178 core/models/relationships.py:36
+#: core/bread.py:198 core/models/relationships.py:36
 msgid "Relationship"
 msgstr "Verknüpfungen"
 
-#: core/bread.py:182
+#: core/bread.py:202
 msgid "Duration"
 msgstr "Dauer"
 
@@ -50,7 +60,7 @@ msgid "eg. Private, Business"
 msgstr "z. B. Privat, Geschäftlich"
 
 #: core/models/addresses.py:26 core/models/addresses.py:83
-#: core/models/persons.py:96 core/models/relationships.py:21
+#: core/models/persons.py:81 core/models/relationships.py:21
 msgid "Type"
 msgstr "Typ"
 
@@ -155,91 +165,91 @@ msgstr "Postfach"
 msgid "Post office boxes"
 msgstr "Postfächer"
 
-#: core/models/persons.py:22
+#: core/models/persons.py:9
 msgid "Created"
 msgstr "Erstellt"
 
-#: core/models/persons.py:23 core/models/utils.py:12
+#: core/models/persons.py:10 core/models/utils.py:12
 msgid "Name"
 msgstr "Name"
 
-#: core/models/persons.py:24
+#: core/models/persons.py:11
 msgid "Deleted"
 msgstr "Gelöscht"
 
-#: core/models/persons.py:31
+#: core/models/persons.py:18
 msgid "Salutation"
 msgstr "Anrede"
 
-#: core/models/persons.py:33
+#: core/models/persons.py:20
 msgid "Salutation Letter"
 msgstr "Anrede Schriftlich"
 
-#: core/models/persons.py:36
+#: core/models/persons.py:23
 msgid "e.g. Dear Mr. Smith, Hi Bob"
 msgstr "z. B. Sehr geehrter Herr Meier, Hallo Ruth"
 
-#: core/models/persons.py:38
+#: core/models/persons.py:25
 msgid "Prefered Language"
 msgstr "Bevorzugte Sprache"
 
-#: core/models/persons.py:50
+#: core/models/persons.py:35
 msgid "First Name"
 msgstr "Vorname"
 
-#: core/models/persons.py:51
+#: core/models/persons.py:36
 msgid "Middle Name"
 msgstr "Mittelname(n)"
 
-#: core/models/persons.py:52
+#: core/models/persons.py:37
 msgid "Last Name"
 msgstr "Nachname"
 
-#: core/models/persons.py:60
+#: core/models/persons.py:45
 msgid "Title"
 msgstr "Titel"
 
-#: core/models/persons.py:62
+#: core/models/persons.py:47
 msgid "Profession"
 msgstr "Beruf"
 
-#: core/models/persons.py:65
+#: core/models/persons.py:50
 msgid "e.g. Nurse, Carpenter"
 msgstr "z. B. Krankenschwester, Zimmerman"
 
-#: core/models/persons.py:67
+#: core/models/persons.py:52
 msgid "Date of Birth"
 msgstr "Geburtsdatum"
 
-#: core/models/persons.py:75
+#: core/models/persons.py:60
 msgid "Gender"
 msgstr "Geschlecht"
 
-#: core/models/persons.py:84
+#: core/models/persons.py:69
 msgid "Natural Person"
 msgstr "Natürliche Person"
 
-#: core/models/persons.py:85
+#: core/models/persons.py:70
 msgid "Natural Persons"
 msgstr "Natürliche Personen"
 
-#: core/models/persons.py:94
+#: core/models/persons.py:79
 msgid "eg. Church, Business, Association"
 msgstr "z. B. Kirche, Firma, Verbund"
 
-#: core/models/persons.py:100
+#: core/models/persons.py:85
 msgid "Juristic Person"
 msgstr "Juristische Person"
 
-#: core/models/persons.py:101
+#: core/models/persons.py:86
 msgid "Juristic Persons"
 msgstr "Juristische Persons"
 
-#: core/models/persons.py:107
+#: core/models/persons.py:92
 msgid "Person Association"
 msgstr "Personenverbindung"
 
-#: core/models/persons.py:108
+#: core/models/persons.py:93
 msgid "Person Associations"
 msgstr "Personenverbindungen"
 
@@ -294,3 +304,17 @@ msgstr "Begriff"
 #: core/models/utils.py:39
 msgid "Terms"
 msgstr "Begriffe"
+
+#: core/templates/core/wizards/add_person.html:21
+#, fuzzy
+#| msgid "First Name"
+msgid "first step"
+msgstr "Vorname"
+
+#: core/templates/core/wizards/add_person.html:22
+msgid "prev step"
+msgstr ""
+
+#: core/templates/core/wizards/add_person.html:24
+msgid "next step"
+msgstr ""
