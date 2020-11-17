@@ -115,7 +115,7 @@ class Postal(Address):
             ret.append(self.city)
         if self.county:
             ret.append(self.county)
-        ret.append(self.country)
+        ret.append(self.country.name)
         return mark_safe(linebreaks("\n".join(ret)))
 
     class Meta:
