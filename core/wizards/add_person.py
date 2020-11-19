@@ -1,24 +1,30 @@
 from django import forms
+from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from formtools.wizard.views import SessionWizardView
+
+from bread import layout
+from bread.forms.forms import breadmodelform_factory
 
 from ..models import NaturalPerson, Person, Term
 
 
 class SearchForm(forms.Form):
-    subject = forms.CharField(max_length=255, required=False)
+    name_of_existing_person = forms.CharField(max_length=255, required=False)
 
 
 PERSON_TYPES = {
-    Person._meta.model_name: Person,
-    NaturalPerson._meta.model_name: NaturalPerson,
+    ContentType.objects.get_for_model(Person).id: Person._meta.model_name.title(),
+    ContentType.objects.get_for_model(
+        NaturalPerson
+    ).id: NaturalPerson._meta.model_name.title(),
 }
 
 
 class ChooseType(forms.Form):
     persontype = forms.TypedChoiceField(
         choices=tuple(PERSON_TYPES.items()),
-        coerce=lambda a: PERSON_TYPES.get(a, None),
+        coerce=lambda a: ContentType.objects.get_for_id(a),
         empty_value=None,
     )
 
@@ -39,23 +45,21 @@ class CreateJuristicPerson(forms.Form):
     subject = forms.CharField(max_length=100)
 
 
+naturalperson_form = breadmodelform_factory(
+    request=None, model=NaturalPerson, layout=layout.DIV("hi")
+)
+naturalperson_form.layout = layout.DIV("hi")
+
+
 class AddPersonWizard(SessionWizardView):
-    form_list = [
-        SearchForm,
-        ChooseType,
-        ChooseSubType,
-        CreateNaturalPerson,
-        CreateJuristicPerson,
-    ]
+    form_list = [SearchForm, ChooseType, ChooseSubType, naturalperson_form]
     template_name = "core/wizards/add_person.html"
 
     def get_form_kwargs(self, step):
         if step == "2":
-            return {
-                "persontype": self.get_form_instance("1").cleaned_data["persontype"]
-            }
+            return {"persontype": self.get_cleaned_data_for_step("1")["persontype"]}
         return super().get_form_kwargs()
 
     def done(self, form_list, **kwargs):
         print(form_list)
-        return HttpResponseRedirect()
+        return HttpResponseRedirect(redirect_to="/")

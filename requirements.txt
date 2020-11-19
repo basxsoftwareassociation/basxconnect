@@ -1,6 +1,6 @@
 hg+https://hg.basx.dev/pythonpackages/bread
 hg+https://hg.basx.dev/pythonpackages/excel2django
-hg+https://hg.basx.dev/pythonpackages/plisplate/
+git+https://github.com/basxsoftwareassociation/htmlgenerator
 django-phonenumber-field
 phonenumbers
 # using a forked version because the public release has a backward incompatability with django 2

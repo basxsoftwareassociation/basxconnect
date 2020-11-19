@@ -1,5 +1,5 @@
 {% extends "bread/base.html" %}
-{% load i18n %}
+{% load i18n bread_tags %}
 
 {% block content %}
 
@@ -12,16 +12,18 @@
     {{ wizard.form.management_form }}
     {% for form in wizard.form.forms %}
         {{ form }}
+        {# {% render_layout form.layout %} #}
     {% endfor %}
 {% else %}
     {{ wizard.form }}
+    {# {% render_layout wizard.form.layout %} #}
 {% endif %}
 </table>
 {% if wizard.steps.prev %}
 <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
 <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
 {% endif %}
-<input type="submit" value="{% translate "submit" %}"/>
+<input type="submit" value="{% translate "next step" %}"/>
 </form>
 
 {% endblock %}
