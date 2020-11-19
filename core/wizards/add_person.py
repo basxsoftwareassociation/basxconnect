@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.contenttypes.models import ContentType
+from django.apps import apps
 from django.http import HttpResponseRedirect
 from formtools.wizard.views import SessionWizardView
 
@@ -13,18 +13,14 @@ class SearchForm(forms.Form):
     name_of_existing_person = forms.CharField(max_length=255, required=False)
 
 
-PERSON_TYPES = {
-    ContentType.objects.get_for_model(Person).id: Person._meta.model_name.title(),
-    ContentType.objects.get_for_model(
-        NaturalPerson
-    ).id: NaturalPerson._meta.model_name.title(),
-}
-
-
 class ChooseType(forms.Form):
+    PERSON_TYPES = {
+        "core.Person": Person._meta.model_name.title(),
+        "core.NaturalPerson": NaturalPerson._meta.model_name.title(),
+    }
     persontype = forms.TypedChoiceField(
         choices=tuple(PERSON_TYPES.items()),
-        coerce=lambda a: ContentType.objects.get_for_id(a),
+        coerce=lambda a: apps.get_model(a),
         empty_value=None,
     )
 
