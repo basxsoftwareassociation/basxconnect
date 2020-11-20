@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 11:27+0000\n"
+"POT-Creation-Date: 2020-11-20 15:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,31 +21,47 @@ msgstr ""
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: core/bread.py:17 core/bread.py:32
+#: core/bread.py:17 core/bread.py:19 core/bread.py:22
 msgid "Persons"
 msgstr "Personen"
 
-#: core/bread.py:57
+#: core/bread.py:20
+msgid "General"
+msgstr "Allgemein"
+
+#: core/bread.py:21
+msgid "Appearance"
+msgstr "Darstellung"
+
+#: core/bread.py:23 core/models/relationships.py:37
+msgid "Relationships"
+msgstr "Beziehungen"
+
+#: core/bread.py:24
+msgid "API Keys"
+msgstr "API Keys"
+
+#: core/bread.py:49
 msgid "Base data"
 msgstr "Stammdaten"
 
-#: core/bread.py:73
+#: core/bread.py:65
 msgid "Addresses"
 msgstr "Adressen"
 
-#: core/bread.py:123
+#: core/bread.py:115
 msgid "Personal data"
 msgstr "Person"
 
-#: core/bread.py:146 core/models/utils.py:25
+#: core/bread.py:138 core/models/utils.py:25
 msgid "Categories"
 msgstr "Kategorien"
 
-#: core/bread.py:198 core/models/relationships.py:36
+#: core/bread.py:190 core/models/relationships.py:36
 msgid "Relationship"
 msgstr "Verknüpfungen"
 
-#: core/bread.py:202
+#: core/bread.py:194
 msgid "Duration"
 msgstr "Dauer"
 
@@ -279,10 +295,6 @@ msgstr "Startet am"
 msgid "Ends on"
 msgstr "Endet am"
 
-#: core/models/relationships.py:37
-msgid "Relationships"
-msgstr "Beziehungen"
-
 #: core/models/utils.py:14
 msgid "Slug"
 msgstr "Slug"
@@ -303,16 +315,16 @@ msgstr "Begriff"
 msgid "Terms"
 msgstr "Begriffe"
 
-#: core/templates/core/wizards/add_person.html:21
+#: core/templates/core/wizards/add_person.html:23
 #, fuzzy
 #| msgid "First Name"
 msgid "first step"
 msgstr "Vorname"
 
-#: core/templates/core/wizards/add_person.html:22
+#: core/templates/core/wizards/add_person.html:24
 msgid "prev step"
 msgstr ""
 
-#: core/templates/core/wizards/add_person.html:24
+#: core/templates/core/wizards/add_person.html:26
 msgid "next step"
 msgstr ""
