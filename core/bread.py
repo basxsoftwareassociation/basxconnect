@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from bread import layout as plisplate
@@ -5,6 +6,7 @@ from bread import menu, views
 from bread.admin import BreadAdmin, BreadGenericAdmin, register
 
 from . import models
+from . import views as customviews
 from .wizards.add_person import AddPersonWizard
 
 
@@ -17,11 +19,28 @@ class MenuItems(BreadGenericAdmin):
         persongroup = menu.Group(_("Persons"), icon="group")
         return [
             menu.Item(menu.Link(Person().reverse("browse"), _("Persons")), persongroup),
-            menu.Item(menu.Link("/", _("General")), settingsgroup),
-            menu.Item(menu.Link("/", _("Appearance")), settingsgroup),
-            menu.Item(menu.Link("/", _("Persons")), settingsgroup),
-            menu.Item(menu.Link("/", _("Relationships")), settingsgroup),
-            menu.Item(menu.Link("/", _("API Keys")), settingsgroup),
+            menu.Item(
+                menu.Link(reverse(customviews.generalsettings), _("General")),
+                settingsgroup,
+            ),
+            menu.Item(
+                menu.Link(reverse(customviews.appearancesettings), _("Appearance")),
+                settingsgroup,
+            ),
+            menu.Item(
+                menu.Link(reverse(customviews.personssettings), _("Persons")),
+                settingsgroup,
+            ),
+            menu.Item(
+                menu.Link(
+                    reverse(customviews.relationshipssettings), _("Relationships")
+                ),
+                settingsgroup,
+            ),
+            menu.Item(
+                menu.Link(reverse(customviews.apikeyssettings), _("API Keys")),
+                settingsgroup,
+            ),
         ]
 
 

@@ -20,11 +20,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
 
 from bread.admin import protectedMedia, site
+from bread.utils import urlgenerator
 
 urlpatterns = [
     path("", site.urls),
     path("admin/", admin.site.urls),
 ]
+urlpatterns += list(urlgenerator.generate_urlpatterns())
 
 urlpatterns += staticfiles_urlpatterns()
 
