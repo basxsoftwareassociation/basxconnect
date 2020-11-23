@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from bread import layout as plisplate
@@ -13,24 +14,33 @@ class MenuItems(BreadGenericAdmin):
     app_label = "core"
 
     def menuitems(self):
-        category_settings = [
+        settingsgroup = menu.Group(_("Settings"), icon="settings")
+        persongroup = menu.Group(_("Persons"), icon="group")
+        return [
+            menu.Item(menu.Link(Person().reverse("browse"), _("Persons")), persongroup),
+            menu.Item(
+                menu.Link(reverse("core.views.generalsettings"), _("General")),
+                settingsgroup,
+            ),
+            menu.Item(
+                menu.Link(reverse("core.views.appearancesettings"), _("Appearance")),
+                settingsgroup,
+            ),
+            menu.Item(
+                menu.Link(reverse("core.views.personssettings"), _("Persons")),
+                settingsgroup,
+            ),
             menu.Item(
                 menu.Link(
-                    Term().reverse("browse", query_arguments={"category__slug": slug}),
-                    category,
+                    reverse("core.views.relationshipssettings"), _("Relationships")
                 ),
-                _("Settings"),
-            )
-            for category, slug in [
-                ("Gender", "gender"),
-                ("Title", "title"),
-            ]  # need to think about translation because the category are in the database (not translated)
-        ]
-        return [
-            menu.Item(
-                menu.Link(Person().reverse("browse"), _("Persons")), _("Persons")
+                settingsgroup,
             ),
-        ] + category_settings
+            menu.Item(
+                menu.Link(reverse("core.views.apikeyssettings"), _("API Keys")),
+                settingsgroup,
+            ),
+        ]
 
 
 @register
