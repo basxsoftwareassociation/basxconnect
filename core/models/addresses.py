@@ -55,6 +55,17 @@ class Email(Address):
         verbose_name_plural = _("Email addresses")
 
 
+class Web(Address):
+    url = models.URLField(_("Url"))
+
+    def __str__(self):
+        return format_html('<a href="{}">{}</a>', self.url, self.url)
+
+    class Meta:
+        verbose_name = _("Web address")
+        verbose_name_plural = _("Web addresses")
+
+
 class PhoneType(models.Model):
     name = models.CharField(
         _("Name for phone type"),
@@ -83,11 +94,34 @@ class Phone(Address):
     type.verbose_name = _("Type")
 
     def __str__(self):
-        return f"{self.number} ({self.type})"
+        if self.type:
+            return f"{self.number} ({self.type})"
+        return self.number
 
     class Meta:
         verbose_name = _("Phone number")
         verbose_name_plural = _("Phone numbers")
+
+
+class Fax(Address):
+    number = PhoneNumberField(_("Number"))
+    type = models.ForeignKey(
+        Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        limit_choices_to={"category__slug": "phonetype"},
+        help_text=_("eg. Private, Business"),
+    )
+    type.verbose_name = _("Type")
+
+    def __str__(self):
+        if self.type:
+            return f"{self.number} ({self.type})"
+        return self.number
+
+    class Meta:
+        verbose_name = _("Fax number")
+        verbose_name_plural = _("Fax numbers")
 
 
 class County(models.Model):

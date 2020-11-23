@@ -29,6 +29,8 @@ class Person(models.Model):
 
     class Meta:
         ordering = ["name"]
+        verbose_name = _("Person")
+        verbose_name_plural = _("Persons")
 
 
 class NaturalPerson(Person):
@@ -71,6 +73,7 @@ class NaturalPerson(Person):
 
 
 class JuristicPerson(Person):
+    name_addition = models.CharField(_("Addition name"), max_length=255, blank=True)
     type = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,
