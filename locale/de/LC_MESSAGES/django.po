@@ -103,7 +103,7 @@ msgstr "E-Mail Adressen"
 
 #: core/models/addresses.py:59
 msgid "Url"
-msgstr ""
+msgstr "Webadresse"
 
 #: core/models/addresses.py:65
 #, fuzzy
@@ -119,11 +119,11 @@ msgstr "Adressen"
 
 #: core/models/addresses.py:71
 msgid "Name for phone type"
-msgstr ""
+msgstr "Nummernart"
 
 #: core/models/addresses.py:73
 msgid "eg. landline, mobile, fax, direct dial"
-msgstr ""
+msgstr "z. B. Festnetz, Mobile, Direkt"
 
 #: core/models/addresses.py:81
 msgid "Phone type"
@@ -176,7 +176,7 @@ msgstr "Kanton"
 
 #: core/models/addresses.py:137
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #: core/models/addresses.py:138
 msgid "Supplemental Address"
@@ -280,7 +280,7 @@ msgstr "Natürliche Personen"
 
 #: core/models/persons.py:76
 msgid "Addition name"
-msgstr ""
+msgstr "Zusatz"
 
 #: core/models/persons.py:82
 msgid "eg. Church, Business, Association"
@@ -366,11 +366,11 @@ msgstr ""
 
 #: core/views.py:72
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: core/views.py:83
 msgid "General information"
-msgstr ""
+msgstr "Allgemeine Informationen"
 
 #: core/views.py:106
 #, fuzzy
