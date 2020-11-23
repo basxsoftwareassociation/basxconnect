@@ -108,7 +108,7 @@ def personssettings(request):
                 "add",
                 query_arguments={
                     "category": Category.objects.get(slug="addresstype").id,
-                    "next": reverse(personssettings),
+                    "next": reverse("core.views.personssettings"),
                 },
             ),
         ),
@@ -121,7 +121,7 @@ def personssettings(request):
                 "add",
                 query_arguments={
                     "category": Category.objects.get(slug="addressorigin").id,
-                    "next": reverse(personssettings),
+                    "next": reverse("core.views.personssettings"),
                 },
             ),
         ),
@@ -134,7 +134,7 @@ def personssettings(request):
                 "add",
                 query_arguments={
                     "category": Category.objects.get(slug="salutation").id,
-                    "next": reverse(personssettings),
+                    "next": reverse("core.views.personssettings"),
                 },
             ),
         ),

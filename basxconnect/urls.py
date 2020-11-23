@@ -22,6 +22,9 @@ from django.urls import path
 from bread.admin import protectedMedia, site
 from bread.utils import urlgenerator
 
+# need to import views in order be all views registered
+from core import views  # noqa
+
 urlpatterns = [
     path("", site.urls),
     path("admin/", admin.site.urls),

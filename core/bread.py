@@ -6,7 +6,6 @@ from bread import menu, views
 from bread.admin import BreadAdmin, BreadGenericAdmin, register
 
 from . import models
-from . import views as customviews
 from .wizards.add_person import AddPersonWizard
 
 
@@ -20,25 +19,25 @@ class MenuItems(BreadGenericAdmin):
         return [
             menu.Item(menu.Link(Person().reverse("browse"), _("Persons")), persongroup),
             menu.Item(
-                menu.Link(reverse(customviews.generalsettings), _("General")),
+                menu.Link(reverse("core.views.generalsettings"), _("General")),
                 settingsgroup,
             ),
             menu.Item(
-                menu.Link(reverse(customviews.appearancesettings), _("Appearance")),
+                menu.Link(reverse("core.views.appearancesettings"), _("Appearance")),
                 settingsgroup,
             ),
             menu.Item(
-                menu.Link(reverse(customviews.personssettings), _("Persons")),
+                menu.Link(reverse("core.views.personssettings"), _("Persons")),
                 settingsgroup,
             ),
             menu.Item(
                 menu.Link(
-                    reverse(customviews.relationshipssettings), _("Relationships")
+                    reverse("core.views.relationshipssettings"), _("Relationships")
                 ),
                 settingsgroup,
             ),
             menu.Item(
-                menu.Link(reverse(customviews.apikeyssettings), _("API Keys")),
+                menu.Link(reverse("core.views.apikeyssettings"), _("API Keys")),
                 settingsgroup,
             ),
         ]
