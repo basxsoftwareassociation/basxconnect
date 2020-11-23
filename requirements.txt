@@ -1,5 +1,5 @@
-hg+https://hg.basx.dev/pythonpackages/bread
-hg+https://hg.basx.dev/pythonpackages/excel2django
+git+https://github.com/basxsoftwareassociation/bread
+git+https://github.com/basxsoftwareassociation/excel2django
 git+https://github.com/basxsoftwareassociation/htmlgenerator
 django-phonenumber-field
 phonenumbers
