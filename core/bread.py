@@ -112,14 +112,19 @@ class NaturalPerson(BreadAdmin):
                                             extra=1,
                                         ),
                                         # TODO Postfach
-                                        tpl.grid.Row(
-                                            tpl.grid.Col("pobox_name")
-                                        ),
-                                        tpl.grid.Row(
-                                            tpl.grid.Col("postcode"),
-                                            tpl.grid.Col("city"),
-                                            tpl.grid.Col("country"),
-                                        ),
+                                        tpl.form.FormSetField(
+                                            "core_pobox_list",
+                                            tpl.grid.Row(
+                                                tpl.grid.Col(tpl.form.FormField("pobox_name"))
+                                            ),
+                                            tpl.grid.Row(
+                                                tpl.grid.Col(tpl.form.FormField("postcode")),
+                                                tpl.grid.Col(tpl.form.FormField("city")),
+                                                tpl.grid.Col(tpl.form.FormField("country")),
+                                            ),
+                                            max_num=1,
+                                            extra=1,
+                                        )
                                         # TODO Button "more addresses"
                                         # TODO Mailing-Sperre
                                         # TODO Adressherkunft
@@ -133,14 +138,14 @@ class NaturalPerson(BreadAdmin):
                                     _("Personal data"),
                                     tpl.grid.Grid(
                                         tpl.grid.Row(
-                                            tpl.grid.Col("salutation"),
-                                            tpl.grid.Col("title"),
-                                            tpl.grid.Col("preferred_language"),
+                                            tpl.grid.Col(tpl.form.FormField("salutation")),
+                                            tpl.grid.Col(tpl.form.FormField("title")),
+                                            tpl.grid.Col(tpl.form.FormField("preferred_language")),
                                         ),
                                         # TODO Anrede formal, Briefanrede
                                         tpl.grid.Row(
-                                            tpl.grid.Col("date_of_birth"),
-                                            tpl.grid.Col("salutation_letter"),
+                                            tpl.grid.Col(tpl.form.FormField("date_of_birth")),
+                                            tpl.grid.Col(tpl.form.FormField("salutation_letter")),
                                         ),
                                     ),
                                 )
