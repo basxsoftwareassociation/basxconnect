@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from bread import layout as plisplate
+from bread import layout as tpl
 from bread import menu, views
 from bread.admin import BreadAdmin, BreadGenericAdmin, register
 
@@ -57,68 +57,68 @@ class NaturalPerson(BreadAdmin):
     model = models.NaturalPerson
     # browse_view = views.BrowseView._with(layout=["name", "preferred_channel"])
     edit_view = views.EditView._with(
-        layout=plisplate.DIV(
-            plisplate.DIV(
-                plisplate.grid.Grid(
-                    plisplate.grid.Row(
-                        plisplate.grid.Col(
-                            plisplate.grid.Row(
-                                plisplate.FIELDSET(
-                                    plisplate.LEGEND(_("Base data")),
-                                    plisplate.grid.Grid(
-                                        plisplate.grid.Row(
-                                            plisplate.grid.Col(
-                                                plisplate.form.FormField("first_name")
+        layout=tpl.DIV(
+            tpl.DIV(
+                tpl.grid.Grid(
+                    tpl.grid.Row(
+                        tpl.grid.Col(
+                            tpl.grid.Row(
+                                tpl.FIELDSET(
+                                    tpl.LEGEND(_("Base data")),
+                                    tpl.grid.Grid(
+                                        tpl.grid.Row(
+                                            tpl.grid.Col(
+                                                tpl.form.FormField("first_name")
                                             ),
-                                            plisplate.grid.Col(
-                                                plisplate.form.FormField("last_name")
+                                            tpl.grid.Col(
+                                                tpl.form.FormField("last_name")
                                             ),
                                         ),
-                                        plisplate.grid.Row(plisplate.grid.Col("name")),
+                                        tpl.grid.Row(tpl.grid.Col("name")),
                                     ),
                                 )
                             ),
-                            plisplate.grid.Row(
-                                plisplate.FIELDSET(
+                            tpl.grid.Row(
+                                tpl.FIELDSET(
                                     _("Addresses"),
-                                    plisplate.grid.Grid(
+                                    tpl.grid.Grid(
                                         # TODO Domizil
-                                        plisplate.form.FormSetField(
+                                        tpl.form.FormSetField(
                                             "core_postal_list",
-                                            plisplate.grid.Row(
-                                                plisplate.grid.Col("Home")
+                                            tpl.grid.Row(
+                                                tpl.grid.Col("Home")
                                             ),
-                                            plisplate.grid.Row(
-                                                plisplate.grid.Col(
-                                                    plisplate.form.FormField("address")
+                                            tpl.grid.Row(
+                                                tpl.grid.Col(
+                                                    tpl.form.FormField("address")
                                                 )
                                             ),
-                                            plisplate.grid.Row(
-                                                plisplate.grid.Col(
-                                                    plisplate.form.FormField(
+                                            tpl.grid.Row(
+                                                tpl.grid.Col(
+                                                    tpl.form.FormField(
                                                         "postcode"
                                                     ),
                                                 ),
-                                                plisplate.grid.Col(
-                                                    plisplate.form.FormField("city")
+                                                tpl.grid.Col(
+                                                    tpl.form.FormField("city")
                                                 ),
                                             ),
-                                            plisplate.grid.Row(
-                                                plisplate.grid.Col(
-                                                    plisplate.form.FormField("country")
+                                            tpl.grid.Row(
+                                                tpl.grid.Col(
+                                                    tpl.form.FormField("country")
                                                 )
                                             ),
                                             max_num=1,
                                             extra=1,
                                         ),
                                         # TODO Postfach
-                                        plisplate.grid.Row(
-                                            plisplate.grid.Col("pobox_name")
+                                        tpl.grid.Row(
+                                            tpl.grid.Col("pobox_name")
                                         ),
-                                        plisplate.grid.Row(
-                                            plisplate.grid.Col("postcode"),
-                                            plisplate.grid.Col("city"),
-                                            plisplate.grid.Col("country"),
+                                        tpl.grid.Row(
+                                            tpl.grid.Col("postcode"),
+                                            tpl.grid.Col("city"),
+                                            tpl.grid.Col("country"),
                                         ),
                                         # TODO Button "more addresses"
                                         # TODO Mailing-Sperre
@@ -127,20 +127,20 @@ class NaturalPerson(BreadAdmin):
                                 )
                             ),
                         ),
-                        plisplate.grid.Col(
-                            plisplate.grid.Row(
-                                plisplate.FIELDSET(
+                        tpl.grid.Col(
+                            tpl.grid.Row(
+                                tpl.FIELDSET(
                                     _("Personal data"),
-                                    plisplate.grid.Grid(
-                                        plisplate.grid.Row(
-                                            plisplate.grid.Col("salutation"),
-                                            plisplate.grid.Col("title"),
-                                            plisplate.grid.Col("preferred_language"),
+                                    tpl.grid.Grid(
+                                        tpl.grid.Row(
+                                            tpl.grid.Col("salutation"),
+                                            tpl.grid.Col("title"),
+                                            tpl.grid.Col("preferred_language"),
                                         ),
                                         # TODO Anrede formal, Briefanrede
-                                        plisplate.grid.Row(
-                                            plisplate.grid.Col("date_of_birth"),
-                                            plisplate.grid.Col("salutation_letter"),
+                                        tpl.grid.Row(
+                                            tpl.grid.Col("date_of_birth"),
+                                            tpl.grid.Col("salutation_letter"),
                                         ),
                                     ),
                                 )
@@ -149,19 +149,19 @@ class NaturalPerson(BreadAdmin):
                             # TODO Kommunikationskanäle
                         ),
                     ),
-                    plisplate.grid.Row(
-                        plisplate.grid.Col(
-                            plisplate.grid.Row(
-                                plisplate.FIELDSET(
+                    tpl.grid.Row(
+                        tpl.grid.Col(
+                            tpl.grid.Row(
+                                tpl.FIELDSET(
                                     _("Categories"),
-                                    plisplate.grid.Grid(
+                                    tpl.grid.Grid(
                                         # TODO Suche
                                         # TODO Kategorien Labels
                                     ),
                                 ),
                             )
                         ),
-                        plisplate.grid.Col(
+                        tpl.grid.Col(
                             # TODO Bemerkungen
                         ),
                     ),
@@ -171,9 +171,9 @@ class NaturalPerson(BreadAdmin):
     )
 
     add_view = views.AddView._with(
-        layout=plisplate.BaseElement(
-            plisplate.form.FormField("first_name"),
-            plisplate.form.FormField("last_name"),
+        layout=tpl.BaseElement(
+            tpl.form.FormField("first_name"),
+            tpl.form.FormField("last_name"),
         )
     )
 
@@ -203,13 +203,13 @@ class Relationship(BreadAdmin):
     model = models.Relationship
     browse_view = views.BrowseView._with(fields=["person_a", "type", "person_b"])
     edit_view = views.EditView._with(
-        layout=plisplate.DIV(
-            plisplate.DIV(
-                plisplate.FIELDSET(_("Relationship"), "person_a", "type", "person_b"),
+        layout=tpl.DIV(
+            tpl.DIV(
+                tpl.FIELDSET(_("Relationship"), "person_a", "type", "person_b"),
                 css_class="col s6",
             ),
-            plisplate.DIV(
-                plisplate.FIELDSET(_("Duration"), "start_date", "end_date"),
+            tpl.DIV(
+                tpl.FIELDSET(_("Duration"), "start_date", "end_date"),
                 css_class="col s6",
             ),
             css_class="row",
