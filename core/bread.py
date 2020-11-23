@@ -47,6 +47,17 @@ class MenuItems(BreadGenericAdmin):
 class Person(BreadAdmin):
     model = models.Person
     add_view = AddPersonWizard
+    browse_view = views.BrowseView._with(layout=[
+        "id", # Nr. TODO does not work?
+        "deleted", # Status
+        # TODO: Person Type
+        "name",
+        # TODO: which address to display? should be the preferred address. either pobox or postal address
+        # TODO: core_postal_list address
+        # TODO: core_postal_list postcode
+        # TODO: core_postal_list city
+        # TODO: core_postal_list country
+        ])
 
     def menuitems(self):
         return ()
@@ -82,7 +93,7 @@ class NaturalPerson(BreadAdmin):
                                 tpl.FIELDSET(
                                     _("Addresses"),
                                     tpl.grid.Grid(
-                                        # TODO Domizil
+                                        # Home Address
                                         tpl.form.FormSetField(
                                             "core_postal_list",
                                             tpl.grid.Row(
@@ -111,7 +122,7 @@ class NaturalPerson(BreadAdmin):
                                             max_num=1,
                                             extra=1,
                                         ),
-                                        # TODO Postfach
+                                        # PO Box
                                         tpl.form.FormSetField(
                                             "core_pobox_list",
                                             tpl.grid.Row(
