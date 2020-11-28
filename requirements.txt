@@ -1,6 +1,6 @@
-git+https://github.com/basxsoftwareassociation/bread
 git+https://github.com/basxsoftwareassociation/excel2django
 git+https://github.com/basxsoftwareassociation/htmlgenerator
+git+https://github.com/basxsoftwareassociation/bread
 django-phonenumber-field
 phonenumbers
 # using a forked version because the public release has a backward incompatability with django 2

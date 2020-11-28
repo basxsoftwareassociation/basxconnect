@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
+from django.views.generic import RedirectView
 
 from bread.admin import protectedMedia, site
 from bread.utils import urlgenerator
@@ -26,6 +27,7 @@ from bread.utils import urlgenerator
 from core import views  # noqa
 
 urlpatterns = [
+    path("", RedirectView.as_view(pattern_name="core:person:browse")),
     path("", site.urls),
     path("admin/", admin.site.urls),
 ]

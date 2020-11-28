@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-23 13:23+0000\n"
+"POT-Creation-Date: 2020-11-28 11:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,27 +42,27 @@ msgstr "Beziehungen"
 msgid "API Keys"
 msgstr "API Keys"
 
-#: core/bread.py:68
+#: core/bread.py:69
 msgid "Base data"
 msgstr "Stammdaten"
 
-#: core/bread.py:84
+#: core/bread.py:85
 msgid "Addresses"
 msgstr "Adressen"
 
-#: core/bread.py:134
+#: core/bread.py:135
 msgid "Personal data"
 msgstr "Person"
 
-#: core/bread.py:157 core/models/utils.py:25
+#: core/bread.py:158 core/models/utils.py:25
 msgid "Categories"
 msgstr "Kategorien"
 
-#: core/bread.py:209 core/models/relationships.py:36
+#: core/bread.py:226 core/models/relationships.py:36
 msgid "Relationship"
 msgstr "Verknüpfungen"
 
-#: core/bread.py:213
+#: core/bread.py:230
 msgid "Duration"
 msgstr "Dauer"
 
@@ -77,7 +77,7 @@ msgstr "z. B. Privat, Geschäftlich"
 
 #: core/models/addresses.py:26 core/models/addresses.py:94
 #: core/models/addresses.py:115 core/models/persons.py:84
-#: core/models/relationships.py:21
+#: core/models/relationships.py:21 core/wizards/add_person.py:156
 msgid "Type"
 msgstr "Typ"
 
@@ -350,20 +350,6 @@ msgstr "Begriff"
 msgid "Terms"
 msgstr "Begriffe"
 
-#: core/templates/core/wizards/add_person.html:23
-#, fuzzy
-#| msgid "First Name"
-msgid "first step"
-msgstr "Vorname"
-
-#: core/templates/core/wizards/add_person.html:24
-msgid "prev step"
-msgstr ""
-
-#: core/templates/core/wizards/add_person.html:26
-msgid "next step"
-msgstr ""
-
 #: core/views.py:72
 msgid "Save"
 msgstr "Speichern"
@@ -389,3 +375,52 @@ msgstr "Adressen"
 #| msgid "API Keys"
 msgid "APK Keys"
 msgstr "API Keys"
+
+#: core/wizards/add_person.py:37
+msgid "Back"
+msgstr "Zurück"
+
+#: core/wizards/add_person.py:48
+msgid "Complete"
+msgstr "Fertigstellen"
+
+#: core/wizards/add_person.py:51
+msgid "Continue"
+msgstr "Weiter"
+
+#: core/wizards/add_person.py:63
+msgid "Check for existing entries"
+msgstr "Auf existierende Einträge prüfen"
+
+#: core/wizards/add_person.py:78
+msgid "Type of person"
+msgstr "Personentyp"
+
+#: core/wizards/add_person.py:95
+msgid "Subtype of person"
+msgstr "Personenart"
+
+#: core/wizards/add_person.py:155
+msgid "Search"
+msgstr "Suche"
+
+#: core/wizards/add_person.py:157
+msgid "Subtype"
+msgstr "Art"
+
+#: core/wizards/add_person.py:158
+#, fuzzy
+#| msgid "General information"
+msgid "Information"
+msgstr "Allgemeine Informationen"
+
+#: core/wizards/add_person.py:159
+#, fuzzy
+#| msgid "Duration"
+msgid "Confirmation"
+msgstr "Dauer"
+
+#, fuzzy
+#~| msgid "First Name"
+#~ msgid "first step"
+#~ msgstr "Vorname"
