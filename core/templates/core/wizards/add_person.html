@@ -2,28 +2,6 @@
 {% load i18n bread_tags %}
 
 {% block content %}
-
-{# JUST PLACEHOLDER #}
-<p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
-<form action="" method="post">{% csrf_token %}
-<table>
-{{ wizard.management_form }}
-{% if wizard.form.forms %}
-    {{ wizard.form.management_form }}
-    {% for form in wizard.form.forms %}
-        {{ form }}
-        {# {% render_layout form.layout %} #}
-    {% endfor %}
-{% else %}
-    {{ wizard.form }}
-    {# {% render_layout wizard.form.layout %} #}
-{% endif %}
-</table>
-{% if wizard.steps.prev %}
-<button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
-<button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
-{% endif %}
-<input type="submit" value="{% translate "next step" %}"/>
-</form>
-
+{% render_layout progress_indicator %}
+{% render_layout wizard.form.layout %}
 {% endblock %}

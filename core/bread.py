@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -46,7 +47,8 @@ class MenuItems(BreadGenericAdmin):
 @register
 class Person(BreadAdmin):
     model = models.Person
-    add_view = AddPersonWizard
+    add_view = lambda a, b: redirect("core:person:add_wizard", step="0")  # noqa
+    add_wizard_view = AddPersonWizard
 
     def menuitems(self):
         return ()
@@ -176,6 +178,22 @@ class NaturalPerson(BreadAdmin):
             plisplate.form.FormField("last_name"),
         )
     )
+
+    def menuitems(self):
+        return ()
+
+
+@register
+class JuristicPerson(BreadAdmin):
+    model = models.JuristicPerson
+
+    def menuitems(self):
+        return ()
+
+
+@register
+class PersonAssociation(BreadAdmin):
+    model = models.PersonAssociation
 
     def menuitems(self):
         return ()
