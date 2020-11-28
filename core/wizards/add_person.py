@@ -204,7 +204,9 @@ class AddPersonWizard(NamedUrlSessionWizardView):
                     form = generate_add_form_for(persontype)(data, files)
                 else:
                     form = generate_add_form_for(persontype)(
-                        data, files, initial=self.get_cleaned_data_for_step("3")
+                        data,
+                        files,
+                        initial=self.get_cleaned_data_for_step("Information"),
                     )
         return form
 

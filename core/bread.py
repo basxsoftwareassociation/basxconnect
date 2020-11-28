@@ -47,7 +47,7 @@ class MenuItems(BreadGenericAdmin):
 @register
 class Person(BreadAdmin):
     model = models.Person
-    add_view = lambda a, b: redirect("core:person:add_wizard", step="0")  # noqa
+    add_view = lambda a, b: redirect("core:person:add_wizard", step="Search")  # noqa
     add_wizard_view = AddPersonWizard
 
     def menuitems(self):
