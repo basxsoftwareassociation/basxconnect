@@ -47,23 +47,8 @@ class MenuItems(BreadGenericAdmin):
 @register
 class Person(BreadAdmin):
     model = models.Person
-<<<<<<< working copy
-    add_view = AddPersonWizard
-    browse_view = views.BrowseView._with(layout=[
-        "id", # Nr. TODO does not work?
-        "deleted", # Status
-        # TODO: Person Type
-        "name",
-        # TODO: which address to display? should be the preferred address. either pobox or postal address
-        # TODO: core_postal_list address
-        # TODO: core_postal_list postcode
-        # TODO: core_postal_list city
-        # TODO: core_postal_list country
-        ])
-=======
     add_view = lambda a, b: redirect("core:person:add_wizard", step="Search")  # noqa
     add_wizard_view = AddPersonWizard
->>>>>>> merge rev
 
     def menuitems(self):
         return ()
