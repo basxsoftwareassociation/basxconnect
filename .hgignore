@@ -6,3 +6,4 @@ local.py
 ^static/
 ^media/
 .mo
+^woosh_index/

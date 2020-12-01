@@ -9,13 +9,6 @@ class Person(models.Model):
     created = models.DateField(_("Created"), editable=False, auto_now_add=True)
     name = models.CharField(_("Name"), max_length=255)
     deleted = models.BooleanField(_("Deleted"), default=False)
-    salutation = models.ForeignKey(
-        Term,
-        on_delete=models.SET_NULL,
-        null=True,
-        limit_choices_to={"category__slug": "salutation"},
-    )
-    salutation.verbose_name = _("Salutation")
     salutation_letter = models.CharField(
         _("Salutation Letter"),
         max_length=255,
@@ -44,6 +37,13 @@ class NaturalPerson(Person):
         limit_choices_to={"category__slug": "title"},
         related_name="title_persons",
     )
+    salutation = models.ForeignKey(
+        Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        limit_choices_to={"category__slug": "salutation"},
+    )
+    salutation.verbose_name = _("Salutation")
     title.verbose_name = _("Title")
     profession = models.CharField(
         _("Profession"),
