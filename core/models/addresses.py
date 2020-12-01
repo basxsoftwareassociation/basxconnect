@@ -1,5 +1,6 @@
 from django.db import models
-from django.utils.html import format_html, linebreaks, mark_safe
+from django.template.defaultfilters import linebreaksbr
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
@@ -150,7 +151,7 @@ class Postal(Address):
         if self.county:
             ret.append(self.county)
         ret.append(self.country.name)
-        return mark_safe(linebreaks("\n".join(ret)))
+        return linebreaksbr("\n".join(ret))
 
     class Meta:
         verbose_name = _("Postal address")
@@ -174,7 +175,7 @@ class POBox(Address):
         if self.county:
             ret.append(self.county)
         ret.append(self.country)
-        return mark_safe(linebreaks("\n".join(ret)))
+        return linebreaksbr("\n".join(ret))
 
     class Meta:
         verbose_name = _("Post office box")

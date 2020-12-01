@@ -1,7 +1,7 @@
 from django import forms
 from django.apps import apps
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from formtools.wizard.views import NamedUrlSessionWizardView
 
@@ -9,7 +9,44 @@ from bread import layout
 from bread.forms.forms import breadmodelform_factory
 from bread.utils import pretty_modelname
 
-from ..models import JuristicPerson, NaturalPerson, Person, PersonAssociation, Term
+from ..models import (
+    JuristicPerson,
+    NaturalPerson,
+    Person,
+    PersonAssociation,
+    Postal,
+    Term,
+)
+
+ADD_FORM_LAYOUTS = {
+    NaturalPerson: layout.BaseElement(
+        layout.grid.Row(
+            layout.grid.Col(layout.form.FormField("first_name")),
+            layout.grid.Col(layout.form.FormField("last_name")),
+        ),
+        layout.grid.Row(
+            layout.grid.Col(layout.form.FormField("salutation")),
+            layout.grid.Col(layout.form.FormField("gender")),
+        ),
+    ),
+    JuristicPerson: layout.DIV(
+        layout.form.FormField("name"), layout.form.FormField("name_addition")
+    ),
+    PersonAssociation: layout.DIV(layout.form.FormField("name")),
+}
+ADD_ADDRESS_LAYOUT = layout.grid.Grid(
+    layout.grid.Row(
+        layout.grid.Col(_("Addresse"), style="font-weight: 700; margin-bottom: 2rem")
+    ),
+    layout.grid.Row(layout.grid.Col(layout.form.FormField("address"))),
+    layout.grid.Row(
+        layout.grid.Col(
+            layout.form.FormField("postcode"),
+        ),
+        layout.grid.Col(layout.form.FormField("city")),
+    ),
+    layout.grid.Row(layout.grid.Col(layout.form.FormField("country"))),
+)
 
 
 def generate_wizard_form(formlayout):
@@ -60,12 +97,36 @@ def generate_wizard_form(formlayout):
 
 class SearchForm(forms.Form):
     name_of_existing_person = forms.CharField(
-        label=_("Check for existing entries"),
+        label=_("Check for existing people before continuing"),
         max_length=255,
         required=False,
     )
 
-    layout = generate_wizard_form(layout.form.FormField("name_of_existing_person"))
+    searchbutton = layout.search.Search(
+        widgetattributes={
+            "placeholder": _("Start typing to search for a person..."),
+            "hx_get": reverse_lazy("core.views.searchperson"),
+            "hx_trigger": "changed, keyup changed delay:100ms",
+            "hx_target": "#search-results",
+            "name": "query",
+        },
+    )
+    # clear search field when search box is emptied
+    searchbutton[3].attributes[
+        "onclick"
+    ] = "this.parentElement.nextElementSibling.innerHTML = ''"
+
+    title = _("Search person")
+    _layout = layout.DIV(
+        layout.DIV(
+            _(
+                "Before a new person can be added it must be confirmed that the person does not exists yet."
+            ),
+            style="margin-bottom: 2rem",
+        ),
+        searchbutton,
+        layout.DIV(id="search-results", style="margin-bottom: 2rem;"),
+    )
 
 
 class ChooseType(forms.Form):
@@ -81,7 +142,14 @@ class ChooseType(forms.Form):
         empty_value=None,
     )
 
-    layout = generate_wizard_form(layout.form.FormField("persontype"))
+    title = _("Choose person main type")
+    _layout = layout.BaseElement(
+        layout.DIV(
+            _("Please choose what type of person you want to add:"),
+            style="margin-bottom: 2rem",
+        ),
+        layout.form.FormField("persontype"),
+    )
 
 
 class ChooseSubType(forms.Form):
@@ -105,41 +173,44 @@ class ChooseSubType(forms.Form):
                 category__slug=subtype_category
             )
 
-    layout = generate_wizard_form(layout.form.FormField("subtype"))
+    title = _("Choose person type")
+    _layout = layout.form.FormField("subtype")
 
 
 class AddPersonInformation(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    layout = generate_wizard_form(layout.DIV("Please select a person type first"))
+    title = _("Add person")
+    _layout = layout.DIV("Please select a person type first")
 
 
 class ConfirmNewPerson(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    layout = generate_wizard_form(layout.DIV("Please select a person type first"))
+    title = _("Finish")
+    _layout = layout.DIV("Please select a person type first")
 
 
-def generate_add_form_for(model):
-    ADD_LAYOUTS = {
-        NaturalPerson: layout.DIV(
-            layout.form.FormField("first_name"), layout.form.FormField("last_name")
-        ),
-        JuristicPerson: layout.DIV(
-            layout.form.FormField("name"), layout.form.FormField("name_addition")
-        ),
-        PersonAssociation: layout.DIV(layout.form.FormField("name")),
-    }
-
+def generate_add_form_for(model, request, data, files, initial=None):
     form = breadmodelform_factory(
-        request=None, model=model, layout=ADD_LAYOUTS.get(model, layout.DIV())
+        request=request, model=model, layout=ADD_FORM_LAYOUTS[model]
+    )(data, files, initial=initial)
+    for fieldname, field in breadmodelform_factory(
+        request, Postal, ADD_ADDRESS_LAYOUT
+    )().fields.items():
+        form.fields[fieldname] = field
+
+    formlayout = layout.BaseElement(
+        layout.grid.Grid(ADD_FORM_LAYOUTS[model].copy(), style="margin-bottom: 2rem"),
+        ADD_ADDRESS_LAYOUT.copy(),
     )
-    form.layout = generate_wizard_form(ADD_LAYOUTS.get(model, layout.DIV()))
+    form._layout = formlayout
     return form
 
 
+# The WizardView contains mostly control-flow logic and some configuration
 class AddPersonWizard(NamedUrlSessionWizardView):
     kwargs = {"url_name": "core:person:add_wizard", "urlparams": {"step": "str"}}
     urlparams = None
@@ -179,9 +250,14 @@ class AddPersonWizard(NamedUrlSessionWizardView):
                 status = "current"
             steps.append((_(step), status))
 
-        context["progress_indicator"] = layout.progress_indicator.ProgressIndicator(
-            steps,
-            style="margin-bottom: 2rem",
+        context["layout"] = layout.BaseElement(
+            layout.H1(_("Add new person"), style="margin-bottom: 2rem"),
+            layout.H2(self.get_form().title, style="margin-bottom: 2rem"),
+            layout.progress_indicator.ProgressIndicator(
+                steps,
+                style="margin-bottom: 2rem",
+            ),
+            generate_wizard_form(self.get_form()._layout),
         )
         return context
 
@@ -201,19 +277,51 @@ class AddPersonWizard(NamedUrlSessionWizardView):
             persontype = self.get_person_type()
             if persontype:
                 if step == "Information":
-                    form = generate_add_form_for(persontype)(data, files)
-                else:
-                    form = generate_add_form_for(persontype)(
+                    form = generate_add_form_for(
+                        persontype,
+                        self.request,
                         data,
                         files,
-                        initial=self.get_cleaned_data_for_step("Information"),
                     )
+                else:
+                    form = generate_add_form_for(
+                        persontype,
+                        self.request,
+                        data,
+                        files,
+                        self.get_cleaned_data_for_step("Information"),
+                    )
+                    form._layout.insert(
+                        0,
+                        layout.notification.InlineNotification(
+                            "",
+                            _("Review and confirm the entered information"),
+                            lowcontrast=True,
+                            hideclosebutton=True,
+                        ),
+                    )
+                    for fieldname in form.fields:
+                        form.fields[fieldname].disabled = True
+                        form.fields[fieldname].widget.attrs["style"] = "color: #000"
+                form.title = _("Add %s") % pretty_modelname(persontype)
         return form
 
     def done(self, form_list, **kwargs):
         # in case the new person had a subtype set, we need to set the attribute here
         subtype = (self.get_cleaned_data_for_step("Subtype") or {}).get("subtype")
         if subtype:
-            newperson = list(form_list)[-1].instance.type = subtype
+            list(form_list)[-1].instance.type = subtype
         newperson = list(form_list)[-1].save()
-        return redirect(f"core:{newperson._meta.model_name}:edit", pk=newperson.pk)
+        newperson.core_postal_list.create(
+            **{
+                k: v
+                for k, v in list(form_list)[-1].cleaned_data.items()
+                if k in ("address", "city", "postcode", "country")
+            }
+        )
+        return redirect(
+            reverse(
+                f"core:{newperson._meta.model_name}:edit", kwargs={"pk": newperson.pk}
+            )
+            + "?next=/"
+        )

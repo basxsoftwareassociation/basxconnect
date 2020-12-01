@@ -1,7 +1,6 @@
 {% extends "bread/base.html" %}
-{% load i18n bread_tags %}
+{% load bread_tags %}
 
 {% block content %}
-{% render_layout progress_indicator %}
-{% render_layout wizard.form.layout %}
+{% render_layout layout %}
 {% endblock %}

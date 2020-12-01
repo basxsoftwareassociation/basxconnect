@@ -1,13 +1,16 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
+from haystack.query import SearchQuerySet
 
 import htmlgenerator as hg
 from bread import layout
 from bread.forms.forms import generate_form
 from bread.utils.urlgenerator import registerurl
 
-from .models import Category, JuristicPerson, Term
+from .models import Category, JuristicPerson, NaturalPerson, PersonAssociation, Term
 
 
 def single_item_fieldset(related_field, fieldname, queryset=None):
@@ -97,8 +100,11 @@ def appearancesettings(request):
 def personssettings(request):
     from bread.admin import site
 
+    dist = hg.DIV(style="margin-bottom: 2rem")
+
     pagelayout = hg.BaseElement(
         hg.H2(_("Persons")),
+        dist,
         # address type
         layout.datatable.DataTable.from_queryset(
             Term.objects.filter(category__slug="addresstype"),
@@ -112,6 +118,7 @@ def personssettings(request):
                 },
             ),
         ),
+        dist,
         # address origin
         layout.datatable.DataTable.from_queryset(
             Term.objects.filter(category__slug="addressorigin"),
@@ -125,6 +132,7 @@ def personssettings(request):
                 },
             ),
         ),
+        dist,
         # salutation
         layout.datatable.DataTable.from_queryset(
             Term.objects.filter(category__slug="salutation"),
@@ -138,6 +146,7 @@ def personssettings(request):
                 },
             ),
         ),
+        dist,
     )
     return render(request, "bread/layout.html", {"layout": pagelayout})
 
@@ -152,3 +161,34 @@ def relationshipssettings(request):
 def apikeyssettings(request):
     pagelayout = hg.BaseElement(hg.H2(_("APK Keys")))
     return render(request, "bread/layout.html", {"layout": pagelayout})
+
+
+@registerurl
+def searchperson(request):
+    query = request.GET.get("query")
+    if not query:
+        return HttpResponse("")
+
+    qs = (
+        SearchQuerySet()
+        .models(NaturalPerson, JuristicPerson, PersonAssociation)
+        .autocomplete(name_auto=query)
+    )
+    items = [
+        hg.LI(
+            result.object,
+            hg.DIV(
+                mark_safe(result.object.core_postal_list.first() or _("No address")),
+                style="font-size: small; margin-bottom: 1rem;",
+            ),
+        )
+        for result in qs
+    ]
+
+    return HttpResponse(
+        hg.UL(
+            *(items or [hg.LI(_("No results"))]),
+            _class="bx--tile",
+            style="margin-bottom: 2rem;"
+        ).render({})
+    )
