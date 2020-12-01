@@ -100,8 +100,11 @@ def appearancesettings(request):
 def personssettings(request):
     from bread.admin import site
 
+    dist = hg.DIV(style="margin-bottom: 2rem")
+
     pagelayout = hg.BaseElement(
         hg.H2(_("Persons")),
+        dist,
         # address type
         layout.datatable.DataTable.from_queryset(
             Term.objects.filter(category__slug="addresstype"),
@@ -115,6 +118,7 @@ def personssettings(request):
                 },
             ),
         ),
+        dist,
         # address origin
         layout.datatable.DataTable.from_queryset(
             Term.objects.filter(category__slug="addressorigin"),
@@ -128,6 +132,7 @@ def personssettings(request):
                 },
             ),
         ),
+        dist,
         # salutation
         layout.datatable.DataTable.from_queryset(
             Term.objects.filter(category__slug="salutation"),
@@ -141,6 +146,7 @@ def personssettings(request):
                 },
             ),
         ),
+        dist,
     )
     return render(request, "bread/layout.html", {"layout": pagelayout})
 

@@ -368,7 +368,7 @@ msgstr "Adressen"
 #, fuzzy
 #| msgid "Addresses"
 msgid "Address origins"
-msgstr "Adressen"
+msgstr "Adressherkünfte"
 
 #: core/views.py:156
 #, fuzzy
