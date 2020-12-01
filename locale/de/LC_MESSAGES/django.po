@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-28 11:13+0000\n"
+"POT-Creation-Date: 2020-12-01 08:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,20 +21,20 @@ msgstr ""
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: core/bread.py:19 core/bread.py:21 core/bread.py:31 core/models/persons.py:33
-#: core/views.py:101
+#: core/bread.py:19 core/bread.py:21 core/bread.py:31 core/models/persons.py:26
+#: core/views.py:104
 msgid "Persons"
 msgstr "Personen"
 
-#: core/bread.py:23 core/views.py:82
+#: core/bread.py:23 core/views.py:85
 msgid "General"
 msgstr "Allgemein"
 
-#: core/bread.py:27 core/views.py:92
+#: core/bread.py:27 core/views.py:95
 msgid "Appearance"
 msgstr "Darstellung"
 
-#: core/bread.py:36 core/models/relationships.py:37 core/views.py:147
+#: core/bread.py:36 core/models/relationships.py:37 core/views.py:150
 msgid "Relationships"
 msgstr "Beziehungen"
 
@@ -66,147 +66,147 @@ msgstr "Verknüpfungen"
 msgid "Duration"
 msgstr "Dauer"
 
-#: core/models/addresses.py:17 core/models/persons.py:32
+#: core/models/addresses.py:18 core/models/persons.py:25
 msgid "Person"
 msgstr "Person"
 
-#: core/models/addresses.py:24 core/models/addresses.py:92
-#: core/models/addresses.py:113
+#: core/models/addresses.py:25 core/models/addresses.py:93
+#: core/models/addresses.py:114
 msgid "eg. Private, Business"
 msgstr "z. B. Privat, Geschäftlich"
 
-#: core/models/addresses.py:26 core/models/addresses.py:94
-#: core/models/addresses.py:115 core/models/persons.py:84
-#: core/models/relationships.py:21 core/wizards/add_person.py:156
+#: core/models/addresses.py:27 core/models/addresses.py:95
+#: core/models/addresses.py:116 core/models/persons.py:84
+#: core/models/relationships.py:21 core/wizards/add_person.py:227
 msgid "Type"
 msgstr "Typ"
 
-#: core/models/addresses.py:34
+#: core/models/addresses.py:35
 msgid "eg. active, moved, inactive"
 msgstr "z. B. Aktiv, Weggezogen, Inaktiv"
 
-#: core/models/addresses.py:36
+#: core/models/addresses.py:37
 msgid "Status"
 msgstr "Status"
 
-#: core/models/addresses.py:48
+#: core/models/addresses.py:49
 msgid "Email"
 msgstr "E-Mail"
 
-#: core/models/addresses.py:54
+#: core/models/addresses.py:55
 msgid "Email address"
 msgstr "E-Mail Adresse"
 
-#: core/models/addresses.py:55
+#: core/models/addresses.py:56
 msgid "Email addresses"
 msgstr "E-Mail Adressen"
 
-#: core/models/addresses.py:59
+#: core/models/addresses.py:60
 msgid "Url"
 msgstr "Webadresse"
 
-#: core/models/addresses.py:65
+#: core/models/addresses.py:66
 #, fuzzy
 #| msgid "Email address"
 msgid "Web address"
 msgstr "E-Mail Adresse"
 
-#: core/models/addresses.py:66
+#: core/models/addresses.py:67
 #, fuzzy
 #| msgid "Addresses"
 msgid "Web addresses"
 msgstr "Adressen"
 
-#: core/models/addresses.py:71
+#: core/models/addresses.py:72
 msgid "Name for phone type"
 msgstr "Nummernart"
 
-#: core/models/addresses.py:73
+#: core/models/addresses.py:74
 msgid "eg. landline, mobile, fax, direct dial"
 msgstr "z. B. Festnetz, Mobile, Direkt"
 
-#: core/models/addresses.py:81
+#: core/models/addresses.py:82
 msgid "Phone type"
 msgstr "Telefontype"
 
-#: core/models/addresses.py:82
+#: core/models/addresses.py:83
 msgid "Phone types"
 msgstr "Telefontypen"
 
-#: core/models/addresses.py:86 core/models/addresses.py:107
+#: core/models/addresses.py:87 core/models/addresses.py:108
 msgid "Number"
 msgstr "Nummer"
 
-#: core/models/addresses.py:102
+#: core/models/addresses.py:103
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: core/models/addresses.py:103
+#: core/models/addresses.py:104
 msgid "Phone numbers"
 msgstr "Telefonnummern"
 
-#: core/models/addresses.py:123
+#: core/models/addresses.py:124
 #, fuzzy
 #| msgid "Phone number"
 msgid "Fax number"
 msgstr "Telefonnummer"
 
-#: core/models/addresses.py:124
+#: core/models/addresses.py:125
 #, fuzzy
 #| msgid "Phone numbers"
 msgid "Fax numbers"
 msgstr "Telefonnummern"
 
-#: core/models/addresses.py:128
+#: core/models/addresses.py:129
 msgid "Name of county or state"
 msgstr "Name des Kantons"
 
-#: core/models/addresses.py:129
+#: core/models/addresses.py:130
 msgid "Abbreviation"
 msgstr "Abkürzung"
 
-#: core/models/addresses.py:130 core/models/addresses.py:134
-#: core/models/addresses.py:161
+#: core/models/addresses.py:131 core/models/addresses.py:135
+#: core/models/addresses.py:162
 msgid "Country"
 msgstr "Land"
 
-#: core/models/addresses.py:136 core/models/addresses.py:163
+#: core/models/addresses.py:137 core/models/addresses.py:164
 msgid "County"
 msgstr "Kanton"
 
-#: core/models/addresses.py:137
+#: core/models/addresses.py:138
 msgid "Address"
 msgstr "Adresse"
 
-#: core/models/addresses.py:138
+#: core/models/addresses.py:139
 msgid "Supplemental Address"
 msgstr "Addresszusatz"
 
-#: core/models/addresses.py:139 core/models/addresses.py:165
+#: core/models/addresses.py:140 core/models/addresses.py:166
 msgid "Post Code"
 msgstr "Postleitzahl"
 
-#: core/models/addresses.py:140 core/models/addresses.py:166
+#: core/models/addresses.py:141 core/models/addresses.py:167
 msgid "City"
 msgstr "Ort"
 
-#: core/models/addresses.py:156
+#: core/models/addresses.py:157
 msgid "Postal address"
 msgstr "Anschrift"
 
-#: core/models/addresses.py:157
+#: core/models/addresses.py:158
 msgid "Postal addresses"
 msgstr "Anschriften"
 
-#: core/models/addresses.py:164
+#: core/models/addresses.py:165
 msgid "POBox"
 msgstr "Postfach"
 
-#: core/models/addresses.py:180
+#: core/models/addresses.py:181
 msgid "Post office box"
 msgstr "Postfach"
 
-#: core/models/addresses.py:181
+#: core/models/addresses.py:182
 msgid "Post office boxes"
 msgstr "Postfächer"
 
@@ -222,33 +222,33 @@ msgstr "Name"
 msgid "Deleted"
 msgstr "Gelöscht"
 
-#: core/models/persons.py:18 core/views.py:132
-msgid "Salutation"
-msgstr "Anrede"
-
-#: core/models/persons.py:20
+#: core/models/persons.py:13
 msgid "Salutation Letter"
 msgstr "Anrede Schriftlich"
 
-#: core/models/persons.py:23
+#: core/models/persons.py:16
 msgid "e.g. Dear Mr. Smith, Hi Bob"
 msgstr "z. B. Sehr geehrter Herr Meier, Hallo Ruth"
 
-#: core/models/persons.py:25
+#: core/models/persons.py:18
 msgid "Prefered Language"
 msgstr "Bevorzugte Sprache"
 
-#: core/models/persons.py:37
+#: core/models/persons.py:30
 msgid "First Name"
 msgstr "Vorname"
 
-#: core/models/persons.py:38
+#: core/models/persons.py:31
 msgid "Middle Name"
 msgstr "Mittelname(n)"
 
-#: core/models/persons.py:39
+#: core/models/persons.py:32
 msgid "Last Name"
 msgstr "Nachname"
+
+#: core/models/persons.py:46 core/views.py:135
+msgid "Salutation"
+msgstr "Anrede"
 
 #: core/models/persons.py:47
 msgid "Title"
@@ -350,75 +350,144 @@ msgstr "Begriff"
 msgid "Terms"
 msgstr "Begriffe"
 
-#: core/views.py:72
+#: core/views.py:75
 msgid "Save"
 msgstr "Speichern"
 
-#: core/views.py:83
+#: core/views.py:86
 msgid "General information"
 msgstr "Allgemeine Informationen"
 
-#: core/views.py:106
+#: core/views.py:109
 #, fuzzy
 #| msgid "Addresses"
 msgid "Address types"
 msgstr "Adressen"
 
-#: core/views.py:119
+#: core/views.py:122
 #, fuzzy
 #| msgid "Addresses"
 msgid "Address origins"
 msgstr "Adressen"
 
-#: core/views.py:153
+#: core/views.py:156
 #, fuzzy
 #| msgid "API Keys"
 msgid "APK Keys"
 msgstr "API Keys"
 
-#: core/wizards/add_person.py:37
+#: core/views.py:175
+#, fuzzy
+#| msgid "Email address"
+msgid "No address"
+msgstr "E-Mail Adresse"
+
+#: core/views.py:184
+msgid "No results"
+msgstr "Keine Ergebnisse gefunden"
+
+#: core/wizards/add_person.py:39
+#, fuzzy
+#| msgid "Addresses"
+msgid "Addresse"
+msgstr "Adressen"
+
+#: core/wizards/add_person.py:74
 msgid "Back"
 msgstr "Zurück"
 
-#: core/wizards/add_person.py:48
+#: core/wizards/add_person.py:85
 msgid "Complete"
 msgstr "Fertigstellen"
 
-#: core/wizards/add_person.py:51
+#: core/wizards/add_person.py:88
 msgid "Continue"
 msgstr "Weiter"
 
-#: core/wizards/add_person.py:63
-msgid "Check for existing entries"
+#: core/wizards/add_person.py:100
+#, fuzzy
+#| msgid "Check for existing entries"
+msgid "Check for existing people before continuing"
 msgstr "Auf existierende Einträge prüfen"
 
-#: core/wizards/add_person.py:78
+#: core/wizards/add_person.py:107
+msgid "Start typing to search for a person..."
+msgstr "Tippen um nach Personen zu suchen..."
+
+#: core/wizards/add_person.py:119
+#, fuzzy
+#| msgid "Search"
+msgid "Search person"
+msgstr "Suche"
+
+#: core/wizards/add_person.py:123
+msgid ""
+"Before a new person can be added it must be confirmed that the person does "
+"not exists yet."
+msgstr "Bevor eine neue Person hinzugefügt wird muss überprüft werden, ob die Person nicht bereits existiert"
+
+#: core/wizards/add_person.py:139
 msgid "Type of person"
 msgstr "Personentyp"
 
-#: core/wizards/add_person.py:95
-msgid "Subtype of person"
-msgstr "Personenart"
+#: core/wizards/add_person.py:145
+msgid "Choose person main type"
+msgstr "Hauptyp auswählen"
 
-#: core/wizards/add_person.py:155
+#: core/wizards/add_person.py:148
+msgid "Please choose what type of person you want to add:"
+msgstr "Bitte den Personentyp wählen"
+
+#: core/wizards/add_person.py:163
+msgid "Subtype of person"
+msgstr "Art der Person"
+
+#: core/wizards/add_person.py:176
+msgid "Choose person type"
+msgstr "Bitte den Personentyp wählen"
+
+#: core/wizards/add_person.py:184
+#, fuzzy
+#| msgid "Person"
+msgid "Add person"
+msgstr "Person hinzufügen"
+
+#: core/wizards/add_person.py:192
+msgid "Finish"
+msgstr "Beenden"
+
+#: core/wizards/add_person.py:226
 msgid "Search"
 msgstr "Suche"
 
-#: core/wizards/add_person.py:157
+#: core/wizards/add_person.py:228
 msgid "Subtype"
 msgstr "Art"
 
-#: core/wizards/add_person.py:158
+#: core/wizards/add_person.py:229
 #, fuzzy
 #| msgid "General information"
 msgid "Information"
 msgstr "Allgemeine Informationen"
 
-#: core/wizards/add_person.py:159
+#: core/wizards/add_person.py:230
 #, fuzzy
 #| msgid "Duration"
 msgid "Confirmation"
 msgstr "Dauer"
+
+#: core/wizards/add_person.py:254
+msgid "Add new person"
+msgstr "Neue Person hinzufügen"
+
+#: core/wizards/add_person.py:298
+msgid "Review and confirm the entered information"
+msgstr "Überprüfen und bestätigen Sie die Eingetragenen Informationen"
+
+#: core/wizards/add_person.py:306
+#, python-format
+msgid "Add %s"
+msgstr "%s hinzufügen"
 
 #, fuzzy
 #~| msgid "First Name"
