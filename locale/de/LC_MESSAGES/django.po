@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-01 08:38+0000\n"
+"POT-Creation-Date: 2020-12-03 15:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgid "Settings"
 msgstr "Einstellungen"
 
 #: core/bread.py:19 core/bread.py:21 core/bread.py:31 core/models/persons.py:26
-#: core/views.py:104
+#: core/views.py:106
 msgid "Persons"
 msgstr "Personen"
 
@@ -34,7 +34,7 @@ msgstr "Allgemein"
 msgid "Appearance"
 msgstr "Darstellung"
 
-#: core/bread.py:36 core/models/relationships.py:37 core/views.py:150
+#: core/bread.py:36 core/models/relationships.py:37 core/views.py:156
 msgid "Relationships"
 msgstr "Beziehungen"
 
@@ -50,19 +50,19 @@ msgstr "Stammdaten"
 msgid "Addresses"
 msgstr "Adressen"
 
-#: core/bread.py:135
+#: core/bread.py:140
 msgid "Personal data"
 msgstr "Person"
 
-#: core/bread.py:158 core/models/utils.py:25
+#: core/bread.py:163 core/models/utils.py:25
 msgid "Categories"
 msgstr "Kategorien"
 
-#: core/bread.py:226 core/models/relationships.py:36
+#: core/bread.py:231 core/models/relationships.py:36
 msgid "Relationship"
 msgstr "Verknüpfungen"
 
-#: core/bread.py:230
+#: core/bread.py:235
 msgid "Duration"
 msgstr "Dauer"
 
@@ -174,7 +174,7 @@ msgstr "Land"
 msgid "County"
 msgstr "Kanton"
 
-#: core/models/addresses.py:138
+#: core/models/addresses.py:138 core/wizards/add_person.py:39
 msgid "Address"
 msgstr "Adresse"
 
@@ -246,7 +246,7 @@ msgstr "Mittelname(n)"
 msgid "Last Name"
 msgstr "Nachname"
 
-#: core/models/persons.py:46 core/views.py:135
+#: core/models/persons.py:46 core/views.py:140
 msgid "Salutation"
 msgstr "Anrede"
 
@@ -358,39 +358,33 @@ msgstr "Speichern"
 msgid "General information"
 msgstr "Allgemeine Informationen"
 
-#: core/views.py:109
+#: core/views.py:112
 #, fuzzy
 #| msgid "Addresses"
 msgid "Address types"
 msgstr "Adressen"
 
-#: core/views.py:122
+#: core/views.py:126
 #, fuzzy
 #| msgid "Addresses"
 msgid "Address origins"
 msgstr "Adressherkünfte"
 
-#: core/views.py:156
+#: core/views.py:162
 #, fuzzy
 #| msgid "API Keys"
 msgid "APK Keys"
 msgstr "API Keys"
 
-#: core/views.py:175
+#: core/views.py:181
 #, fuzzy
 #| msgid "Email address"
 msgid "No address"
 msgstr "E-Mail Adresse"
 
-#: core/views.py:184
+#: core/views.py:190
 msgid "No results"
 msgstr "Keine Ergebnisse gefunden"
-
-#: core/wizards/add_person.py:39
-#, fuzzy
-#| msgid "Addresses"
-msgid "Addresse"
-msgstr "Adressen"
 
 #: core/wizards/add_person.py:74
 msgid "Back"
@@ -415,8 +409,6 @@ msgid "Start typing to search for a person..."
 msgstr "Tippen um nach Personen zu suchen..."
 
 #: core/wizards/add_person.py:119
-#, fuzzy
-#| msgid "Search"
 msgid "Search person"
 msgstr "Suche"
 
@@ -424,7 +416,9 @@ msgstr "Suche"
 msgid ""
 "Before a new person can be added it must be confirmed that the person does "
 "not exists yet."
-msgstr "Bevor eine neue Person hinzugefügt wird muss überprüft werden, ob die Person nicht bereits existiert"
+msgstr ""
+"Bevor eine neue Person hinzugefügt wird muss überprüft werden, ob die Person "
+"nicht bereits existiert"
 
 #: core/wizards/add_person.py:139
 msgid "Type of person"
@@ -465,16 +459,12 @@ msgid "Subtype"
 msgstr "Art"
 
 #: core/wizards/add_person.py:229
-#, fuzzy
-#| msgid "General information"
 msgid "Information"
-msgstr "Allgemeine Informationen"
+msgstr "Informationen"
 
 #: core/wizards/add_person.py:230
-#, fuzzy
-#| msgid "Duration"
 msgid "Confirmation"
-msgstr "Dauer"
+msgstr "Bestätigung"
 
 #: core/wizards/add_person.py:254
 msgid "Add new person"
@@ -482,14 +472,9 @@ msgstr "Neue Person hinzufügen"
 
 #: core/wizards/add_person.py:298
 msgid "Review and confirm the entered information"
-msgstr "Überprüfen und bestätigen Sie die Eingetragenen Informationen"
+msgstr "Überprüfen und bestätigen Sie die eingetragenen Informationen"
 
 #: core/wizards/add_person.py:306
 #, python-format
 msgid "Add %s"
 msgstr "%s hinzufügen"
-
-#, fuzzy
-#~| msgid "First Name"
-#~ msgid "first step"
-#~ msgstr "Vorname"

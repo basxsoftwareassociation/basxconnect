@@ -36,7 +36,7 @@ ADD_FORM_LAYOUTS = {
 }
 ADD_ADDRESS_LAYOUT = layout.grid.Grid(
     layout.grid.Row(
-        layout.grid.Col(_("Addresse"), style="font-weight: 700; margin-bottom: 2rem")
+        layout.grid.Col(_("Address"), style="font-weight: 700; margin-bottom: 2rem")
     ),
     layout.grid.Row(layout.grid.Col(layout.form.FormField("address"))),
     layout.grid.Row(
