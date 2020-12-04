@@ -47,6 +47,19 @@ class MenuItems(BreadGenericAdmin):
 @register
 class Person(BreadAdmin):
     model = models.Person
+    # nr, status, person typ, name, str, plz, place, country
+    browse_view = views.BrowseView._with(
+        layout=[
+            "number",
+            "status",
+            "type",
+            "name",
+            "street",
+            "postalcode",
+            "city",
+            "country",
+        ]
+    )
     add_view = lambda a, b: redirect("core:person:add_wizard", step="Search")  # noqa
     add_wizard_view = AddPersonWizard
 
