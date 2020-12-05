@@ -10,7 +10,14 @@ from bread import layout
 from bread.forms.forms import generate_form
 from bread.utils.urlgenerator import registerurl
 
-from .models import Category, JuristicPerson, NaturalPerson, PersonAssociation, Term
+from .models import (
+    Category,
+    JuristicPerson,
+    NaturalPerson,
+    PersonAssociation,
+    RelationshipType,
+    Term,
+)
 
 
 def single_item_fieldset(related_field, fieldname, queryset=None):
@@ -104,7 +111,6 @@ def personssettings(request):
 
     pagelayout = hg.BaseElement(
         hg.H2(_("Persons")),
-        dist,
         # address type
         layout.datatable.DataTable.from_queryset(
             Term.objects.filter(category__slug="addresstype"),
@@ -153,7 +159,17 @@ def personssettings(request):
 
 @registerurl
 def relationshipssettings(request):
-    pagelayout = hg.BaseElement(hg.H2(_("Relationships")))
+    from bread.admin import site
+
+    pagelayout = hg.BaseElement(
+        hg.H2(_("Relationships")),
+        # relationship type
+        layout.datatable.DataTable.from_queryset(
+            RelationshipType.objects.all(),
+            fields=["name"],
+            addurl=site.get_default_admin(RelationshipType).reverse("add"),
+        ),
+    )
     return render(request, "bread/layout.html", {"layout": pagelayout})
 
 
