@@ -135,7 +135,9 @@ class Postal(Address):
     country = CountryField(_("Country"))
     county = models.ForeignKey(County, null=True, on_delete=models.SET_NULL)
     county.verbose_name = _("County")
-    address = models.CharField(_("Address"), max_length=255)
+    address = models.CharField(
+        _("Address"), max_length=255, help_text=_("Street and House Number")
+    )
     supplemental_address = models.TextField(_("Supplemental Address"), blank=True)
     postcode = models.CharField(_("Post Code"), max_length=16, blank=True)
     city = models.CharField(_("City"), max_length=255)
