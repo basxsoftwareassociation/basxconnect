@@ -9,7 +9,9 @@ from .utils import Term
 
 class Person(models.Model):
     created = models.DateField(_("Created"), editable=False, auto_now_add=True)
-    name = models.CharField(_("Name"), max_length=255)
+    name = models.CharField(
+        _("Name"), max_length=255, help_text=_("Name to be displayed")
+    )
     deleted = models.BooleanField(_("Deleted"), default=False)
     salutation_letter = models.CharField(
         _("Salutation Letter"),
