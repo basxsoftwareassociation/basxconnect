@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-05 06:47+0000\n"
+"POT-Creation-Date: 2020-12-05 14:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,25 +22,17 @@ msgid "Settings"
 msgstr "Einstellungen"
 
 #: core/bread.py:19 core/bread.py:21 core/bread.py:31 core/models/persons.py:65
-#: core/views.py:106
+#: core/views.py:113
 msgid "Persons"
 msgstr "Personen"
 
-#: core/bread.py:23 core/views.py:85
+#: core/bread.py:23 core/dynamic_preferences_registry.py:7 core/views.py:92
 msgid "General"
 msgstr "Allgemein"
 
-#: core/bread.py:27 core/views.py:95
-msgid "Appearance"
-msgstr "Darstellung"
-
-#: core/bread.py:36 core/models/relationships.py:37 core/views.py:156
+#: core/bread.py:36 core/models/relationships.py:37 core/views.py:165
 msgid "Relationships"
 msgstr "Beziehungen"
-
-#: core/bread.py:41
-msgid "API Keys"
-msgstr "API Keys"
 
 #: core/bread.py:82
 msgid "Base data"
@@ -73,6 +65,14 @@ msgstr "Verknüpfungen"
 #: core/bread.py:265
 msgid "Duration"
 msgstr "Dauer"
+
+#: core/dynamic_preferences_registry.py:15
+msgid "Sender letterhead"
+msgstr "Absender Briefkopf"
+
+#: core/dynamic_preferences_registry.py:24
+msgid "Logo"
+msgstr "Logo"
 
 #: core/models/addresses.py:18 core/models/persons.py:64
 msgid "Person"
@@ -269,7 +269,7 @@ msgstr "Mittelname(n)"
 msgid "Last Name"
 msgstr "Nachname"
 
-#: core/models/persons.py:85 core/views.py:140
+#: core/models/persons.py:85 core/views.py:146
 msgid "Salutation"
 msgstr "Anrede"
 
@@ -373,31 +373,35 @@ msgstr "Begriff"
 msgid "Terms"
 msgstr "Begriffe"
 
-#: core/views.py:75
+#: core/views.py:82
 msgid "Save"
 msgstr "Speichern"
 
-#: core/views.py:86
+#: core/views.py:93
 msgid "General information"
 msgstr "Allgemeine Informationen"
 
-#: core/views.py:112
+#: core/views.py:102
+msgid "Appearance"
+msgstr "Darstellung"
+
+#: core/views.py:118
 msgid "Address types"
 msgstr "Adressarten"
 
-#: core/views.py:126
+#: core/views.py:132
 msgid "Address origins"
 msgstr "Adressherkünfte"
 
-#: core/views.py:162
+#: core/views.py:178
 msgid "APK Keys"
 msgstr "APK Schlüssel"
 
-#: core/views.py:181
+#: core/views.py:197
 msgid "No address"
 msgstr "Keine Adresse"
 
-#: core/views.py:190
+#: core/views.py:206
 msgid "No results"
 msgstr "Keine Ergebnisse gefunden"
 
@@ -489,3 +493,6 @@ msgstr "Überprüfen und bestätigen Sie die eingetragenen Informationen"
 #, python-format
 msgid "Add %s"
 msgstr "%s hinzufügen"
+
+#~ msgid "API Keys"
+#~ msgstr "API Keys"
