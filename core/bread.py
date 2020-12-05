@@ -23,10 +23,10 @@ class MenuItems(BreadGenericAdmin):
                 menu.Link(reverse("core.views.generalsettings"), _("General")),
                 settingsgroup,
             ),
-            menu.Item(
-                menu.Link(reverse("core.views.appearancesettings"), _("Appearance")),
-                settingsgroup,
-            ),
+            # menu.Item(
+            # menu.Link(reverse("core.views.appearancesettings"), _("Appearance")),
+            # settingsgroup,
+            # ),
             menu.Item(
                 menu.Link(reverse("core.views.personssettings"), _("Persons")),
                 settingsgroup,
@@ -37,10 +37,10 @@ class MenuItems(BreadGenericAdmin):
                 ),
                 settingsgroup,
             ),
-            menu.Item(
-                menu.Link(reverse("core.views.apikeyssettings"), _("API Keys")),
-                settingsgroup,
-            ),
+            # menu.Item(
+            # menu.Link(reverse("core.views.apikeyssettings"), _("API Keys")),
+            # settingsgroup,
+            # ),
         ]
 
 
