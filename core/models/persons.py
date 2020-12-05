@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from languages.fields import LanguageField
 
+from bread.utils import get_concrete_instance, pretty_modelname
+
 from .utils import Term
 
 
@@ -19,6 +21,41 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+
+    def number(self):
+        return self.id
+
+    number.verbose_name = _("Number")
+
+    def type(self):
+        return pretty_modelname(get_concrete_instance(self))
+
+    type.verbose_name = _("Type")
+
+    def status(self):
+        return _("Inactive") if self.deleted else _("Active")
+
+    status.verbose_name = _("Status")
+
+    def street(self):
+        return getattr(self.core_postal_list.first(), "address", "")
+
+    street.verbose_name = _("Street")
+
+    def postalcode(self):
+        return getattr(self.core_postal_list.first(), "postcode", "")
+
+    postalcode.verbose_name = _("Postal code")
+
+    def city(self):
+        return getattr(self.core_postal_list.first(), "city", "")
+
+    city.verbose_name = _("City")
+
+    def country(self):
+        return getattr(self.core_postal_list.first(), "country", "")
+
+    country.verbose_name = _("Country")
 
     class Meta:
         ordering = ["name"]

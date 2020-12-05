@@ -47,6 +47,19 @@ class MenuItems(BreadGenericAdmin):
 @register
 class Person(BreadAdmin):
     model = models.Person
+    # nr, status, person typ, name, str, plz, place, country
+    browse_view = views.BrowseView._with(
+        layout=[
+            "number",
+            "status",
+            "type",
+            "name",
+            "street",
+            "postalcode",
+            "city",
+            "country",
+        ]
+    )
     add_view = lambda a, b: redirect("core:person:add_wizard", step="Search")  # noqa
     add_wizard_view = AddPersonWizard
 
@@ -87,9 +100,7 @@ class NaturalPerson(BreadAdmin):
                                         # Home Address
                                         tpl.form.FormSetField(
                                             "core_postal_list",
-                                            tpl.grid.Row(
-                                                tpl.grid.Col("Home")
-                                            ),
+                                            tpl.grid.Row(tpl.grid.Col("Home")),
                                             tpl.grid.Row(
                                                 tpl.grid.Col(
                                                     tpl.form.FormField("address")
@@ -97,9 +108,7 @@ class NaturalPerson(BreadAdmin):
                                             ),
                                             tpl.grid.Row(
                                                 tpl.grid.Col(
-                                                    tpl.form.FormField(
-                                                        "postcode"
-                                                    ),
+                                                    tpl.form.FormField("postcode"),
                                                 ),
                                                 tpl.grid.Col(
                                                     tpl.form.FormField("city")
@@ -117,12 +126,20 @@ class NaturalPerson(BreadAdmin):
                                         tpl.form.FormSetField(
                                             "core_pobox_list",
                                             tpl.grid.Row(
-                                                tpl.grid.Col(tpl.form.FormField("pobox_name"))
+                                                tpl.grid.Col(
+                                                    tpl.form.FormField("pobox_name")
+                                                )
                                             ),
                                             tpl.grid.Row(
-                                                tpl.grid.Col(tpl.form.FormField("postcode")),
-                                                tpl.grid.Col(tpl.form.FormField("city")),
-                                                tpl.grid.Col(tpl.form.FormField("country")),
+                                                tpl.grid.Col(
+                                                    tpl.form.FormField("postcode")
+                                                ),
+                                                tpl.grid.Col(
+                                                    tpl.form.FormField("city")
+                                                ),
+                                                tpl.grid.Col(
+                                                    tpl.form.FormField("country")
+                                                ),
                                             ),
                                             max_num=1,
                                             extra=1,
@@ -140,14 +157,22 @@ class NaturalPerson(BreadAdmin):
                                     _("Personal data"),
                                     tpl.grid.Grid(
                                         tpl.grid.Row(
-                                            tpl.grid.Col(tpl.form.FormField("salutation")),
+                                            tpl.grid.Col(
+                                                tpl.form.FormField("salutation")
+                                            ),
                                             tpl.grid.Col(tpl.form.FormField("title")),
-                                            tpl.grid.Col(tpl.form.FormField("preferred_language")),
+                                            tpl.grid.Col(
+                                                tpl.form.FormField("preferred_language")
+                                            ),
                                         ),
                                         # TODO Anrede formal, Briefanrede
                                         tpl.grid.Row(
-                                            tpl.grid.Col(tpl.form.FormField("date_of_birth")),
-                                            tpl.grid.Col(tpl.form.FormField("salutation_letter")),
+                                            tpl.grid.Col(
+                                                tpl.form.FormField("date_of_birth")
+                                            ),
+                                            tpl.grid.Col(
+                                                tpl.form.FormField("salutation_letter")
+                                            ),
                                         ),
                                     ),
                                 )
