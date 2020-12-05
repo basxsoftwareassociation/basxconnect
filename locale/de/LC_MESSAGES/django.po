@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-05 06:04+0000\n"
+"POT-Creation-Date: 2020-12-05 06:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,23 +46,31 @@ msgstr "API Keys"
 msgid "Base data"
 msgstr "Stammdaten"
 
-#: core/bread.py:98
+#: core/bread.py:100
 msgid "Addresses"
 msgstr "Adressen"
 
-#: core/bread.py:157
+#: core/bread.py:105
+msgid "Home"
+msgstr "Domizil"
+
+#: core/bread.py:130 core/models/addresses.py:181
+msgid "Post office box"
+msgstr "Postfach"
+
+#: core/bread.py:160
 msgid "Personal data"
 msgstr "Person"
 
-#: core/bread.py:188 core/models/utils.py:25
+#: core/bread.py:191 core/models/utils.py:25
 msgid "Categories"
 msgstr "Kategorien"
 
-#: core/bread.py:256 core/models/relationships.py:36
+#: core/bread.py:259 core/models/relationships.py:36
 msgid "Relationship"
 msgstr "Verknüpfungen"
 
-#: core/bread.py:260
+#: core/bread.py:263
 msgid "Duration"
 msgstr "Dauer"
 
@@ -195,11 +203,7 @@ msgstr "Anschriften"
 
 #: core/models/addresses.py:165
 msgid "POBox"
-msgstr "Postfach"
-
-#: core/models/addresses.py:181
-msgid "Post office box"
-msgstr "Postfach"
+msgstr "Postfach Name"
 
 #: core/models/addresses.py:182
 msgid "Post office boxes"

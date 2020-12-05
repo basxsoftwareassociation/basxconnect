@@ -89,7 +89,9 @@ class NaturalPerson(BreadAdmin):
                                                 tpl.form.FormField("last_name")
                                             ),
                                         ),
-                                        tpl.grid.Row(tpl.grid.Col("name")),
+                                        tpl.grid.Row(
+                                            tpl.grid.Col(tpl.form.FormField("name"))
+                                        ),
                                     ),
                                 )
                             ),
@@ -100,7 +102,7 @@ class NaturalPerson(BreadAdmin):
                                         # Home Address
                                         tpl.form.FormSetField(
                                             "core_postal_list",
-                                            tpl.grid.Row(tpl.grid.Col("Home")),
+                                            tpl.grid.Row(tpl.grid.Col(_("Home"))),
                                             tpl.grid.Row(
                                                 tpl.grid.Col(
                                                     tpl.form.FormField("address")
@@ -125,6 +127,9 @@ class NaturalPerson(BreadAdmin):
                                         # PO Box
                                         tpl.form.FormSetField(
                                             "core_pobox_list",
+                                            tpl.grid.Row(
+                                                tpl.grid.Col(_("Post office box"))
+                                            ),
                                             tpl.grid.Row(
                                                 tpl.grid.Col(
                                                     tpl.form.FormField("pobox_name")
