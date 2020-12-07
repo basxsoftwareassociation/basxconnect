@@ -1,2 +1,0 @@
-[tool.black]
-exclude = '(migrations|\.venv|\.hg|__pycache__)'
