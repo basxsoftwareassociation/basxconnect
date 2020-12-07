@@ -6,24 +6,31 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0007_preload_terms'),
+        ("core", "0007_preload_terms"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='naturalperson',
-            name='date_of_birth',
-            field=models.DateField(blank=True, null=True, verbose_name='Date of Birth'),
+            model_name="naturalperson",
+            name="date_of_birth",
+            field=models.DateField(blank=True, null=True, verbose_name="Date of Birth"),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='naturalperson',
-            name='middle_name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Middle Name'),
+            model_name="naturalperson",
+            name="middle_name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Middle Name"
+            ),
         ),
         migrations.AlterField(
-            model_name='naturalperson',
-            name='profession',
-            field=models.CharField(blank=True, help_text='e.g. nurse, carpenter', max_length=255, verbose_name='profession'),
+            model_name="naturalperson",
+            name="profession",
+            field=models.CharField(
+                blank=True,
+                help_text="e.g. nurse, carpenter",
+                max_length=255,
+                verbose_name="profession",
+            ),
         ),
     ]

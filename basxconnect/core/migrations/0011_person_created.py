@@ -7,14 +7,18 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0010_auto_20201105_0952'),
+        ("core", "0010_auto_20201105_0952"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='person',
-            name='created',
-            field=models.DateField(auto_now_add=True, default=django.utils.timezone.now, verbose_name='Created'),
+            model_name="person",
+            name="created",
+            field=models.DateField(
+                auto_now_add=True,
+                default=django.utils.timezone.now,
+                verbose_name="Created",
+            ),
             preserve_default=False,
         ),
     ]

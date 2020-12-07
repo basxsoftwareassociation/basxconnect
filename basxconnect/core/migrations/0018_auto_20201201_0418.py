@@ -7,21 +7,30 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0017_category_association_type'),
+        ("core", "0017_category_association_type"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='person',
-            options={'ordering': ['name'], 'verbose_name': 'Person', 'verbose_name_plural': 'Persons'},
+            name="person",
+            options={
+                "ordering": ["name"],
+                "verbose_name": "Person",
+                "verbose_name_plural": "Persons",
+            },
         ),
         migrations.RemoveField(
-            model_name='person',
-            name='salutation',
+            model_name="person",
+            name="salutation",
         ),
         migrations.AddField(
-            model_name='naturalperson',
-            name='salutation',
-            field=models.ForeignKey(limit_choices_to={'category__slug': 'salutation'}, null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.term'),
+            model_name="naturalperson",
+            name="salutation",
+            field=models.ForeignKey(
+                limit_choices_to={"category__slug": "salutation"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="core.term",
+            ),
         ),
     ]
