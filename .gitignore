@@ -2,3 +2,4 @@
 .tox/
 build/
 dist/
+basxconnect.egg-info/
