@@ -1,21 +1,30 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
-import os
+
 import sys
 
+import django
+from django.conf import settings
 
-def main():
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "basxconnect.settings.dev")
-    try:
-        from django.core.management import execute_from_command_line
-    except ImportError as exc:
-        raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and "
-            "available on your PYTHONPATH environment variable? Did you "
-            "forget to activate a virtual environment?"
-        ) from exc
-    execute_from_command_line(sys.argv)
+INSTALLED_APPS = [
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sites",
+    "bread",
+]
 
+settings.configure(
+    DEBUG=True,
+    USE_TZ=True,
+    USE_I18N=True,
+    DATABASES={"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}},
+    MIDDLEWARE_CLASSES=(),
+    SITE_ID=1,
+    INSTALLED_APPS=INSTALLED_APPS,
+)
+
+django.setup()
 
 if __name__ == "__main__":
-    main()
+    from django.core.management import execute_from_command_line
+
+    execute_from_command_line(sys.argv)

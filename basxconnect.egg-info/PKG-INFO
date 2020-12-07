@@ -1,0 +1,18 @@
+Metadata-Version: 2.1
+Name: basxconnect
+Version: 0.1.0
+Summary: CRM application for non-profit organizations
+Home-page: https://github.com/basxsoftwareassociation/basxconnect
+Author: basx Software Association
+Author-email: sam@basx.dev
+License: New BSD License
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Description-Content-Type: text/markdown
