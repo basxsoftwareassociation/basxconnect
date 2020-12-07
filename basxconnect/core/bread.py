@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 from bread import layout as tpl
@@ -20,25 +20,30 @@ class MenuItems(BreadGenericAdmin):
         return [
             menu.Item(menu.Link(Person().reverse("browse"), _("Persons")), persongroup),
             menu.Item(
-                menu.Link(reverse("core.views.generalsettings"), _("General")),
-                settingsgroup,
-            ),
-            # menu.Item(
-            # menu.Link(reverse("core.views.appearancesettings"), _("Appearance")),
-            # settingsgroup,
-            # ),
-            menu.Item(
-                menu.Link(reverse("core.views.personssettings"), _("Persons")),
-                settingsgroup,
-            ),
-            menu.Item(
                 menu.Link(
-                    reverse("core.views.relationshipssettings"), _("Relationships")
+                    reverse_lazy("basxconnect.core.views.generalsettings"), _("General")
                 ),
                 settingsgroup,
             ),
             # menu.Item(
-            # menu.Link(reverse("core.views.apikeyssettings"), _("API Keys")),
+            # menu.Link(reverse_lazy("basxconnect.core.views.appearancesettings"), _("Appearance")),
+            # settingsgroup,
+            # ),
+            menu.Item(
+                menu.Link(
+                    reverse_lazy("basxconnect.core.views.personssettings"), _("Persons")
+                ),
+                settingsgroup,
+            ),
+            menu.Item(
+                menu.Link(
+                    reverse_lazy("basxconnect.core.views.relationshipssettings"),
+                    _("Relationships"),
+                ),
+                settingsgroup,
+            ),
+            # menu.Item(
+            # menu.Link(reverse_lazy("basxconnect.core.views.apikeyssettings"), _("API Keys")),
             # settingsgroup,
             # ),
         ]

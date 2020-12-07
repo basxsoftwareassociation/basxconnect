@@ -19,7 +19,10 @@ class Person(models.Model):
         blank=True,
         help_text=_("e.g. Dear Mr. Smith, Hi Bob"),
     )
-    preferred_language = LanguageField(_("Prefered Language"), blank=True)
+    preferred_language = LanguageField(
+        _("Prefered Language"), blank=True, max_length=8
+    )  # mitigate up-stream bug
+    # TODO: should we use our Term model to save languages?
 
     def __str__(self):
         return self.name
@@ -90,7 +93,7 @@ class NaturalPerson(Person):
         blank=True,
         help_text=_("e.g. Nurse, Carpenter"),
     )
-    date_of_birth = models.DateField(_("Date of Birth"), null=True)
+    date_of_birth = models.DateField(_("Date of Birth"), blank=True, null=True)
     gender = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,

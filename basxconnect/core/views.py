@@ -1,3 +1,4 @@
+import htmlgenerator as hg
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
@@ -5,7 +6,6 @@ from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 from haystack.query import SearchQuerySet
 
-import htmlgenerator as hg
 from bread import layout
 from bread.forms.forms import generate_form
 from bread.utils.urlgenerator import registerurl
