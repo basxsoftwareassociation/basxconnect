@@ -1,9 +1,0 @@
-.sqlite3
-local.py
-^uploads
-.venv
-.pyc
-^static/
-^media/
-.mo
-^woosh_index/
