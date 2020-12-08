@@ -1,14 +1,13 @@
 import htmlgenerator as hg
+from bread import layout
+from bread.forms.forms import generate_form
+from bread.utils.urlgenerator import registerurl
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 from haystack.query import SearchQuerySet
-
-from bread import layout
-from bread.forms.forms import generate_form
-from bread.utils.urlgenerator import registerurl
 
 from .models import (
     Category,
@@ -90,7 +89,7 @@ def generalsettings(request):
 
     pagelayout = hg.BaseElement(
         hg.H1(_("General")),
-        hg.H2(_("General information")),
+        hg.H2(_("Information about our organization")),
         layout.form.Form(form, formlayout),
     )
 
@@ -120,7 +119,7 @@ def personssettings(request):
                 "add",
                 query_arguments={
                     "category": Category.objects.get(slug="addresstype").id,
-                    "next": reverse("core.views.personssettings"),
+                    "next": reverse("basxconnect.core.views.personssettings"),
                 },
             ),
         ),
@@ -134,7 +133,7 @@ def personssettings(request):
                 "add",
                 query_arguments={
                     "category": Category.objects.get(slug="addressorigin").id,
-                    "next": reverse("core.views.personssettings"),
+                    "next": reverse("basxconnect.core.views.personssettings"),
                 },
             ),
         ),
@@ -148,7 +147,7 @@ def personssettings(request):
                 "add",
                 query_arguments={
                     "category": Category.objects.get(slug="salutation").id,
-                    "next": reverse("core.views.personssettings"),
+                    "next": reverse("basxconnect.core.views.personssettings"),
                 },
             ),
         ),
