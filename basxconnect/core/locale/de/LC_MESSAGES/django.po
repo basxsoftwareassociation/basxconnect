@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-08 15:10+0700\n"
+"POT-Creation-Date: 2020-12-08 15:21+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,18 +23,18 @@ msgstr "Einstellungen"
 
 #: basxconnect/core/bread.py:19 basxconnect/core/bread.py:21
 #: basxconnect/core/bread.py:34 basxconnect/core/models/persons.py:68
-#: basxconnect/core/views.py:113
+#: basxconnect/core/views.py:112
 msgid "Persons"
 msgstr "Personen"
 
 #: basxconnect/core/bread.py:24
 #: basxconnect/core/dynamic_preferences_registry.py:7
-#: basxconnect/core/views.py:92
+#: basxconnect/core/views.py:91
 msgid "General"
 msgstr "Allgemein"
 
 #: basxconnect/core/bread.py:41 basxconnect/core/models/relationships.py:37
-#: basxconnect/core/views.py:165
+#: basxconnect/core/views.py:164
 msgid "Relationships"
 msgstr "Beziehungen"
 
@@ -285,7 +285,7 @@ msgstr "Mittelname(n)"
 msgid "Last Name"
 msgstr "Nachname"
 
-#: basxconnect/core/models/persons.py:88 basxconnect/core/views.py:146
+#: basxconnect/core/models/persons.py:88 basxconnect/core/views.py:145
 msgid "Salutation"
 msgstr "Anrede"
 
@@ -389,35 +389,35 @@ msgstr "Begriff"
 msgid "Terms"
 msgstr "Begriffe"
 
-#: basxconnect/core/views.py:82
+#: basxconnect/core/views.py:81
 msgid "Save"
 msgstr "Speichern"
 
-#: basxconnect/core/views.py:93
-msgid "General information"
-msgstr "Allgemeine Informationen"
+#: basxconnect/core/views.py:92
+msgid "Information about our organization"
+msgstr "Angaben zu unserer Organisation"
 
-#: basxconnect/core/views.py:102
+#: basxconnect/core/views.py:101
 msgid "Appearance"
 msgstr "Darstellung"
 
-#: basxconnect/core/views.py:118
+#: basxconnect/core/views.py:117
 msgid "Address types"
 msgstr "Adressarten"
 
-#: basxconnect/core/views.py:132
+#: basxconnect/core/views.py:131
 msgid "Address origins"
 msgstr "Adressherkünfte"
 
-#: basxconnect/core/views.py:178
+#: basxconnect/core/views.py:177
 msgid "APK Keys"
 msgstr "APK Schlüssel"
 
-#: basxconnect/core/views.py:197
+#: basxconnect/core/views.py:196
 msgid "No address"
 msgstr "Keine Adresse"
 
-#: basxconnect/core/views.py:206
+#: basxconnect/core/views.py:205
 msgid "No results"
 msgstr "Keine Ergebnisse gefunden"
 
@@ -509,6 +509,9 @@ msgstr "Überprüfen und bestätigen Sie die eingetragenen Informationen"
 #, python-format
 msgid "Add %s"
 msgstr "%s hinzufügen"
+
+#~ msgid "General information"
+#~ msgstr "Allgemeine Informationen"
 
 #~ msgid "API Keys"
 #~ msgstr "API Keys"
