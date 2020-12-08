@@ -4,3 +4,4 @@
 build/
 dist/
 basxconnect.egg-info/
+**/*.mo
