@@ -1,13 +1,13 @@
+from bread import layout
+from bread.forms.forms import breadmodelform_factory
+from bread.utils import pretty_modelname
+from bread.utils.urls import reverse_model
 from django import forms
 from django.apps import apps
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from formtools.wizard.views import NamedUrlSessionWizardView
-
-from bread import layout
-from bread.forms.forms import breadmodelform_factory
-from bread.utils import pretty_modelname
 
 from ..models import (
     JuristicPerson,
@@ -51,7 +51,7 @@ ADD_ADDRESS_LAYOUT = layout.grid.Grid(
 
 def generate_wizard_form(formlayout):
     # needs to be rendered in view of type NamedUrlSessionWizardView in order to work correctly
-    def go_back_url(element, context):
+    def go_back_url(context, element):
         url = reverse(
             context["request"].resolver_match.view_name,
             kwargs={"step": context["wizard"]["steps"].prev},
@@ -78,7 +78,7 @@ def generate_wizard_form(formlayout):
                 ),
                 layout.If(
                     layout.F(
-                        lambda e, c: c["wizard"]["steps"].last
+                        lambda c, e: c["wizard"]["steps"].last
                         == c["wizard"]["steps"].current
                     ),
                     layout.button.Button(
@@ -213,7 +213,7 @@ def generate_add_form_for(model, request, data, files, initial=None):
 # The WizardView contains mostly control-flow logic and some configuration
 class AddPersonWizard(NamedUrlSessionWizardView):
     kwargs = {"url_name": "core:person:add_wizard", "urlparams": {"step": "str"}}
-    urlparams = None
+    urlparams = (("step", str),)
 
     form_list = [
         ("Search", SearchForm),
@@ -320,8 +320,10 @@ class AddPersonWizard(NamedUrlSessionWizardView):
             }
         )
         return redirect(
-            reverse(
-                f"core:{newperson._meta.model_name}:edit", kwargs={"pk": newperson.pk}
+            reverse_model(
+                newperson._meta.model,
+                "edit",
+                query={"next": "/"},
+                kwargs={"pk": newperson.pk},
             )
-            + "?next=/"
         )
