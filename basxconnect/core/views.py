@@ -8,14 +8,14 @@ from bread.utils.urls import (
     reverse,
     reverse_model,
 )
-from bread.views import EditView, register_default_modelviews
+from bread.views import BrowseView, EditView, register_default_modelviews
 from django.http import HttpResponse
 from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from haystack.query import SearchQuerySet
 
-from .layouts import person_edit_layout
+from .layouts import Layouts
 from .models import (
     Category,
     JuristicPerson,
@@ -38,15 +38,42 @@ registerurl(model_urlname(Person, "add"))(
         url=reverse_model(Person, "addwizard", kwargs={"step": "Search"})
     )
 )
+registerurl(model_urlname(NaturalPerson, "browse"))(
+    RedirectView.as_view(url=reverse_model(Person, "browse"))
+)
+registerurl(model_urlname(JuristicPerson, "browse"))(
+    RedirectView.as_view(url=reverse_model(Person, "browse"))
+)
+registerurl(model_urlname(PersonAssociation, "browse"))(
+    RedirectView.as_view(url=reverse_model(Person, "browse"))
+)
 registerurl(model_urlname(Person, "addwizard"))(
     AddPersonWizard.as_view(url_name=model_urlname(Person, "addwizard"))
 )
-register_default_modelviews(Person, addview=None)
 register_default_modelviews(
-    NaturalPerson, addview=None, editview=EditView._with(layout=person_edit_layout)
+    Person,
+    browseview=BrowseView._with(
+        layout=[
+            "number",
+            "status",
+            "type",
+            "name",
+            "street",
+            "postalcode",
+            "city",
+            "country",
+        ],
+    ),
 )
-register_default_modelviews(JuristicPerson, addview=None)  # uses AddPersonWizard
-register_default_modelviews(PersonAssociation, addview=None)  # uses AddPersonWizard
+register_default_modelviews(
+    NaturalPerson,
+    editview=EditView._with(
+        layout=lambda view: Layouts.person_edit_layout
+    ),  # use lambda for late evaluation of the layout
+)
+
+register_default_modelviews(JuristicPerson)  # uses AddPersonWizard
+register_default_modelviews(PersonAssociation)  # uses AddPersonWizard
 register_default_modelviews(RelationshipType)
 register_default_modelviews(Relationship)
 register_default_modelviews(Term)
@@ -60,7 +87,9 @@ register_default_modelviews(Category)
 @htmlgeneratorview
 def generalsettings(request):
     instance = JuristicPerson.objects.get(id=1)  # must exists due to migration
-    form = generate_form(request, JuristicPerson, generalsettings_layout, instance)
+    form = generate_form(
+        request, JuristicPerson, Layouts.generalsettings_layout, instance
+    )
 
     if request.method == "POST":
         if form.is_valid():
@@ -69,32 +98,32 @@ def generalsettings(request):
     return hg.BaseElement(
         hg.H1(_("General")),
         hg.H2(_("Information about our organization")),
-        layout.form.Form(form, generalsettings_layout),
+        layout.form.Form(form, Layouts.generalsettings_layout),
     )
 
 
 @registerurl
 @htmlgeneratorview
 def appearancesettings(request):
-    return appearancesettings_layout
+    return Layouts.appearancesettings_layout
 
 
 @registerurl
 @htmlgeneratorview
 def personssettings(request):
-    return personssettings_layout
+    return Layouts.personssettings_layout
 
 
 @registerurl
 @htmlgeneratorview
 def relationshipssettings(request):
-    return relationshipssettings_layout
+    return Layouts.relationshipssettings_layout
 
 
 @registerurl
 @htmlgeneratorview
 def apikeyssettings(request):
-    return apikeyssettings_layout
+    return Layouts.apikeyssettings_layout
 
 
 # MENU ENTRIES ---------------------------------------------------------------------
@@ -160,140 +189,3 @@ def searchperson(request):
             style="margin-bottom: 2rem;"
         ).render({})
     )
-
-
-# LAYOUTS FOR SETTING VIEWS -----------------------------------------------------
-
-
-def single_item_fieldset(related_field, fieldname, queryset=None):
-    """Helper function to show only a single item of a (foreign-key) related item list"""
-    return layout.form.FormSetField(
-        related_field,
-        layout.form.FormField(fieldname),
-        formsetinitial={"queryset": queryset},
-        can_delete=False,
-        max_num=1,
-        extra=1,
-    )
-
-
-generalsettings_layout = layout.BaseElement(
-    layout.grid.Grid(
-        layout.grid.Row(layout.grid.Col(layout.form.FormField("type"))),
-        layout.grid.Row(layout.grid.Col(layout.form.FormField("name"))),
-        layout.grid.Row(layout.grid.Col(layout.form.FormField("name_addition"))),
-    ),
-    layout.form.FormSetField(
-        "core_postal_list",
-        layout.grid.Grid(
-            layout.grid.Row(layout.grid.Col(layout.form.FormField("address"))),
-            layout.grid.Row(
-                layout.grid.Col(layout.form.FormField("supplemental_address"))
-            ),
-            layout.grid.Row(
-                layout.grid.Col(
-                    layout.form.FormField("postcode"), breakpoint="lg", width=2
-                ),
-                layout.grid.Col(
-                    layout.form.FormField("city"), breakpoint="lg", width=3
-                ),
-                layout.grid.Col(
-                    layout.form.FormField("country"), breakpoint="lg", width=3
-                ),
-            ),
-        ),
-        can_delete=False,
-        max_num=1,
-        extra=1,
-    ),
-    layout.grid.Grid(
-        layout.grid.Row(
-            layout.grid.Col(single_item_fieldset("core_phone_list", "number")),
-            layout.grid.Col(single_item_fieldset("core_fax_list", "number")),
-        ),
-        layout.grid.Row(
-            layout.grid.Col(
-                single_item_fieldset(
-                    "core_email_list",
-                    "email",
-                )
-            ),
-            layout.grid.Col(single_item_fieldset("core_web_list", "url")),
-        ),
-    ),
-    layout.form.SubmitButton(_("Save")),
-)
-
-
-appearancesettings_layout = hg.BaseElement(hg.H2(_("Appearance")))
-
-dist = hg.DIV(style="margin-bottom: 2rem")
-personssettings_layout = hg.BaseElement(
-    hg.H2(_("Persons")),
-    # address type
-    layout.datatable.DataTable.from_queryset(
-        Term.objects.filter(category__slug="addresstype"),
-        fields=["term"],
-        title=_("Address types"),
-        addurl=reverse_model(
-            Term,
-            "add",
-            query={
-                "category": Category.objects.get(slug="addresstype").id,
-                "next": reverse("basxconnect.core.views.personssettings"),
-            },
-        ),
-        backurl=reverse("basxconnect.core.views.personssettings"),
-    ),
-    dist,
-    # address origin
-    layout.datatable.DataTable.from_queryset(
-        Term.objects.filter(category__slug="addressorigin"),
-        fields=["term"],
-        title=_("Address origins"),
-        addurl=reverse_model(
-            Term,
-            "add",
-            query={
-                "category": Category.objects.get(slug="addressorigin").id,
-                "next": reverse("basxconnect.core.views.personssettings"),
-            },
-        ),
-        backurl=reverse("basxconnect.core.views.personssettings"),
-    ),
-    dist,
-    # salutation
-    layout.datatable.DataTable.from_queryset(
-        Term.objects.filter(category__slug="salutation"),
-        fields=["term"],
-        title=_("Salutation"),
-        addurl=reverse_model(
-            Term,
-            "add",
-            query={
-                "category": Category.objects.get(slug="salutation").id,
-                "next": reverse("basxconnect.core.views.personssettings"),
-            },
-        ),
-        backurl=reverse("basxconnect.core.views.personssettings"),
-    ),
-    dist,
-)
-
-
-relationshipssettings_layout = hg.BaseElement(
-    hg.H2(_("Relationships")),
-    layout.datatable.DataTable.from_queryset(
-        RelationshipType.objects.all(),
-        fields=["name"],
-        addurl=reverse_model(
-            RelationshipType,
-            "add",
-            query={"next": reverse("basxconnect.core.views.relationshipssettings")},
-        ),
-        backurl=reverse("basxconnect.core.views.relationshipssettings"),
-    ),
-)
-
-
-apikeyssettings_layout = hg.BaseElement(hg.H2(_("APK Keys")))
