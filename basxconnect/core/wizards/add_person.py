@@ -9,14 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from formtools.wizard.views import NamedUrlSessionWizardView
 
-from ..models import (
-    JuristicPerson,
-    NaturalPerson,
-    Person,
-    PersonAssociation,
-    Postal,
-    Term,
-)
+from ..models import LegalPerson, NaturalPerson, Person, PersonAssociation, Postal, Term
 
 ADD_FORM_LAYOUTS = {
     NaturalPerson: layout.BaseElement(
@@ -29,7 +22,7 @@ ADD_FORM_LAYOUTS = {
             layout.grid.Col(layout.form.FormField("gender")),
         ),
     ),
-    JuristicPerson: layout.DIV(
+    LegalPerson: layout.DIV(
         layout.form.FormField("name"), layout.form.FormField("name_addition")
     ),
     PersonAssociation: layout.DIV(layout.form.FormField("name")),
@@ -132,7 +125,7 @@ class SearchForm(forms.Form):
 class ChooseType(forms.Form):
     PERSON_TYPES = {
         "core.NaturalPerson": pretty_modelname(NaturalPerson),
-        "core.JuristicPerson": pretty_modelname(JuristicPerson),
+        "core.LegalPerson": pretty_modelname(LegalPerson),
         "core.PersonAssociation": pretty_modelname(PersonAssociation),
     }
     persontype = forms.TypedChoiceField(
@@ -156,7 +149,7 @@ class ChooseSubType(forms.Form):
     ALLOWED_SUBTYPE_CATEGORY = {
         Person: None,
         NaturalPerson: None,
-        JuristicPerson: "legaltype",
+        LegalPerson: "legaltype",
         PersonAssociation: "associationtype",
     }
     subtype = forms.ModelChoiceField(

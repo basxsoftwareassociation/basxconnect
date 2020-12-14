@@ -117,14 +117,14 @@ class Layouts:
             dist,
             # salutation
             lyt.datatable.DataTable.from_queryset(
-                Term.objects.filter(category__slug="salutation"),
+                Term.objects.filter(category__slug="title"),
                 fields=["term"],
-                title=_("Salutation"),
+                title=_("Title"),
                 addurl=reverse_model(
                     Term,
                     "add",
                     query={
-                        "category": Category.objects.get(slug="salutation").id,
+                        "category": Category.objects.get(slug="title").id,
                         "next": reverse("basxconnect.core.views.personssettings"),
                     },
                 ),
@@ -161,38 +161,6 @@ class Layouts:
                         "category": Category.objects.get(
                             slug="communication_channels"
                         ).id,
-                        "next": reverse("basxconnect.core.views.personssettings"),
-                    },
-                ),
-                backurl=reverse("basxconnect.core.views.personssettings"),
-            ),
-            dist,
-            # Legal types
-            lyt.datatable.DataTable.from_queryset(
-                Term.objects.filter(category__slug="legaltype"),
-                fields=["term"],
-                title=_("Legal types"),
-                addurl=reverse_model(
-                    Term,
-                    "add",
-                    query={
-                        "category": Category.objects.get(slug="legaltype").id,
-                        "next": reverse("basxconnect.core.views.personssettings"),
-                    },
-                ),
-                backurl=reverse("basxconnect.core.views.personssettings"),
-            ),
-            dist,
-            # Person association types
-            lyt.datatable.DataTable.from_queryset(
-                Term.objects.filter(category__slug="associationtype"),
-                fields=["term"],
-                title=_("Person association types"),
-                addurl=reverse_model(
-                    Term,
-                    "add",
-                    query={
-                        "category": Category.objects.get(slug="associationtype").id,
                         "next": reverse("basxconnect.core.views.personssettings"),
                     },
                 ),

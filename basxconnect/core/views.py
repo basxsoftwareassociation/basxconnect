@@ -18,7 +18,7 @@ from haystack.query import SearchQuerySet
 from .layouts import Layouts
 from .models import (
     Category,
-    JuristicPerson,
+    LegalPerson,
     NaturalPerson,
     Person,
     PersonAssociation,
@@ -41,7 +41,7 @@ registerurl(model_urlname(Person, "add"))(
 registerurl(model_urlname(NaturalPerson, "browse"))(
     RedirectView.as_view(url=reverse_model(Person, "browse"))
 )
-registerurl(model_urlname(JuristicPerson, "browse"))(
+registerurl(model_urlname(LegalPerson, "browse"))(
     RedirectView.as_view(url=reverse_model(Person, "browse"))
 )
 registerurl(model_urlname(PersonAssociation, "browse"))(
@@ -72,7 +72,7 @@ register_default_modelviews(
     ),  # use lambda for late evaluation of the layout
 )
 
-register_default_modelviews(JuristicPerson)  # uses AddPersonWizard
+register_default_modelviews(LegalPerson)  # uses AddPersonWizard
 register_default_modelviews(PersonAssociation)  # uses AddPersonWizard
 register_default_modelviews(RelationshipType)
 register_default_modelviews(Relationship)
@@ -86,10 +86,8 @@ register_default_modelviews(Category)
 @registerurl
 @aslayout
 def generalsettings(request):
-    instance = JuristicPerson.objects.get(id=1)  # must exists due to migration
-    form = generate_form(
-        request, JuristicPerson, Layouts.generalsettings_layout, instance
-    )
+    instance = LegalPerson.objects.get(id=1)  # must exists due to migration
+    form = generate_form(request, LegalPerson, Layouts.generalsettings_layout, instance)
 
     if request.method == "POST":
         if form.is_valid():
@@ -168,7 +166,7 @@ def searchperson(request):
 
     qs = (
         SearchQuerySet()
-        .models(NaturalPerson, JuristicPerson, PersonAssociation)
+        .models(NaturalPerson, LegalPerson, PersonAssociation)
         .autocomplete(name_auto=query)
     )
     items = [

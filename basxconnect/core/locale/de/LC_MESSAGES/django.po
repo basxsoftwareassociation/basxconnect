@@ -96,7 +96,7 @@ msgstr "Personenkategorien"
 
 #: basxconnect/core/layouts.py:155
 msgid "Correspondence Languages"
-msgstr "Korrespondenz Sprachen"
+msgstr "Korrespondenzsprachen"
 
 #: basxconnect/core/layouts.py:173
 msgid "Communication Channels"

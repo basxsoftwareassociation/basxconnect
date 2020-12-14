@@ -1,6 +1,5 @@
-from haystack import indexes
-
 from celery_haystack.indexes import CelerySearchIndex
+from haystack import indexes
 
 from . import models
 
@@ -18,9 +17,9 @@ class NaturalPersonIndex(PersonIndex):
         return models.NaturalPerson
 
 
-class JuristicPersonIndex(PersonIndex):
+class LegalPersonIndex(PersonIndex):
     def get_model(self):
-        return models.JuristicPerson
+        return models.LegalPerson
 
 
 class PersonAssociationIndex(PersonIndex):

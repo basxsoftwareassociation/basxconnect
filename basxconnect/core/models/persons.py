@@ -1,8 +1,7 @@
+from bread.utils import get_concrete_instance, pretty_modelname
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from languages.fields import LanguageField
-
-from bread.utils import get_concrete_instance, pretty_modelname
 
 from .utils import Term
 
@@ -76,6 +75,7 @@ class NaturalPerson(Person):
         Term,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         limit_choices_to={"category__slug": "title"},
         related_name="title_persons",
     )
@@ -83,6 +83,7 @@ class NaturalPerson(Person):
         Term,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         limit_choices_to={"category__slug": "salutation"},
     )
     salutation.verbose_name = _("Salutation")
@@ -114,7 +115,7 @@ class NaturalPerson(Person):
         verbose_name_plural = _("Natural Persons")
 
 
-class JuristicPerson(Person):
+class LegalPerson(Person):
     name_addition = models.CharField(_("Addition name"), max_length=255, blank=True)
     type = models.ForeignKey(
         Term,
