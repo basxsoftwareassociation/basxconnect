@@ -17,6 +17,23 @@ def single_item_fieldset(related_field, fieldname, queryset=None):
     )
 
 
+def create_term_datatable(title, category_slug):
+    return lyt.datatable.DataTable.from_queryset(
+        Term.objects.filter(category__slug=category_slug),
+        fields=["term"],
+        title=title,
+        addurl=reverse_model(
+            Term,
+            "add",
+            query={
+                "category": Category.objects.get(slug=category_slug).id,
+                "next": reverse("basxconnect.core.views.personssettings"),
+            },
+        ),
+        backurl=reverse("basxconnect.core.views.personssettings"),
+    )
+
+
 # a namespacing class to allow the "lazy" definition of layouts
 # This is necessary because we will have certain operations, especially
 # url reversing, which are only cleanly available after django is completely
@@ -84,88 +101,21 @@ class Layouts:
         Layouts.personssettings_layout = lyt.BaseElement(
             lyt.H2(_("Persons")),
             # address type
-            lyt.datatable.DataTable.from_queryset(
-                Term.objects.filter(category__slug="addresstype"),
-                fields=["term"],
-                title=_("Address types"),
-                addurl=reverse_model(
-                    Term,
-                    "add",
-                    query={
-                        "category": Category.objects.get(slug="addresstype").id,
-                        "next": reverse("basxconnect.core.views.personssettings"),
-                    },
-                ),
-                backurl=reverse("basxconnect.core.views.personssettings"),
+            create_term_datatable(_("Address types"), "addresstype"),
+            dist,
+            create_term_datatable(_("Address origins"), "addressorigin"),
+            dist,
+            create_term_datatable(_("Title"), "title"),
+            dist,
+            create_term_datatable(
+                _("Correspondence Languages"), "correspondence_language"
             ),
             dist,
-            # address origin
-            lyt.datatable.DataTable.from_queryset(
-                Term.objects.filter(category__slug="addressorigin"),
-                fields=["term"],
-                title=_("Address origins"),
-                addurl=reverse_model(
-                    Term,
-                    "add",
-                    query={
-                        "category": Category.objects.get(slug="addressorigin").id,
-                        "next": reverse("basxconnect.core.views.personssettings"),
-                    },
-                ),
-                backurl=reverse("basxconnect.core.views.personssettings"),
+            create_term_datatable(
+                _("Communication Channels"), "communication_channels"
             ),
             dist,
-            # salutation
-            lyt.datatable.DataTable.from_queryset(
-                Term.objects.filter(category__slug="title"),
-                fields=["term"],
-                title=_("Title"),
-                addurl=reverse_model(
-                    Term,
-                    "add",
-                    query={
-                        "category": Category.objects.get(slug="title").id,
-                        "next": reverse("basxconnect.core.views.personssettings"),
-                    },
-                ),
-                backurl=reverse("basxconnect.core.views.personssettings"),
-            ),
-            dist,
-            # correspondence language
-            lyt.datatable.DataTable.from_queryset(
-                Term.objects.filter(category__slug="correspondence_language"),
-                fields=["term"],
-                title=_("Correspondence Languages"),
-                addurl=reverse_model(
-                    Term,
-                    "add",
-                    query={
-                        "category": Category.objects.get(
-                            slug="correspondence_language"
-                        ).id,
-                        "next": reverse("basxconnect.core.views.personssettings"),
-                    },
-                ),
-                backurl=reverse("basxconnect.core.views.personssettings"),
-            ),
-            dist,
-            # communication channels
-            lyt.datatable.DataTable.from_queryset(
-                Term.objects.filter(category__slug="communication_channels"),
-                fields=["term"],
-                title=_("Communication Channels"),
-                addurl=reverse_model(
-                    Term,
-                    "add",
-                    query={
-                        "category": Category.objects.get(
-                            slug="communication_channels"
-                        ).id,
-                        "next": reverse("basxconnect.core.views.personssettings"),
-                    },
-                ),
-                backurl=reverse("basxconnect.core.views.personssettings"),
-            ),
+            create_term_datatable(_("Legal Types"), "legaltype"),
             dist,
         )
 
