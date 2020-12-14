@@ -23,7 +23,6 @@ def single_item_fieldset(related_field, fieldname, queryset=None):
 # booted up. Layt.init() should be called in one of the AppConfig.ready methods
 class Layouts:
     person_edit_layout = None
-    person_browse_layout = None
     generalsettings_layout = None
     appearancesettings_layout = None
     personssettings_layout = None
@@ -126,6 +125,74 @@ class Layouts:
                     "add",
                     query={
                         "category": Category.objects.get(slug="salutation").id,
+                        "next": reverse("basxconnect.core.views.personssettings"),
+                    },
+                ),
+                backurl=reverse("basxconnect.core.views.personssettings"),
+            ),
+            dist,
+            # correspondence language
+            lyt.datatable.DataTable.from_queryset(
+                Term.objects.filter(category__slug="correspondence_language"),
+                fields=["term"],
+                title=_("Correspondence Languages"),
+                addurl=reverse_model(
+                    Term,
+                    "add",
+                    query={
+                        "category": Category.objects.get(
+                            slug="correspondence_language"
+                        ).id,
+                        "next": reverse("basxconnect.core.views.personssettings"),
+                    },
+                ),
+                backurl=reverse("basxconnect.core.views.personssettings"),
+            ),
+            dist,
+            # communication channels
+            lyt.datatable.DataTable.from_queryset(
+                Term.objects.filter(category__slug="communication_channels"),
+                fields=["term"],
+                title=_("Communication Channels"),
+                addurl=reverse_model(
+                    Term,
+                    "add",
+                    query={
+                        "category": Category.objects.get(
+                            slug="communication_channels"
+                        ).id,
+                        "next": reverse("basxconnect.core.views.personssettings"),
+                    },
+                ),
+                backurl=reverse("basxconnect.core.views.personssettings"),
+            ),
+            dist,
+            # Legal types
+            lyt.datatable.DataTable.from_queryset(
+                Term.objects.filter(category__slug="legaltype"),
+                fields=["term"],
+                title=_("Legal types"),
+                addurl=reverse_model(
+                    Term,
+                    "add",
+                    query={
+                        "category": Category.objects.get(slug="legaltype").id,
+                        "next": reverse("basxconnect.core.views.personssettings"),
+                    },
+                ),
+                backurl=reverse("basxconnect.core.views.personssettings"),
+            ),
+            dist,
+            # Person association types
+            lyt.datatable.DataTable.from_queryset(
+                Term.objects.filter(category__slug="associationtype"),
+                fields=["term"],
+                title=_("Person association types"),
+                addurl=reverse_model(
+                    Term,
+                    "add",
+                    query={
+                        "category": Category.objects.get(slug="associationtype").id,
                         "next": reverse("basxconnect.core.views.personssettings"),
                     },
                 ),

@@ -53,7 +53,7 @@ registerurl(model_urlname(Person, "addwizard"))(
 register_default_modelviews(
     Person,
     browseview=BrowseView._with(
-        layout=[
+        fields=[
             "number",
             "status",
             "type",
@@ -68,7 +68,7 @@ register_default_modelviews(
 register_default_modelviews(
     NaturalPerson,
     editview=EditView._with(
-        layout=lambda view: Layouts.person_edit_layout
+        formlayout=lambda _self, request: Layouts.person_edit_layout
     ),  # use lambda for late evaluation of the layout
 )
 
