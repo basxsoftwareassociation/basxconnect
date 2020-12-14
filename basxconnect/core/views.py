@@ -2,7 +2,7 @@ import htmlgenerator as hg
 from bread import layout, menu
 from bread.forms.forms import generate_form
 from bread.utils.urls import (
-    htmlgeneratorview,
+    aslayout,
     model_urlname,
     registerurl,
     reverse,
@@ -84,7 +84,7 @@ register_default_modelviews(Category)
 
 
 @registerurl
-@htmlgeneratorview
+@aslayout
 def generalsettings(request):
     instance = JuristicPerson.objects.get(id=1)  # must exists due to migration
     form = generate_form(
@@ -95,7 +95,7 @@ def generalsettings(request):
         if form.is_valid():
             form.save()
 
-    return hg.BaseElement(
+    return lambda request: hg.BaseElement(
         hg.H1(_("General")),
         hg.H2(_("Information about our organization")),
         layout.form.Form(form, Layouts.generalsettings_layout),
@@ -103,27 +103,27 @@ def generalsettings(request):
 
 
 @registerurl
-@htmlgeneratorview
+@aslayout
 def appearancesettings(request):
-    return Layouts.appearancesettings_layout
+    return lambda request: Layouts.appearancesettings_layout
 
 
 @registerurl
-@htmlgeneratorview
+@aslayout
 def personssettings(request):
-    return Layouts.personssettings_layout
+    return lambda request: Layouts.personssettings_layout
 
 
 @registerurl
-@htmlgeneratorview
+@aslayout
 def relationshipssettings(request):
-    return Layouts.relationshipssettings_layout
+    return lambda request: Layouts.relationshipssettings_layout
 
 
 @registerurl
-@htmlgeneratorview
+@aslayout
 def apikeyssettings(request):
-    return Layouts.apikeyssettings_layout
+    return lambda request: Layouts.apikeyssettings_layout
 
 
 # MENU ENTRIES ---------------------------------------------------------------------
