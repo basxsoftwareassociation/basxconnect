@@ -1,8 +1,9 @@
+from django_countries.fields import CountryField
+
 from django.db import models
 from django.template.defaultfilters import linebreaksbr
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
 from .persons import Person
@@ -22,7 +23,6 @@ class Address(models.Model):
         null=True,
         related_name="type_%(app_label)s_%(class)s_list",
         limit_choices_to={"category__slug": "addresstype"},
-        help_text=_("eg. Private, Business"),
     )
     type.verbose_name = _("Type")
 
@@ -32,7 +32,6 @@ class Address(models.Model):
         null=True,
         related_name="status_%(app_label)s_%(class)s_list",
         limit_choices_to={"category__slug": "addressstatus"},
-        help_text=_("eg. active, moved, inactive"),
     )
     status.verbose_name = _("Status")
 
@@ -90,7 +89,6 @@ class Phone(Address):
         on_delete=models.SET_NULL,
         null=True,
         limit_choices_to={"category__slug": "phonetype"},
-        help_text=_("eg. Private, Business"),
     )
     type.verbose_name = _("Type")
 
@@ -111,7 +109,6 @@ class Fax(Address):
         on_delete=models.SET_NULL,
         null=True,
         limit_choices_to={"category__slug": "phonetype"},
-        help_text=_("eg. Private, Business"),
     )
     type.verbose_name = _("Type")
 
@@ -135,9 +132,7 @@ class Postal(Address):
     country = CountryField(_("Country"))
     county = models.ForeignKey(County, null=True, on_delete=models.SET_NULL)
     county.verbose_name = _("County")
-    address = models.CharField(
-        _("Address"), max_length=255, help_text=_("Street and House Number")
-    )
+    address = models.CharField(_("Address"), max_length=255)
     supplemental_address = models.TextField(_("Supplemental Address"), blank=True)
     postcode = models.CharField(_("Post Code"), max_length=16, blank=True)
     city = models.CharField(_("City"), max_length=255)

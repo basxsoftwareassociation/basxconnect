@@ -244,8 +244,8 @@ class AddPersonWizard(NamedUrlSessionWizardView):
             steps.append((_(step), status))
 
         context["layout"] = lambda request: layout.BaseElement(
-            layout.H1(_("Add new person"), style="margin-bottom: 2rem"),
-            layout.H2(self.get_form().title, style="margin-bottom: 2rem"),
+            layout.H3(_("Add new person")),
+            layout.H4(self.get_form().title),
             layout.progress_indicator.ProgressIndicator(
                 steps,
                 style="margin-bottom: 2rem",

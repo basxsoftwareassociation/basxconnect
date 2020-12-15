@@ -136,136 +136,78 @@ class Layouts:
         )
 
         Layouts.apikeyssettings_layout = lyt.BaseElement(lyt.H2(_("APK Keys")))
-        Layouts.person_edit_layout = lyt.DIV(
-            lyt.DIV(
-                lyt.grid.Grid(
-                    lyt.grid.Row(
-                        lyt.grid.Col(
-                            lyt.grid.Row(
-                                lyt.FIELDSET(
-                                    lyt.LEGEND(_("Base data")),
-                                    lyt.grid.Grid(
-                                        lyt.grid.Row(
-                                            lyt.grid.Col(
-                                                lyt.form.FormField("first_name")
-                                            ),
-                                            lyt.grid.Col(
-                                                lyt.form.FormField("last_name")
-                                            ),
-                                        ),
-                                        lyt.grid.Row(
-                                            lyt.grid.Col(lyt.form.FormField("name"))
-                                        ),
-                                    ),
-                                )
-                            ),
-                            lyt.grid.Row(
-                                lyt.FIELDSET(
-                                    _("Addresses"),
-                                    lyt.grid.Grid(
-                                        # Home Address
-                                        lyt.form.FormSetField(
-                                            "core_postal_list",
-                                            lyt.grid.Row(lyt.grid.Col(_("Home"))),
-                                            lyt.grid.Row(
-                                                lyt.grid.Col(
-                                                    lyt.form.FormField("address")
-                                                )
-                                            ),
-                                            lyt.grid.Row(
-                                                lyt.grid.Col(
-                                                    lyt.form.FormField("postcode"),
-                                                ),
-                                                lyt.grid.Col(
-                                                    lyt.form.FormField("city")
-                                                ),
-                                            ),
-                                            lyt.grid.Row(
-                                                lyt.grid.Col(
-                                                    lyt.form.FormField("country")
-                                                )
-                                            ),
-                                            max_num=1,
-                                            extra=1,
-                                        ),
-                                        # PO Box
-                                        lyt.form.FormSetField(
-                                            "core_pobox_list",
-                                            lyt.grid.Row(
-                                                lyt.grid.Col(_("Post office box"))
-                                            ),
-                                            lyt.grid.Row(
-                                                lyt.grid.Col(
-                                                    lyt.form.FormField("pobox_name")
-                                                )
-                                            ),
-                                            lyt.grid.Row(
-                                                lyt.grid.Col(
-                                                    lyt.form.FormField("postcode")
-                                                ),
-                                                lyt.grid.Col(
-                                                    lyt.form.FormField("city")
-                                                ),
-                                                lyt.grid.Col(
-                                                    lyt.form.FormField("country")
-                                                ),
-                                            ),
-                                            max_num=1,
-                                            extra=1,
-                                        )
-                                        # TODO Button "more addresses"
-                                        # TODO Mailing-Sperre
-                                        # TODO Adressherkunft
-                                    ),
-                                )
-                            ),
-                        ),
-                        lyt.grid.Col(
-                            lyt.grid.Row(
-                                lyt.FIELDSET(
-                                    _("Personal data"),
-                                    lyt.grid.Grid(
-                                        lyt.grid.Row(
-                                            lyt.grid.Col(
-                                                lyt.form.FormField("salutation")
-                                            ),
-                                            lyt.grid.Col(lyt.form.FormField("title")),
-                                            lyt.grid.Col(
-                                                lyt.form.FormField("preferred_language")
-                                            ),
-                                        ),
-                                        # TODO Anrede formal, Briefanrede
-                                        lyt.grid.Row(
-                                            lyt.grid.Col(
-                                                lyt.form.FormField("date_of_birth")
-                                            ),
-                                            lyt.grid.Col(
-                                                lyt.form.FormField("salutation_letter")
-                                            ),
-                                        ),
-                                    ),
-                                )
-                            ),
-                            # TODO Verknüpfung
-                            # TODO Kommunikationskanäle
-                        ),
+
+        # some shortcuts:
+        R = lyt.grid.Row
+        C = lyt.grid.Col
+        F = lyt.form.FormField
+
+        Layouts.person_edit_layout = lyt.grid.Grid(
+            R(C(lyt.H4(_("General Information")))),
+            R(
+                C(
+                    R(
+                        C(F("first_name")),
+                        C(F("last_name")),
                     ),
-                    lyt.grid.Row(
-                        lyt.grid.Col(
-                            lyt.grid.Row(
-                                lyt.FIELDSET(
-                                    _("Categories"),
-                                    lyt.grid.Grid(
-                                        # TODO Suche
-                                        # TODO Kategorien Labels
-                                    ),
-                                ),
-                            )
-                        ),
-                        lyt.grid.Col(
-                            # TODO Bemerkungen
-                        ),
+                    R(
+                        C(F("name")),
+                        C(F("preferred_language")),
+                    ),
+                    R(
+                        C(F("date_of_birth")),
+                        C(F("profession")),
                     ),
                 ),
-            )
+                C(
+                    R(
+                        C(F("salutation"), widgetattributes={"width": "18rem"}),
+                        C(F("title")),
+                    ),
+                    R(
+                        C(F("salutation")),
+                        C(F("salutation_letter")),
+                    ),
+                ),
+            ),
+            R(
+                C(
+                    R(C(lyt.H4(_("Address")))),
+                    lyt.form.FormSetField(
+                        "core_postal_list",
+                        R(C(F("address"))),
+                        R(C(F("supplemental_address", widgetattributes={"rows": 1}))),
+                        R(
+                            C(F("postcode"), breakpoint="lg", width=4),
+                            C(F("city"), breakpoint="lg", width=12),
+                        ),
+                        can_delete=False,
+                        max_num=1,
+                        extra=1,
+                    ),
+                ),
+                C(
+                    R(C(lyt.H4(_("Relationships")))),
+                    R(C(lyt.H4(_("Communication Channels")))),
+                    R(C(lyt.H5(_("Phone")))),
+                    lyt.form.FormSetField(
+                        "core_phone_list",
+                        R(
+                            C(F("type"), breakpoint="lg", width=4),
+                            C(F("number"), breakpoint="lg", width=12),
+                        ),
+                        can_delete=False,
+                        # max_num=3,
+                        extra=0,
+                    ),
+                    R(C(lyt.H5(_("Email")))),
+                    lyt.form.FormSetField(
+                        "core_email_list",
+                        R(C(F("email"))),
+                        can_delete=False,
+                        # max_num=3,
+                        extra=0,
+                    ),
+                ),
+            ),
         )
