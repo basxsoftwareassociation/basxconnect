@@ -79,7 +79,7 @@ msgstr "APK Schlüssel"
 
 #: basxconnect/core/layouts.py:146
 msgid "General Information"
-msgstr "Informationen"
+msgstr "Allgemeine Angaben"
 
 #: basxconnect/core/layouts.py:175 basxconnect/core/models/addresses.py:135
 #: basxconnect/core/wizards/add_person.py:32
