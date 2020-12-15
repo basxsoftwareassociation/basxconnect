@@ -1,9 +1,10 @@
 from bread.utils import get_concrete_instance, pretty_modelname
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from languages.fields import LanguageField
 
-from .utils import Term
+from .utils import Note, Term
 
 
 class Person(models.Model):
@@ -22,6 +23,8 @@ class Person(models.Model):
         _("Prefered Language"), blank=True, max_length=8
     )  # mitigate up-stream bug
     # TODO: should we use our Term model to save languages?
+
+    notes = GenericRelation(Note)
 
     def __str__(self):
         return self.name

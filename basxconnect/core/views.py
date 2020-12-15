@@ -94,8 +94,8 @@ def generalsettings(request):
             form.save()
 
     return lambda request: hg.BaseElement(
-        hg.H1(_("General")),
-        hg.H2(_("Information about our organization")),
+        hg.H3(_("General")),
+        hg.H4(_("Information about our organization")),
         layout.form.Form(form, Layouts.generalsettings_layout),
     )
 

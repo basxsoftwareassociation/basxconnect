@@ -95,11 +95,11 @@ class Layouts:
             lyt.form.SubmitButton(_("Save")),
         )
 
-        Layouts.appearancesettings_layout = lyt.BaseElement(lyt.H2(_("Appearance")))
+        Layouts.appearancesettings_layout = lyt.BaseElement(lyt.H5(_("Appearance")))
 
         dist = lyt.DIV(style="margin-bottom: 2rem")
         Layouts.personssettings_layout = lyt.BaseElement(
-            lyt.H2(_("Persons")),
+            lyt.H3(_("Persons")),
             # address type
             create_term_datatable(_("Address types"), "addresstype"),
             dist,
@@ -120,7 +120,7 @@ class Layouts:
         )
 
         Layouts.relationshipssettings_layout = lyt.BaseElement(
-            lyt.H2(_("Relationships")),
+            lyt.H3(_("Relationships")),
             lyt.datatable.DataTable.from_queryset(
                 RelationshipType.objects.all(),
                 fields=["name"],
@@ -135,7 +135,7 @@ class Layouts:
             ),
         )
 
-        Layouts.apikeyssettings_layout = lyt.BaseElement(lyt.H2(_("APK Keys")))
+        Layouts.apikeyssettings_layout = lyt.BaseElement(lyt.H3(_("APK Keys")))
 
         # some shortcuts:
         R = lyt.grid.Row
@@ -181,6 +181,10 @@ class Layouts:
                             C(F("postcode"), breakpoint="lg", width=4),
                             C(F("city"), breakpoint="lg", width=12),
                         ),
+                        R(
+                            C(F("country")),
+                            C(),
+                        ),
                         can_delete=False,
                         max_num=1,
                         extra=1,
@@ -208,6 +212,16 @@ class Layouts:
                         # max_num=3,
                         extra=0,
                     ),
+                    # R(C(lyt.H4(_("Notes")))),
+                    # lyt.form.FormSetField(
+                    # "notes",
+                    # R(
+                    # C(F("note")),
+                    # ),
+                    # can_delete=False,
+                    # max_num=3,
+                    # extra=0,
+                    # ),
                 ),
             ),
         )
