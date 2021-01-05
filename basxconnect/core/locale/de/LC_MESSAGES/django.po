@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-15 18:17+0700\n"
+"POT-Creation-Date: 2021-01-05 19:56+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
-#: basxconnect/core/views.py:97 basxconnect/core/views.py:138
+#: basxconnect/core/views.py:103 basxconnect/core/views.py:136
 msgid "General"
 msgstr "Allgemein"
 
@@ -30,69 +30,61 @@ msgstr "Absender Briefkopf"
 msgid "Logo"
 msgstr "Logo"
 
-#: basxconnect/core/layouts.py:95
+#: basxconnect/core/layouts.py:81
 msgid "Save"
 msgstr "Speichern"
 
-#: basxconnect/core/layouts.py:98
-msgid "Appearance"
-msgstr "Darstellung"
-
-#: basxconnect/core/layouts.py:102 basxconnect/core/models/persons.py:70
-#: basxconnect/core/views.py:130 basxconnect/core/views.py:133
-#: basxconnect/core/views.py:144
-msgid "Persons"
-msgstr "Personen"
-
-#: basxconnect/core/layouts.py:104
-msgid "Address types"
-msgstr "Adressarten"
-
-#: basxconnect/core/layouts.py:106
-msgid "Address origins"
-msgstr "Adressherkünfte"
-
-#: basxconnect/core/layouts.py:108 basxconnect/core/models/persons.py:93
-msgid "Title"
-msgstr "Titel"
-
-#: basxconnect/core/layouts.py:111
-msgid "Correspondence Languages"
-msgstr "Korrespondenzsprachen"
-
-#: basxconnect/core/layouts.py:115 basxconnect/core/layouts.py:195
-msgid "Communication Channels"
-msgstr "Kommunikationskanäle"
-
-#: basxconnect/core/layouts.py:118
-msgid "Legal Types"
-msgstr "Juristische Personenarten"
-
-#: basxconnect/core/layouts.py:123 basxconnect/core/layouts.py:194
-#: basxconnect/core/models/relationships.py:37 basxconnect/core/views.py:152
-msgid "Relationships"
-msgstr "Beziehungen"
-
-#: basxconnect/core/layouts.py:138
-msgid "APK Keys"
-msgstr "APK Schlüssel"
-
-#: basxconnect/core/layouts.py:146
+#: basxconnect/core/layouts.py:91
 msgid "General Information"
 msgstr "Allgemeine Angaben"
 
-#: basxconnect/core/layouts.py:175 basxconnect/core/models/addresses.py:135
+#: basxconnect/core/layouts.py:120 basxconnect/core/models/addresses.py:135
 #: basxconnect/core/wizards/add_person.py:32
 msgid "Address"
 msgstr "Adresse"
 
-#: basxconnect/core/layouts.py:196
+#: basxconnect/core/layouts.py:139 basxconnect/core/layouts.py:178
+#: basxconnect/core/models/relationships.py:37 basxconnect/core/views.py:150
+msgid "Relationships"
+msgstr "Beziehungen"
+
+#: basxconnect/core/layouts.py:140 basxconnect/core/layouts.py:208
+msgid "Communication Channels"
+msgstr "Kommunikationskanäle"
+
+#: basxconnect/core/layouts.py:141
 msgid "Phone"
 msgstr "Telefontype"
 
-#: basxconnect/core/layouts.py:207 basxconnect/core/models/addresses.py:48
+#: basxconnect/core/layouts.py:152 basxconnect/core/models/addresses.py:48
 msgid "Email"
 msgstr "E-Mail"
+
+#: basxconnect/core/layouts.py:196 basxconnect/core/models/persons.py:70
+#: basxconnect/core/views.py:128 basxconnect/core/views.py:131
+#: basxconnect/core/views.py:142
+msgid "Persons"
+msgstr "Personen"
+
+#: basxconnect/core/layouts.py:198
+msgid "Address types"
+msgstr "Adressarten"
+
+#: basxconnect/core/layouts.py:200
+msgid "Address origins"
+msgstr "Adressherkünfte"
+
+#: basxconnect/core/layouts.py:202 basxconnect/core/models/persons.py:93
+msgid "Title"
+msgstr "Titel"
+
+#: basxconnect/core/layouts.py:205
+msgid "Correspondence Languages"
+msgstr "Korrespondenzsprachen"
+
+#: basxconnect/core/layouts.py:210
+msgid "Legal Types"
+msgstr "Juristische Personenarten"
 
 #: basxconnect/core/models/addresses.py:19
 #: basxconnect/core/models/persons.py:69
@@ -319,12 +311,16 @@ msgid "eg. Church, Business, Association"
 msgstr "z. B. Kirche, Firma, Verbund"
 
 #: basxconnect/core/models/persons.py:134
-msgid "Juristic Person"
-msgstr "Juristische Person"
+#, fuzzy
+#| msgid "Legal Types"
+msgid "Legal Person"
+msgstr "Juristische Personenarten"
 
 #: basxconnect/core/models/persons.py:135
-msgid "Juristic Persons"
-msgstr "Juristische Persons"
+#, fuzzy
+#| msgid "Natural Persons"
+msgid "Legal Persons"
+msgstr "Natürliche Personen"
 
 #: basxconnect/core/models/persons.py:141
 msgid "Person Association"
@@ -390,21 +386,17 @@ msgstr "Begriff"
 msgid "Terms"
 msgstr "Begriffe"
 
-#: basxconnect/core/views.py:98
+#: basxconnect/core/views.py:104
 msgid "Information about our organization"
 msgstr "Angaben zu unserer Organisation"
 
-#: basxconnect/core/views.py:129
+#: basxconnect/core/views.py:127
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: basxconnect/core/views.py:176
+#: basxconnect/core/views.py:185
 msgid "No address"
 msgstr "Keine Adresse"
-
-#: basxconnect/core/views.py:185
-msgid "No results"
-msgstr "Keine Ergebnisse gefunden"
 
 #: basxconnect/core/wizards/add_person.py:67
 msgid "Back"
@@ -494,6 +486,21 @@ msgstr "Überprüfen und bestätigen Sie die eingetragenen Informationen"
 #, python-format
 msgid "Add %s"
 msgstr "%s hinzufügen"
+
+#~ msgid "Appearance"
+#~ msgstr "Darstellung"
+
+#~ msgid "APK Keys"
+#~ msgstr "APK Schlüssel"
+
+#~ msgid "Juristic Person"
+#~ msgstr "Juristische Person"
+
+#~ msgid "Juristic Persons"
+#~ msgstr "Juristische Persons"
+
+#~ msgid "No results"
+#~ msgstr "Keine Ergebnisse gefunden"
 
 #~ msgid "Base data"
 #~ msgstr "Stammdaten"

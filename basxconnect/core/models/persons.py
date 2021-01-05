@@ -131,8 +131,8 @@ class LegalPerson(Person):
 
     class Meta:
         ordering = ["name"]
-        verbose_name = _("Juristic Person")
-        verbose_name_plural = _("Juristic Persons")
+        verbose_name = _("Legal Person")
+        verbose_name_plural = _("Legal Persons")
 
 
 class PersonAssociation(Person):
