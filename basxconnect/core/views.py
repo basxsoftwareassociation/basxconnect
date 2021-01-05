@@ -164,26 +164,42 @@ def searchperson(request):
     if not query:
         return HttpResponse("")
 
-    qs = (
-        SearchQuerySet()
+    objects = [
+        result.object
+        for result in SearchQuerySet()
         .models(NaturalPerson, LegalPerson, PersonAssociation)
         .autocomplete(name_auto=query)
-    )
-    items = [
-        hg.LI(
-            result.object,
-            hg.DIV(
-                mark_safe(result.object.core_postal_list.first() or _("No address")),
-                style="font-size: small; margin-bottom: 1rem;",
-            ),
-        )
-        for result in qs
     ]
 
     return HttpResponse(
-        hg.UL(
-            *(items or [hg.LI(_("No results"))]),
+        hg.DIV(
+            hg.UL(
+                hg.Iterator(
+                    objects,
+                    hg.LI(
+                        layout.ObjectContext.Binding(hg.DIV)(
+                            layout.ObjectLabel(),
+                            layout.ObjectContext.Binding(hg.DIV)(
+                                hg.F(
+                                    lambda c, e: mark_safe(
+                                        e.object.core_postal_list.first()
+                                    )
+                                    or _("No address")
+                                ),
+                                style="font-size: small; padding-bottom: 1rem;",
+                            ),
+                        ),
+                        style="cursor: pointer; padding: 0.5rem;",
+                        onclick=hg.BaseElement(
+                            "document.location = '", layout.ObjectAction("edit"), "'"
+                        ),
+                        onmouseenter="this.style.backgroundColor = 'lightgray'",
+                        onmouseleave="this.style.backgroundColor = 'initial'",
+                    ),
+                    layout.ObjectContext,
+                ),
+            ),
             _class="bx--tile",
-            style="margin-bottom: 2rem;"
+            style="margin-bottom: 2rem;",
         ).render({})
     )
