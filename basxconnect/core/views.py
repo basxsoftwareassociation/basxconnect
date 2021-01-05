@@ -15,7 +15,6 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from haystack.query import SearchQuerySet
 
-from .layouts import Layouts
 from .models import (
     Category,
     LegalPerson,
@@ -68,8 +67,10 @@ register_default_modelviews(
 register_default_modelviews(
     NaturalPerson,
     editview=EditView._with(
-        formlayout=lambda _self, request: Layouts.person_edit_layout
-    ),  # use lambda for late evaluation of the layout
+        formlayout=lambda _self, request: layout.get_layout(
+            "basxconnect.core.layouts.editperson"
+        )()
+    ),
 )
 
 register_default_modelviews(LegalPerson)  # uses AddPersonWizard
@@ -86,8 +87,13 @@ register_default_modelviews(Category)
 @registerurl
 @aslayout
 def generalsettings(request):
-    instance = LegalPerson.objects.get(id=1)  # must exists due to migration
-    form = generate_form(request, LegalPerson, Layouts.generalsettings_layout, instance)
+    layoutobj = layout.get_layout("basxconnect.core.layouts.generalsettings")()
+    form = generate_form(
+        request,
+        LegalPerson,
+        layoutobj,
+        LegalPerson.objects.get(id=1),  # must exists due to migration
+    )
 
     if request.method == "POST":
         if form.is_valid():
@@ -96,32 +102,24 @@ def generalsettings(request):
     return lambda request: hg.BaseElement(
         hg.H3(_("General")),
         hg.H4(_("Information about our organization")),
-        layout.form.Form(form, Layouts.generalsettings_layout),
+        layout.form.Form(form, layoutobj),
     )
 
 
 @registerurl
 @aslayout
-def appearancesettings(request):
-    return lambda request: Layouts.appearancesettings_layout
-
-
-@registerurl
-@aslayout
-def personssettings(request):
-    return lambda request: Layouts.personssettings_layout
+def personsettings(request):
+    return lambda request: layout.get_layout(
+        "basxconnect.core.layouts.personsettings"
+    )()
 
 
 @registerurl
 @aslayout
 def relationshipssettings(request):
-    return lambda request: Layouts.relationshipssettings_layout
-
-
-@registerurl
-@aslayout
-def apikeyssettings(request):
-    return lambda request: Layouts.apikeyssettings_layout
+    return lambda request: layout.get_layout(
+        "basxconnect.core.layouts.relationshipssettings"
+    )()
 
 
 # MENU ENTRIES ---------------------------------------------------------------------
@@ -141,7 +139,7 @@ menu.registeritem(
 )
 menu.registeritem(
     menu.Item(
-        menu.Link(reverse("basxconnect.core.views.personssettings"), _("Persons")),
+        menu.Link(reverse("basxconnect.core.views.personsettings"), _("Persons")),
         settingsgroup,
     )
 )
