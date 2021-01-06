@@ -12,7 +12,7 @@ class Person(models.Model):
     name = models.CharField(
         _("Name"), max_length=255, help_text=_("Name to be displayed")
     )
-    deleted = models.BooleanField(_("Deleted"), default=False)
+    active = models.BooleanField(_("Active"), default=True)
     salutation_letter = models.CharField(
         _("Salutation Letter"),
         max_length=255,
@@ -40,7 +40,7 @@ class Person(models.Model):
     type.verbose_name = _("Type")
 
     def status(self):
-        return _("Inactive") if self.deleted else _("Active")
+        return _("Active") if self.active else _("Inactive")
 
     status.verbose_name = _("Status")
 

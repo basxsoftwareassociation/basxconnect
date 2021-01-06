@@ -4,14 +4,17 @@ from bread.forms.forms import generate_form
 from bread.utils.urls import (
     aslayout,
     model_urlname,
+    registermodelurl,
     registerurl,
     reverse,
     reverse_model,
 )
 from bread.views import BrowseView, EditView, register_default_modelviews
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import RedirectView
 from haystack.query import SearchQuerySet
 
@@ -64,14 +67,25 @@ register_default_modelviews(
         ],
     ),
 )
-register_default_modelviews(
-    NaturalPerson,
-    editview=EditView._with(
-        formlayout=lambda _self, request: layout.get_layout(
-            "basxconnect.core.layouts.editperson"
-        )()
-    ),
-)
+
+
+class NaturalPersonEditView(EditView):
+    def layout(self, request):
+        return layout.ObjectContext(
+            self.object,
+            layout.BaseElement(
+                layout.get_layout("basxconnect.core.layouts.editnaturalperson_head")(),
+                layout.form.Form.wrap_with_form(
+                    layout.C("form"),
+                    layout.get_layout(
+                        "basxconnect.core.layouts.editnaturalperson_form"
+                    )(),
+                ),
+            ),
+        )
+
+
+register_default_modelviews(NaturalPerson, editview=NaturalPersonEditView)
 
 register_default_modelviews(LegalPerson)  # uses AddPersonWizard
 register_default_modelviews(PersonAssociation)  # uses AddPersonWizard
@@ -104,6 +118,20 @@ def generalsettings(request):
         hg.H4(_("Information about our organization")),
         layout.form.Form(form, layoutobj),
     )
+
+
+@csrf_exempt
+def togglepersonstatus(request, pk: int):
+    if request.method == "POST":
+        person = get_object_or_404(Person, pk=pk)
+        person.active = not person.active
+        person.save()
+    return HttpResponse(
+        _("%s is %s") % (person, _("Active") if person.active else _("Inactive"))
+    )
+
+
+registermodelurl(Person, "togglestatus", togglepersonstatus)
 
 
 @registerurl
