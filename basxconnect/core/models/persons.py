@@ -10,10 +10,10 @@ from .utils import Note, Term
 
 
 class Person(models.Model):
-    created = models.DateField(_("Created"), editable=False, auto_now_add=True)
-    name = models.CharField(
-        _("Name"), max_length=255, help_text=_("Name to be displayed")
+    personnumber = models.CharField(
+        _("Person number"), max_length=255, unique=True, blank=True
     )
+    name = models.CharField(_("Display name"), max_length=255)
     active = models.BooleanField(_("Active"), default=True)
     salutation_letter = models.CharField(
         _("Salutation Letter"),
@@ -68,6 +68,14 @@ class Person(models.Model):
         return getattr(self.core_postal_list.first(), "country", "")
 
     country.verbose_name = _("Country")
+
+    def save(self, *args, **kwargs):
+        if self.pk and not self.personnumber:
+            self.personnumber = str(self.pk)
+        super().save(*args, **kwargs)
+        if not self.personnumber:
+            self.personnumber = str(self.pk)
+            super().save(*args, **kwargs)
 
     class Meta:
         ordering = ["name"]
