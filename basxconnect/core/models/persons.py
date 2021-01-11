@@ -1,9 +1,9 @@
 from bread.utils import get_concrete_instance, pretty_modelname
-from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from languages.fields import LanguageField
+from simple_history.models import HistoricalRecords
 
 from .. import settings
 from .utils import Note, Term
@@ -29,6 +29,7 @@ class Person(models.Model):
     )
 
     notes = GenericRelation(Note)
+    history = HistoricalRecords(inherit=True)
 
     def __str__(self):
         return self.name
