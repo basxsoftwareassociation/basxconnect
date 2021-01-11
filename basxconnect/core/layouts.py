@@ -4,7 +4,7 @@ from bread.utils.urls import reverse, reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from .models import Category, RelationshipType, Term
+from .models import Category, NaturalPerson, RelationshipType, Term
 
 
 def single_item_fieldset(related_field, fieldname, queryset=None):
@@ -103,9 +103,43 @@ def editnaturalperson_head():
     active_toggle.label.insert(0, _("Person status"))
     active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
 
+    personnumber = layout.DIV(
+        layout.LABEL(layout.ModelFieldLabel("personnumber"), _class="bx--label"),
+        layout.DIV(layout.ModelFieldValue("personnumber"), style="margin-top: 1rem"),
+    )
+    persontype = layout.DIV(
+        layout.LABEL(layout.ModelFieldLabel("type"), _class="bx--label"),
+        layout.DIV(layout.ModelFieldValue("type"), style="margin-top: 1rem"),
+    )
+    created = layout.DIV(
+        layout.LABEL("Created", _class="bx--label"),
+        layout.DIV(
+            layout.ModelFieldValue("history.last.history_date.date"),
+            " / ",
+            layout.ModelFieldValue("history.last.history_user"),
+            style="margin-top: 1rem",
+        ),
+    )
+
+    last_change = layout.DIV(
+        layout.LABEL("Changed", _class="bx--label"),
+        layout.DIV(
+            layout.ModelFieldValue("history.first.history_date.date"),
+            " / ",
+            layout.ModelFieldValue("history.first.history_user"),
+            style="margin-top: 1rem",
+        ),
+    )
+
     return layout.grid.Grid(
         R(C(layout.H3(layout.I(layout.ObjectLabel())))),
-        R(C(active_toggle)),
+        R(
+            C(active_toggle, width=2, breakpoint="max"),
+            C(personnumber, width=1, breakpoint="max"),
+            C(persontype, width=1, breakpoint="max"),
+            C(created, width=2, breakpoint="max"),
+            C(last_change, width=2, breakpoint="max"),
+        ),
     )
 
 
@@ -204,6 +238,23 @@ def editnaturalperson_form():
                         ),
                     ),
                 ),
+            ),
+        ),
+        (
+            _("Revisions"),
+            layout.BaseElement(
+                layout.datatable.DataTable(
+                    (
+                        (_("Date"), layout.ModelFieldValue("history_date")),
+                        (_("User"), layout.ModelFieldValue("history_user")),
+                        (
+                            _("Change"),
+                            layout.ModelFieldValue("get_history_type_display"),
+                        ),
+                    ),
+                    layout.F(lambda c, e: c["object"].history.all()),
+                    valueproviderclass=layout.ObjectContext,
+                )
             ),
         ),
         container=True,
