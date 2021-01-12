@@ -34,7 +34,7 @@ def editperson_head():
         layout.DIV(layout.ModelFieldValue("type"), style="margin-top: 1rem"),
     )
     created = layout.DIV(
-        layout.LABEL("Created", _class="bx--label"),
+        layout.LABEL(_("Created"), _class="bx--label"),
         layout.DIV(
             layout.ModelFieldValue("history.last.history_date.date"),
             " / ",
@@ -44,7 +44,7 @@ def editperson_head():
     )
 
     last_change = layout.DIV(
-        layout.LABEL("Changed", _class="bx--label"),
+        layout.LABEL(_("Changed"), _class="bx--label"),
         layout.DIV(
             layout.ModelFieldValue("history.first.history_date.date"),
             " / ",

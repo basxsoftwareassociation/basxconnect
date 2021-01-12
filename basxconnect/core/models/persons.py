@@ -35,11 +35,6 @@ class Person(models.Model):
     def __str__(self):
         return self.name
 
-    def number(self):
-        return self.id
-
-    number.verbose_name = _("Number")
-
     def type(self):
         return pretty_modelname(get_concrete_instance(self))
 
