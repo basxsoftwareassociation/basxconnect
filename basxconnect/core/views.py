@@ -56,7 +56,7 @@ register_default_modelviews(
     Person,
     browseview=BrowseView._with(
         fields=[
-            "number",
+            "personnumber",
             "status",
             "type",
             "name",
