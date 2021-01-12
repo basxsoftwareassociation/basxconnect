@@ -1,9 +1,8 @@
-from django_countries.fields import CountryField
-
 from django.db import models
 from django.template.defaultfilters import linebreaksbr
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
+from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
 from .persons import Person
@@ -21,6 +20,7 @@ class Address(models.Model):
         Term,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         related_name="type_%(app_label)s_%(class)s_list",
         limit_choices_to={"category__slug": "addresstype"},
     )
@@ -30,6 +30,7 @@ class Address(models.Model):
         Term,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         related_name="status_%(app_label)s_%(class)s_list",
         limit_choices_to={"category__slug": "addressstatus"},
     )
@@ -122,18 +123,9 @@ class Fax(Address):
         verbose_name_plural = _("Fax numbers")
 
 
-class County(models.Model):
-    name = models.CharField(_("Name of county or state"), max_length=255)
-    abbreviation = models.CharField(_("Abbreviation"), max_length=10)
-    country = CountryField(_("Country"))
-
-
 class Postal(Address):
     country = CountryField(_("Country"))
-    county = models.ForeignKey(County, null=True, on_delete=models.SET_NULL)
-    county.verbose_name = _("County")
-    address = models.CharField(_("Address"), max_length=255)
-    supplemental_address = models.TextField(_("Supplemental Address"), blank=True)
+    address = models.TextField(_("Address"), blank=True)
     postcode = models.CharField(_("Post Code"), max_length=16, blank=True)
     city = models.CharField(_("City"), max_length=255)
 
@@ -153,27 +145,3 @@ class Postal(Address):
     class Meta:
         verbose_name = _("Postal address")
         verbose_name_plural = _("Postal addresses")
-
-
-class POBox(Address):
-    country = CountryField(_("Country"))
-    county = models.ForeignKey(County, null=True, on_delete=models.SET_NULL)
-    county.verbose_name = _("County")
-    pobox_name = models.CharField(_("POBox"), max_length=255)
-    postcode = models.CharField(_("Post Code"), max_length=16, blank=True)
-    city = models.CharField(_("City"), max_length=255)
-
-    def __str__(self):
-        ret = [self.pobox_name]
-        if self.postcode:
-            ret.append(f"{self.postcode} {self.city}")
-        else:
-            ret.append(self.city)
-        if self.county:
-            ret.append(self.county)
-        ret.append(self.country)
-        return linebreaksbr("\n".join(ret))
-
-    class Meta:
-        verbose_name = _("Post office box")
-        verbose_name_plural = _("Post office boxes")
