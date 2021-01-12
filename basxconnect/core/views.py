@@ -244,6 +244,14 @@ def searchperson(request):
         .models(NaturalPerson, LegalPerson, PersonAssociation)
         .autocomplete(name_auto=query)
     ]
+    if not objects:
+        return HttpResponse(
+            hg.DIV(
+                _("No results"),
+                _class="bx--tile",
+                style="margin-bottom: 1rem;",
+            ).render({})
+        )
 
     return HttpResponse(
         hg.DIV(
