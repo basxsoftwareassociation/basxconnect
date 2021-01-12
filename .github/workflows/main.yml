@@ -43,11 +43,11 @@ jobs:
         git push
 
     - name: Run isort --check-only .
-      run: isort --check-only .
+      run: isort --check-only --profile=black .
     - name: If needed, commit isort changes to the pull request
       if: ${{ failure() }}
       run: |
-        isort .
+        isort --profile=black .
         git config --global user.name 'autoisort'
         git config --global user.email 'autoisort@basx.org'
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
