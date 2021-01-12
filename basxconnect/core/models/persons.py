@@ -11,7 +11,7 @@ from .utils import Note, Term
 
 class Person(models.Model):
     personnumber = models.CharField(
-        _("Person number"), max_length=255, unique=True, blank=True
+        _("Person number"), max_length=255, unique=True, blank=True, null=True
     )
     name = models.CharField(_("Display name"), max_length=255, blank=True)
     active = models.BooleanField(_("Active"), default=True)

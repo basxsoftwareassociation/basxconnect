@@ -131,14 +131,10 @@ class Postal(Address):
 
     def __str__(self):
         ret = [self.address]
-        if self.supplemental_address:
-            ret.append(self.supplemental_address)
         if self.postcode:
             ret.append(f"{self.postcode} {self.city}")
         else:
             ret.append(self.city)
-        if self.county:
-            ret.append(self.county)
         ret.append(self.country.name)
         return linebreaksbr("\n".join(ret))
 
