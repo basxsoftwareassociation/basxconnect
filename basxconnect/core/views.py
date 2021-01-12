@@ -1,8 +1,14 @@
 import htmlgenerator as hg
 from bread import layout, menu
 from bread.forms.forms import generate_form
-from bread.utils.urls import (aslayout, model_urlname, registermodelurl,
-                              registerurl, reverse, reverse_model)
+from bread.utils.urls import (
+    aslayout,
+    model_urlname,
+    registermodelurl,
+    registerurl,
+    reverse,
+    reverse_model,
+)
 from bread.views import BrowseView, EditView, register_default_modelviews
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -12,8 +18,16 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import RedirectView
 from haystack.query import SearchQuerySet
 
-from .models import (Category, LegalPerson, NaturalPerson, Person,
-                     PersonAssociation, Relationship, RelationshipType, Term)
+from .models import (
+    Category,
+    LegalPerson,
+    NaturalPerson,
+    Person,
+    PersonAssociation,
+    Relationship,
+    RelationshipType,
+    Term,
+)
 from .wizards.add_person import AddPersonWizard
 
 # ADD MODEL VIEWS AND REGISTER URLS -------------------------------------------
