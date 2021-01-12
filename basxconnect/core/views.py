@@ -60,7 +60,7 @@ register_default_modelviews(
             "status",
             "type",
             "name",
-            "street",
+            "address",
             "postalcode",
             "city",
             "country",
@@ -74,7 +74,7 @@ class NaturalPersonEditView(EditView):
         return layout.ObjectContext(
             self.object,
             layout.BaseElement(
-                layout.get_layout("basxconnect.core.layouts.editnaturalperson_head")(),
+                layout.get_layout("basxconnect.core.layouts.editperson_head")(),
                 layout.form.Form.wrap_with_form(
                     layout.C("form"),
                     layout.get_layout(
@@ -85,9 +85,25 @@ class NaturalPersonEditView(EditView):
         )
 
 
-register_default_modelviews(NaturalPerson, editview=NaturalPersonEditView)
+class LegalPersonEditView(EditView):
+    def layout(self, request):
+        return layout.ObjectContext(
+            self.object,
+            layout.BaseElement(
+                layout.get_layout("basxconnect.core.layouts.editperson_head")(),
+                layout.form.Form.wrap_with_form(
+                    layout.C("form"),
+                    layout.get_layout(
+                        "basxconnect.core.layouts.editlegalperson_form"
+                    )(),
+                ),
+            ),
+        )
 
-register_default_modelviews(LegalPerson)  # uses AddPersonWizard
+
+register_default_modelviews(NaturalPerson, editview=NaturalPersonEditView)
+register_default_modelviews(LegalPerson, editview=LegalPersonEditView)
+
 register_default_modelviews(PersonAssociation)  # uses AddPersonWizard
 register_default_modelviews(RelationshipType)
 register_default_modelviews(Relationship)
