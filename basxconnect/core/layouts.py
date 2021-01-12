@@ -199,6 +199,43 @@ def editlegalperson_form():
     )
 
 
+@registerlayout()
+def editpersonassociation_form():
+    # fix: alignment of tab content and tab should be on global grid I think
+    return layout.tabs.Tabs(
+        (
+            _("Base data"),
+            layout.BaseElement(
+                layout.grid.Grid(
+                    R(C(layout.H4(_("General Information")))),
+                    R(
+                        C(
+                            R(
+                                C(F("name")),
+                                C(),
+                            ),
+                            R(
+                                C(),
+                                C(F("preferred_language")),
+                            ),
+                        ),
+                        C(
+                            R(
+                                C(),
+                                C(F("salutation_letter")),
+                            ),
+                        ),
+                    ),
+                ),
+                layout.DIV(_class="section-separator-bottom"),
+                address_and_relationships(),
+            ),
+        ),
+        revisionstab(),
+        container=True,
+    )
+
+
 def address_and_relationships():
     return layout.grid.Grid(
         R(
