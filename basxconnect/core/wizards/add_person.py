@@ -9,8 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from formtools.wizard.views import NamedUrlSessionWizardView
 
-from ..models import (LegalPerson, NaturalPerson, Person, PersonAssociation,
-                      Postal, Term)
+from ..models import LegalPerson, NaturalPerson, Person, PersonAssociation, Postal, Term
 
 ADD_FORM_LAYOUTS = {
     NaturalPerson: layout.BaseElement(
