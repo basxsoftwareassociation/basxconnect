@@ -19,7 +19,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest black
+        pip install flake8 pytest black isort bandit
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Lint with flake8
@@ -41,7 +41,23 @@ jobs:
         git checkout $GITHUB_HEAD_REF
         git commit -am "fixup: Format Python code with Black"
         git push
-        
+
+    - name: Run isort --check-only .
+      run: isort --check-only .
+    - name: If needed, commit isort changes to the pull request
+      if: ${{ failure() }}
+      run: |
+        isort .
+        git config --global user.name 'autoisort'
+        git config --global user.email 'autoisort@basx.org'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+        git checkout $GITHUB_HEAD_REF
+        git commit -am "fixup: Format Python code with isort"
+        git push
+
+    - name: Run bandit
+      run: bandit -r .
+
     - name: Test with pytest
       run: |
         pytest
