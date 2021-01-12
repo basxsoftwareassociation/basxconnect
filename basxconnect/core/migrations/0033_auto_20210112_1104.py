@@ -7,118 +7,220 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0032_convert_addresses'),
+        ("core", "0032_convert_addresses"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='email',
-            name='status',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'addressstatus'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='status_core_email_list', to='core.term'),
+            model_name="email",
+            name="status",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "addressstatus"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="status_core_email_list",
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='email',
-            name='type',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'addresstype'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='type_core_email_list', to='core.term'),
+            model_name="email",
+            name="type",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "addresstype"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="type_core_email_list",
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='fax',
-            name='status',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'addressstatus'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='status_core_fax_list', to='core.term'),
+            model_name="fax",
+            name="status",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "addressstatus"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="status_core_fax_list",
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='historicallegalperson',
-            name='name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Display name'),
+            model_name="historicallegalperson",
+            name="name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Display name"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalnaturalperson',
-            name='first_name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='First Name'),
+            model_name="historicalnaturalperson",
+            name="first_name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="First Name"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalnaturalperson',
-            name='last_name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Last Name'),
+            model_name="historicalnaturalperson",
+            name="last_name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Last Name"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalnaturalperson',
-            name='name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Display name'),
+            model_name="historicalnaturalperson",
+            name="name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Display name"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalperson',
-            name='name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Display name'),
+            model_name="historicalperson",
+            name="name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Display name"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalpersonassociation',
-            name='name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Display name'),
+            model_name="historicalpersonassociation",
+            name="name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Display name"
+            ),
         ),
         migrations.AlterField(
-            model_name='legalperson',
-            name='type',
-            field=models.ForeignKey(blank=True, help_text='eg. Church, Business, Association', limit_choices_to={'category__slug': 'legaltype'}, null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.term'),
+            model_name="legalperson",
+            name="type",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="eg. Church, Business, Association",
+                limit_choices_to={"category__slug": "legaltype"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='naturalperson',
-            name='first_name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='First Name'),
+            model_name="naturalperson",
+            name="first_name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="First Name"
+            ),
         ),
         migrations.AlterField(
-            model_name='naturalperson',
-            name='gender',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'gender'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='gender_persons', to='core.term'),
+            model_name="naturalperson",
+            name="gender",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "gender"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="gender_persons",
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='naturalperson',
-            name='last_name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Last Name'),
+            model_name="naturalperson",
+            name="last_name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Last Name"
+            ),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Display name'),
+            model_name="person",
+            name="name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Display name"
+            ),
         ),
         migrations.AlterField(
-            model_name='phone',
-            name='status',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'addressstatus'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='status_core_phone_list', to='core.term'),
+            model_name="phone",
+            name="status",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "addressstatus"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="status_core_phone_list",
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='pobox',
-            name='status',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'addressstatus'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='status_core_pobox_list', to='core.term'),
+            model_name="pobox",
+            name="status",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "addressstatus"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="status_core_pobox_list",
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='pobox',
-            name='type',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'addresstype'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='type_core_pobox_list', to='core.term'),
+            model_name="pobox",
+            name="type",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "addresstype"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="type_core_pobox_list",
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='postal',
-            name='address',
-            field=models.TextField(blank=True, max_length=255, verbose_name='Address'),
+            model_name="postal",
+            name="address",
+            field=models.TextField(blank=True, max_length=255, verbose_name="Address"),
         ),
         migrations.AlterField(
-            model_name='postal',
-            name='status',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'addressstatus'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='status_core_postal_list', to='core.term'),
+            model_name="postal",
+            name="status",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "addressstatus"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="status_core_postal_list",
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='postal',
-            name='type',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'addresstype'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='type_core_postal_list', to='core.term'),
+            model_name="postal",
+            name="type",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "addresstype"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="type_core_postal_list",
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='web',
-            name='status',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'addressstatus'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='status_core_web_list', to='core.term'),
+            model_name="web",
+            name="status",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "addressstatus"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="status_core_web_list",
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='web',
-            name='type',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'addresstype'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='type_core_web_list', to='core.term'),
+            model_name="web",
+            name="type",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "addresstype"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="type_core_web_list",
+                to="core.term",
+            ),
         ),
     ]

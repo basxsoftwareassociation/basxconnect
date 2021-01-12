@@ -7,22 +7,35 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0021_add_tag_category'),
+        ("core", "0021_add_tag_category"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='JuristicPerson',
-            new_name='LegalPerson',
+            old_name="JuristicPerson",
+            new_name="LegalPerson",
         ),
         migrations.AlterField(
-            model_name='naturalperson',
-            name='salutation',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'salutation'}, null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.term'),
+            model_name="naturalperson",
+            name="salutation",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "salutation"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='naturalperson',
-            name='title',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'title'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='title_persons', to='core.term'),
+            model_name="naturalperson",
+            name="title",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "title"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="title_persons",
+                to="core.term",
+            ),
         ),
     ]

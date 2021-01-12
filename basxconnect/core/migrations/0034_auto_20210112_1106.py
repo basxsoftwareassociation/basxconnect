@@ -6,38 +6,38 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0033_auto_20210112_1104'),
+        ("core", "0033_auto_20210112_1104"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='pobox',
-            name='county',
+            model_name="pobox",
+            name="county",
         ),
         migrations.RemoveField(
-            model_name='pobox',
-            name='person',
+            model_name="pobox",
+            name="person",
         ),
         migrations.RemoveField(
-            model_name='pobox',
-            name='status',
+            model_name="pobox",
+            name="status",
         ),
         migrations.RemoveField(
-            model_name='pobox',
-            name='type',
+            model_name="pobox",
+            name="type",
         ),
         migrations.RemoveField(
-            model_name='postal',
-            name='county',
+            model_name="postal",
+            name="county",
         ),
         migrations.RemoveField(
-            model_name='postal',
-            name='supplemental_address',
+            model_name="postal",
+            name="supplemental_address",
         ),
         migrations.DeleteModel(
-            name='County',
+            name="County",
         ),
         migrations.DeleteModel(
-            name='POBox',
+            name="POBox",
         ),
     ]
