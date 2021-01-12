@@ -1,3 +1,4 @@
+[bandit]
 exclude_dirs:
   - .venv
   - .tox
