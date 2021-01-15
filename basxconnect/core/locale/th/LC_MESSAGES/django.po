@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-12 13:31+0700\n"
-"PO-Revision-Date: 2020-12-18 16:02+0700\n"
+"PO-Revision-Date: 2021-01-15 10:27+0700\n"
 "Last-Translator: Tida <tida@basx.dev>\n"
 "Language-Team: \n"
 "Language: th\n"
@@ -43,7 +43,7 @@ msgstr "ลบ"
 
 #: basxconnect/core/layouts.py:38
 msgid "Copy"
-msgstr "Kopieren"
+msgstr "คัดลอก"
 
 #: basxconnect/core/layouts.py:68 basxconnect/core/models/persons.py:44
 #: basxconnect/core/views.py:158
@@ -65,11 +65,11 @@ msgstr "สร้าง"
 
 #: basxconnect/core/layouts.py:99
 msgid "Changed"
-msgstr ""
+msgstr "เปลี่ยน"
 
 #: basxconnect/core/layouts.py:125 basxconnect/core/layouts.py:170
 msgid "Base data"
-msgstr ""
+msgstr "ฐานข้อมูล"
 
 #: basxconnect/core/layouts.py:128 basxconnect/core/layouts.py:173
 msgid "General Information"
@@ -100,19 +100,19 @@ msgstr "อีเมล์"
 
 #: basxconnect/core/layouts.py:256
 msgid "Revisions"
-msgstr ""
+msgstr "การแก้ไข"
 
 #: basxconnect/core/layouts.py:260
 msgid "Date"
-msgstr ""
+msgstr "วันที่"
 
 #: basxconnect/core/layouts.py:261
 msgid "User"
-msgstr ""
+msgstr "ผู้ใช้งาน"
 
 #: basxconnect/core/layouts.py:263
 msgid "Change"
-msgstr ""
+msgstr "เปลี่ยน"
 
 #: basxconnect/core/layouts.py:295 basxconnect/core/models/persons.py:79
 #: basxconnect/core/views.py:184 basxconnect/core/views.py:187
@@ -248,7 +248,7 @@ msgstr "เบอร์โทรศัพท์"
 
 #: basxconnect/core/models/persons.py:16
 msgid "Display name"
-msgstr ""
+msgstr "นามเรียกขาน"
 
 #: basxconnect/core/models/persons.py:19
 msgid "Salutation Letter"
@@ -264,7 +264,7 @@ msgstr "เลือกใช้ภาษา"
 
 #: basxconnect/core/models/persons.py:31
 msgid "Remarks"
-msgstr ""
+msgstr "หมายเหตุ"
 
 #: basxconnect/core/models/persons.py:56
 msgid "Postal code"
@@ -401,7 +401,7 @@ msgstr "ข้อมูลเกี่ยวกับองค์กรของ
 #: basxconnect/core/views.py:158
 #, python-format
 msgid "%s is %s"
-msgstr ""
+msgstr "%s คือ %s"
 
 #: basxconnect/core/views.py:183
 msgid "Settings"
