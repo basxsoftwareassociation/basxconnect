@@ -9,7 +9,12 @@ from bread.utils.urls import (
     reverse,
     reverse_model,
 )
-from bread.views import BrowseView, EditView, register_default_modelviews
+from bread.views import (
+    BrowseView,
+    EditView,
+    generate_copyview,
+    register_default_modelviews,
+)
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.html import mark_safe
@@ -74,6 +79,7 @@ class NaturalPersonEditView(EditView):
         return layout.ObjectContext(
             self.object,
             layout.BaseElement(
+                layout.get_layout("basxconnect.core.layouts.editperson_toolbar")(),
                 layout.get_layout("basxconnect.core.layouts.editperson_head")(),
                 layout.form.Form.wrap_with_form(
                     layout.C("form"),
@@ -90,6 +96,7 @@ class LegalPersonEditView(EditView):
         return layout.ObjectContext(
             self.object,
             layout.BaseElement(
+                layout.get_layout("basxconnect.core.layouts.editperson_toolbar")(),
                 layout.get_layout("basxconnect.core.layouts.editperson_head")(),
                 layout.form.Form.wrap_with_form(
                     layout.C("form"),
@@ -101,10 +108,35 @@ class LegalPersonEditView(EditView):
         )
 
 
-register_default_modelviews(NaturalPerson, editview=NaturalPersonEditView)
+class PersonAssociationEditView(EditView):
+    def layout(self, request):
+        return layout.ObjectContext(
+            self.object,
+            layout.BaseElement(
+                layout.get_layout("basxconnect.core.layouts.editperson_toolbar")(),
+                layout.get_layout("basxconnect.core.layouts.editperson_head")(),
+                layout.form.Form.wrap_with_form(
+                    layout.C("form"),
+                    layout.get_layout(
+                        "basxconnect.core.layouts.editpersonassociation_form"
+                    )(),
+                ),
+            ),
+        )
+
+
+register_default_modelviews(
+    NaturalPerson,
+    editview=NaturalPersonEditView,
+    copyview=generate_copyview(
+        NaturalPerson, attrs={"personnumber": None}, labelfield="name"
+    ),
+)
 register_default_modelviews(LegalPerson, editview=LegalPersonEditView)
 
-register_default_modelviews(PersonAssociation)  # uses AddPersonWizard
+register_default_modelviews(
+    PersonAssociation, editview=PersonAssociationEditView
+)  # uses AddPersonWizard
 register_default_modelviews(RelationshipType)
 register_default_modelviews(Relationship)
 register_default_modelviews(Term)
@@ -212,6 +244,14 @@ def searchperson(request):
         .models(NaturalPerson, LegalPerson, PersonAssociation)
         .autocomplete(name_auto=query)
     ]
+    if not objects:
+        return HttpResponse(
+            hg.DIV(
+                _("No results"),
+                _class="bx--tile",
+                style="margin-bottom: 1rem;",
+            ).render({})
+        )
 
     return HttpResponse(
         hg.DIV(
@@ -225,10 +265,10 @@ def searchperson(request):
                                 hg.F(
                                     lambda c, e: mark_safe(
                                         e.object.core_postal_list.first()
+                                        or _("No address")
                                     )
-                                    or _("No address")
                                 ),
-                                style="font-size: small; padding-bottom: 1rem;",
+                                style="font-size: small; padding-bottom: 1rem; padding-top: 0.5rem",
                             ),
                         ),
                         style="cursor: pointer; padding: 0.5rem;",

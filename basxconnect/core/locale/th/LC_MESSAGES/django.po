@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 11:35+0700\n"
+"POT-Creation-Date: 2021-01-12 13:31+0700\n"
 "PO-Revision-Date: 2020-12-18 16:02+0700\n"
 "Last-Translator: Tida <tida@basx.dev>\n"
 "Language-Team: \n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Poedit 2.2.4\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
-#: basxconnect/core/views.py:133 basxconnect/core/views.py:180
+#: basxconnect/core/views.py:145 basxconnect/core/views.py:192
 msgid "General"
 msgstr "ทั่วไป"
 
@@ -33,102 +33,114 @@ msgstr "หัวจดหมาย"
 msgid "Logo"
 msgstr "โลโก้"
 
-#: basxconnect/core/layouts.py:16 basxconnect/core/models/persons.py:44
-#: basxconnect/core/views.py:146
+#: basxconnect/core/layouts.py:18 basxconnect/core/wizards/add_person.py:112
+msgid "Search person"
+msgstr "ค้นหาบุคคล"
+
+#: basxconnect/core/layouts.py:31
+msgid "Delete"
+msgstr "ลบ"
+
+#: basxconnect/core/layouts.py:38
+msgid "Copy"
+msgstr "Kopieren"
+
+#: basxconnect/core/layouts.py:68 basxconnect/core/models/persons.py:44
+#: basxconnect/core/views.py:158
 msgid "Inactive"
 msgstr "ไม่ใช้งาน"
 
-#: basxconnect/core/layouts.py:16 basxconnect/core/models/persons.py:17
-#: basxconnect/core/models/persons.py:44 basxconnect/core/views.py:146
+#: basxconnect/core/layouts.py:68 basxconnect/core/models/persons.py:17
+#: basxconnect/core/models/persons.py:44 basxconnect/core/views.py:158
 msgid "Active"
 msgstr "ใช้งาน"
 
-#: basxconnect/core/layouts.py:25
+#: basxconnect/core/layouts.py:77
 msgid "Person status"
 msgstr "บุคคล"
 
-#: basxconnect/core/layouts.py:37
+#: basxconnect/core/layouts.py:89
 msgid "Created"
 msgstr "สร้าง"
 
-#: basxconnect/core/layouts.py:47
+#: basxconnect/core/layouts.py:99
 msgid "Changed"
 msgstr ""
 
-#: basxconnect/core/layouts.py:73 basxconnect/core/layouts.py:118
+#: basxconnect/core/layouts.py:125 basxconnect/core/layouts.py:170
 msgid "Base data"
 msgstr ""
 
-#: basxconnect/core/layouts.py:76 basxconnect/core/layouts.py:121
+#: basxconnect/core/layouts.py:128 basxconnect/core/layouts.py:173
 msgid "General Information"
 msgstr "ข้อมูลเบื้องต้น"
 
-#: basxconnect/core/layouts.py:154 basxconnect/core/models/addresses.py:128
+#: basxconnect/core/layouts.py:206 basxconnect/core/models/addresses.py:128
 #: basxconnect/core/models/persons.py:51
 #: basxconnect/core/wizards/add_person.py:32
 msgid "Address"
 msgstr "ที่อยู่"
 
-#: basxconnect/core/layouts.py:174 basxconnect/core/layouts.py:225
-#: basxconnect/core/models/relationships.py:37 basxconnect/core/views.py:194
+#: basxconnect/core/layouts.py:226 basxconnect/core/layouts.py:277
+#: basxconnect/core/models/relationships.py:37 basxconnect/core/views.py:206
 msgid "Relationships"
 msgstr "ความสัมพันธ์"
 
-#: basxconnect/core/layouts.py:177 basxconnect/core/layouts.py:255
+#: basxconnect/core/layouts.py:229 basxconnect/core/layouts.py:307
 msgid "Communication Channels"
 msgstr "ช่องทางการสื่อสาร"
 
-#: basxconnect/core/layouts.py:178
+#: basxconnect/core/layouts.py:230
 msgid "Phone"
 msgstr "เบอร์โทรศัพท์"
 
-#: basxconnect/core/layouts.py:188 basxconnect/core/models/addresses.py:49
+#: basxconnect/core/layouts.py:240 basxconnect/core/models/addresses.py:49
 msgid "Email"
 msgstr "อีเมล์"
 
-#: basxconnect/core/layouts.py:204
+#: basxconnect/core/layouts.py:256
 msgid "Revisions"
 msgstr ""
 
-#: basxconnect/core/layouts.py:208
+#: basxconnect/core/layouts.py:260
 msgid "Date"
 msgstr ""
 
-#: basxconnect/core/layouts.py:209
+#: basxconnect/core/layouts.py:261
 msgid "User"
 msgstr ""
 
-#: basxconnect/core/layouts.py:211
+#: basxconnect/core/layouts.py:263
 msgid "Change"
 msgstr ""
 
-#: basxconnect/core/layouts.py:243 basxconnect/core/models/persons.py:79
-#: basxconnect/core/views.py:172 basxconnect/core/views.py:175
-#: basxconnect/core/views.py:186
+#: basxconnect/core/layouts.py:295 basxconnect/core/models/persons.py:79
+#: basxconnect/core/views.py:184 basxconnect/core/views.py:187
+#: basxconnect/core/views.py:198
 msgid "Persons"
 msgstr "บุคคล"
 
-#: basxconnect/core/layouts.py:245
+#: basxconnect/core/layouts.py:297
 msgid "Address types"
 msgstr "ประเภทที่อยู่"
 
-#: basxconnect/core/layouts.py:247
+#: basxconnect/core/layouts.py:299
 msgid "Address origins"
 msgstr "ที่อยู่ผู้ส่ง"
 
-#: basxconnect/core/layouts.py:249 basxconnect/core/models/persons.py:102
+#: basxconnect/core/layouts.py:301 basxconnect/core/models/persons.py:102
 msgid "Title"
 msgstr "เรื่อง"
 
-#: basxconnect/core/layouts.py:252
+#: basxconnect/core/layouts.py:304
 msgid "Correspondence Languages"
 msgstr "ภาษาที่ใช้ในจดหมาย"
 
-#: basxconnect/core/layouts.py:257
+#: basxconnect/core/layouts.py:309
 msgid "Legal Types"
 msgstr "ประเภทบุคคล"
 
-#: basxconnect/core/layouts.py:305
+#: basxconnect/core/layouts.py:351
 msgid "Save"
 msgstr "บันทึก"
 
@@ -222,11 +234,11 @@ msgstr "รหัสไปรษณีย์"
 msgid "City"
 msgstr "จังหวัด"
 
-#: basxconnect/core/models/addresses.py:146
+#: basxconnect/core/models/addresses.py:142
 msgid "Postal address"
 msgstr "ไปรษณีย์พื้นที่"
 
-#: basxconnect/core/models/addresses.py:147
+#: basxconnect/core/models/addresses.py:143
 msgid "Postal addresses"
 msgstr "ไปรษณีย์พื้นที่"
 
@@ -382,20 +394,20 @@ msgstr "ช่วงเวลา"
 msgid "Terms"
 msgstr "ช่วงเวลา"
 
-#: basxconnect/core/views.py:134
+#: basxconnect/core/views.py:146
 msgid "Information about our organization"
 msgstr "ข้อมูลเกี่ยวกับองค์กรของเรา"
 
-#: basxconnect/core/views.py:146
+#: basxconnect/core/views.py:158
 #, python-format
 msgid "%s is %s"
 msgstr ""
 
-#: basxconnect/core/views.py:171
+#: basxconnect/core/views.py:183
 msgid "Settings"
 msgstr "ตั้งค่า"
 
-#: basxconnect/core/views.py:229
+#: basxconnect/core/views.py:240
 msgid "No address"
 msgstr "ไม่มีที่อยู่"
 
@@ -422,10 +434,6 @@ msgstr "ตรวจสอบข้อมูลก่อนยืนยัน"
 #: basxconnect/core/wizards/add_person.py:100
 msgid "Start typing to search for a person..."
 msgstr "เริ่มพิมพ์เพื่อค้นหาบุคคล"
-
-#: basxconnect/core/wizards/add_person.py:112
-msgid "Search person"
-msgstr "ค้นหาบุคคล"
 
 #: basxconnect/core/wizards/add_person.py:116
 msgid ""
@@ -513,9 +521,6 @@ msgstr "เพิ่ม %s"
 
 #~ msgid "Name to be displayed"
 #~ msgstr "นามเรียกขาน"
-
-#~ msgid "Deleted"
-#~ msgstr "ลบ"
 
 #~ msgid "Street"
 #~ msgstr "ถนน"

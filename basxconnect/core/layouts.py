@@ -12,6 +12,58 @@ F = layout.form.FormField
 
 
 @registerlayout()
+def editperson_toolbar():
+    searchbutton = layout.search.Search(
+        widgetattributes={
+            "placeholder": _("Search person"),
+            "hx_get": reverse_lazy("basxconnect.core.views.searchperson"),
+            "hx_trigger": "changed, keyup changed delay:100ms",
+            "hx_target": "#search-results",
+            "name": "query",
+        },
+        _style="width: 20rem",
+    )
+    # clear search field when search box is emptied
+    searchbutton[3].attributes[
+        "onclick"
+    ] = "this.parentElement.nextElementSibling.innerHTML = ''"
+    deletebutton = layout.button.Button(
+        _("Delete"),
+        buttontype="danger",
+        icon="trash-can",
+        notext=True,
+        **layout.aslink_attributes(layout.ObjectAction("delete"))
+    )
+    copybutton = layout.button.Button(
+        _("Copy"),
+        buttontype="ghost",
+        icon="copy",
+        notext=True,
+        **layout.aslink_attributes(layout.ObjectAction("copy"))
+    )
+
+    return layout.DIV(
+        layout.grid.Grid(
+            R(
+                C(searchbutton, width=2, breakpoint="md"),
+                C(
+                    deletebutton,
+                    copybutton,
+                    layout.button.PrintPageButton(buttontype="ghost"),
+                ),
+            )
+        ),
+        layout.DIV(
+            id="search-results",
+            _style="width: 20rem; position: absolute; z-index: 999",
+        ),
+        layout.DIV(_class="section-separator-bottom", style="margin-top: 1rem"),
+        style="margin-bottom: 2rem",
+        _class="no-print",
+    )
+
+
+@registerlayout()
 def editperson_head():
     active_toggle = layout.toggle.Toggle(None, _("Inactive"), _("Active"))
     active_toggle.input.attributes["id"] = "person_active_toggle"
@@ -56,11 +108,11 @@ def editperson_head():
     return layout.grid.Grid(
         R(C(layout.H3(layout.I(layout.ObjectLabel())))),
         R(
-            C(active_toggle, width=2, breakpoint="max"),
-            C(personnumber, width=2, breakpoint="max"),
-            C(persontype, width=2, breakpoint="max"),
-            C(created, width=2, breakpoint="max"),
-            C(last_change, width=2, breakpoint="max"),
+            C(active_toggle, width=1, breakpoint="md"),
+            C(personnumber, width=1, breakpoint="md"),
+            C(persontype, width=1, breakpoint="md"),
+            C(created, width=1, breakpoint="md"),
+            C(last_change, width=1, breakpoint="md"),
         ),
     )
 
@@ -127,6 +179,43 @@ def editlegalperson_form():
                             ),
                             R(
                                 C(F("type")),
+                                C(F("preferred_language")),
+                            ),
+                        ),
+                        C(
+                            R(
+                                C(),
+                                C(F("salutation_letter")),
+                            ),
+                        ),
+                    ),
+                ),
+                layout.DIV(_class="section-separator-bottom"),
+                address_and_relationships(),
+            ),
+        ),
+        revisionstab(),
+        container=True,
+    )
+
+
+@registerlayout()
+def editpersonassociation_form():
+    # fix: alignment of tab content and tab should be on global grid I think
+    return layout.tabs.Tabs(
+        (
+            _("Base data"),
+            layout.BaseElement(
+                layout.grid.Grid(
+                    R(C(layout.H4(_("General Information")))),
+                    R(
+                        C(
+                            R(
+                                C(F("name")),
+                                C(),
+                            ),
+                            R(
+                                C(),
                                 C(F("preferred_language")),
                             ),
                         ),
@@ -260,11 +349,6 @@ def personsettings():
 
 
 @registerlayout()
-def editpersonheader():
-    return None
-
-
-@registerlayout()
 def generalsettings():
     return layout.BaseElement(
         layout.grid.Grid(
@@ -276,7 +360,6 @@ def generalsettings():
             "core_postal_list",
             layout.grid.Grid(
                 R(C(F("address"))),
-                R(C(F("supplemental_address"))),
                 R(
                     C(F("postcode"), breakpoint="lg", width=2),
                     C(F("city"), breakpoint="lg", width=3),
