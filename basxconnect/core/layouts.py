@@ -284,7 +284,7 @@ def address_and_relationships():
             ),
             _class="section-separator-bottom",
         ),
-        R(C(), C(F("remarks")), style="margin-top: 1rem"),
+        R(C(F("categories")), C(F("remarks")), style="margin-top: 1rem"),
     )
 
 

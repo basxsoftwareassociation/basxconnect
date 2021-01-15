@@ -28,6 +28,9 @@ class Person(models.Model):
         lambda field, request, instance: settings.PREFERRED_LANGUAGES
     )
 
+    categories = models.ManyToManyField(Term)
+    categories.verbose_name = _("Categories")
+
     remarks = models.TextField(_("Remarks"), blank=True)
     notes = GenericRelation(Note)
     history = HistoricalRecords(inherit=True)
