@@ -193,7 +193,7 @@ def editlegalperson_form(request):
             ),
         ),
         relationshipstab(request),
-        revisionstab(),
+        revisionstab(request),
         container=True,
     )
 
