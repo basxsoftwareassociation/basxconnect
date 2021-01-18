@@ -192,6 +192,7 @@ def editlegalperson_form(request):
                 address_and_relationships(request),
             ),
         ),
+        relationshipstab(),
         revisionstab(),
         container=True,
     )
@@ -228,6 +229,7 @@ def editpersonassociation_form(request):
                 address_and_relationships(request),
             ),
         ),
+        relationshipstab(),
         revisionstab(request),
         container=True,
     )
