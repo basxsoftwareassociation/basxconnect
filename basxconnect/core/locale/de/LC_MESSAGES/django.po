@@ -361,7 +361,7 @@ msgstr "Endet am"
 
 #: basxconnect/core/models/relationships.py:36
 msgid "Relationship"
-msgstr "Verknüpfungen"
+msgstr "Beziehung"
 
 #: basxconnect/core/models/utils.py:12
 msgid "Name"

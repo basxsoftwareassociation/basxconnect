@@ -21,11 +21,11 @@ class NaturalPersonEditView(EditView):
         return layout.ObjectContext(
             self.object,
             layout.BaseElement(
-                layouts.editperson_toolbar(),
-                layouts.editperson_head(),
+                layouts.editperson_toolbar(request),
+                layouts.editperson_head(request),
                 layout.form.Form.wrap_with_form(
                     layout.C("form"),
-                    layouts.editnaturalperson_form(),
+                    layouts.editnaturalperson_form(request),
                 ),
             ),
         )
@@ -36,11 +36,11 @@ class LegalPersonEditView(EditView):
         return layout.ObjectContext(
             self.object,
             layout.BaseElement(
-                layouts.editperson_toolbar(),
-                layouts.editperson_head(),
+                layouts.editperson_toolbar(request),
+                layouts.editperson_head(request),
                 layout.form.Form.wrap_with_form(
                     layout.C("form"),
-                    layouts.editlegalperson_form(),
+                    layouts.editlegalperson_form(request),
                 ),
             ),
         )
@@ -51,11 +51,11 @@ class PersonAssociationEditView(EditView):
         return layout.ObjectContext(
             self.object,
             layout.BaseElement(
-                layouts.editperson_toolbar(),
-                layouts.editperson_head(),
+                layouts.editperson_toolbar(request),
+                layouts.editperson_head(request),
                 layout.form.Form.wrap_with_form(
                     layout.C("form"),
-                    layouts.editpersonassociation_form(),
+                    layouts.editpersonassociation_form(request),
                 ),
             ),
         )
@@ -66,9 +66,7 @@ class PersonAssociationEditView(EditView):
 
 @aslayout
 def generalsettings(request):
-    from basxconnect.core.layouts import generalsettings
-
-    layoutobj = generalsettings()
+    layoutobj = layouts.generalsettings(request)
     form = generate_form(
         request,
         LegalPerson,
@@ -100,12 +98,12 @@ def togglepersonstatus(request, pk: int):
 
 @aslayout
 def personsettings(request):
-    return lambda request: layouts.personsettings()
+    return lambda request: layouts.personsettings(request)
 
 
 @aslayout
 def relationshipssettings(request):
-    return lambda request: layouts.relationshipssettings()
+    return lambda request: layouts.relationshipssettings(request)
 
 
 # MENU ENTRIES ---------------------------------------------------------------------

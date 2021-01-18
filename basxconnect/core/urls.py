@@ -71,6 +71,7 @@ urlpatterns = [
     *default_model_paths(
         models.PersonAssociation, editview=views.PersonAssociationEditView
     ),
+    *default_model_paths(models.Relationship),
     *default_model_paths(models.RelationshipType),
     *default_model_paths(models.Term),
     *default_model_paths(models.Category),

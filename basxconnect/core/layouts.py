@@ -9,8 +9,10 @@ R = layout.grid.Row
 C = layout.grid.Col
 F = layout.form.FormField
 
+dist = layout.DIV(style="margin-bottom: 2rem")
 
-def editperson_toolbar():
+
+def editperson_toolbar(request):
     searchbutton = layout.search.Search(
         widgetattributes={
             "placeholder": _("Search person"),
@@ -61,7 +63,7 @@ def editperson_toolbar():
     )
 
 
-def editperson_head():
+def editperson_head(request):
     active_toggle = layout.toggle.Toggle(None, _("Inactive"), _("Active"))
     active_toggle.input.attributes["id"] = "person_active_toggle"
     active_toggle.input.attributes["hx_trigger"] = "change"
@@ -114,7 +116,7 @@ def editperson_head():
     )
 
 
-def editnaturalperson_form():
+def editnaturalperson_form(request):
     # fix: alignment of tab content and tab should be on global grid I think
     return layout.tabs.Tabs(
         (
@@ -150,15 +152,15 @@ def editnaturalperson_form():
                     ),
                 ),
                 layout.DIV(_class="section-separator-bottom"),
-                address_and_relationships(),
+                address_and_relationships(request),
             ),
         ),
-        revisionstab(),
+        revisionstab(request),
         container=True,
     )
 
 
-def editlegalperson_form():
+def editlegalperson_form(request):
     # fix: alignment of tab content and tab should be on global grid I think
     return layout.tabs.Tabs(
         (
@@ -186,7 +188,7 @@ def editlegalperson_form():
                     ),
                 ),
                 layout.DIV(_class="section-separator-bottom"),
-                address_and_relationships(),
+                address_and_relationships(request),
             ),
         ),
         revisionstab(),
@@ -194,7 +196,7 @@ def editlegalperson_form():
     )
 
 
-def editpersonassociation_form():
+def editpersonassociation_form(request):
     # fix: alignment of tab content and tab should be on global grid I think
     return layout.tabs.Tabs(
         (
@@ -222,15 +224,15 @@ def editpersonassociation_form():
                     ),
                 ),
                 layout.DIV(_class="section-separator-bottom"),
-                address_and_relationships(),
+                address_and_relationships(request),
             ),
         ),
-        revisionstab(),
+        revisionstab(request),
         container=True,
     )
 
 
-def address_and_relationships():
+def address_and_relationships(request):
     return layout.grid.Grid(
         R(
             C(
@@ -256,96 +258,22 @@ def address_and_relationships():
                 R(
                     C(layout.H4(_("Relationships"))),
                 ),
-                layout.TABLE(
-                    layout.THEAD(
-                        layout.ModelContext(
-                            Relationship,
-                            layout.TR(
-                                *[
-                                    layout.TH(
-                                        layout.SPAN(
-                                            field,
-                                            _class="bx--table-header-label",
-                                        ),
-                                    )
-                                    for field in (
-                                        "",
-                                        "",
-                                        "",
-                                        "",
-                                        layout.ModelFieldLabel("start_date"),
-                                        layout.ModelFieldLabel("end_date"),
-                                        layout.ModelFieldLabel("DELETE"),
-                                    )
-                                ],
-                            ),
-                        )
+                layout.datatable.DataTable.from_model(
+                    Relationship,
+                    layout.F(
+                        lambda c, e: c["object"].relationships_to.all()
+                        | c["object"].relationships_from.all()
                     ),
-                    layout.TBODY(
-                        layout.form.FormSetField(
-                            "relationships_to",
-                            layout.TR(
-                                *[
-                                    layout.TD(field)
-                                    for field in (
-                                        _("is"),
-                                        F("type", hidelabel=True),
-                                        _("of"),
-                                        F("person_a", hidelabel=True),
-                                        F("start_date", hidelabel=True),
-                                        F("end_date", hidelabel=True),
-                                        F("DELETE", hidelabel=True),
-                                    )
-                                ],
-                            ),
-                        ),
+                    title="",
+                    addurl=reverse_model(
+                        Relationship,
+                        "add",
+                        query={
+                            "person_a": request.resolver_match.kwargs["pk"],
+                            "person_a_nohide": True,
+                        },
                     ),
-                    _class="bx--data-table",
-                ),
-                layout.TABLE(
-                    layout.THEAD(
-                        layout.ModelContext(
-                            Relationship,
-                            layout.TR(
-                                *[
-                                    layout.TH(
-                                        layout.SPAN(
-                                            field,
-                                            _class="bx--table-header-label",
-                                        ),
-                                    )
-                                    for field in (
-                                        "",
-                                        "",
-                                        "",
-                                        layout.ModelFieldLabel("start_date"),
-                                        layout.ModelFieldLabel("end_date"),
-                                        layout.ModelFieldLabel("DELETE"),
-                                    )
-                                ],
-                            ),
-                        )
-                    ),
-                    layout.TBODY(
-                        layout.form.FormSetField(
-                            "relationships_from",
-                            layout.TR(
-                                *[
-                                    layout.TD(field)
-                                    for field in (
-                                        F("person_b", hidelabel=True),
-                                        _("is"),
-                                        F("type", hidelabel=True),
-                                        F("start_date", hidelabel=True),
-                                        F("end_date", hidelabel=True),
-                                        F("DELETE", hidelabel=True),
-                                    )
-                                ],
-                            ),
-                            extra=0,
-                        ),
-                    ),
-                    _class="bx--data-table",
+                    backurl=request.get_full_path(),
                 ),
                 R(
                     _class="section-separator-bottom",
@@ -377,7 +305,7 @@ def address_and_relationships():
     )
 
 
-def revisionstab():
+def revisionstab(request):
     return (
         _("Revisions"),
         layout.BaseElement(
@@ -397,7 +325,7 @@ def revisionstab():
     )
 
 
-def relationshipssettings():
+def relationshipssettings(request):
     return layout.BaseElement(
         layout.H3(_("Relationships")),
         layout.datatable.DataTable.from_queryset(
@@ -413,8 +341,7 @@ def relationshipssettings():
     )
 
 
-def personsettings():
-    dist = layout.DIV(style="margin-bottom: 2rem")
+def personsettings(request):
     return layout.BaseElement(
         layout.H3(_("Persons")),
         # address type
@@ -435,7 +362,7 @@ def personsettings():
     )
 
 
-def generalsettings():
+def generalsettings(request):
     return layout.BaseElement(
         layout.grid.Grid(
             R(C(F("type"))),
