@@ -42,3 +42,4 @@ What we still need to do
 - Implementing an extension which provides donation models and workflows
 - Improving the existing code base to have better support for extendability
 - Write documentation where necessary and add code-examples and how-to's
+- Implement revisions completely to allow going to a certain date and maybe display diffs
