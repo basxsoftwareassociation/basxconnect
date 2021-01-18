@@ -3,7 +3,7 @@ basxconnect
 
 Core Implementation of a CRM system for non-profit organizations
 
-(It feels like the README is the wrong document to place the whole vission/mission/core values stuff but I will be okay for now I think)
+(It feels like the README is the wrong document to place the whole vission/mission/core values stuff but it will be okay for now I think)
 
 Vision
 ------
@@ -42,3 +42,4 @@ What we still need to do
 - Implementing an extension which provides donation models and workflows
 - Improving the existing code base to have better support for extendability
 - Write documentation where necessary and add code-examples and how-to's
+- Implement revisions completely to allow going to a certain date and maybe display diffs
