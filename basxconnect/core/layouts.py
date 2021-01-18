@@ -155,6 +155,7 @@ def editnaturalperson_form(request):
                 address_and_relationships(request),
             ),
         ),
+        relationshipstab(request),
         revisionstab(request),
         container=True,
     )
@@ -255,30 +256,6 @@ def address_and_relationships(request):
                 _class="section-separator-right",
             ),
             C(
-                R(
-                    C(layout.H4(_("Relationships"))),
-                ),
-                layout.datatable.DataTable.from_model(
-                    Relationship,
-                    layout.F(
-                        lambda c, e: c["object"].relationships_to.all()
-                        | c["object"].relationships_from.all()
-                    ),
-                    title="",
-                    addurl=reverse_model(
-                        Relationship,
-                        "add",
-                        query={
-                            "person_a": request.resolver_match.kwargs["pk"],
-                            "person_a_nohide": True,
-                        },
-                    ),
-                    backurl=request.get_full_path(),
-                ),
-                R(
-                    _class="section-separator-bottom",
-                    style="height: 1rem",
-                ),
                 R(C(layout.H4(_("Communication Channels")))),
                 R(C(layout.H5(_("Phone")))),
                 layout.form.FormSetField(
@@ -321,6 +298,29 @@ def revisionstab(request):
                 layout.F(lambda c, e: c["object"].history.all()),
                 valueproviderclass=layout.ObjectContext,
             )
+        ),
+    )
+
+
+def relationshipstab(request):
+    return (
+        _("Relationships"),
+        layout.datatable.DataTable.from_model(
+            Relationship,
+            layout.F(
+                lambda c, e: c["object"].relationships_to.all()
+                | c["object"].relationships_from.all()
+            ),
+            title="",
+            addurl=reverse_model(
+                Relationship,
+                "add",
+                query={
+                    "person_a": request.resolver_match.kwargs["pk"],
+                    "person_a_nohide": True,
+                },
+            ),
+            backurl=request.get_full_path(),
         ),
     )
 
