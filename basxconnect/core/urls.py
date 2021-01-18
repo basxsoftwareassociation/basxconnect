@@ -10,18 +10,6 @@ from django.views.generic import RedirectView
 from . import models, views
 from .wizards.add_person import AddPersonWizard
 
-x = breadviews.BrowseView._with(
-    fields=[
-        "personnumber",
-        "status",
-        "type",
-        "name",
-        "address",
-        "postalcode",
-        "city",
-        "country",
-    ]
-)
 urlpatterns = [
     generate_path(
         RedirectView.as_view(
