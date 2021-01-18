@@ -1,17 +1,15 @@
 from bread import layout as layout
-from bread.layout import register as registerlayout
 from bread.utils.urls import reverse, reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from .models import Category, RelationshipType, Term
+from .models import Category, Relationship, RelationshipType, Term
 
 R = layout.grid.Row
 C = layout.grid.Col
 F = layout.form.FormField
 
 
-@registerlayout()
 def editperson_toolbar():
     searchbutton = layout.search.Search(
         widgetattributes={
@@ -32,14 +30,14 @@ def editperson_toolbar():
         buttontype="danger",
         icon="trash-can",
         notext=True,
-        **layout.aslink_attributes(layout.ObjectAction("delete"))
+        **layout.aslink_attributes(layout.ObjectAction("delete")),
     )
     copybutton = layout.button.Button(
         _("Copy"),
         buttontype="ghost",
         icon="copy",
         notext=True,
-        **layout.aslink_attributes(layout.ObjectAction("copy"))
+        **layout.aslink_attributes(layout.ObjectAction("copy")),
     )
 
     return layout.DIV(
@@ -63,7 +61,6 @@ def editperson_toolbar():
     )
 
 
-@registerlayout()
 def editperson_head():
     active_toggle = layout.toggle.Toggle(None, _("Inactive"), _("Active"))
     active_toggle.input.attributes["id"] = "person_active_toggle"
@@ -117,7 +114,6 @@ def editperson_head():
     )
 
 
-@registerlayout()
 def editnaturalperson_form():
     # fix: alignment of tab content and tab should be on global grid I think
     return layout.tabs.Tabs(
@@ -162,7 +158,6 @@ def editnaturalperson_form():
     )
 
 
-@registerlayout()
 def editlegalperson_form():
     # fix: alignment of tab content and tab should be on global grid I think
     return layout.tabs.Tabs(
@@ -199,7 +194,6 @@ def editlegalperson_form():
     )
 
 
-@registerlayout()
 def editpersonassociation_form():
     # fix: alignment of tab content and tab should be on global grid I think
     return layout.tabs.Tabs(
@@ -261,7 +255,101 @@ def address_and_relationships():
             C(
                 R(
                     C(layout.H4(_("Relationships"))),
+                ),
+                layout.TABLE(
+                    layout.THEAD(
+                        layout.ModelContext(
+                            Relationship,
+                            layout.TR(
+                                *[
+                                    layout.TH(
+                                        layout.SPAN(
+                                            field,
+                                            _class="bx--table-header-label",
+                                        ),
+                                    )
+                                    for field in (
+                                        "",
+                                        "",
+                                        "",
+                                        "",
+                                        layout.ModelFieldLabel("start_date"),
+                                        layout.ModelFieldLabel("end_date"),
+                                        layout.ModelFieldLabel("DELETE"),
+                                    )
+                                ],
+                            ),
+                        )
+                    ),
+                    layout.TBODY(
+                        layout.form.FormSetField(
+                            "relationships_to",
+                            layout.TR(
+                                *[
+                                    layout.TD(field)
+                                    for field in (
+                                        _("is"),
+                                        F("type", hidelabel=True),
+                                        _("of"),
+                                        F("person_a", hidelabel=True),
+                                        F("start_date", hidelabel=True),
+                                        F("end_date", hidelabel=True),
+                                        F("DELETE", hidelabel=True),
+                                    )
+                                ],
+                            ),
+                        ),
+                    ),
+                    _class="bx--data-table",
+                ),
+                layout.TABLE(
+                    layout.THEAD(
+                        layout.ModelContext(
+                            Relationship,
+                            layout.TR(
+                                *[
+                                    layout.TH(
+                                        layout.SPAN(
+                                            field,
+                                            _class="bx--table-header-label",
+                                        ),
+                                    )
+                                    for field in (
+                                        "",
+                                        "",
+                                        "",
+                                        layout.ModelFieldLabel("start_date"),
+                                        layout.ModelFieldLabel("end_date"),
+                                        layout.ModelFieldLabel("DELETE"),
+                                    )
+                                ],
+                            ),
+                        )
+                    ),
+                    layout.TBODY(
+                        layout.form.FormSetField(
+                            "relationships_from",
+                            layout.TR(
+                                *[
+                                    layout.TD(field)
+                                    for field in (
+                                        F("person_b", hidelabel=True),
+                                        _("is"),
+                                        F("type", hidelabel=True),
+                                        F("start_date", hidelabel=True),
+                                        F("end_date", hidelabel=True),
+                                        F("DELETE", hidelabel=True),
+                                    )
+                                ],
+                            ),
+                            extra=0,
+                        ),
+                    ),
+                    _class="bx--data-table",
+                ),
+                R(
                     _class="section-separator-bottom",
+                    style="height: 1rem",
                 ),
                 R(C(layout.H4(_("Communication Channels")))),
                 R(C(layout.H5(_("Phone")))),
@@ -284,7 +372,8 @@ def address_and_relationships():
             ),
             _class="section-separator-bottom",
         ),
-        R(C(F("categories")), C(F("remarks")), style="margin-top: 1rem"),
+        # R(C(F("categories")), C(F("remarks")), style="margin-top: 1rem"),
+        R(C(), C(F("remarks")), style="margin-top: 1rem"),
     )
 
 
@@ -308,7 +397,6 @@ def revisionstab():
     )
 
 
-@registerlayout()
 def relationshipssettings():
     return layout.BaseElement(
         layout.H3(_("Relationships")),
@@ -325,7 +413,6 @@ def relationshipssettings():
     )
 
 
-@registerlayout()
 def personsettings():
     dist = layout.DIV(style="margin-bottom: 2rem")
     return layout.BaseElement(
@@ -348,7 +435,6 @@ def personsettings():
     )
 
 
-@registerlayout()
 def generalsettings():
     return layout.BaseElement(
         layout.grid.Grid(

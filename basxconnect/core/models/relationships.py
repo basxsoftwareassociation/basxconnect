@@ -20,13 +20,13 @@ class Relationship(models.Model):
     type = models.ForeignKey(RelationshipType, on_delete=models.PROTECT)
     type.verbose_name = _("Type")
     person_a = models.ForeignKey(
-        Person, on_delete=models.CASCADE, related_name="relationships_to"
+        Person, on_delete=models.CASCADE, related_name="relationships_from"
     )
     person_a.verbose_name = _("Person A")
     person_b = models.ForeignKey(
         Person,
         on_delete=models.CASCADE,
-        related_name="relationships_from",
+        related_name="relationships_to",
     )
     person_b.verbose_name = _("Person B")
     start_date = models.DateField(_("Starts on"), blank=True, null=True)
