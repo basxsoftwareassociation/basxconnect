@@ -11,9 +11,9 @@ from .utils import Note, Term
 
 class Person(models.Model):
     personnumber = models.CharField(
-        _("Person number"), max_length=255, unique=True, blank=True
+        _("Person number"), max_length=255, unique=True, blank=True, null=True
     )
-    name = models.CharField(_("Display name"), max_length=255)
+    name = models.CharField(_("Display name"), max_length=255, blank=True)
     active = models.BooleanField(_("Active"), default=True)
     salutation_letter = models.CharField(
         _("Salutation Letter"),
@@ -28,16 +28,15 @@ class Person(models.Model):
         lambda field, request, instance: settings.PREFERRED_LANGUAGES
     )
 
+    categories = models.ManyToManyField(Term)
+    categories.verbose_name = _("Categories")
+
+    remarks = models.TextField(_("Remarks"), blank=True)
     notes = GenericRelation(Note)
     history = HistoricalRecords(inherit=True)
 
     def __str__(self):
         return self.name
-
-    def number(self):
-        return self.id
-
-    number.verbose_name = _("Number")
 
     def type(self):
         return pretty_modelname(get_concrete_instance(self))
@@ -49,10 +48,10 @@ class Person(models.Model):
 
     status.verbose_name = _("Status")
 
-    def street(self):
+    def address(self):
         return getattr(self.core_postal_list.first(), "address", "")
 
-    street.verbose_name = _("Street")
+    address.verbose_name = _("Address")
 
     def postalcode(self):
         return getattr(self.core_postal_list.first(), "postcode", "")
@@ -84,9 +83,9 @@ class Person(models.Model):
 
 
 class NaturalPerson(Person):
-    first_name = models.CharField(_("First Name"), max_length=255)
+    first_name = models.CharField(_("First Name"), max_length=255, blank=True)
     middle_name = models.CharField(_("Middle Name"), max_length=255, blank=True)
-    last_name = models.CharField(_("Last Name"), max_length=255)
+    last_name = models.CharField(_("Last Name"), max_length=255, blank=True)
     title = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,
@@ -115,6 +114,7 @@ class NaturalPerson(Person):
         Term,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         limit_choices_to={"category__slug": "gender"},
         related_name="gender_persons",
     )
@@ -137,6 +137,7 @@ class LegalPerson(Person):
         Term,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         limit_choices_to={"category__slug": "legaltype"},
         help_text=_("eg. Church, Business, Association"),
     )

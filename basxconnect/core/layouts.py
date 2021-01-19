@@ -1,96 +1,69 @@
 from bread import layout as layout
-from bread.layout import register as registerlayout
 from bread.utils.urls import reverse, reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from .models import Category, NaturalPerson, RelationshipType, Term
+from .models import Category, Relationship, RelationshipType, Term
+
+R = layout.grid.Row
+C = layout.grid.Col
+F = layout.form.FormField
+
+dist = layout.DIV(style="margin-bottom: 2rem")
 
 
-def single_item_fieldset(related_field, fieldname, queryset=None):
-    """Helper function to show only a single item of a (foreign-key) related item list"""
-    return layout.form.FormSetField(
-        related_field,
-        layout.form.FormField(fieldname),
-        formsetinitial={"queryset": queryset},
-        can_delete=False,
-        max_num=1,
-        extra=1,
+def editperson_toolbar(request):
+    searchbutton = layout.search.Search(
+        widgetattributes={
+            "placeholder": _("Search person"),
+            "hx_get": reverse_lazy("basxconnect.core.views.searchperson"),
+            "hx_trigger": "changed, keyup changed delay:100ms",
+            "hx_target": "#search-results",
+            "name": "query",
+        },
+        _style="width: 20rem",
+    )
+    # clear search field when search box is emptied
+    searchbutton[3].attributes[
+        "onclick"
+    ] = "this.parentElement.nextElementSibling.innerHTML = ''"
+    deletebutton = layout.button.Button(
+        _("Delete"),
+        buttontype="danger",
+        icon="trash-can",
+        notext=True,
+        **layout.aslink_attributes(layout.ObjectAction("delete")),
+    )
+    copybutton = layout.button.Button(
+        _("Copy"),
+        buttontype="ghost",
+        icon="copy",
+        notext=True,
+        **layout.aslink_attributes(layout.ObjectAction("copy")),
     )
 
-
-def generate_term_datatable(title, category_slug):
-    """Helper function to display a table for all terms of a certain term"""
-    return layout.datatable.DataTable.from_queryset(
-        Term.objects.filter(category__slug=category_slug),
-        fields=["term"],
-        title=title,
-        addurl=reverse_model(
-            Term,
-            "add",
-            query={
-                "category": Category.objects.get(slug=category_slug).id,
-                "next": reverse("basxconnect.core.views.personsettings"),
-            },
-        ),
-        backurl=reverse("basxconnect.core.views.personsettings"),
-    )
-
-
-@registerlayout()
-def generalsettings():
-    return layout.BaseElement(
+    return layout.DIV(
         layout.grid.Grid(
-            layout.grid.Row(layout.grid.Col(layout.form.FormField("type"))),
-            layout.grid.Row(layout.grid.Col(layout.form.FormField("name"))),
-            layout.grid.Row(layout.grid.Col(layout.form.FormField("name_addition"))),
-        ),
-        layout.form.FormSetField(
-            "core_postal_list",
-            layout.grid.Grid(
-                layout.grid.Row(layout.grid.Col(layout.form.FormField("address"))),
-                layout.grid.Row(
-                    layout.grid.Col(layout.form.FormField("supplemental_address"))
+            R(
+                C(searchbutton, width=2, breakpoint="md"),
+                C(
+                    deletebutton,
+                    copybutton,
+                    layout.button.PrintPageButton(buttontype="ghost"),
                 ),
-                layout.grid.Row(
-                    layout.grid.Col(
-                        layout.form.FormField("postcode"), breakpoint="lg", width=2
-                    ),
-                    layout.grid.Col(
-                        layout.form.FormField("city"), breakpoint="lg", width=3
-                    ),
-                    layout.grid.Col(
-                        layout.form.FormField("country"), breakpoint="lg", width=3
-                    ),
-                ),
-            ),
-            can_delete=False,
-            max_num=1,
-            extra=1,
+            )
         ),
-        layout.grid.Grid(
-            layout.grid.Row(
-                layout.grid.Col(single_item_fieldset("core_phone_list", "number")),
-                layout.grid.Col(single_item_fieldset("core_fax_list", "number")),
-            ),
-            layout.grid.Row(
-                layout.grid.Col(
-                    single_item_fieldset(
-                        "core_email_list",
-                        "email",
-                    )
-                ),
-                layout.grid.Col(single_item_fieldset("core_web_list", "url")),
-            ),
+        layout.DIV(
+            id="search-results",
+            _style="width: 20rem; position: absolute; z-index: 999",
         ),
-        layout.form.SubmitButton(_("Save")),
+        layout.DIV(_class="section-separator-bottom", style="margin-top: 1rem"),
+        style="margin-bottom: 2rem",
+        _class="no-print",
     )
 
 
-@registerlayout()
-def editnaturalperson_head():
-    R = layout.grid.Row
-    C = layout.grid.Col
+def editperson_head(request):
     active_toggle = layout.toggle.Toggle(None, _("Inactive"), _("Active"))
     active_toggle.input.attributes["id"] = "person_active_toggle"
     active_toggle.input.attributes["hx_trigger"] = "change"
@@ -112,7 +85,7 @@ def editnaturalperson_head():
         layout.DIV(layout.ModelFieldValue("type"), style="margin-top: 1rem"),
     )
     created = layout.DIV(
-        layout.LABEL("Created", _class="bx--label"),
+        layout.LABEL(_("Created"), _class="bx--label"),
         layout.DIV(
             layout.ModelFieldValue("history.last.history_date.date"),
             " / ",
@@ -122,7 +95,7 @@ def editnaturalperson_head():
     )
 
     last_change = layout.DIV(
-        layout.LABEL("Changed", _class="bx--label"),
+        layout.LABEL(_("Changed"), _class="bx--label"),
         layout.DIV(
             layout.ModelFieldValue("history.first.history_date.date"),
             " / ",
@@ -134,20 +107,16 @@ def editnaturalperson_head():
     return layout.grid.Grid(
         R(C(layout.H3(layout.I(layout.ObjectLabel())))),
         R(
-            C(active_toggle, width=2, breakpoint="max"),
-            C(personnumber, width=1, breakpoint="max"),
-            C(persontype, width=1, breakpoint="max"),
-            C(created, width=2, breakpoint="max"),
-            C(last_change, width=2, breakpoint="max"),
+            C(active_toggle, width=1, breakpoint="md"),
+            C(personnumber, width=1, breakpoint="md"),
+            C(persontype, width=1, breakpoint="md"),
+            C(created, width=1, breakpoint="md"),
+            C(last_change, width=1, breakpoint="md"),
         ),
     )
 
 
-@registerlayout()
-def editnaturalperson_form():
-    R = layout.grid.Row
-    C = layout.grid.Col
-    F = layout.form.FormField
+def editnaturalperson_form(request):
     # fix: alignment of tab content and tab should be on global grid I think
     return layout.tabs.Tabs(
         (
@@ -183,86 +152,182 @@ def editnaturalperson_form():
                     ),
                 ),
                 layout.DIV(_class="section-separator-bottom"),
-                layout.grid.Grid(
-                    R(
-                        C(
-                            R(C(layout.H4(_("Address")))),
-                            layout.form.FormSetField(
-                                "core_postal_list",
-                                R(C(F("address"))),
-                                R(
-                                    C(
-                                        F(
-                                            "supplemental_address",
-                                            widgetattributes={"rows": 1},
-                                        )
-                                    )
-                                ),
-                                R(
-                                    C(F("postcode"), breakpoint="lg", width=4),
-                                    C(F("city"), breakpoint="lg", width=12),
-                                ),
-                                R(
-                                    C(F("country")),
-                                    C(),
-                                ),
-                                can_delete=False,
-                                max_num=1,
-                                extra=1,
-                            ),
-                            _class="section-separator-right",
-                        ),
-                        C(
-                            R(
-                                C(layout.H4(_("Relationships"))),
-                                _class="section-separator-bottom",
-                            ),
-                            R(C(layout.H4(_("Communication Channels")))),
-                            R(C(layout.H5(_("Phone")))),
-                            layout.form.FormSetField(
-                                "core_phone_list",
-                                R(
-                                    C(F("type"), breakpoint="lg", width=4),
-                                    C(F("number"), breakpoint="lg", width=12),
-                                ),
-                                can_delete=False,
-                                extra=0,
-                            ),
-                            R(C(layout.H5(_("Email")))),
-                            layout.form.FormSetField(
-                                "core_email_list",
-                                R(C(F("email"))),
-                                can_delete=False,
-                                extra=0,
-                            ),
-                        ),
-                    ),
-                ),
+                address_and_relationships(request),
             ),
         ),
-        (
-            _("Revisions"),
-            layout.BaseElement(
-                layout.datatable.DataTable(
-                    (
-                        (_("Date"), layout.ModelFieldValue("history_date")),
-                        (_("User"), layout.ModelFieldValue("history_user")),
-                        (
-                            _("Change"),
-                            layout.ModelFieldValue("get_history_type_display"),
-                        ),
-                    ),
-                    layout.F(lambda c, e: c["object"].history.all()),
-                    valueproviderclass=layout.ObjectContext,
-                )
-            ),
-        ),
+        relationshipstab(request),
+        revisionstab(request),
         container=True,
     )
 
 
-@registerlayout()
-def relationshipssettings():
+def editlegalperson_form(request):
+    # fix: alignment of tab content and tab should be on global grid I think
+    return layout.tabs.Tabs(
+        (
+            _("Base data"),
+            layout.BaseElement(
+                layout.grid.Grid(
+                    R(C(layout.H4(_("General Information")))),
+                    R(
+                        C(
+                            R(
+                                C(F("name")),
+                                C(F("name_addition")),
+                            ),
+                            R(
+                                C(F("type")),
+                                C(F("preferred_language")),
+                            ),
+                        ),
+                        C(
+                            R(
+                                C(),
+                                C(F("salutation_letter")),
+                            ),
+                        ),
+                    ),
+                ),
+                layout.DIV(_class="section-separator-bottom"),
+                address_and_relationships(request),
+            ),
+        ),
+        relationshipstab(request),
+        revisionstab(request),
+        container=True,
+    )
+
+
+def editpersonassociation_form(request):
+    # fix: alignment of tab content and tab should be on global grid I think
+    return layout.tabs.Tabs(
+        (
+            _("Base data"),
+            layout.BaseElement(
+                layout.grid.Grid(
+                    R(C(layout.H4(_("General Information")))),
+                    R(
+                        C(
+                            R(
+                                C(F("name")),
+                                C(),
+                            ),
+                            R(
+                                C(),
+                                C(F("preferred_language")),
+                            ),
+                        ),
+                        C(
+                            R(
+                                C(),
+                                C(F("salutation_letter")),
+                            ),
+                        ),
+                    ),
+                ),
+                layout.DIV(_class="section-separator-bottom"),
+                address_and_relationships(request),
+            ),
+        ),
+        relationshipstab(request),
+        revisionstab(request),
+        container=True,
+    )
+
+
+def address_and_relationships(request):
+    return layout.grid.Grid(
+        R(
+            C(
+                R(C(layout.H4(_("Address")))),
+                layout.form.FormSetField(
+                    "core_postal_list",
+                    R(C(F("address", widgetattributes={"rows": 2}))),
+                    R(
+                        C(F("postcode"), breakpoint="lg", width=4),
+                        C(F("city"), breakpoint="lg", width=12),
+                    ),
+                    R(
+                        C(F("country")),
+                        C(F("type")),
+                    ),
+                    can_delete=False,
+                    max_num=1,
+                    extra=1,
+                ),
+                _class="section-separator-right",
+            ),
+            C(
+                R(C(layout.H4(_("Communication Channels")))),
+                R(C(layout.H5(_("Phone")))),
+                layout.form.FormSetField(
+                    "core_phone_list",
+                    R(
+                        C(F("type"), breakpoint="lg", width=4),
+                        C(F("number"), breakpoint="lg", width=12),
+                    ),
+                    can_delete=False,
+                    extra=0,
+                ),
+                R(C(layout.H5(_("Email")))),
+                layout.form.FormSetField(
+                    "core_email_list",
+                    R(C(F("email"))),
+                    can_delete=False,
+                    extra=0,
+                ),
+            ),
+            _class="section-separator-bottom",
+        ),
+        # R(C(F("categories")), C(F("remarks")), style="margin-top: 1rem"),
+        R(C(), C(F("remarks")), style="margin-top: 1rem"),
+    )
+
+
+def revisionstab(request):
+    return (
+        _("Revisions"),
+        layout.BaseElement(
+            layout.datatable.DataTable(
+                (
+                    (_("Date"), layout.ModelFieldValue("history_date")),
+                    (_("User"), layout.ModelFieldValue("history_user")),
+                    (
+                        _("Change"),
+                        layout.ModelFieldValue("get_history_type_display"),
+                    ),
+                ),
+                layout.F(lambda c, e: c["object"].history.all()),
+                valueproviderclass=layout.ObjectContext,
+            )
+        ),
+    )
+
+
+def relationshipstab(request):
+    return (
+        _("Relationships"),
+        layout.datatable.DataTable.from_model(
+            Relationship,
+            layout.F(
+                lambda c, e: c["object"].relationships_to.all()
+                | c["object"].relationships_from.all()
+            ),
+            title="",
+            addurl=reverse_model(
+                Relationship,
+                "add",
+                query={
+                    "person_a": request.resolver_match.kwargs["pk"],
+                    "person_a_nohide": True,
+                },
+            ),
+            backurl=request.get_full_path(),
+        ),
+    )
+
+
+def relationshipssettings(request):
     return layout.BaseElement(
         layout.H3(_("Relationships")),
         layout.datatable.DataTable.from_queryset(
@@ -278,9 +343,7 @@ def relationshipssettings():
     )
 
 
-@registerlayout()
-def personsettings():
-    dist = layout.DIV(style="margin-bottom: 2rem")
+def personsettings(request):
     return layout.BaseElement(
         layout.H3(_("Persons")),
         # address type
@@ -301,6 +364,71 @@ def personsettings():
     )
 
 
-@registerlayout()
-def editpersonheader():
-    return None
+def generalsettings(request):
+    return layout.BaseElement(
+        layout.grid.Grid(
+            R(C(F("type"))),
+            R(C(F("name"))),
+            R(C(F("name_addition"))),
+        ),
+        layout.form.FormSetField(
+            "core_postal_list",
+            layout.grid.Grid(
+                R(C(F("address"))),
+                R(
+                    C(F("postcode"), breakpoint="lg", width=2),
+                    C(F("city"), breakpoint="lg", width=3),
+                    C(F("country"), breakpoint="lg", width=3),
+                ),
+            ),
+            can_delete=False,
+            max_num=1,
+            extra=1,
+        ),
+        layout.grid.Grid(
+            R(
+                C(single_item_fieldset("core_phone_list", "number")),
+                C(single_item_fieldset("core_fax_list", "number")),
+            ),
+            R(
+                C(
+                    single_item_fieldset(
+                        "core_email_list",
+                        "email",
+                    )
+                ),
+                C(single_item_fieldset("core_web_list", "url")),
+            ),
+        ),
+        layout.form.SubmitButton(_("Save")),
+    )
+
+
+def single_item_fieldset(related_field, fieldname, queryset=None):
+    """Helper function to show only a single item of a (foreign-key) related item list"""
+    return layout.form.FormSetField(
+        related_field,
+        F(fieldname),
+        formsetinitial={"queryset": queryset},
+        can_delete=False,
+        max_num=1,
+        extra=1,
+    )
+
+
+def generate_term_datatable(title, category_slug):
+    """Helper function to display a table for all terms of a certain term"""
+    return layout.datatable.DataTable.from_queryset(
+        Term.objects.filter(category__slug=category_slug),
+        fields=["term"],
+        title=title,
+        addurl=reverse_model(
+            Term,
+            "add",
+            query={
+                "category": Category.objects.get(slug=category_slug).id,
+                "next": reverse("basxconnect.core.views.personsettings"),
+            },
+        ),
+        backurl=reverse("basxconnect.core.views.personsettings"),
+    )

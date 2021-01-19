@@ -1,72 +1,19 @@
 import htmlgenerator as hg
 from bread import layout, menu
 from bread.forms.forms import generate_form
-from bread.utils.urls import (
-    aslayout,
-    model_urlname,
-    registermodelurl,
-    registerurl,
-    reverse,
-    reverse_model,
-)
-from bread.views import BrowseView, EditView, register_default_modelviews
+from bread.utils.urls import aslayout, reverse, reverse_model
+from bread.views import EditView
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import RedirectView
 from haystack.query import SearchQuerySet
 
-from .models import (
-    Category,
-    LegalPerson,
-    NaturalPerson,
-    Person,
-    PersonAssociation,
-    Relationship,
-    RelationshipType,
-    Term,
-)
-from .wizards.add_person import AddPersonWizard
+from . import layouts
+from .models import LegalPerson, NaturalPerson, Person, PersonAssociation
 
 # ADD MODEL VIEWS AND REGISTER URLS -------------------------------------------
-
-# add url for person needs a redirect to the wizard
-# specifying the wizardview direclty is problematic
-# All person "add" views should go through the wizard and are therefore not registered
-registerurl(model_urlname(Person, "add"))(
-    RedirectView.as_view(
-        url=reverse_model(Person, "addwizard", kwargs={"step": "Search"})
-    )
-)
-registerurl(model_urlname(NaturalPerson, "browse"))(
-    RedirectView.as_view(url=reverse_model(Person, "browse"))
-)
-registerurl(model_urlname(LegalPerson, "browse"))(
-    RedirectView.as_view(url=reverse_model(Person, "browse"))
-)
-registerurl(model_urlname(PersonAssociation, "browse"))(
-    RedirectView.as_view(url=reverse_model(Person, "browse"))
-)
-registerurl(model_urlname(Person, "addwizard"))(
-    AddPersonWizard.as_view(url_name=model_urlname(Person, "addwizard"))
-)
-register_default_modelviews(
-    Person,
-    browseview=BrowseView._with(
-        fields=[
-            "number",
-            "status",
-            "type",
-            "name",
-            "street",
-            "postalcode",
-            "city",
-            "country",
-        ],
-    ),
-)
 
 
 class NaturalPersonEditView(EditView):
@@ -74,34 +21,52 @@ class NaturalPersonEditView(EditView):
         return layout.ObjectContext(
             self.object,
             layout.BaseElement(
-                layout.get_layout("basxconnect.core.layouts.editnaturalperson_head")(),
+                layouts.editperson_toolbar(request),
+                layouts.editperson_head(request),
                 layout.form.Form.wrap_with_form(
                     layout.C("form"),
-                    layout.get_layout(
-                        "basxconnect.core.layouts.editnaturalperson_form"
-                    )(),
+                    layouts.editnaturalperson_form(request),
                 ),
             ),
         )
 
 
-register_default_modelviews(NaturalPerson, editview=NaturalPersonEditView)
+class LegalPersonEditView(EditView):
+    def layout(self, request):
+        return layout.ObjectContext(
+            self.object,
+            layout.BaseElement(
+                layouts.editperson_toolbar(request),
+                layouts.editperson_head(request),
+                layout.form.Form.wrap_with_form(
+                    layout.C("form"),
+                    layouts.editlegalperson_form(request),
+                ),
+            ),
+        )
 
-register_default_modelviews(LegalPerson)  # uses AddPersonWizard
-register_default_modelviews(PersonAssociation)  # uses AddPersonWizard
-register_default_modelviews(RelationshipType)
-register_default_modelviews(Relationship)
-register_default_modelviews(Term)
-register_default_modelviews(Category)
+
+class PersonAssociationEditView(EditView):
+    def layout(self, request):
+        return layout.ObjectContext(
+            self.object,
+            layout.BaseElement(
+                layouts.editperson_toolbar(request),
+                layouts.editperson_head(request),
+                layout.form.Form.wrap_with_form(
+                    layout.C("form"),
+                    layouts.editpersonassociation_form(request),
+                ),
+            ),
+        )
 
 
 # ADD SETTING VIEWS AND REGISTER URLS -------------------------------------------
 
 
-@registerurl
 @aslayout
 def generalsettings(request):
-    layoutobj = layout.get_layout("basxconnect.core.layouts.generalsettings")()
+    layoutobj = layouts.generalsettings(request)
     form = generate_form(
         request,
         LegalPerson,
@@ -131,23 +96,14 @@ def togglepersonstatus(request, pk: int):
     )
 
 
-registermodelurl(Person, "togglestatus", togglepersonstatus)
-
-
-@registerurl
 @aslayout
 def personsettings(request):
-    return lambda request: layout.get_layout(
-        "basxconnect.core.layouts.personsettings"
-    )()
+    return lambda request: layouts.personsettings(request)
 
 
-@registerurl
 @aslayout
 def relationshipssettings(request):
-    return lambda request: layout.get_layout(
-        "basxconnect.core.layouts.relationshipssettings"
-    )()
+    return lambda request: layouts.relationshipssettings(request)
 
 
 # MENU ENTRIES ---------------------------------------------------------------------
@@ -184,7 +140,6 @@ menu.registeritem(
 
 # Search view
 # simple person search view, for use with ajax calls
-@registerurl
 def searchperson(request):
     query = request.GET.get("query")
     if not query:
@@ -196,6 +151,14 @@ def searchperson(request):
         .models(NaturalPerson, LegalPerson, PersonAssociation)
         .autocomplete(name_auto=query)
     ]
+    if not objects:
+        return HttpResponse(
+            hg.DIV(
+                _("No results"),
+                _class="bx--tile",
+                style="margin-bottom: 1rem;",
+            ).render({})
+        )
 
     return HttpResponse(
         hg.DIV(
@@ -209,10 +172,10 @@ def searchperson(request):
                                 hg.F(
                                     lambda c, e: mark_safe(
                                         e.object.core_postal_list.first()
+                                        or _("No address")
                                     )
-                                    or _("No address")
                                 ),
-                                style="font-size: small; padding-bottom: 1rem;",
+                                style="font-size: small; padding-bottom: 1rem; padding-top: 0.5rem",
                             ),
                         ),
                         style="cursor: pointer; padding: 0.5rem;",
