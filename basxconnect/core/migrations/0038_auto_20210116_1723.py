@@ -7,18 +7,26 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0037_person_categories'),
+        ("core", "0037_person_categories"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='relationship',
-            name='person_a',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='relationships_from', to='core.person'),
+            model_name="relationship",
+            name="person_a",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="relationships_from",
+                to="core.person",
+            ),
         ),
         migrations.AlterField(
-            model_name='relationship',
-            name='person_b',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='relationships_to', to='core.person'),
+            model_name="relationship",
+            name="person_b",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="relationships_to",
+                to="core.person",
+            ),
         ),
     ]
