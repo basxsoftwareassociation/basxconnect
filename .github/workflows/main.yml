@@ -1,4 +1,4 @@
-name: basxconnect
+name: basxconnect-ci
 
 on: [push]
 
