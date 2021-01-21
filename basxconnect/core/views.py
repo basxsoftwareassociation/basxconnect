@@ -185,7 +185,7 @@ def searchperson(request):
     return HttpResponse(
         hg.DIV(
             hg.UL(
-                hg.SimpleIterator(
+                hg.Iterator(
                     objects,
                     "person",
                     hg.LI(
