@@ -48,6 +48,22 @@ urlpatterns = [
             ],
         ),
     ),
+    generate_path(
+        breadviews.generate_excel_view(
+            models.Person.objects.all(),
+            [
+                "personnumber",
+                "status",
+                "type",
+                "name",
+                "address",
+                "postalcode",
+                "city",
+                "country",
+            ],
+        ),
+        model_urlname(models.Person, "export"),
+    ),
     *default_model_paths(
         models.NaturalPerson,
         editview=views.NaturalPersonEditView,

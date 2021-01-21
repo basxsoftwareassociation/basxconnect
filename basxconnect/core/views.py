@@ -18,45 +18,36 @@ from .models import LegalPerson, NaturalPerson, Person, PersonAssociation
 
 class NaturalPersonEditView(EditView):
     def layout(self, request):
-        return layout.ObjectContext(
-            self.object,
-            layout.BaseElement(
-                layouts.editperson_toolbar(request),
-                layouts.editperson_head(request),
-                layout.form.Form.wrap_with_form(
-                    layout.C("form"),
-                    layouts.editnaturalperson_form(request),
-                ),
+        return layout.BaseElement(
+            layouts.editperson_toolbar(request),
+            layouts.editperson_head(request),
+            layout.form.Form.wrap_with_form(
+                layout.C("form"),
+                layouts.editnaturalperson_form(request),
             ),
         )
 
 
 class LegalPersonEditView(EditView):
     def layout(self, request):
-        return layout.ObjectContext(
-            self.object,
-            layout.BaseElement(
-                layouts.editperson_toolbar(request),
-                layouts.editperson_head(request),
-                layout.form.Form.wrap_with_form(
-                    layout.C("form"),
-                    layouts.editlegalperson_form(request),
-                ),
+        return layout.BaseElement(
+            layouts.editperson_toolbar(request),
+            layouts.editperson_head(request),
+            layout.form.Form.wrap_with_form(
+                layout.C("form"),
+                layouts.editlegalperson_form(request),
             ),
         )
 
 
 class PersonAssociationEditView(EditView):
     def layout(self, request):
-        return layout.ObjectContext(
-            self.object,
-            layout.BaseElement(
-                layouts.editperson_toolbar(request),
-                layouts.editperson_head(request),
-                layout.form.Form.wrap_with_form(
-                    layout.C("form"),
-                    layouts.editpersonassociation_form(request),
-                ),
+        return layout.BaseElement(
+            layouts.editperson_toolbar(request),
+            layouts.editperson_head(request),
+            layout.form.Form.wrap_with_form(
+                layout.C("form"),
+                layouts.editpersonassociation_form(request),
             ),
         )
 
@@ -163,15 +154,47 @@ def searchperson(request):
     return HttpResponse(
         hg.DIV(
             hg.UL(
-                hg.Iterator(
-                    objects,
+                *[
                     hg.LI(
-                        layout.ObjectContext.Binding(hg.DIV)(
-                            layout.ObjectLabel(),
-                            layout.ObjectContext.Binding(hg.DIV)(
+                        hg.DIV(
+                            object,
+                            hg.DIV(
+                                mark_safe(
+                                    object.core_postal_list.first() or _("No address")
+                                ),
+                                style="font-size: small; padding-bottom: 1rem; padding-top: 0.5rem",
+                            ),
+                        ),
+                        style="cursor: pointer; padding: 0.5rem;",
+                        onclick=(
+                            "document.location = '"
+                            + reverse_model(object, "edit", kwargs={"pk": object.pk})
+                            + "'"
+                        ),
+                        onmouseenter="this.style.backgroundColor = 'lightgray'",
+                        onmouseleave="this.style.backgroundColor = 'initial'",
+                    )
+                    for object in objects
+                ]
+            ),
+            _class="bx--tile",
+            style="margin-bottom: 2rem;",
+        ).render({})
+    )
+
+    return HttpResponse(
+        hg.DIV(
+            hg.UL(
+                hg.SimpleIterator(
+                    objects,
+                    "person",
+                    hg.LI(
+                        hg.DIV(
+                            hg.C("person"),
+                            hg.DIV(
                                 hg.F(
                                     lambda c, e: mark_safe(
-                                        e.object.core_postal_list.first()
+                                        c["person"].core_postal_list.first()
                                         or _("No address")
                                     )
                                 ),
@@ -180,12 +203,13 @@ def searchperson(request):
                         ),
                         style="cursor: pointer; padding: 0.5rem;",
                         onclick=hg.BaseElement(
-                            "document.location = '", layout.ObjectAction("edit"), "'"
+                            "document.location = '",
+                            hg.F(lambda c, e: layout.objectaction(c["person"], "edit")),
+                            "'",
                         ),
                         onmouseenter="this.style.backgroundColor = 'lightgray'",
                         onmouseleave="this.style.backgroundColor = 'initial'",
                     ),
-                    layout.ObjectContext,
                 ),
             ),
             _class="bx--tile",

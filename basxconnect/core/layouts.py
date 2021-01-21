@@ -1,9 +1,10 @@
+import htmlgenerator as hg
 from bread import layout as layout
 from bread.utils.urls import reverse, reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from .models import Category, Relationship, RelationshipType, Term
+from .models import Category, Person, Relationship, RelationshipType, Term
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -32,14 +33,18 @@ def editperson_toolbar(request):
         buttontype="danger",
         icon="trash-can",
         notext=True,
-        **layout.aslink_attributes(layout.ObjectAction("delete")),
+        **layout.aslink_attributes(
+            hg.F(lambda c, e: layout.objectaction(c["object"], "delete"))
+        ),
     )
     copybutton = layout.button.Button(
         _("Copy"),
         buttontype="ghost",
         icon="copy",
         notext=True,
-        **layout.aslink_attributes(layout.ObjectAction("copy")),
+        **layout.aslink_attributes(
+            hg.F(lambda c, e: layout.objectaction(c["object"], "copy"))
+        ),
     )
 
     return layout.DIV(
@@ -77,19 +82,19 @@ def editperson_head(request):
     active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
 
     personnumber = layout.DIV(
-        layout.LABEL(layout.ModelFieldLabel("personnumber"), _class="bx--label"),
-        layout.DIV(layout.ModelFieldValue("personnumber"), style="margin-top: 1rem"),
+        layout.LABEL(layout.fieldlabel(Person, "personnumber"), _class="bx--label"),
+        layout.DIV(hg.C("object.personnumber"), style="margin-top: 1rem"),
     )
     persontype = layout.DIV(
-        layout.LABEL(layout.ModelFieldLabel("type"), _class="bx--label"),
-        layout.DIV(layout.ModelFieldValue("type"), style="margin-top: 1rem"),
+        layout.LABEL(layout.fieldlabel(Person, "type"), _class="bx--label"),
+        layout.DIV(hg.C("object.type"), style="margin-top: 1rem"),
     )
     created = layout.DIV(
         layout.LABEL(_("Created"), _class="bx--label"),
         layout.DIV(
-            layout.ModelFieldValue("history.last.history_date.date"),
+            hg.C("object.history.last.history_date.date"),
             " / ",
-            layout.ModelFieldValue("history.last.history_user"),
+            hg.C("object.history.last.history_user"),
             style="margin-top: 1rem",
         ),
     )
@@ -97,15 +102,15 @@ def editperson_head(request):
     last_change = layout.DIV(
         layout.LABEL(_("Changed"), _class="bx--label"),
         layout.DIV(
-            layout.ModelFieldValue("history.first.history_date.date"),
+            hg.C("object.history.first.history_date.date"),
             " / ",
-            layout.ModelFieldValue("history.first.history_user"),
+            hg.C("object.history.first.history_user"),
             style="margin-top: 1rem",
         ),
     )
 
     return layout.grid.Grid(
-        R(C(layout.H3(layout.I(layout.ObjectLabel())))),
+        R(C(layout.H3(layout.I(hg.C("object"))))),
         R(
             C(active_toggle, width=1, breakpoint="md"),
             C(personnumber, width=1, breakpoint="md"),
@@ -290,15 +295,11 @@ def revisionstab(request):
         layout.BaseElement(
             layout.datatable.DataTable(
                 (
-                    (_("Date"), layout.ModelFieldValue("history_date")),
-                    (_("User"), layout.ModelFieldValue("history_user")),
-                    (
-                        _("Change"),
-                        layout.ModelFieldValue("get_history_type_display"),
-                    ),
+                    (_("Date"), layout.FC("row.history_date")),
+                    (_("User"), layout.FC("row.history_user")),
+                    (_("Change"), layout.FC("row.get_history_type_display")),
                 ),
                 layout.F(lambda c, e: c["object"].history.all()),
-                valueproviderclass=layout.ObjectContext,
             )
         ),
     )
