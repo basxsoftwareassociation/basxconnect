@@ -3,11 +3,11 @@ basxconnect
 
 Core Implementation of a CRM system for non-profit organizations
 
-(It feels like the README is the wrong document to place the whole vission/mission/core values stuff but it will be okay for now I think)
+(It feels like the README is the wrong document to place the whole vision/mission/core values stuff but it will be okay for now I think)
 
 Vision
 ------
-Providing Non-Profit organizations with a code framework that helps to build tools for managing their data.
+Providing non-profit organizations with a code framework that helps to build tools for managing their data.
 
 Mission
 -------
