@@ -56,11 +56,15 @@ def editperson_toolbar(request):
                     copybutton,
                     layout.button.PrintPageButton(buttontype="ghost"),
                 ),
-            )
-        ),
-        layout.DIV(
-            id="search-results",
-            _style="width: 20rem; position: absolute; z-index: 999",
+            ),
+            R(
+                C(
+                    layout.DIV(
+                        id="search-results",
+                        _style="width: 20rem; position: absolute; z-index: 999",
+                    )
+                )
+            ),
         ),
         layout.DIV(_class="section-separator-bottom", style="margin-top: 1rem"),
         style="margin-bottom: 2rem",

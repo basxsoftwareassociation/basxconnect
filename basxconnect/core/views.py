@@ -141,13 +141,14 @@ def searchperson(request):
         for result in SearchQuerySet()
         .models(NaturalPerson, LegalPerson, PersonAssociation)
         .autocomplete(name_auto=query)
+        if result.object
     ]
     if not objects:
         return HttpResponse(
             hg.DIV(
                 _("No results"),
                 _class="bx--tile",
-                style="margin-bottom: 1rem;",
+                style="margin-bottom: 1rem; padding: 0.5rem",
             ).render({})
         )
 
@@ -162,13 +163,15 @@ def searchperson(request):
                                 mark_safe(
                                     object.core_postal_list.first() or _("No address")
                                 ),
-                                style="font-size: small; padding-bottom: 1rem; padding-top: 0.5rem",
+                                style="font-size: small; padding-bottom: 0.5rem; padding-top: 0.5rem",
                             ),
                         ),
                         style="cursor: pointer; padding: 0.5rem;",
                         onclick=(
                             "document.location = '"
-                            + reverse_model(object, "edit", kwargs={"pk": object.pk})
+                            + str(
+                                reverse_model(object, "edit", kwargs={"pk": object.pk})
+                            )
                             + "'"
                         ),
                         onmouseenter="this.style.backgroundColor = 'lightgray'",
@@ -178,7 +181,7 @@ def searchperson(request):
                 ]
             ),
             _class="bx--tile",
-            style="margin-bottom: 2rem;",
+            style="margin-bottom: 1rem; padding: 0",
         ).render({})
     )
 
