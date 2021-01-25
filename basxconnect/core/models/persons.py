@@ -11,7 +11,7 @@ from .utils import Note, Term
 
 class Person(models.Model):
     personnumber = models.CharField(
-        _("Person number"), max_length=255, unique=True, blank=True, null=True
+        _("Person number"), max_length=255, unique=True, blank=True
     )
     name = models.CharField(_("Display name"), max_length=255, blank=True)
     active = models.BooleanField(_("Active"), default=True)
@@ -28,7 +28,7 @@ class Person(models.Model):
         lambda field, request, instance: settings.PREFERRED_LANGUAGES
     )
 
-    categories = models.ManyToManyField(Term)
+    categories = models.ManyToManyField(Term, blank=True)
     categories.verbose_name = _("Categories")
 
     remarks = models.TextField(_("Remarks"), blank=True)

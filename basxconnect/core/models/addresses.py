@@ -89,6 +89,7 @@ class Phone(Address):
         Term,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         limit_choices_to={"category__slug": "phonetype"},
     )
     type.verbose_name = _("Type")
@@ -109,6 +110,7 @@ class Fax(Address):
         Term,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         limit_choices_to={"category__slug": "phonetype"},
     )
     type.verbose_name = _("Type")
