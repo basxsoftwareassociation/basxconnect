@@ -148,7 +148,7 @@ def searchperson(request):
             hg.DIV(
                 _("No results"),
                 _class="bx--tile",
-                style="margin-bottom: 1rem; padding: 0.5rem",
+                style="margin-bottom: 1rem; padding: 0.5rem; opacity: 0.85",
             ).render({})
         )
 
@@ -181,7 +181,7 @@ def searchperson(request):
                 ]
             ),
             _class="bx--tile",
-            style="margin-bottom: 1rem; padding: 0",
+            style="margin-bottom: 1rem; padding: 0; opacity: 0.95",
         ).render({})
     )
 

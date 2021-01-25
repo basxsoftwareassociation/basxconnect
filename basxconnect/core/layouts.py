@@ -14,23 +14,9 @@ dist = layout.DIV(style="margin-bottom: 2rem")
 
 
 def editperson_toolbar(request):
-    searchbutton = layout.search.Search(
-        widgetattributes={
-            "placeholder": _("Search person"),
-            "hx_get": reverse_lazy("basxconnect.core.views.searchperson"),
-            "hx_trigger": "changed, keyup changed delay:100ms",
-            "hx_target": "#search-results",
-            "name": "query",
-        },
-        _style="width: 20rem",
-    )
-    # clear search field when search box is emptied
-    searchbutton[3].attributes[
-        "onclick"
-    ] = "this.parentElement.nextElementSibling.innerHTML = ''"
     deletebutton = layout.button.Button(
         _("Delete"),
-        buttontype="danger",
+        buttontype="ghost",
         icon="trash-can",
         notext=True,
         **layout.aslink_attributes(
@@ -50,20 +36,19 @@ def editperson_toolbar(request):
     return layout.DIV(
         layout.grid.Grid(
             R(
-                C(searchbutton, width=2, breakpoint="md"),
+                C(
+                    layout.search.Search(placeholder=_("Search person")).withajaxurl(
+                        url=reverse_lazy("basxconnect.core.views.searchperson"),
+                        queryfieldname="query",
+                    ),
+                    width=2,
+                    breakpoint="md",
+                ),
                 C(
                     deletebutton,
                     copybutton,
                     layout.button.PrintPageButton(buttontype="ghost"),
                 ),
-            ),
-            R(
-                C(
-                    layout.DIV(
-                        id="search-results",
-                        _style="width: 20rem; position: absolute; z-index: 999",
-                    )
-                )
             ),
         ),
         layout.DIV(_class="section-separator-bottom", style="margin-top: 1rem"),
