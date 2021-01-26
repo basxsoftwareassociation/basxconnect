@@ -1,8 +1,10 @@
 from bread import views as breadviews
+from bread.menu import Link
 from bread.utils.urls import (
     default_model_paths,
     generate_path,
     model_urlname,
+    reverse,
     reverse_model,
 )
 from django.views.generic import RedirectView
@@ -46,6 +48,15 @@ urlpatterns = [
                 "city",
                 "country",
             ],
+            bulkactions=(
+                Link(
+                    reverse_model(models.Person, "export"),
+                    label="Excel",
+                    icon="download",
+                ),
+            ),
+            searchurl=reverse("basxconnect.core.views.searchperson"),
+            queryfieldname="query",
         ),
     ),
     generate_path(
