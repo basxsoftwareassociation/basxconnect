@@ -5,7 +5,22 @@ from .persons import Person
 
 
 class RelationshipType(models.Model):
-    name = models.CharField(_("Name for relationship type"), max_length=255)
+    name = models.CharField(
+        _("Name for relationship type"),
+        max_length=255,
+        help_text="e.g. Person A is member of person B",
+    )
+    reverse_name = models.CharField(
+        _("Backward name for relationship type"),
+        max_length=255,
+        blank=True,
+        help_text="e.g. Person B has person A as a member",
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.reverse_name:
+            self.reverse_name = self.name
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -31,6 +46,9 @@ class Relationship(models.Model):
     person_b.verbose_name = _("Person B")
     start_date = models.DateField(_("Starts on"), blank=True, null=True)
     end_date = models.DateField(_("Ends on"), blank=True, null=True)
+
+    def __str__(self):
+        return "%s is %s of %s" % (self.person_a, self.type, self.person_b)
 
     class Meta:
         verbose_name = _("Relationship")
