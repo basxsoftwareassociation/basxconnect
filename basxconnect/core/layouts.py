@@ -135,7 +135,12 @@ def editnaturalperson_form(request):
                         ),
                         C(
                             R(
-                                C(F("salutation", widgetattributes={"width": "18rem"})),
+                                C(
+                                    F(
+                                        "salutation",
+                                        widgetattributes={"style": "width: 18rem"},
+                                    )
+                                ),
                                 C(F("title")),
                             ),
                             R(
