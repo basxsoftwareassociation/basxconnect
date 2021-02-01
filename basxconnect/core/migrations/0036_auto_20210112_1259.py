@@ -6,33 +6,63 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0035_auto_20210112_1111'),
+        ("core", "0035_auto_20210112_1111"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='historicallegalperson',
-            name='personnumber',
-            field=models.CharField(blank=True, db_index=True, max_length=255, null=True, verbose_name='Person number'),
+            model_name="historicallegalperson",
+            name="personnumber",
+            field=models.CharField(
+                blank=True,
+                db_index=True,
+                max_length=255,
+                null=True,
+                verbose_name="Person number",
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalnaturalperson',
-            name='personnumber',
-            field=models.CharField(blank=True, db_index=True, max_length=255, null=True, verbose_name='Person number'),
+            model_name="historicalnaturalperson",
+            name="personnumber",
+            field=models.CharField(
+                blank=True,
+                db_index=True,
+                max_length=255,
+                null=True,
+                verbose_name="Person number",
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalperson',
-            name='personnumber',
-            field=models.CharField(blank=True, db_index=True, max_length=255, null=True, verbose_name='Person number'),
+            model_name="historicalperson",
+            name="personnumber",
+            field=models.CharField(
+                blank=True,
+                db_index=True,
+                max_length=255,
+                null=True,
+                verbose_name="Person number",
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalpersonassociation',
-            name='personnumber',
-            field=models.CharField(blank=True, db_index=True, max_length=255, null=True, verbose_name='Person number'),
+            model_name="historicalpersonassociation",
+            name="personnumber",
+            field=models.CharField(
+                blank=True,
+                db_index=True,
+                max_length=255,
+                null=True,
+                verbose_name="Person number",
+            ),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='personnumber',
-            field=models.CharField(blank=True, max_length=255, null=True, unique=True, verbose_name='Person number'),
+            model_name="person",
+            name="personnumber",
+            field=models.CharField(
+                blank=True,
+                max_length=255,
+                null=True,
+                unique=True,
+                verbose_name="Person number",
+            ),
         ),
     ]
