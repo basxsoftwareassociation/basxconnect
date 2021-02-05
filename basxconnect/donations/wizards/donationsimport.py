@@ -75,6 +75,14 @@ class DonationsImportWizard(NamedUrlSessionWizardView):
     _("Upload File")
     _("Preview")
     template_name = "donations/wizards/import.html"
+    layout = layout.BaseElement()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["layout"] = lambda request: generate_wizard_form(
+            self.get_form()._layout
+        )
+        return context
 
     def done(self, form_list, **kwargs):
         newperson = list(form_list)[-1].save()

@@ -238,48 +238,53 @@ def address_and_relationships(request):
     return layout.grid.Grid(
         R(
             C(
-                R(C(layout.H4(_("Address")))),
-                layout.form.FormSetField(
+                layout.H4(_("Address")),
+                layout.form.FormsetField(
                     "core_postal_list",
-                    R(C(F("address", widgetattributes={"rows": 2}))),
                     R(
-                        C(F("postcode"), breakpoint="lg", width=4),
-                        C(F("city"), breakpoint="lg", width=12),
-                    ),
-                    R(
-                        C(F("country")),
                         C(F("type")),
+                        C(F("address", widgetattributes={"style": "height: 8.5rem"})),
+                        C(R(C(F("postcode"))), R(C(F("country")))),
+                        C(F("city")),
+                        C(
+                            layout.form.InlineDeleteButton(".bx--row"),
+                            style="margin-top: 1.5rem",
+                            breakpoint="lg",
+                            width=1,
+                        ),
                     ),
-                    can_delete=False,
-                    max_num=1,
-                    extra=1,
                 ),
-                _class="section-separator-right",
+                layout.form.FormsetAddButton(
+                    "core_postal_list", style="float: right; margin-bottom: 2rem"
+                ),
+                _class="section-separator-bottom",
             ),
+        ),
+        R(
             C(
-                R(C(layout.H4(_("Communication Channels")))),
-                R(C(layout.H5(_("Phone")))),
-                layout.form.FormSetField(
+                layout.H5(_("Numbers")),
+                layout.form.FormsetField(
                     "core_phone_list",
                     R(
                         C(F("type"), breakpoint="lg", width=4),
                         C(F("number"), breakpoint="lg", width=12),
                     ),
-                    can_delete=False,
                     extra=0,
                 ),
-                R(C(layout.H5(_("Email")))),
-                layout.form.FormSetField(
+                layout.form.FormsetAddButton("core_phone_list", style="float: right"),
+                _class="section-separator-right",
+            ),
+            C(
+                layout.H5(_("Email")),
+                layout.form.FormsetField(
                     "core_email_list",
                     R(C(F("email"))),
-                    can_delete=False,
                     extra=0,
                 ),
+                layout.form.FormsetAddButton("core_email_list", style="float: right"),
             ),
-            _class="section-separator-bottom",
         ),
-        # R(C(F("categories")), C(F("remarks")), style="margin-top: 1rem"),
-        R(C(), C(F("remarks")), style="margin-top: 1rem"),
+        R(C(F("remarks")), C(), style="margin-top: 1rem"),
     )
 
 
@@ -366,7 +371,7 @@ def generalsettings(request):
             R(C(F("name"))),
             R(C(F("name_addition"))),
         ),
-        layout.form.FormSetField(
+        layout.form.FormsetField(
             "core_postal_list",
             layout.grid.Grid(
                 R(C(F("address"))),
@@ -401,7 +406,7 @@ def generalsettings(request):
 
 def single_item_fieldset(related_field, fieldname, queryset=None):
     """Helper function to show only a single item of a (foreign-key) related item list"""
-    return layout.form.FormSetField(
+    return layout.form.FormsetField(
         related_field,
         F(fieldname),
         formsetinitial={"queryset": queryset},
