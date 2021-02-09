@@ -44,3 +44,6 @@ What we still need to do
 - Write documentation where necessary and add code-examples and how-to's
 - Implement revisions completely to allow going to a certain date and maybe display diffs
 - Maybe: Add a developer option to easily find out which part of the interface are generated where in the code (making customization a lot easier)
+
+Other TODOs:
+- Replace initial data in migrations files with fixture files or scripts
