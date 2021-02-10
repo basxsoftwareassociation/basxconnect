@@ -47,3 +47,4 @@ What we still need to do
 
 Other TODOs:
 - Replace initial data in migrations files with fixture files or scripts
+- Explain more why basxConnect is necessary and the difference to alternative solutions
