@@ -2,7 +2,7 @@ import htmlgenerator as hg
 from bread import layout, menu
 from bread.forms.forms import generate_form
 from bread.utils.urls import aslayout, reverse, reverse_model
-from bread.views import EditView
+from bread.views import EditView, ReadView, layoutasreadonly
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.html import mark_safe
@@ -16,39 +16,59 @@ from .models import LegalPerson, NaturalPerson, Person, PersonAssociation
 # ADD MODEL VIEWS AND REGISTER URLS -------------------------------------------
 
 
+def personform_shortcut(request, formlayout, isreadview):
+    return hg.BaseElement(
+        layouts.editperson_toolbar(request),
+        layouts.editperson_head(request, isreadview=isreadview),
+        layout.form.Form(hg.C("form"), formlayout),
+    )
+
+
 class NaturalPersonEditView(EditView):
     def layout(self, request):
-        return layout.BaseElement(
-            layouts.editperson_toolbar(request),
-            layouts.editperson_head(request),
-            layout.form.Form.wrap_with_form(
-                layout.C("form"),
-                layouts.editnaturalperson_form(request),
-            ),
+        return personform_shortcut(
+            request, layouts.editnaturalperson_form(request), isreadview=False
+        )
+
+
+class NaturalPersonReadView(ReadView):
+    def layout(self, request):
+        return layoutasreadonly(
+            personform_shortcut(
+                request, layouts.editnaturalperson_form(request), isreadview=True
+            )
         )
 
 
 class LegalPersonEditView(EditView):
     def layout(self, request):
-        return layout.BaseElement(
-            layouts.editperson_toolbar(request),
-            layouts.editperson_head(request),
-            layout.form.Form.wrap_with_form(
-                layout.C("form"),
-                layouts.editlegalperson_form(request),
-            ),
+        return personform_shortcut(
+            request, layouts.editlegalperson_form(request), isreadview=False
+        )
+
+
+class LegalPersonReadView(ReadView):
+    def layout(self, request):
+        return layoutasreadonly(
+            personform_shortcut(
+                request, layouts.editlegalperson_form(request), isreadview=True
+            )
         )
 
 
 class PersonAssociationEditView(EditView):
     def layout(self, request):
-        return layout.BaseElement(
-            layouts.editperson_toolbar(request),
-            layouts.editperson_head(request),
-            layout.form.Form.wrap_with_form(
-                layout.C("form"),
-                layouts.editpersonassociation_form(request),
-            ),
+        return personform_shortcut(
+            request, layouts.editpersonassociation_form(request), isreadview=False
+        )
+
+
+class PersonAssociationReadView(ReadView):
+    def layout(self, request):
+        return layoutasreadonly(
+            personform_shortcut(
+                request, layouts.editpersonassociation_form(request), isreadview=True
+            )
         )
 
 

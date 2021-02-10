@@ -7,10 +7,12 @@ default_categories = [
     {"name": "Title", "slug": "title"},
     {"name": "Gender", "slug": "gender"},
     {"name": "Legal Type", "slug": "legaltype"},
+    {"name": "Person Association Type", "slug": "associationtype"},
     {"name": "Address Type", "slug": "addresstype"},
     {"name": "Address Status", "slug": "addressstatus"},
     {"name": "Phone Type", "slug": "phonetype"},
     {"name": "Salutation", "slug": "salutation"},
+    {"name": "URL Types", "slug": "urltype"},
 ]
 
 

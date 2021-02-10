@@ -1,3 +1,4 @@
+import htmlgenerator as hg
 from bread import layout
 from bread.forms.forms import breadmodelform_factory
 from bread.utils import pretty_modelname
@@ -12,7 +13,7 @@ from formtools.wizard.views import NamedUrlSessionWizardView
 from ..models import LegalPerson, NaturalPerson, Person, PersonAssociation, Postal, Term
 
 ADD_FORM_LAYOUTS = {
-    NaturalPerson: layout.BaseElement(
+    NaturalPerson: hg.BaseElement(
         layout.grid.Row(
             layout.grid.Col(layout.form.FormField("first_name")),
             layout.grid.Col(layout.form.FormField("last_name")),
@@ -22,10 +23,10 @@ ADD_FORM_LAYOUTS = {
             layout.grid.Col(layout.form.FormField("gender")),
         ),
     ),
-    LegalPerson: layout.DIV(
+    LegalPerson: hg.DIV(
         layout.form.FormField("name"), layout.form.FormField("name_addition")
     ),
-    PersonAssociation: layout.DIV(layout.form.FormField("name")),
+    PersonAssociation: hg.DIV(layout.form.FormField("name")),
 }
 ADD_ADDRESS_LAYOUT = layout.grid.Grid(
     layout.grid.Row(
@@ -52,25 +53,25 @@ def generate_wizard_form(formlayout):
         return f"document.location='{url}'"
 
     return layout.form.Form(
-        layout.C("wizard.form"),
+        hg.C("wizard.form"),
         layout.form.Form(
-            layout.C("wizard.management_form"),
+            hg.C("wizard.management_form"),
             layout.form.FormField("current_step"),
             standalone=False,
         ),
         formlayout,
-        layout.DIV(
-            layout.DIV(
-                layout.If(
-                    layout.C("wizard.steps.prev"),
+        hg.DIV(
+            hg.DIV(
+                hg.If(
+                    hg.C("wizard.steps.prev"),
                     layout.button.Button(
                         _("Back"),
                         buttontype="secondary",
-                        onclick=layout.F(go_back_url),
+                        onclick=hg.F(go_back_url),
                     ),
                 ),
-                layout.If(
-                    layout.F(
+                hg.If(
+                    hg.F(
                         lambda c, e: c["wizard"]["steps"].last
                         == c["wizard"]["steps"].current
                     ),
@@ -110,15 +111,15 @@ class SearchForm(forms.Form):
     ] = "this.parentElement.nextElementSibling.innerHTML = ''"
 
     title = _("Search person")
-    _layout = layout.DIV(
-        layout.DIV(
+    _layout = hg.DIV(
+        hg.DIV(
             _(
                 "Before a new person can be added it must be confirmed that the person does not exists yet."
             ),
             style="margin-bottom: 2rem",
         ),
         searchbutton,
-        layout.DIV(id="search-results", style="margin-bottom: 2rem;"),
+        hg.DIV(id="search-results", style="margin-bottom: 2rem;"),
     )
 
 
@@ -136,8 +137,8 @@ class ChooseType(forms.Form):
     )
 
     title = _("Choose person main type")
-    _layout = layout.BaseElement(
-        layout.DIV(
+    _layout = hg.BaseElement(
+        hg.DIV(
             _("Please choose what type of person you want to add:"),
             style="margin-bottom: 2rem",
         ),
@@ -175,7 +176,7 @@ class AddPersonInformation(forms.Form):
         super().__init__(*args, **kwargs)
 
     title = _("Add person")
-    _layout = layout.DIV("Please select a person type first")
+    _layout = hg.DIV("Please select a person type first")
 
 
 class ConfirmNewPerson(forms.Form):
@@ -183,7 +184,7 @@ class ConfirmNewPerson(forms.Form):
         super().__init__(*args, **kwargs)
 
     title = _("Finish")
-    _layout = layout.DIV("Please select a person type first")
+    _layout = hg.DIV("Please select a person type first")
 
 
 def generate_add_form_for(model, request, data, files, initial=None):
@@ -195,7 +196,7 @@ def generate_add_form_for(model, request, data, files, initial=None):
     )().fields.items():
         form.fields[fieldname] = field
 
-    formlayout = layout.BaseElement(
+    formlayout = hg.BaseElement(
         layout.grid.Grid(ADD_FORM_LAYOUTS[model].copy(), style="margin-bottom: 2rem"),
         ADD_ADDRESS_LAYOUT.copy(),
     )
@@ -243,9 +244,9 @@ class AddPersonWizard(NamedUrlSessionWizardView):
                 status = "current"
             steps.append((_(step), status))
 
-        context["layout"] = lambda request: layout.BaseElement(
-            layout.H3(_("Add new person")),
-            layout.H4(self.get_form().title),
+        context["layout"] = lambda request: hg.BaseElement(
+            hg.H3(_("Add new person")),
+            hg.H4(self.get_form().title),
             layout.progress_indicator.ProgressIndicator(
                 steps,
                 style="margin-bottom: 2rem",

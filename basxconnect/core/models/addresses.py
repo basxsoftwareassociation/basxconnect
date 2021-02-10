@@ -47,6 +47,14 @@ class Address(models.Model):
 
 class Email(Address):
     email = models.EmailField(_("Email"))
+    type = models.ForeignKey(
+        Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="type_%(app_label)s_%(class)s_list",
+        limit_choices_to={"category__slug": "addresstype"},
+    )
 
     def __str__(self):
         return format_html('<a href="mailto:{}">{}</a>', self.email, self.email)
@@ -58,6 +66,14 @@ class Email(Address):
 
 class Web(Address):
     url = models.URLField(_("Url"))
+    type = models.ForeignKey(
+        Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="type_%(app_label)s_%(class)s_list",
+        limit_choices_to={"category__slug": "urltype"},
+    )
 
     def __str__(self):
         return format_html('<a href="{}">{}</a>', self.url, self.url)
@@ -65,22 +81,6 @@ class Web(Address):
     class Meta:
         verbose_name = _("Web address")
         verbose_name_plural = _("Web addresses")
-
-
-class PhoneType(models.Model):
-    name = models.CharField(
-        _("Name for phone type"),
-        max_length=255,
-        help_text=_("eg. landline, mobile, fax, direct dial"),
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name = _("Phone type")
-        verbose_name_plural = _("Phone types")
 
 
 class Phone(Address):
@@ -131,7 +131,7 @@ class Postal(Address):
         _("Address"), blank=True, help_text="Street, house, PO box"
     )
     postcode = models.CharField(_("Post Code"), max_length=16, blank=True)
-    city = models.CharField(_("City"), max_length=255)
+    city = models.CharField(_("City"), max_length=255, blank=True)
 
     def __str__(self):
         ret = [self.address]

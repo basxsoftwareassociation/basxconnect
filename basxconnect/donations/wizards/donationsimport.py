@@ -1,3 +1,4 @@
+import htmlgenerator as hg
 from bread import layout
 from bread.utils.urls import reverse_model
 from django import forms
@@ -17,25 +18,25 @@ def generate_wizard_form(formlayout):
         return f"document.location='{url}'"
 
     return layout.form.Form(
-        layout.C("wizard.form"),
+        hg.C("wizard.form"),
         layout.form.Form(
-            layout.C("wizard.management_form"),
+            hg.C("wizard.management_form"),
             layout.form.FormField("current_step"),
             standalone=False,
         ),
         formlayout,
-        layout.DIV(
-            layout.DIV(
-                layout.If(
-                    layout.C("wizard.steps.prev"),
+        hg.DIV(
+            hg.DIV(
+                hg.If(
+                    hg.C("wizard.steps.prev"),
                     layout.button.Button(
                         _("Back"),
                         buttontype="secondary",
-                        onclick=layout.F(go_back_url),
+                        onclick=hg.F(go_back_url),
                     ),
                 ),
-                layout.If(
-                    layout.F(
+                hg.If(
+                    hg.F(
                         lambda c, e: c["wizard"]["steps"].last
                         == c["wizard"]["steps"].current
                     ),
@@ -55,7 +56,7 @@ def generate_wizard_form(formlayout):
 
 class UploadForm(forms.Form):
     title = _("Upload a file")
-    _layout = layout.BaseElement("Select file")
+    _layout = hg.BaseElement("Select file")
 
 
 class PreviewForm(forms.Form):
@@ -75,7 +76,7 @@ class DonationsImportWizard(NamedUrlSessionWizardView):
     _("Upload File")
     _("Preview")
     template_name = "donations/wizards/import.html"
-    layout = layout.BaseElement()
+    layout = hg.BaseElement()
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

@@ -41,7 +41,7 @@ urlpatterns = [
             fields=[
                 "personnumber",
                 "status",
-                "type",
+                "maintype",
                 "name",
                 "address",
                 "postalcode",
@@ -65,7 +65,7 @@ urlpatterns = [
             [
                 "personnumber",
                 "status",
-                "type",
+                "maintype",
                 "name",
                 "address",
                 "postalcode",
@@ -78,13 +78,20 @@ urlpatterns = [
     *default_model_paths(
         models.NaturalPerson,
         editview=views.NaturalPersonEditView,
+        readview=views.NaturalPersonReadView,
         copyview=breadviews.generate_copyview(
             models.NaturalPerson, attrs={"personnumber": None}, labelfield="name"
         ),
     ),
-    *default_model_paths(models.LegalPerson, editview=views.LegalPersonEditView),
     *default_model_paths(
-        models.PersonAssociation, editview=views.PersonAssociationEditView
+        models.LegalPerson,
+        editview=views.LegalPersonEditView,
+        readview=views.LegalPersonReadView,
+    ),
+    *default_model_paths(
+        models.PersonAssociation,
+        editview=views.PersonAssociationEditView,
+        readview=views.PersonAssociationReadView,
     ),
     *default_model_paths(models.Relationship),
     *default_model_paths(models.RelationshipType),

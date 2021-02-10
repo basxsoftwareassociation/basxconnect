@@ -19,7 +19,6 @@ class Person(models.Model):
         _("Salutation Letter"),
         max_length=255,
         blank=True,
-        help_text=_("e.g. Dear Mr. Smith, Hi Bob"),
     )
     preferred_language = LanguageField(
         _("Prefered Language"), blank=True, max_length=8
@@ -39,9 +38,14 @@ class Person(models.Model):
         return self.name
 
     def type(self):
-        return pretty_modelname(get_concrete_instance(self))
+        return getattr(get_concrete_instance(self), "type")
 
     type.verbose_name = _("Type")
+
+    def maintype(self):
+        return pretty_modelname(get_concrete_instance(self))
+
+    maintype.verbose_name = _("Main Type")
 
     def status(self):
         return _("Active") if self.active else _("Inactive")
@@ -102,14 +106,20 @@ class NaturalPerson(Person):
         limit_choices_to={"category__slug": "salutation"},
     )
     salutation.verbose_name = _("Salutation")
+    form_of_address = models.CharField(
+        _("Form of address"),
+        max_length=255,
+        blank=True,
+    )
     title.verbose_name = _("Title")
     profession = models.CharField(
         _("Profession"),
         max_length=255,
         blank=True,
-        help_text=_("e.g. Nurse, Carpenter"),
     )
     date_of_birth = models.DateField(_("Date of Birth"), blank=True, null=True)
+    deceased = models.BooleanField(default=False)
+    decease_date = models.DateField(blank=True, null=True)
     gender = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,
@@ -120,9 +130,16 @@ class NaturalPerson(Person):
     )
     gender.verbose_name = _("Gender")
 
+    def type(self):
+        return None
+
+    type.verbose_name = _("Type")
+
     def save(self, *args, **kwargs):
         if not self.name:
             self.name = self.first_name + " " + self.last_name
+        if self.decease_date:
+            self.deceased = True
         super().save(*args, **kwargs)
 
     class Meta:
@@ -139,7 +156,6 @@ class LegalPerson(Person):
         null=True,
         blank=True,
         limit_choices_to={"category__slug": "legaltype"},
-        help_text=_("eg. Church, Business, Association"),
     )
     type.verbose_name = _("Type")
 
@@ -150,6 +166,15 @@ class LegalPerson(Person):
 
 
 class PersonAssociation(Person):
+    type = models.ForeignKey(
+        Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        limit_choices_to={"category__slug": "associationtype"},
+    )
+    type.verbose_name = _("Type")
+
     class Meta:
         ordering = ["name"]
         verbose_name = _("Person Association")

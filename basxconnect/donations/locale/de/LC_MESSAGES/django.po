@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-19 12:15+0700\n"
+"POT-Creation-Date: 2021-02-08 13:09+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,30 +18,64 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:16
+#: basxconnect/donations/models.py:17
 msgid "Import"
 msgstr "Import"
 
-#: models.py:20
+#: basxconnect/donations/models.py:21
 msgid "Person"
 msgstr "Person"
 
-#: models.py:21
+#: basxconnect/donations/models.py:22
 msgid "Amount"
 msgstr "Betrag"
 
-#: models.py:22
+#: basxconnect/donations/models.py:23
 msgid "Currency"
 msgstr "Währung"
 
-#: models.py:24
+#: basxconnect/donations/models.py:25
 msgid "Date"
 msgstr "Datum"
 
-#: models.py:27
+#: basxconnect/donations/models.py:28
 msgid "Donation"
 msgstr "Spende"
 
-#: models.py:28
+#: basxconnect/donations/models.py:29
 msgid "Donations"
 msgstr "Spenden"
+
+#: basxconnect/donations/urls.py:15
+#, fuzzy
+#| msgid "Import"
+msgid "Imports"
+msgstr "Import"
+
+#: basxconnect/donations/urls.py:21
+msgid "Import contributions"
+msgstr ""
+
+#: basxconnect/donations/wizards/donationsimport.py:32
+msgid "Back"
+msgstr ""
+
+#: basxconnect/donations/wizards/donationsimport.py:43
+msgid "Complete"
+msgstr ""
+
+#: basxconnect/donations/wizards/donationsimport.py:46
+msgid "Continue"
+msgstr ""
+
+#: basxconnect/donations/wizards/donationsimport.py:57
+msgid "Upload a file"
+msgstr ""
+
+#: basxconnect/donations/wizards/donationsimport.py:75
+msgid "Upload File"
+msgstr ""
+
+#: basxconnect/donations/wizards/donationsimport.py:76
+msgid "Preview"
+msgstr ""
