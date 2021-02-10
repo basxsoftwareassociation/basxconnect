@@ -6,73 +6,91 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0042_auto_20210208_1405'),
+        ("core", "0042_auto_20210208_1405"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='historicalnaturalperson',
-            name='decease_date',
+            model_name="historicalnaturalperson",
+            name="decease_date",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='historicalnaturalperson',
-            name='deceased',
+            model_name="historicalnaturalperson",
+            name="deceased",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='historicalnaturalperson',
-            name='form_of_address',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Form of address'),
+            model_name="historicalnaturalperson",
+            name="form_of_address",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Form of address"
+            ),
         ),
         migrations.AddField(
-            model_name='naturalperson',
-            name='decease_date',
+            model_name="naturalperson",
+            name="decease_date",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='naturalperson',
-            name='deceased',
+            model_name="naturalperson",
+            name="deceased",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='naturalperson',
-            name='form_of_address',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Form of address'),
+            model_name="naturalperson",
+            name="form_of_address",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Form of address"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicallegalperson',
-            name='salutation_letter',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Salutation Letter'),
+            model_name="historicallegalperson",
+            name="salutation_letter",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Salutation Letter"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalnaturalperson',
-            name='profession',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Profession'),
+            model_name="historicalnaturalperson",
+            name="profession",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Profession"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalnaturalperson',
-            name='salutation_letter',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Salutation Letter'),
+            model_name="historicalnaturalperson",
+            name="salutation_letter",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Salutation Letter"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalperson',
-            name='salutation_letter',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Salutation Letter'),
+            model_name="historicalperson",
+            name="salutation_letter",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Salutation Letter"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalpersonassociation',
-            name='salutation_letter',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Salutation Letter'),
+            model_name="historicalpersonassociation",
+            name="salutation_letter",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Salutation Letter"
+            ),
         ),
         migrations.AlterField(
-            model_name='naturalperson',
-            name='profession',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Profession'),
+            model_name="naturalperson",
+            name="profession",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Profession"
+            ),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='salutation_letter',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Salutation Letter'),
+            model_name="person",
+            name="salutation_letter",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Salutation Letter"
+            ),
         ),
     ]
