@@ -7,33 +7,63 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0040_auto_20210126_1031'),
+        ("core", "0040_auto_20210126_1031"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='historicalpersonassociation',
-            name='type',
-            field=models.ForeignKey(blank=True, db_constraint=False, limit_choices_to={'category__slug': 'associationtype'}, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='core.term'),
+            model_name="historicalpersonassociation",
+            name="type",
+            field=models.ForeignKey(
+                blank=True,
+                db_constraint=False,
+                limit_choices_to={"category__slug": "associationtype"},
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="+",
+                to="core.term",
+            ),
         ),
         migrations.AddField(
-            model_name='personassociation',
-            name='type',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'associationtype'}, null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.term'),
+            model_name="personassociation",
+            name="type",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "associationtype"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='historicallegalperson',
-            name='type',
-            field=models.ForeignKey(blank=True, db_constraint=False, limit_choices_to={'category__slug': 'legaltype'}, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='core.term'),
+            model_name="historicallegalperson",
+            name="type",
+            field=models.ForeignKey(
+                blank=True,
+                db_constraint=False,
+                limit_choices_to={"category__slug": "legaltype"},
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="+",
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='legalperson',
-            name='type',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'legaltype'}, null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.term'),
+            model_name="legalperson",
+            name="type",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "legaltype"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="core.term",
+            ),
         ),
         migrations.AlterField(
-            model_name='postal',
-            name='address',
-            field=models.TextField(blank=True, help_text='Street, house, PO box', verbose_name='Address'),
+            model_name="postal",
+            name="address",
+            field=models.TextField(
+                blank=True, help_text="Street, house, PO box", verbose_name="Address"
+            ),
         ),
     ]

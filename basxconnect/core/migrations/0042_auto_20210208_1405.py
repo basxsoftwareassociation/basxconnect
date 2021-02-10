@@ -7,16 +7,23 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0041_auto_20210208_1251'),
+        ("core", "0041_auto_20210208_1251"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='PhoneType',
+            name="PhoneType",
         ),
         migrations.AlterField(
-            model_name='web',
-            name='type',
-            field=models.ForeignKey(blank=True, limit_choices_to={'category__slug': 'urltype'}, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='type_core_web_list', to='core.term'),
+            model_name="web",
+            name="type",
+            field=models.ForeignKey(
+                blank=True,
+                limit_choices_to={"category__slug": "urltype"},
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="type_core_web_list",
+                to="core.term",
+            ),
         ),
     ]
