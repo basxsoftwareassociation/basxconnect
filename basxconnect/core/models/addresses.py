@@ -127,9 +127,7 @@ class Fax(Address):
 
 class Postal(Address):
     country = CountryField(_("Country"))
-    address = models.TextField(
-        _("Address"), blank=True, help_text="Street, house, PO box"
-    )
+    address = models.TextField(_("Address"), blank=True)
     postcode = models.CharField(_("Post Code"), max_length=16, blank=True)
     city = models.CharField(_("City"), max_length=255, blank=True)
 
