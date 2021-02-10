@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 13:09+0700\n"
+"POT-Creation-Date: 2021-02-10 16:18+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,26 +56,26 @@ msgstr "Import"
 msgid "Import contributions"
 msgstr ""
 
-#: basxconnect/donations/wizards/donationsimport.py:32
+#: basxconnect/donations/wizards/donationsimport.py:33
 msgid "Back"
 msgstr ""
 
-#: basxconnect/donations/wizards/donationsimport.py:43
+#: basxconnect/donations/wizards/donationsimport.py:44
 msgid "Complete"
 msgstr ""
 
-#: basxconnect/donations/wizards/donationsimport.py:46
+#: basxconnect/donations/wizards/donationsimport.py:47
 msgid "Continue"
 msgstr ""
 
-#: basxconnect/donations/wizards/donationsimport.py:57
+#: basxconnect/donations/wizards/donationsimport.py:58
 msgid "Upload a file"
 msgstr ""
 
-#: basxconnect/donations/wizards/donationsimport.py:75
+#: basxconnect/donations/wizards/donationsimport.py:76
 msgid "Upload File"
 msgstr ""
 
-#: basxconnect/donations/wizards/donationsimport.py:76
+#: basxconnect/donations/wizards/donationsimport.py:77
 msgid "Preview"
 msgstr ""

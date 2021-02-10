@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 13:09+0700\n"
+"POT-Creation-Date: 2021-02-10 16:18+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
-#: basxconnect/core/views.py:73 basxconnect/core/views.py:111
+#: basxconnect/core/layouts.py:190 basxconnect/core/views.py:93
+#: basxconnect/core/views.py:131
 msgid "General"
 msgstr "Allgemein"
 
@@ -38,171 +39,179 @@ msgstr "Löschen"
 msgid "Copy"
 msgstr "Kopieren"
 
-#: basxconnect/core/layouts.py:40 basxconnect/core/wizards/add_person.py:112
+#: basxconnect/core/layouts.py:40 basxconnect/core/wizards/add_person.py:113
 msgid "Search person"
 msgstr "Suche"
 
-#: basxconnect/core/layouts.py:61 basxconnect/core/models/persons.py:47
-#: basxconnect/core/views.py:86
+#: basxconnect/core/layouts.py:61 basxconnect/core/models/persons.py:51
+#: basxconnect/core/views.py:106
 msgid "Inactive"
 msgstr "Inaktiv"
 
 #: basxconnect/core/layouts.py:61 basxconnect/core/models/persons.py:17
-#: basxconnect/core/models/persons.py:47 basxconnect/core/views.py:86
+#: basxconnect/core/models/persons.py:51 basxconnect/core/views.py:106
 msgid "Active"
 msgstr "Aktiv"
 
-#: basxconnect/core/layouts.py:70
+#: basxconnect/core/layouts.py:68
 msgid "Person status"
 msgstr "Status"
 
-#: basxconnect/core/layouts.py:78 basxconnect/core/models/persons.py:44
+#: basxconnect/core/layouts.py:76 basxconnect/core/models/persons.py:48
 msgid "Main Type"
 msgstr "Personen-Art"
 
-#: basxconnect/core/layouts.py:86
+#: basxconnect/core/layouts.py:84
 msgid "Created"
 msgstr "Erstellt"
 
-#: basxconnect/core/layouts.py:96
+#: basxconnect/core/layouts.py:94
 msgid "Changed"
 msgstr "Geändert"
 
-#: basxconnect/core/layouts.py:122 basxconnect/core/layouts.py:172
-#: basxconnect/core/layouts.py:209
+#: basxconnect/core/layouts.py:104
+msgid "Unsaved changes"
+msgstr "Ungespeicherte Änderungen"
+
+#: basxconnect/core/layouts.py:107
+msgid "Discard"
+msgstr "Verwerfen"
+
+#: basxconnect/core/layouts.py:118 basxconnect/core/layouts.py:169
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+#: basxconnect/core/layouts.py:187 basxconnect/core/layouts.py:248
+#: basxconnect/core/layouts.py:284
 msgid "Base data"
 msgstr "Stammdaten"
 
-#: basxconnect/core/layouts.py:125 basxconnect/core/layouts.py:175
-#: basxconnect/core/layouts.py:212
+#: basxconnect/core/layouts.py:251 basxconnect/core/layouts.py:287
 msgid "General Information"
 msgstr "Allgemeine Angaben"
 
-#: basxconnect/core/layouts.py:246 basxconnect/core/models/addresses.py:131
-#: basxconnect/core/models/persons.py:54
-#: basxconnect/core/wizards/add_person.py:32
+#: basxconnect/core/layouts.py:320 basxconnect/core/models/addresses.py:130
+#: basxconnect/core/models/persons.py:58
+#: basxconnect/core/wizards/add_person.py:33
 msgid "Address"
 msgstr "Adresse"
 
-#: basxconnect/core/layouts.py:270
+#: basxconnect/core/layouts.py:343
 msgid "Numbers"
 msgstr "Nummern"
 
-#: basxconnect/core/layouts.py:283 basxconnect/core/models/addresses.py:49
+#: basxconnect/core/layouts.py:355 basxconnect/core/models/addresses.py:49
 msgid "Email"
 msgstr "E-Mail"
 
-#: basxconnect/core/layouts.py:298
+#: basxconnect/core/layouts.py:370
+msgid "URLs"
+msgstr "URLs"
+
+#: basxconnect/core/layouts.py:382 basxconnect/core/models/persons.py:31
+#: basxconnect/core/models/utils.py:25
+msgid "Categories"
+msgstr "Kategorien"
+
+#: basxconnect/core/layouts.py:388
+msgid "Other"
+msgstr "Sonstiges"
+
+#: basxconnect/core/layouts.py:397
 msgid "Revisions"
 msgstr "Revisionen"
 
-#: basxconnect/core/layouts.py:302
+#: basxconnect/core/layouts.py:401
 msgid "Date"
 msgstr "Datum"
 
-#: basxconnect/core/layouts.py:303
+#: basxconnect/core/layouts.py:402
 msgid "User"
 msgstr "Benutzer"
 
-#: basxconnect/core/layouts.py:304
+#: basxconnect/core/layouts.py:403
 msgid "Change"
 msgstr "Änderung"
 
-#: basxconnect/core/layouts.py:314 basxconnect/core/layouts.py:337
-#: basxconnect/core/models/relationships.py:55 basxconnect/core/views.py:125
+#: basxconnect/core/layouts.py:413 basxconnect/core/layouts.py:436
+#: basxconnect/core/models/relationships.py:55 basxconnect/core/views.py:145
 msgid "Relationships"
 msgstr "Beziehungen"
 
-#: basxconnect/core/layouts.py:353 basxconnect/core/models/persons.py:82
-#: basxconnect/core/views.py:103 basxconnect/core/views.py:106
-#: basxconnect/core/views.py:117
+#: basxconnect/core/layouts.py:452 basxconnect/core/models/persons.py:86
+#: basxconnect/core/views.py:123 basxconnect/core/views.py:126
+#: basxconnect/core/views.py:137
 msgid "Persons"
 msgstr "Personen"
 
-#: basxconnect/core/layouts.py:355
+#: basxconnect/core/layouts.py:454
 msgid "Address types"
 msgstr "Adressarten"
 
-#: basxconnect/core/layouts.py:357
+#: basxconnect/core/layouts.py:456
 msgid "Address origins"
 msgstr "Adressherkünfte"
 
-#: basxconnect/core/layouts.py:359 basxconnect/core/models/persons.py:105
+#: basxconnect/core/layouts.py:458 basxconnect/core/models/persons.py:114
 msgid "Title"
 msgstr "Titel"
 
-#: basxconnect/core/layouts.py:362
+#: basxconnect/core/layouts.py:461
 msgid "Correspondence Languages"
 msgstr "Korrespondenzsprachen"
 
-#: basxconnect/core/layouts.py:365
+#: basxconnect/core/layouts.py:464
 msgid "Communication Channels"
 msgstr "Kommunikationskanäle"
 
-#: basxconnect/core/layouts.py:367
+#: basxconnect/core/layouts.py:466
 msgid "Legal Types"
 msgstr "Juristische Personenarten"
 
-#: basxconnect/core/layouts.py:408
+#: basxconnect/core/layouts.py:507
 msgid "Save"
 msgstr "Speichern"
 
 #: basxconnect/core/models/addresses.py:18
-#: basxconnect/core/models/persons.py:81
+#: basxconnect/core/models/persons.py:85
 msgid "Person"
 msgstr "Person"
 
 #: basxconnect/core/models/addresses.py:27
 #: basxconnect/core/models/addresses.py:95
 #: basxconnect/core/models/addresses.py:116
-#: basxconnect/core/models/persons.py:126
-#: basxconnect/core/models/persons.py:148
-#: basxconnect/core/models/persons.py:164
+#: basxconnect/core/models/persons.py:43 basxconnect/core/models/persons.py:136
+#: basxconnect/core/models/persons.py:160
+#: basxconnect/core/models/persons.py:176
 #: basxconnect/core/models/relationships.py:36
-#: basxconnect/core/wizards/add_person.py:220
+#: basxconnect/core/wizards/add_person.py:221
 msgid "Type"
 msgstr "Typ"
 
 #: basxconnect/core/models/addresses.py:37
-#: basxconnect/core/models/persons.py:49
+#: basxconnect/core/models/persons.py:53
 msgid "Status"
 msgstr "Status"
 
-#: basxconnect/core/models/addresses.py:55
+#: basxconnect/core/models/addresses.py:63
 msgid "Email address"
 msgstr "E-Mail Adresse"
 
-#: basxconnect/core/models/addresses.py:56
+#: basxconnect/core/models/addresses.py:64
 msgid "Email addresses"
 msgstr "E-Mail Adressen"
 
-#: basxconnect/core/models/addresses.py:60
+#: basxconnect/core/models/addresses.py:68
 msgid "Url"
 msgstr "Webadresse"
 
-#: basxconnect/core/models/addresses.py:66
+#: basxconnect/core/models/addresses.py:82
 msgid "Web address"
 msgstr "Web Adresse"
 
-#: basxconnect/core/models/addresses.py:67
+#: basxconnect/core/models/addresses.py:83
 msgid "Web addresses"
 msgstr "Web Adressen"
-
-#: basxconnect/core/models/addresses.py:72
-msgid "Name for phone type"
-msgstr "Nummernart"
-
-#: basxconnect/core/models/addresses.py:74
-msgid "eg. landline, mobile, fax, direct dial"
-msgstr "z. B. Festnetz, Mobile, Direkt"
-
-#: basxconnect/core/models/addresses.py:82
-msgid "Phone type"
-msgstr "Telefontype"
-
-#: basxconnect/core/models/addresses.py:83
-msgid "Phone types"
-msgstr "Telefontypen"
 
 #: basxconnect/core/models/addresses.py:87
 #: basxconnect/core/models/addresses.py:108
@@ -226,24 +235,24 @@ msgid "Fax numbers"
 msgstr "Faxnummern"
 
 #: basxconnect/core/models/addresses.py:129
-#: basxconnect/core/models/persons.py:69
+#: basxconnect/core/models/persons.py:73
 msgid "Country"
 msgstr "Land"
 
-#: basxconnect/core/models/addresses.py:133
+#: basxconnect/core/models/addresses.py:131
 msgid "Post Code"
 msgstr "Postleitzahl"
 
-#: basxconnect/core/models/addresses.py:134
-#: basxconnect/core/models/persons.py:64
+#: basxconnect/core/models/addresses.py:132
+#: basxconnect/core/models/persons.py:68
 msgid "City"
 msgstr "Ort"
 
-#: basxconnect/core/models/addresses.py:146
+#: basxconnect/core/models/addresses.py:144
 msgid "Postal address"
 msgstr "Anschrift"
 
-#: basxconnect/core/models/addresses.py:147
+#: basxconnect/core/models/addresses.py:145
 msgid "Postal addresses"
 msgstr "Anschriften"
 
@@ -259,83 +268,75 @@ msgstr "Anzeigename"
 msgid "Salutation Letter"
 msgstr "Anrede Schriftlich"
 
-#: basxconnect/core/models/persons.py:22
-msgid "e.g. Dear Mr. Smith, Hi Bob"
-msgstr "z. B. Sehr geehrter Herr Meier, Hallo Ruth"
-
-#: basxconnect/core/models/persons.py:25
+#: basxconnect/core/models/persons.py:24
 msgid "Prefered Language"
 msgstr "Bevorzugte Sprache"
 
-#: basxconnect/core/models/persons.py:32 basxconnect/core/models/utils.py:25
-msgid "Categories"
-msgstr "Kategorien"
-
-#: basxconnect/core/models/persons.py:34
+#: basxconnect/core/models/persons.py:33
 msgid "Remarks"
 msgstr "Bemerkungen"
 
-#: basxconnect/core/models/persons.py:59
+#: basxconnect/core/models/persons.py:63
 msgid "Postal code"
 msgstr "Postleitzahl"
 
-#: basxconnect/core/models/persons.py:86
+#: basxconnect/core/models/persons.py:90
 msgid "First Name"
 msgstr "Vorname"
 
-#: basxconnect/core/models/persons.py:87
+#: basxconnect/core/models/persons.py:91
 msgid "Middle Name"
 msgstr "Mittelname(n)"
 
-#: basxconnect/core/models/persons.py:88
+#: basxconnect/core/models/persons.py:92
 msgid "Last Name"
 msgstr "Nachname"
 
-#: basxconnect/core/models/persons.py:104
+#: basxconnect/core/models/persons.py:108
 msgid "Salutation"
 msgstr "Anrede"
 
-#: basxconnect/core/models/persons.py:107
+#: basxconnect/core/models/persons.py:110
+msgid "Form of address"
+msgstr "Anredeform"
+
+#: basxconnect/core/models/persons.py:116
 msgid "Profession"
 msgstr "Beruf"
 
-#: basxconnect/core/models/persons.py:110
-msgid "e.g. Nurse, Carpenter"
-msgstr "z. B. Krankenschwester, Zimmerman"
-
-#: basxconnect/core/models/persons.py:112
+#: basxconnect/core/models/persons.py:120
 msgid "Date of Birth"
 msgstr "Geburtsdatum"
 
-#: basxconnect/core/models/persons.py:121
+#: basxconnect/core/models/persons.py:131
 msgid "Gender"
 msgstr "Geschlecht"
 
-#: basxconnect/core/models/persons.py:135
+#: basxconnect/core/models/persons.py:147
 msgid "Natural Person"
 msgstr "Natürliche Person"
 
-#: basxconnect/core/models/persons.py:136
+#: basxconnect/core/models/persons.py:148
 msgid "Natural Persons"
 msgstr "Natürliche Personen"
 
-#: basxconnect/core/models/persons.py:140
+#: basxconnect/core/models/persons.py:152
 msgid "Addition name"
 msgstr "Zusatz"
 
-#: basxconnect/core/models/persons.py:152
+#: basxconnect/core/models/persons.py:164
 msgid "Legal Person"
 msgstr "Juristische Person"
 
-#: basxconnect/core/models/persons.py:153
+#: basxconnect/core/models/persons.py:165
 msgid "Legal Persons"
 msgstr "Juristische Personen"
 
-#: basxconnect/core/models/persons.py:168
+#: basxconnect/core/models/persons.py:180
 msgid "Person Association"
 msgstr "Personenverbindung"
 
-#: basxconnect/core/models/persons.py:169
+#: basxconnect/core/models/persons.py:181
 msgid "Person Associations"
 msgstr "Personenverbindungen"
 
@@ -385,7 +386,7 @@ msgstr "Slug"
 
 #: basxconnect/core/models/utils.py:16
 msgid "slug is human-readable, to make referencing easier"
-msgstr "Slug ist eine interne id welche einfach lesbar ist"
+msgstr "Slug ist eine interne Id welche einfach lesbar ist"
 
 #: basxconnect/core/models/utils.py:24 basxconnect/core/models/utils.py:30
 msgid "Category"
@@ -399,48 +400,48 @@ msgstr "Begriff"
 msgid "Terms"
 msgstr "Begriffe"
 
-#: basxconnect/core/views.py:74
+#: basxconnect/core/views.py:94
 msgid "Information about our organization"
 msgstr "Angaben zu unserer Organisation"
 
-#: basxconnect/core/views.py:86
+#: basxconnect/core/views.py:106
 #, python-format
 msgid "%s is %s"
 msgstr "%s ist %s"
 
-#: basxconnect/core/views.py:102
+#: basxconnect/core/views.py:122
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: basxconnect/core/views.py:149
+#: basxconnect/core/views.py:169
 msgid "No results"
 msgstr "Keine Ergebnisse gefunden"
 
-#: basxconnect/core/views.py:164 basxconnect/core/views.py:201
+#: basxconnect/core/views.py:184 basxconnect/core/views.py:221
 msgid "No address"
 msgstr "Keine Adresse"
 
-#: basxconnect/core/wizards/add_person.py:67
+#: basxconnect/core/wizards/add_person.py:68
 msgid "Back"
 msgstr "Zurück"
 
-#: basxconnect/core/wizards/add_person.py:78
+#: basxconnect/core/wizards/add_person.py:79
 msgid "Complete"
 msgstr "Fertigstellen"
 
-#: basxconnect/core/wizards/add_person.py:81
+#: basxconnect/core/wizards/add_person.py:82
 msgid "Continue"
 msgstr "Weiter"
 
-#: basxconnect/core/wizards/add_person.py:93
+#: basxconnect/core/wizards/add_person.py:94
 msgid "Check for existing people before continuing"
 msgstr "Auf existierende Einträge prüfen bevor es weitergehen kann"
 
-#: basxconnect/core/wizards/add_person.py:100
+#: basxconnect/core/wizards/add_person.py:101
 msgid "Start typing to search for a person..."
 msgstr "Tippen um nach Personen zu suchen..."
 
-#: basxconnect/core/wizards/add_person.py:116
+#: basxconnect/core/wizards/add_person.py:117
 msgid ""
 "Before a new person can be added it must be confirmed that the person does "
 "not exists yet."
@@ -448,59 +449,59 @@ msgstr ""
 "Bevor eine neue Person hinzugefügt wird muss überprüft werden, ob die Person "
 "nicht bereits existiert"
 
-#: basxconnect/core/wizards/add_person.py:132
+#: basxconnect/core/wizards/add_person.py:133
 msgid "Type of person"
 msgstr "Personentyp"
 
-#: basxconnect/core/wizards/add_person.py:138
+#: basxconnect/core/wizards/add_person.py:139
 msgid "Choose person main type"
 msgstr "Hauptyp auswählen"
 
-#: basxconnect/core/wizards/add_person.py:141
+#: basxconnect/core/wizards/add_person.py:142
 msgid "Please choose what type of person you want to add:"
 msgstr "Bitte den Personentyp wählen"
 
-#: basxconnect/core/wizards/add_person.py:156
+#: basxconnect/core/wizards/add_person.py:157
 msgid "Subtype of person"
 msgstr "Art der Person"
 
-#: basxconnect/core/wizards/add_person.py:169
+#: basxconnect/core/wizards/add_person.py:170
 msgid "Choose person type"
 msgstr "Bitte den Personentyp wählen"
 
-#: basxconnect/core/wizards/add_person.py:177
+#: basxconnect/core/wizards/add_person.py:178
 msgid "Add person"
 msgstr "Person hinzufügen"
 
-#: basxconnect/core/wizards/add_person.py:185
+#: basxconnect/core/wizards/add_person.py:186
 msgid "Finish"
 msgstr "Beenden"
 
-#: basxconnect/core/wizards/add_person.py:219
+#: basxconnect/core/wizards/add_person.py:220
 msgid "Search"
 msgstr "Suche"
 
-#: basxconnect/core/wizards/add_person.py:221
+#: basxconnect/core/wizards/add_person.py:222
 msgid "Subtype"
 msgstr "Art"
 
-#: basxconnect/core/wizards/add_person.py:222
+#: basxconnect/core/wizards/add_person.py:223
 msgid "Information"
 msgstr "Informationen"
 
-#: basxconnect/core/wizards/add_person.py:223
+#: basxconnect/core/wizards/add_person.py:224
 msgid "Confirmation"
 msgstr "Bestätigung"
 
-#: basxconnect/core/wizards/add_person.py:247
+#: basxconnect/core/wizards/add_person.py:248
 msgid "Add new person"
 msgstr "Neue Person hinzufügen"
 
-#: basxconnect/core/wizards/add_person.py:291
+#: basxconnect/core/wizards/add_person.py:292
 msgid "Review and confirm the entered information"
 msgstr "Überprüfen und bestätigen Sie die eingetragenen Informationen"
 
-#: basxconnect/core/wizards/add_person.py:299
+#: basxconnect/core/wizards/add_person.py:300
 #, python-format
 msgid "Add %s"
 msgstr "%s hinzufügen"
