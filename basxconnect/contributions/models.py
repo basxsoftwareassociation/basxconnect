@@ -1,8 +1,9 @@
-from basxconnect.core.models import Person
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from djmoney.models.fields import CurrencyField
 from djmoney.settings import CURRENCY_CHOICES
+
+from basxconnect.core.models import Person
 
 from . import settings
 
