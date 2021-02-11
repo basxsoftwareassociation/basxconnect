@@ -66,14 +66,6 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: basxconnect/donations/wizards/donationsimport.py:58
-msgid "Upload a file"
-msgstr ""
-
-#: basxconnect/donations/wizards/donationsimport.py:76
-msgid "Upload File"
-msgstr ""
-
 #: basxconnect/donations/wizards/donationsimport.py:77
 msgid "Preview"
 msgstr ""

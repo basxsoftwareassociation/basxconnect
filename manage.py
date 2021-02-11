@@ -11,7 +11,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "bread",
     "basxconnect.core",
-    "basxconnect.donations",
+    "basxconnect.contributions",
 ]
 
 settings.configure(
