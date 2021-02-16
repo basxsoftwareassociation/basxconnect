@@ -31,29 +31,9 @@ jobs:
 
     - name: Run black --check .
       run: black --check .
-    - name: If needed, commit black changes to the pull request
-      if: ${{ failure() }}
-      run: |
-        black .
-        git config --global user.name 'autoblack'
-        git config --global user.email 'autoblack@basx.org'
-        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-        git checkout $GITHUB_HEAD_REF
-        git commit -am "fixup: Format Python code with Black"
-        git push
 
     - name: Run isort --check-only .
       run: isort --check-only --profile=black .
-    - name: If needed, commit isort changes to the pull request
-      if: ${{ failure() }}
-      run: |
-        isort --profile=black .
-        git config --global user.name 'autoisort'
-        git config --global user.email 'autoisort@basx.org'
-        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-        git checkout $GITHUB_HEAD_REF
-        git commit -am "fixup: Format Python code with isort"
-        git push
 
     - name: Run bandit
       run: bandit -r .
