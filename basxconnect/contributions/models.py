@@ -1,7 +1,10 @@
+import datetime
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from djmoney.models.fields import CurrencyField
 from djmoney.settings import CURRENCY_CHOICES
+from moneyed import Money
 
 from basxconnect.core.models import Person
 
@@ -9,7 +12,11 @@ from . import settings
 
 
 class ContributionImport(models.Model):
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=datetime.datetime.now)
+    importfile = models.FileField()
+
+    def __str__(self):
+        return f"{self.date.date()}"
 
 
 class Contribution(models.Model):
@@ -22,11 +29,19 @@ class Contribution(models.Model):
 
     date = models.DateField(_("Date"))
     note = models.CharField(_("Note"), max_length=255)
-    account = models.CharField(_("Account"), max_length=32)
-    cost_center = models.CharField(_("Cost center"), max_length=32)
+    debitaccount = models.CharField(_("Debit Account"), max_length=32)
+    creditaccount = models.CharField(_("Credit Account"), max_length=32)
     amount = models.DecimalField(_("Amount"), max_digits=12, decimal_places=2)
     currency = CurrencyField(_("Currency"), choices=CURRENCY_CHOICES)
     currency.lazy_choices = lambda *args: settings.PREFERRED_CURRENCIES
+
+    def amount_formatted(self):
+        return Money(self.amount, self.currency)
+
+    amount_formatted.verbose_name = _("Amount")
+
+    def __str__(self):
+        return f"{self.date}: {self.person} {self.amount_formatted()}"
 
     class Meta:
         verbose_name = _("Contribution")

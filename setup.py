@@ -32,6 +32,8 @@ setup(
         "django-formtools",
         "djangorestframework",
         "django-language-field",
+        "chardet",
+        "tablib",
     ],
     packages=find_packages(),
     zip_safe=False,
