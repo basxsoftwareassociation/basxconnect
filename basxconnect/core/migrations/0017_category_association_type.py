@@ -7,7 +7,12 @@ class Migration(migrations.Migration):
     def create_category(apps, schema_editor):
         Category = apps.get_model("core.Category")
         Term = apps.get_model("core.Term")
-        cat = Category.objects.create(name="Association Type", slug="associationtype")
+        if not Category.objects.filter(slug="associationtype").exists():
+            cat = Category.objects.create(
+                name="Association Type", slug="associationtype"
+            )
+        else:
+            cat = Category.objects.filter(slug="associationtype").first()
         Term.objects.create(term="Household", category=cat)
 
     dependencies = [
