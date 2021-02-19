@@ -1,7 +1,7 @@
 basxconnect
 ===========
 
-Core Implementation of a CRM system for non-profit organizations
+Core implementation of a CRM system for non-profit organizations
 
 (It feels like the README is the wrong document to place the whole vision/mission/core values stuff but it will be okay for now I think)
 
