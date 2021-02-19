@@ -19,9 +19,9 @@ Create and maintain a django-based framework which implements:
 Core values
 -----------
 - Open source development (this, however does *not* include free support)
-- Focus on workflows and tasks for Non-Profit organizations
 - Use of existing and proven technology where possible while minimizing external dependencies
-- Writing code and APIs for developers, not for website administrators
+- Focus on workflows and tasks for Non-Profit organizations (User experience)
+- Writing code and APIs for developers, not for website administrators (Developer experience)
 - Development does not center around a final *product* but around the tools to create a *product* (because every *product* is different)
 
 
