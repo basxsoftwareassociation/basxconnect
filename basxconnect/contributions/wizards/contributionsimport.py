@@ -44,9 +44,10 @@ def contributions_from_csv(filedata, headers, filter_duplicates):
     mapping = settings.BASXCONNECT.get(
         "CONTRIBUTIONS_CSV_COLUMN_MAPPING", DEFAULT_COLUMN_MAPPING
     )
-    assert all(
-        [key in mapping for key in DEFAULT_COLUMN_MAPPING.keys()]
-    ), f"Settings CONTRIBUTIONS_CSV_COLUMN_MAPPING needs all keys {DEFAULT_COLUMN_MAPPING.keys()}"
+    if not all([key in mapping for key in DEFAULT_COLUMN_MAPPING.keys()]):
+        raise ValueError(
+            f"Settings CONTRIBUTIONS_CSV_COLUMN_MAPPING needs all keys {DEFAULT_COLUMN_MAPPING.keys()}"
+        )
 
     encoding = chardet.detect(filedata).get("encoding", "utf8") or "utf8"
 
