@@ -10,6 +10,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sites",
     "bread",
+    "djmoney",
     "basxconnect.core",
     "basxconnect.contributions",
 ]

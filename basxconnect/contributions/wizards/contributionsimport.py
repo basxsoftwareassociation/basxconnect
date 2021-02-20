@@ -40,6 +40,7 @@ DEFAULT_COLUMN_MAPPING = {
 
 
 def contributions_from_csv(filedata, headers, filter_duplicates):
+    global_preferences = global_preferences_registry.manager()
     mapping = settings.BASXCONNECT.get(
         "CONTRIBUTIONS_CSV_COLUMN_MAPPING", DEFAULT_COLUMN_MAPPING
     )
@@ -268,10 +269,11 @@ class ContributionsImportWizard(NamedUrlSessionWizardView):
 
     def done(self, form_list, **kwargs):
         context = self.get_context_data(list(form_list)[-1])
+        contributionimport = models.ContributionImport.objects.create(
+            importfile=context["importfile"], user=self.request.user
+        )
         for contribution in context["contributions"]:
-            contribution._import = models.ContributionImport.objects.create(
-                importfile=context["importfile"]
-            )
+            contribution._import = contributionimport
             contribution.save()
         messages.success(
             self.request,

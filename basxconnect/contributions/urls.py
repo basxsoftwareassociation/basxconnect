@@ -1,5 +1,12 @@
-from bread import menu, views
-from bread.utils.urls import default_model_paths, generate_path, model_urlname, reverse
+import htmlgenerator as hg
+from bread import layout, menu, views
+from bread.utils.urls import (
+    default_model_paths,
+    generate_path,
+    model_urlname,
+    reverse,
+    reverse_model,
+)
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 
@@ -13,7 +20,32 @@ urlpatterns = [
     ),
     *default_model_paths(
         models.ContributionImport,
-        browseview=views.BrowseView._with(fields=["date", "importfile"]),
+        browseview=views.BrowseView._with(
+            fields=(
+                (hg.BaseElement("Import date"), layout.FC("row.date.date")),
+                (
+                    "importfile",
+                    hg.BaseElement(
+                        layout.FC("row.importfile.name"), layout.FC("row.importfile")
+                    ),
+                ),
+                "user",
+                "bookingrange",
+                "numberofbookings",
+                "totalamount",
+            ),
+            bulkactions=(
+                menu.Link(
+                    reverse_model(models.ContributionImport, "bulkdelete"),
+                    label="Delete",
+                    icon="trash-can",
+                ),
+            ),
+        ),
+    ),
+    generate_path(
+        views.BulkDeleteView.as_view(model=models.ContributionImport),
+        model_urlname(models.ContributionImport, "bulkdelete"),
     ),
     *default_model_paths(models.Contribution),
     generate_path(
@@ -27,7 +59,7 @@ importgroup = menu.Group(_("Imports"), icon="document--import")
 menu.registeritem(
     menu.Item(
         menu.Link(
-            reverse(model_urlname(models.ContributionImport, "browse")),
+            reverse_model(models.ContributionImport, "browse"),
             _("Contribution imports"),
         ),
         importgroup,
