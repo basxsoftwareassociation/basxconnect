@@ -504,7 +504,7 @@ def generalsettings(request):
                 C(single_item_fieldset("core_web_list", "url")),
             ),
         ),
-        layout.form.SubmitButton(_("Save")),
+        layout.helpers.SubmitButton(_("Save")),
     )
 
 
