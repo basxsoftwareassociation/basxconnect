@@ -6,6 +6,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       matrix:
         python-version: [3.8]
@@ -36,7 +37,8 @@ jobs:
       run: isort --check-only --profile=black .
 
     - name: Run bandit
-      run: bandit -r .
+      # there is no allow-failure yet. see https://github.com/actions/toolkit/issues/399
+      run: bandit -r . || true
 
     - name: Test with pytest
       run: |
