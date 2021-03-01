@@ -6,12 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('contributions', '0007_auto_20210219_2253'),
+        ("contributions", "0007_auto_20210219_2253"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='contributionimport',
-            options={'ordering': ['-date'], 'verbose_name': 'Contribution Import', 'verbose_name_plural': 'Contributions Imports'},
+            name="contributionimport",
+            options={
+                "ordering": ["-date"],
+                "verbose_name": "Contribution Import",
+                "verbose_name_plural": "Contributions Imports",
+            },
         ),
     ]
