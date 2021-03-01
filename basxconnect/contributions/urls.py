@@ -22,9 +22,9 @@ urlpatterns = [
         models.ContributionImport,
         browseview=views.BrowseView._with(
             fields=(
-                (hg.BaseElement("Import date"), layout.FC("row.date.date")),
+                (_("Import date"), layout.FC("row.date.date")),
                 (
-                    "importfile",
+                    _("Importfile"),
                     hg.BaseElement(
                         layout.FC("row.importfile.name"), layout.FC("row.importfile")
                     ),

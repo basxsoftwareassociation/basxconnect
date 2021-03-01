@@ -436,7 +436,7 @@ def relationshipssettings(request):
         hg.H3(_("Relationships")),
         layout.datatable.DataTable.from_queryset(
             RelationshipType.objects.all(),
-            fields=["name"],
+            columns=["name"],
             addurl=reverse_model(
                 RelationshipType,
                 "add",
@@ -524,7 +524,7 @@ def generate_term_datatable(title, category_slug):
     """Helper function to display a table for all terms of a certain term"""
     return layout.datatable.DataTable.from_queryset(
         Term.objects.filter(category__slug=category_slug),
-        fields=["term"],
+        columns=["term"],
         title=title,
         addurl=reverse_model(
             Term,

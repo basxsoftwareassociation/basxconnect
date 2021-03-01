@@ -15,11 +15,12 @@ from . import settings
 
 
 class ContributionImport(models.Model):
-    date = models.DateTimeField(default=datetime.datetime.now)
-    importfile = models.FileField()
+    date = models.DateTimeField(_("Date"), default=datetime.datetime.now)
+    importfile = models.FileField(_("Importfile"))
     user = models.ForeignKey(
         djangosettings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL
     )
+    user.verbose_name = _("User")
 
     def bookingrange(self):
         return f"{self.contributions.last().date} - {self.contributions.first().date}"
@@ -46,6 +47,11 @@ class ContributionImport(models.Model):
 
     def __str__(self):
         return f"{self.date.date()}"
+
+    class Meta:
+        verbose_name = _("Contribution Import")
+        verbose_name_plural = _("Contributions Imports")
+        ordering = ["-date"]
 
 
 class Contribution(models.Model):
