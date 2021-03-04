@@ -51,5 +51,5 @@ Other TODOs:
 
 We would like to thank the following projects for their work, they provide a valuable base for basxConnect:
 
-Translation: https://weblate.org/
-Design System: https://www.carbondesignsystem.com/
+- Translation: https://weblate.org/
+- Design System: https://www.carbondesignsystem.com/
