@@ -50,5 +50,6 @@ Other TODOs:
 - Explain more why basxConnect is necessary and the difference to alternative solutions
 
 We would like to thank the following projects for their work, they provide a valuable base for basxConnect:
+
 Translation: https://weblate.org/
 Design System: https://www.carbondesignsystem.com/
