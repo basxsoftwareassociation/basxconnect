@@ -127,13 +127,13 @@ class AssignmentForm(forms.Form):
     title = _("Assignment")
     layout = hg.BaseElement(
         _layout.datatable.DataTable(
-            (
-                (_("Date"), hg.C("row.date")),
-                (_("Note"), hg.C("row.note")),
-                (_("Account"), hg.C("row.debitaccount")),
-                (_("Cost Center"), hg.C("row.creditaccount")),
-                (_("Person Number"), hg.C("row.person.personnumber")),
-                (_("Donor Number"), hg.C("row.donornumber")),
+            columns=(
+                (_("Date"), hg.C("row.date"), None),
+                (_("Note"), hg.C("row.note"), None),
+                (_("Account"), hg.C("row.debitaccount"), None),
+                (_("Cost Center"), hg.C("row.creditaccount"), None),
+                (_("Person Number"), hg.C("row.person.personnumber"), None),
+                (_("Donor Number"), hg.C("row.donornumber"), None),
                 (
                     _("Assignment state"),
                     hg.If(
@@ -149,11 +149,12 @@ class AssignmentForm(forms.Form):
                             style="fill: currentColor; color: red;",
                         ),
                     ),
+                    None,
                 ),
-                (_("Amount"), hg.C("row.amount_formatted")),
+                (_("Amount"), hg.C("row.amount_formatted"), None),
             ),
-            hg.C("contributions"),
-        ).wrap(_("Overview of contributions to import"), hg.C("importfile")),
+            row_iterator=hg.C("contributions"),
+        ).with_toolbar(_("Overview of contributions to import"), hg.C("importfile")),
         hg.DIV(
             hg.DIV(
                 hg.DIV(

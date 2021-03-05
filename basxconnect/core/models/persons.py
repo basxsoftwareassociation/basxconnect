@@ -1,3 +1,4 @@
+from bread import layout
 from bread.utils import get_concrete_instance, pretty_modelname
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
@@ -13,6 +14,7 @@ class Person(models.Model):
     personnumber = models.CharField(
         _("Person number"), max_length=255, unique=True, blank=True
     )
+    personnumber.sorting_name = "personnumber__int"
     name = models.CharField(_("Display name"), max_length=255, blank=True)
     active = models.BooleanField(_("Active"), default=True)
     salutation_letter = models.CharField(
@@ -33,6 +35,16 @@ class Person(models.Model):
     remarks = models.TextField(_("Remarks"), blank=True)
     notes = GenericRelation(Note)
     history = HistoricalRecords(inherit=True)
+    _maintype = models.CharField(  # only used internally
+        max_length=32,
+        choices=(
+            ("person", "person"),
+            ("naturalperson", "naturalperson"),
+            ("legalperson", "legalperson"),
+            ("personassociation", "personassociation"),
+        ),
+        editable=False,
+    )
 
     def __str__(self):
         return self.name
@@ -46,11 +58,17 @@ class Person(models.Model):
         return pretty_modelname(get_concrete_instance(self))
 
     maintype.verbose_name = _("Main Type")
+    maintype.sorting_name = "_maintype"
 
     def status(self):
-        return _("Active") if self.active else _("Inactive")
+        return (
+            layout.tag.Tag(_("active"), tag_color="green")
+            if self.active
+            else layout.tag.Tag(_("inactive"), tag_color="red")
+        )
 
     status.verbose_name = _("Status")
+    status.sorting_name = "active"
 
     def address(self):
         return getattr(self.core_postal_list.first(), "address", "")
@@ -68,13 +86,17 @@ class Person(models.Model):
     city.verbose_name = _("City")
 
     def country(self):
-        return getattr(self.core_postal_list.first(), "country", "")
+        return getattr(
+            getattr(self.core_postal_list.first(), "country", ""), "name", ""
+        )
 
     country.verbose_name = _("Country")
 
     def save(self, *args, **kwargs):
         if self.pk and not self.personnumber:
             self.personnumber = str(self.pk)
+        if not self._maintype:
+            self._maintype = "person"
         super().save(*args, **kwargs)
         if not self.personnumber:
             self.personnumber = str(self.pk)
@@ -140,6 +162,7 @@ class NaturalPerson(Person):
             self.name = self.first_name + " " + self.last_name
         if self.decease_date:
             self.deceased = True
+        self._maintype = "naturalperson"
         super().save(*args, **kwargs)
 
     class Meta:
@@ -159,6 +182,10 @@ class LegalPerson(Person):
     )
     type.verbose_name = _("Type")
 
+    def save(self, *args, **kwargs):
+        self._maintype = "legalperson"
+        super().save(*args, **kwargs)
+
     class Meta:
         ordering = ["name"]
         verbose_name = _("Legal Person")
@@ -174,6 +201,10 @@ class PersonAssociation(Person):
         limit_choices_to={"category__slug": "associationtype"},
     )
     type.verbose_name = _("Type")
+
+    def save(self, *args, **kwargs):
+        self._maintype = "personassociation"
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ["name"]

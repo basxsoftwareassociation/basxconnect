@@ -397,12 +397,12 @@ def revisionstab(request):
         _("Revisions"),
         hg.BaseElement(
             layout.datatable.DataTable(
-                (
-                    (_("Date"), layout.FC("row.history_date")),
-                    (_("User"), layout.FC("row.history_user")),
-                    (_("Change"), layout.FC("row.get_history_type_display")),
+                columns=(
+                    (_("Date"), layout.FC("row.history_date"), None),
+                    (_("User"), layout.FC("row.history_user"), None),
+                    (_("Change"), layout.FC("row.get_history_type_display"), None),
                 ),
-                hg.F(lambda c, e: c["object"].history.all()),
+                row_iterator=hg.F(lambda c, e: c["object"].history.all()),
             )
         ),
     )
@@ -427,6 +427,7 @@ def relationshipstab(request):
                 },
             ),
             backurl=request.get_full_path(),
+            preven_automatic_sortingnames=True,
         ),
     )
 

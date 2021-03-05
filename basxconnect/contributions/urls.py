@@ -21,13 +21,14 @@ urlpatterns = [
     *default_model_paths(
         models.ContributionImport,
         browseview=views.BrowseView._with(
-            fields=(
-                (_("Import date"), layout.FC("row.date.date")),
+            columns=(
+                (_("Import date"), layout.FC("row.date.date"), None),
                 (
                     _("Importfile"),
                     hg.BaseElement(
                         layout.FC("row.importfile.name"), layout.FC("row.importfile")
                     ),
+                    None,
                 ),
                 "user",
                 "bookingrange",

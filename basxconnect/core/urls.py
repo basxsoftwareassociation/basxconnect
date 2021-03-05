@@ -38,7 +38,7 @@ urlpatterns = [
     *default_model_paths(
         models.Person,
         browseview=breadviews.BrowseView._with(
-            fields=[
+            columns=[
                 "personnumber",
                 "status",
                 "maintype",
