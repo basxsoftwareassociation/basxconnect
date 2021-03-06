@@ -378,9 +378,7 @@ def address_and_relationships(request):
                 layout.form.FormsetAddButton("core_web_list", style="float: right"),
                 _class="section-separator-right",
             ),
-            C(
-                hg.H5(_("Categories")),
-            ),
+            C(hg.H5(_("Categories")), layout.form.FormField("categories")),
             _class="section-separator-bottom",
             style="padding-bottom: 2rem",
         ),
