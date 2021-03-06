@@ -39,7 +39,7 @@ def editperson_toolbar(request):
                 C(
                     layout.search.Search(placeholder=_("Search person")).withajaxurl(
                         url=reverse_lazy("basxconnect.core.views.searchperson"),
-                        queryfieldname="query",
+                        query_urlparameter="q",
                     ),
                     width=2,
                     breakpoint="md",
