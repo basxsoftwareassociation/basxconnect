@@ -56,7 +56,6 @@ urlpatterns = [
                 ),
             ),
             searchurl=reverse("basxconnect.core.views.searchperson"),
-            queryfieldname="query",
             rowclickaction="read",
         ),
     ),

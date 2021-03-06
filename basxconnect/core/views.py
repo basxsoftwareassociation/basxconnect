@@ -152,7 +152,7 @@ menu.registeritem(
 # Search view
 # simple person search view, for use with ajax calls
 def searchperson(request):
-    query = request.GET.get("query")
+    query = request.GET.get("q")
     if not query:
         return HttpResponse("")
 
