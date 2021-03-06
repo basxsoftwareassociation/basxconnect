@@ -57,6 +57,20 @@ urlpatterns = [
             ),
             searchurl=reverse("basxconnect.core.views.searchperson"),
             rowclickaction="read",
+            filteroptions=[
+                (
+                    models.NaturalPerson._meta.verbose_name_plural,
+                    '_maintype = "naturalperson"',
+                ),
+                (
+                    models.LegalPerson._meta.verbose_name_plural,
+                    '_maintype = "legalperson"',
+                ),
+                (
+                    models.PersonAssociation._meta.verbose_name_plural,
+                    '_maintype = "personassociation"',
+                ),
+            ],
         ),
     ),
     generate_path(

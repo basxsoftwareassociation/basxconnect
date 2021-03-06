@@ -35,7 +35,7 @@ class Person(models.Model):
     remarks = models.TextField(_("Remarks"), blank=True)
     notes = GenericRelation(Note)
     history = HistoricalRecords(inherit=True)
-    _maintype = models.CharField(  # only used internally
+    _maintype = models.CharField(  # only used internally for filtering or sorting
         max_length=32,
         choices=(
             ("person", "person"),
