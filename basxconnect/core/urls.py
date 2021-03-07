@@ -43,10 +43,10 @@ urlpatterns = [
                 "status",
                 "maintype",
                 "name",
-                "address",
-                "postalcode",
-                "city",
-                "country",
+                "primary_postal_address.address",
+                "primary_postal_address.postcode",
+                "primary_postal_address.city",
+                "primary_postal_address.country",
             ],
             bulkactions=(
                 Link(

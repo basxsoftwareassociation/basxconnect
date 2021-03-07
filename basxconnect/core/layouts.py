@@ -318,6 +318,13 @@ def address_and_relationships(request):
         R(
             C(
                 hg.H4(_("Address")),
+                hg.If(
+                    hg.F(
+                        lambda c, e: hasattr(c["object"], "core_postal_list")
+                        and c["object"].core_postal_list.count() > 1
+                    ),
+                    R(C(F("primary_postal_address"), breakpoint="lg", width=4)),
+                ),
                 layout.form.FormsetField(
                     "core_postal_list",
                     R(

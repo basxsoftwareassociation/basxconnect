@@ -138,7 +138,7 @@ class Postal(Address):
         else:
             ret.append(self.city)
         ret.append(self.country.name)
-        return linebreaksbr("\n".join(ret))
+        return linebreaksbr(" \n".join(ret))
 
     class Meta:
         verbose_name = _("Postal address")

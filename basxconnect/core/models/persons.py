@@ -32,6 +32,20 @@ class Person(models.Model):
     categories = models.ManyToManyField(Term, blank=True)
     categories.verbose_name = _("Categories")
 
+    primary_postal_address = models.ForeignKey(
+        "core.Postal",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="primary_address_for",
+    )
+    primary_postal_address.verbose_name = _("Primary postal address")
+    primary_postal_address.lazy_choices = (
+        lambda field, request, instance: instance.core_postal_list.all()
+        if hasattr(instance, "core_postal_list")
+        else None
+    )
+
     remarks = models.TextField(_("Remarks"), blank=True)
     notes = GenericRelation(Note)
     history = HistoricalRecords(inherit=True)
@@ -70,33 +84,20 @@ class Person(models.Model):
     status.verbose_name = _("Status")
     status.sorting_name = "active"
 
-    def address(self):
-        return getattr(self.core_postal_list.first(), "address", "")
-
-    address.verbose_name = _("Address")
-
-    def postalcode(self):
-        return getattr(self.core_postal_list.first(), "postcode", "")
-
-    postalcode.verbose_name = _("Postal code")
-
-    def city(self):
-        return getattr(self.core_postal_list.first(), "city", "")
-
-    city.verbose_name = _("City")
-
-    def country(self):
-        return getattr(
-            getattr(self.core_postal_list.first(), "country", ""), "name", ""
-        )
-
-    country.verbose_name = _("Country")
-
     def save(self, *args, **kwargs):
+        breakpoint()
         if self.pk and not self.personnumber:
             self.personnumber = str(self.pk)
         if not self._maintype:
             self._maintype = "person"
+        if hasattr(self, "core_postal_list"):
+            if (
+                self.core_postal_list.all().count() == 1
+                or self.primary_postal_address is None
+            ):
+                self.primary_postal_address = self.core_postal_list.first()
+        else:
+            self.primary_postal_address = None
         super().save(*args, **kwargs)
         if not self.personnumber:
             self.personnumber = str(self.pk)
