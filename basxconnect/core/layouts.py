@@ -454,24 +454,11 @@ def relationshipssettings(request):
 
 
 def personsettings(request):
-    return hg.BaseElement(
-        hg.H3(_("Persons")),
-        # address type
-        generate_term_datatable(_("Address types"), "addresstype"),
-        dist,
-        generate_term_datatable(_("Address origins"), "addressorigin"),
-        dist,
-        generate_term_datatable(_("Title"), "title"),
-        dist,
-        generate_term_datatable(
-            _("Correspondence Languages"), "correspondence_language"
-        ),
-        dist,
-        generate_term_datatable(_("Communication Channels"), "communication_channels"),
-        dist,
-        generate_term_datatable(_("Legal Types"), "legaltype"),
-        dist,
-    )
+    ret = hg.BaseElement(hg.H3(_("Persons")))
+    for category in Category.objects.all():
+        ret.append(generate_term_datatable(category.name, category.slug))
+        ret.append(dist)
+    return ret
 
 
 def generalsettings(request):
@@ -528,6 +515,7 @@ def single_item_fieldset(related_field, fieldname, queryset=None):
 
 def generate_term_datatable(title, category_slug):
     """Helper function to display a table for all terms of a certain term"""
+    cat = Category.objects.filter(slug=category_slug).first() or ""
     return layout.datatable.DataTable.from_queryset(
         Term.objects.filter(category__slug=category_slug),
         columns=["term"],
@@ -536,7 +524,7 @@ def generate_term_datatable(title, category_slug):
             Term,
             "add",
             query={
-                "category": Category.objects.get(slug=category_slug).id,
+                "category": cat,
             },
         ),
         backurl=reverse("basxconnect.core.views.personsettings"),
