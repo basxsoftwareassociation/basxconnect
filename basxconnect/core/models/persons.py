@@ -85,7 +85,6 @@ class Person(models.Model):
     status.sorting_name = "active"
 
     def save(self, *args, **kwargs):
-        breakpoint()
         if self.pk and not self.personnumber:
             self.personnumber = str(self.pk)
         if not self._maintype:
