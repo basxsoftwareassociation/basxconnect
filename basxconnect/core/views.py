@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from haystack.query import SearchQuerySet
 
-from . import layouts
+from . import layouts, settings
 from .models import LegalPerson, NaturalPerson, Person, PersonAssociation
 
 # ADD MODEL VIEWS AND REGISTER URLS -------------------------------------------
@@ -82,7 +82,7 @@ def generalsettings(request):
         request,
         LegalPerson,
         layoutobj,
-        LegalPerson.objects.get(id=1),  # must exists due to migration
+        Person.objects.get(id=settings.OWNER_PERSON_ID),
     )
 
     if request.method == "POST":

@@ -112,7 +112,6 @@ urlpatterns = [
     *default_model_paths(models.Term),
     *default_model_paths(models.Category),
     generate_path(views.generalsettings),
-    generate_path(views.generalsettings),
     generate_path(
         views.togglepersonstatus, model_urlname(models.Person, "togglestatus")
     ),
