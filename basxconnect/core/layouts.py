@@ -360,6 +360,13 @@ def address_and_relationships(request):
             ),
             C(
                 hg.H5(_("Email")),
+                hg.If(
+                    hg.F(
+                        lambda c, e: hasattr(c["object"], "core_email_list")
+                        and c["object"].core_email_list.count() > 1
+                    ),
+                    R(C(F("primary_email_address"), breakpoint="lg", width=4)),
+                ),
                 layout.form.FormsetField(
                     "core_email_list",
                     R(

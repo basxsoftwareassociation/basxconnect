@@ -47,6 +47,19 @@ class Person(models.Model):
         if hasattr(instance, "core_postal_list")
         else None
     )
+    primary_email_address = models.ForeignKey(
+        "core.Email",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="primary_email_for",
+    )
+    primary_email_address.verbose_name = _("Primary email address")
+    primary_email_address.lazy_choices = (
+        lambda field, request, instance: instance.core_email_list.all()
+        if hasattr(instance, "core_email_list")
+        else None
+    )
 
     remarks = models.TextField(_("Remarks"), blank=True)
     notes = GenericRelation(Note)
@@ -99,6 +112,14 @@ class Person(models.Model):
                 self.primary_postal_address = self.core_postal_list.first()
         else:
             self.primary_postal_address = None
+        if hasattr(self, "core_email_list"):
+            if (
+                self.core_email_list.all().count() == 1
+                or self.primary_email_address is None
+            ):
+                self.primary_email_address = self.core_email_list.first()
+        else:
+            self.primary_email_address = None
         super().save(*args, **kwargs)
         if not self.personnumber:
             self.personnumber = str(self.pk)
