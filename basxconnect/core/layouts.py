@@ -527,5 +527,7 @@ def generate_term_datatable(title, category_slug):
                 "category": cat.id,
             },
         ),
+        preven_automatic_sortingnames=True,
+        rowclickaction="edit",
         backurl=reverse("basxconnect.core.views.personsettings"),
     )
