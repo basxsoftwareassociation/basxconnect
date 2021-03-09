@@ -102,7 +102,7 @@ class SearchForm(forms.Form):
             "hx_get": reverse_lazy("basxconnect.core.views.searchperson"),
             "hx_trigger": "changed, keyup changed delay:100ms",
             "hx_target": "#search-results",
-            "name": "query",
+            "name": "q",
         },
     )
     # clear search field when search box is emptied
