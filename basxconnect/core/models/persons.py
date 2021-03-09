@@ -29,7 +29,9 @@ class Person(models.Model):
         lambda field, request, instance: settings.PREFERRED_LANGUAGES
     )
 
-    categories = models.ManyToManyField(Term, blank=True)
+    categories = models.ManyToManyField(
+        Term, blank=True, limit_choices_to={"category__slug": "category"}
+    )
     categories.verbose_name = _("Categories")
 
     primary_postal_address = models.ForeignKey(
