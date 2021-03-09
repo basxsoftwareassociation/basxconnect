@@ -524,7 +524,7 @@ def generate_term_datatable(title, category_slug):
             Term,
             "add",
             query={
-                "category": cat,
+                "category": cat.id,
             },
         ),
         backurl=reverse("basxconnect.core.views.personsettings"),
