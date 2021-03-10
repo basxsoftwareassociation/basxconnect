@@ -163,8 +163,8 @@ class NaturalPerson(Person):
         blank=True,
     )
     date_of_birth = models.DateField(_("Date of Birth"), blank=True, null=True)
-    deceased = models.BooleanField(default=False)
-    decease_date = models.DateField(blank=True, null=True)
+    deceased = models.BooleanField(_("Deceased"), default=False)
+    decease_date = models.DateField(_("Deceased Date"), blank=True, null=True)
     gender = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,
