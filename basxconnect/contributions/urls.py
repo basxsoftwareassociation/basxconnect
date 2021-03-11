@@ -61,7 +61,7 @@ menu.registeritem(
     menu.Item(
         menu.Link(
             reverse_model(models.ContributionImport, "browse"),
-            _("Contribution imports"),
+            _("Contributions"),
         ),
         importgroup,
     )

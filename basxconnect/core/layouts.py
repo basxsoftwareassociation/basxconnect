@@ -1,5 +1,5 @@
 import htmlgenerator as hg
-from bread import layout
+from bread import layout, menu
 from bread.utils.urls import reverse, reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -536,5 +536,13 @@ def generate_term_datatable(title, category_slug):
         ),
         preven_automatic_sortingnames=True,
         rowclickaction="edit",
+        rowactions=[
+            menu.Action(
+                js=hg.F(
+                    lambda c, e: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
+                ),
+                icon="trash-can",
+            )
+        ],
         backurl=reverse("basxconnect.core.views.personsettings"),
     )

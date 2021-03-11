@@ -119,8 +119,8 @@ def relationshipssettings(request):
 
 # MENU ENTRIES ---------------------------------------------------------------------
 
-settingsgroup = menu.Group(_("Settings"), icon="settings")
 persongroup = menu.Group(_("Persons"), icon="group")
+settingsgroup = menu.Group(_("Settings"), icon="settings", order=100)
 
 menu.registeritem(
     menu.Item(menu.Link(reverse_model(Person, "browse"), _("Persons")), persongroup)

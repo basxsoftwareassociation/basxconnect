@@ -7,6 +7,7 @@ from bread.utils.urls import (
     reverse,
     reverse_model,
 )
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 
 from . import models, views
@@ -49,6 +50,11 @@ urlpatterns = [
                 "primary_postal_address.country",
             ],
             bulkactions=(
+                Link(
+                    reverse_model(models.Person, "bulkdelete"),
+                    label=_("Delete"),
+                    icon="trash-can",
+                ),
                 Link(
                     reverse_model(models.Person, "export"),
                     label="Excel",
@@ -118,4 +124,8 @@ urlpatterns = [
     generate_path(views.personsettings),
     generate_path(views.relationshipssettings),
     generate_path(views.searchperson),
+    generate_path(
+        breadviews.BulkDeleteView.as_view(model=models.Person),
+        model_urlname(models.Person, "bulkdelete"),
+    ),
 ]
