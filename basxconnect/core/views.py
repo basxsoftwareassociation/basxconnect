@@ -168,7 +168,7 @@ def searchperson(request):
             hg.DIV(
                 _("No results"),
                 _class="bx--tile",
-                style="margin-bottom: 1rem; padding: 0.5rem; opacity: 0.85",
+                style="margin-bottom: 1rem; padding: 0.5rem; opacity: 0.85; outline: auto",
             ).render({})
         )
 
@@ -201,41 +201,6 @@ def searchperson(request):
                 ]
             ),
             _class="bx--tile",
-            style="margin-bottom: 1rem; padding: 0; opacity: 0.95",
-        ).render({})
-    )
-
-    return HttpResponse(
-        hg.DIV(
-            hg.UL(
-                hg.Iterator(
-                    objects,
-                    "person",
-                    hg.LI(
-                        hg.DIV(
-                            hg.C("person"),
-                            hg.DIV(
-                                hg.F(
-                                    lambda c, e: mark_safe(
-                                        c["person"].core_postal_list.first()
-                                        or _("No address")
-                                    )
-                                ),
-                                style="font-size: small; padding-bottom: 1rem; padding-top: 0.5rem",
-                            ),
-                        ),
-                        style="cursor: pointer; padding: 0.5rem;",
-                        onclick=hg.BaseElement(
-                            "document.location = '",
-                            hg.F(lambda c, e: layout.objectaction(c["person"], "edit")),
-                            "'",
-                        ),
-                        onmouseenter="this.style.backgroundColor = 'lightgray'",
-                        onmouseleave="this.style.backgroundColor = 'initial'",
-                    ),
-                ),
-            ),
-            _class="bx--tile",
-            style="margin-bottom: 2rem;",
+            style="margin-bottom: 1rem; padding: 0; opacity: 0.95; outline: auto",
         ).render({})
     )

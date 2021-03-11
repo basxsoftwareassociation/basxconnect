@@ -1,3 +1,5 @@
+import htmlgenerator as hg
+from bread.layout import button
 from django.db import models
 from django.template.defaultfilters import linebreaksbr
 from django.utils.html import format_html
@@ -55,6 +57,20 @@ class Email(Address):
         related_name="type_%(app_label)s_%(class)s_list",
         limit_choices_to={"category__slug": "addresstype"},
     )
+
+    def asbutton(self):
+        return hg.DIV(
+            hg.SPAN(self.email, style="margin-right: 0.25rem"),
+            button.Button(
+                icon="email",
+                onclick=f"window.location = 'mailto:{self.email}';",
+                buttontype="ghost",
+                _class="bx--overflow-menu",
+            ),
+            style="display: flex; flex-wrap: nowrap; align-items: center",
+        )
+
+    asbutton.verbose_name = _("Email")
 
     def __str__(self):
         return format_html('<a href="mailto:{}">{}</a>', self.email, self.email)

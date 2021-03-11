@@ -1,3 +1,4 @@
+import htmlgenerator as hg
 from bread import views as breadviews
 from bread.menu import Link
 from bread.utils.urls import (
@@ -48,6 +49,14 @@ urlpatterns = [
                 "primary_postal_address.postcode",
                 "primary_postal_address.city",
                 "primary_postal_address.country",
+                (
+                    _("Email"),
+                    hg.C(
+                        "row.primary_email_address.asbutton",
+                    ),
+                    "primary_email_address__email",
+                    False,
+                ),
             ],
             bulkactions=(
                 Link(

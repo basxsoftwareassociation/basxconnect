@@ -143,20 +143,27 @@ class NaturalPerson(Person):
         limit_choices_to={"category__slug": "title"},
         related_name="title_persons",
     )
+    title.verbose_name = _("Title")
     salutation = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         limit_choices_to={"category__slug": "salutation"},
+        related_name="+",
     )
     salutation.verbose_name = _("Salutation")
-    form_of_address = models.CharField(
-        _("Form of address"),
-        max_length=255,
+
+    form_of_address = models.ForeignKey(
+        Term,
+        on_delete=models.SET_NULL,
+        null=True,
         blank=True,
+        limit_choices_to={"category__slug": "form_of_address"},
+        related_name="+",
     )
-    title.verbose_name = _("Title")
+    form_of_address.verbose_name = _("Form of address")
+
     profession = models.CharField(
         _("Profession"),
         max_length=255,

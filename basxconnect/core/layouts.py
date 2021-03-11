@@ -58,15 +58,24 @@ def editperson_toolbar(request):
 
 
 def editperson_head(request, isreadview):
-    active_toggle = layout.toggle.Toggle(None, _("Inactive"), _("Active"))
-    active_toggle.input.attributes["id"] = "person_active_toggle"
-    active_toggle.input.attributes["hx_trigger"] = "change"
-    active_toggle.input.attributes["hx_post"] = hg.F(
-        lambda c, e: reverse_lazy("core.person.togglestatus", args=[c["object"].pk])
-    )
-    active_toggle.input.attributes["checked"] = hg.F(lambda c, e: c["object"].active)
-    active_toggle.label.insert(0, _("Person status"))
-    active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
+    if isreadview:
+        active_toggle = hg.DIV(
+            layout.helpers.LabelElement(_("Status"), _for=False),
+            hg.DIV(hg.C("object.status")),
+            _class="bx--form-item",
+        )
+    else:
+        active_toggle = layout.toggle.Toggle(None, _("Inactive"), _("Active"))
+        active_toggle.input.attributes["id"] = "person_active_toggle"
+        active_toggle.input.attributes["hx_trigger"] = "change"
+        active_toggle.input.attributes["hx_post"] = hg.F(
+            lambda c, e: reverse_lazy("core.person.togglestatus", args=[c["object"].pk])
+        )
+        active_toggle.input.attributes["checked"] = hg.F(
+            lambda c, e: c["object"].active
+        )
+        active_toggle.label.insert(0, _("Person status"))
+        active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
 
     personnumber = hg.DIV(
         hg.LABEL(layout.fieldlabel(Person, "personnumber"), _class="bx--label"),
@@ -151,6 +160,7 @@ def editperson_head(request, isreadview):
                 width=4,
                 breakpoint="lg",
             ),
+            style="padding-top: 1rem",
         ),
         R(
             C(active_toggle, width=1, breakpoint="md"),
@@ -177,12 +187,14 @@ def editperson_head(request, isreadview):
                     )
                 ]
             ),
+            _class="disabled-02" if isreadview else "",
         ),
+        style="position: sticky; top: 3rem; z-index: 99; background-color: inherit; margin-bottom: 1rem; box-shadow: 0 3px 3px -2px black;",
     )
 
 
 def editnaturalperson_form(request):
-    return layout.tabs.Tabs(
+    ret = layout.tabs.Tabs(
         (
             _("Base data"),
             hg.BaseElement(
@@ -239,11 +251,13 @@ def editnaturalperson_form(request):
         relationshipstab(request),
         container=True,
     )
+    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
+    return ret
 
 
 def editlegalperson_form(request):
     # fix: alignment of tab content and tab should be on global grid I think
-    return layout.tabs.Tabs(
+    ret = layout.tabs.Tabs(
         (
             _("Base data"),
             hg.BaseElement(
@@ -275,11 +289,13 @@ def editlegalperson_form(request):
         relationshipstab(request),
         container=True,
     )
+    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
+    return ret
 
 
 def editpersonassociation_form(request):
     # fix: alignment of tab content and tab should be on global grid I think
-    return layout.tabs.Tabs(
+    ret = layout.tabs.Tabs(
         (
             _("Base data"),
             hg.BaseElement(
@@ -311,6 +327,8 @@ def editpersonassociation_form(request):
         relationshipstab(request),
         container=True,
     )
+    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
+    return ret
 
 
 def address_and_relationships(request):
