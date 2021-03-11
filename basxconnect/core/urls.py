@@ -43,7 +43,7 @@ urlpatterns = [
             columns=[
                 "personnumber",
                 "status",
-                "maintype",
+                (_("Category"), hg.C("row._type"), "_type"),
                 "name",
                 "primary_postal_address.address",
                 "primary_postal_address.postcode",

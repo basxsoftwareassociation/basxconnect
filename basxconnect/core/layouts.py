@@ -86,8 +86,8 @@ def editperson_head(request, isreadview):
         hg.DIV(layout.ModelName("object"), style="margin-top: 1rem"),
     )
     persontype = hg.DIV(
-        hg.LABEL(layout.fieldlabel(Person, "type"), _class="bx--label"),
-        hg.DIV(hg.C("object.type"), style="margin-top: 1rem"),
+        hg.LABEL(layout.fieldlabel(Person, "_type"), _class="bx--label"),
+        hg.DIV(hg.C("object._type"), style="margin-top: 1rem"),
     )
     created = hg.DIV(
         hg.LABEL(_("Created"), _class="bx--label"),
@@ -205,7 +205,7 @@ def editnaturalperson_form(request):
                             R(
                                 C(F("salutation")),
                                 C(F("title")),
-                                C(F("profession")),
+                                C(F("type")),
                             ),
                             R(
                                 C(F("first_name")),
@@ -213,6 +213,7 @@ def editnaturalperson_form(request):
                             ),
                             R(
                                 C(F("name")),
+                                C(F("profession")),
                             ),
                         ),
                         C(

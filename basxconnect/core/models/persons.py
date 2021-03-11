@@ -75,13 +75,13 @@ class Person(models.Model):
         editable=False,
     )
 
+    _type = models.ForeignKey(
+        Term, on_delete=models.SET_NULL, null=True, blank=True, related_name="+"
+    )
+    _type.verbose_name = _("Category")
+
     def __str__(self):
         return self.name
-
-    def type(self):
-        return getattr(get_concrete_instance(self), "type")
-
-    type.verbose_name = _("Type")
 
     def maintype(self):
         return pretty_modelname(get_concrete_instance(self))
@@ -182,16 +182,21 @@ class NaturalPerson(Person):
     )
     gender.verbose_name = _("Gender")
 
-    def type(self):
-        return None
-
-    type.verbose_name = _("Type")
+    type = models.ForeignKey(
+        Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        limit_choices_to={"category__slug": "naturaltype"},
+    )
+    type.verbose_name = _("Person category")
 
     def save(self, *args, **kwargs):
         if not self.name:
             self.name = self.first_name + " " + self.last_name
         if self.decease_date:
             self.deceased = True
+        self._type = self.type
         self._maintype = "naturalperson"
         super().save(*args, **kwargs)
 
@@ -214,6 +219,7 @@ class LegalPerson(Person):
 
     def save(self, *args, **kwargs):
         self._maintype = "legalperson"
+        self._type = self.type
         super().save(*args, **kwargs)
 
     class Meta:
@@ -234,6 +240,7 @@ class PersonAssociation(Person):
 
     def save(self, *args, **kwargs):
         self._maintype = "personassociation"
+        self._type = self.type
         super().save(*args, **kwargs)
 
     class Meta:
