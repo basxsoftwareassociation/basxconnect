@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 12:31+0700\n"
+"POT-Creation-Date: 2021-03-12 01:05+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:88
+#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:64
 msgid "Contributions"
 msgstr "Zuwendungen"
 
@@ -104,10 +104,6 @@ msgstr "Importdatum"
 msgid "Imports"
 msgstr "Importe"
 
-#: basxconnect/contributions/urls.py:64
-msgid "Contribution imports"
-msgstr "Zuwendungsimporte"
-
 #: basxconnect/contributions/wizards/contributionsimport.py:82
 msgid "Upload a file"
 msgstr "Datei heraufladen"
@@ -145,18 +141,14 @@ msgid "Assignment"
 msgstr "Zuweisung"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:133
-#, fuzzy
-#| msgid "Amount"
 msgid "Account"
-msgstr "Betrag"
+msgstr "Konto"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:134
 msgid "Cost Center"
 msgstr "Kostenstelle"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:135
-#, fuzzy
-#| msgid "Person"
 msgid "Person Number"
 msgstr "Personennummer"
 
@@ -213,3 +205,6 @@ msgstr "Zuwendungen importieren"
 #, python-format
 msgid "Successfully imported %d contributions"
 msgstr "%d Zuwendungen wurden erfolgreich importiert"
+
+#~ msgid "Contribution imports"
+#~ msgstr "Zuwendungsimporte"
