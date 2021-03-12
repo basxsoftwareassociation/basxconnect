@@ -100,11 +100,11 @@ class PersonBrowseView(BrowseView):
             label=_("Delete"),
             icon="trash-can",
         ),
-        Link(
-            reverse_model(models.Person, "export"),
-            label="Excel",
-            icon="download",
-        ),
+        # Link(
+        # reverse_model(models.Person, "export"),
+        # label="Excel",
+        # icon="download",
+        # ),
     )
     searchurl = reverse("basxconnect.core.views.searchperson")
     rowclickaction = "read"

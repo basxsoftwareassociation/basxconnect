@@ -100,8 +100,8 @@ class Person(models.Model):
     status.sorting_name = "active"
 
     def save(self, *args, **kwargs):
-        if self.pk and not self.personnumber:
-            self.personnumber = str(self.pk)
+        if not self.personnumber:
+            self.personnumber = str(self.pk or "")
         if not self._maintype:
             self._maintype = "person"
         if hasattr(self, "core_postal_list"):
