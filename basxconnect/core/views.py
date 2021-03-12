@@ -1,8 +1,11 @@
 import htmlgenerator as hg
-from bread import layout, menu
+from bread import layout as _layout
+from bread import menu
 from bread.forms.forms import generate_form
+from bread.menu import Link
 from bread.utils.urls import aslayout, reverse, reverse_model
-from bread.views import EditView, ReadView, layoutasreadonly
+from bread.views import BrowseView, EditView, ReadView, layoutasreadonly
+from django import forms
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.html import mark_safe
@@ -10,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from haystack.query import SearchQuerySet
 
-from . import layouts, settings
+from . import layouts, models, settings
 from .models import LegalPerson, NaturalPerson, Person, PersonAssociation
 
 # ADD MODEL VIEWS AND REGISTER URLS -------------------------------------------
@@ -20,7 +23,7 @@ def personform_shortcut(request, formlayout, isreadview):
     return hg.BaseElement(
         layouts.editperson_toolbar(request),
         layouts.editperson_head(request, isreadview=isreadview),
-        layout.form.Form(hg.C("form"), formlayout),
+        _layout.form.Form(hg.C("form"), formlayout),
     )
 
 
@@ -72,6 +75,143 @@ class PersonAssociationReadView(ReadView):
         )
 
 
+class PersonBrowseView(BrowseView):
+    columns = [
+        "personnumber",
+        "status",
+        (_("Category"), hg.C("row._type"), "_type"),
+        "name",
+        "primary_postal_address.address",
+        "primary_postal_address.postcode",
+        "primary_postal_address.city",
+        "primary_postal_address.country",
+        (
+            _("Email"),
+            hg.C(
+                "row.primary_email_address.asbutton",
+            ),
+            "primary_email_address__email",
+            False,
+        ),
+    ]
+    bulkactions = (
+        Link(
+            reverse_model(models.Person, "bulkdelete"),
+            label=_("Delete"),
+            icon="trash-can",
+        ),
+        Link(
+            reverse_model(models.Person, "export"),
+            label="Excel",
+            icon="download",
+        ),
+    )
+    searchurl = reverse("basxconnect.core.views.searchperson")
+    rowclickaction = "read"
+    filteroptions = [
+        (
+            models.NaturalPerson._meta.verbose_name_plural,
+            '_maintype = "naturalperson"',
+        ),
+        (
+            models.LegalPerson._meta.verbose_name_plural,
+            '_maintype = "legalperson"',
+        ),
+        (
+            models.PersonAssociation._meta.verbose_name_plural,
+            '_maintype = "personassociation"',
+        ),
+    ]
+
+    class FilterForm(forms.Form):
+        show_inactive = forms.BooleanField(required=False, label=_("Show inactive"))
+        preferred_language = forms.ChoiceField(
+            choices=[(None, "--------")] + settings.PREFERRED_LANGUAGES,
+            required=False,
+            label=_("Preferred Language"),
+        )
+        _type = forms.ModelMultipleChoiceField(
+            queryset=models.Term.objects.filter(
+                category__slug__in=["naturaltype", "legaltype", "associationtype"]
+            ),
+            required=False,
+            label=_("Person Category"),
+        )
+        categories = forms.ModelMultipleChoiceField(
+            queryset=models.Term.objects.filter(category__slug="category"),
+            required=False,
+            label=_("Categories"),
+        )
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        form = self.FilterForm(self.request.GET)
+        if form.is_valid():
+            for field in form.fields.keys():
+                if field in form.cleaned_data and not form.cleaned_data[field]:
+                    form.cleaned_data.pop(field)
+            if not form.cleaned_data.pop("show_inactive", False):
+                form.cleaned_data["active"] = True
+            if "_type" in form.cleaned_data:
+                form.cleaned_data["_type__in"] = form.cleaned_data.pop("_type")
+            if "categories" in form.cleaned_data:
+                form.cleaned_data["categories__in"] = form.cleaned_data.pop(
+                    "categories"
+                )
+            qs = qs.filter(**form.cleaned_data)
+        return qs
+
+    def layout(self, *args, **kwargs):
+        form = self.FilterForm(self.request.GET)
+        ret = super().layout(*args, **kwargs)
+        filters = _layout.form.Form(
+            form,
+            _layout.grid.Grid(
+                _layout.grid.Row(
+                    _layout.grid.Col(
+                        _layout.form.FormField("show_inactive"),
+                        width=2,
+                        breakpoint="lg",
+                    ),
+                    _layout.grid.Col(
+                        _layout.form.FormField("preferred_language"),
+                        width=3,
+                        breakpoint="lg",
+                    ),
+                    _layout.grid.Col(
+                        _layout.form.FormField("_type"),
+                        width=4,
+                        breakpoint="lg",
+                    ),
+                    _layout.grid.Col(
+                        _layout.form.FormField("categories"),
+                        width=4,
+                        breakpoint="lg",
+                    ),
+                    _layout.grid.Col(
+                        _layout.button.Button(
+                            icon="filter--remove",
+                            onclick=f"window.location = '{self.request.path}'",
+                            buttontype="secondary",
+                            style="margin-left: 0.25rem; float: right",
+                        ),
+                        _layout.button.Button(
+                            "Filter",
+                            icon="filter",
+                            type="submit",
+                            style="float: right",
+                        ),
+                        width=3,
+                        breakpoint="lg",
+                    ),
+                )
+            ),
+            method="GET",
+        )
+        ret[0].append(filters)
+        return ret
+
+
 # ADD SETTING VIEWS AND REGISTER URLS -------------------------------------------
 
 
@@ -92,7 +232,7 @@ def generalsettings(request):
     return lambda request: hg.BaseElement(
         hg.H3(_("General")),
         hg.H4(_("Information about our organization")),
-        layout.form.Form(form, layoutobj),
+        _layout.form.Form(form, layoutobj),
     )
 
 

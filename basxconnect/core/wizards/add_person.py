@@ -149,12 +149,12 @@ class ChooseType(forms.Form):
 class ChooseSubType(forms.Form):
     ALLOWED_SUBTYPE_CATEGORY = {
         Person: None,
-        NaturalPerson: None,
+        NaturalPerson: "naturaltype",
         LegalPerson: "legaltype",
         PersonAssociation: "associationtype",
     }
     subtype = forms.ModelChoiceField(
-        label=_("Subtype of person"), queryset=Term.objects.all()
+        label=_("Subtype of person"), queryset=Term.objects.all(), required=False
     )
 
     def __init__(self, persontype, *args, **kwargs):
@@ -316,8 +316,7 @@ class AddPersonWizard(NamedUrlSessionWizardView):
         return redirect(
             reverse_model(
                 newperson._meta.model,
-                "edit",
-                query={"next": "/"},
+                "read",
                 kwargs={"pk": newperson.pk},
             )
         )

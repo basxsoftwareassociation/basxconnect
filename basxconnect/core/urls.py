@@ -1,14 +1,10 @@
-import htmlgenerator as hg
 from bread import views as breadviews
-from bread.menu import Link
 from bread.utils.urls import (
     default_model_paths,
     generate_path,
     model_urlname,
-    reverse,
     reverse_model,
 )
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 
 from . import models, views
@@ -37,57 +33,7 @@ urlpatterns = [
         AddPersonWizard.as_view(url_name=model_urlname(models.Person, "addwizard")),
         model_urlname(models.Person, "addwizard"),
     ),
-    *default_model_paths(
-        models.Person,
-        browseview=breadviews.BrowseView._with(
-            columns=[
-                "personnumber",
-                "status",
-                (_("Category"), hg.C("row._type"), "_type"),
-                "name",
-                "primary_postal_address.address",
-                "primary_postal_address.postcode",
-                "primary_postal_address.city",
-                "primary_postal_address.country",
-                (
-                    _("Email"),
-                    hg.C(
-                        "row.primary_email_address.asbutton",
-                    ),
-                    "primary_email_address__email",
-                    False,
-                ),
-            ],
-            bulkactions=(
-                Link(
-                    reverse_model(models.Person, "bulkdelete"),
-                    label=_("Delete"),
-                    icon="trash-can",
-                ),
-                Link(
-                    reverse_model(models.Person, "export"),
-                    label="Excel",
-                    icon="download",
-                ),
-            ),
-            searchurl=reverse("basxconnect.core.views.searchperson"),
-            rowclickaction="read",
-            filteroptions=[
-                (
-                    models.NaturalPerson._meta.verbose_name_plural,
-                    '_maintype = "naturalperson"',
-                ),
-                (
-                    models.LegalPerson._meta.verbose_name_plural,
-                    '_maintype = "legalperson"',
-                ),
-                (
-                    models.PersonAssociation._meta.verbose_name_plural,
-                    '_maintype = "personassociation"',
-                ),
-            ],
-        ),
-    ),
+    *default_model_paths(models.Person, browseview=views.PersonBrowseView),
     generate_path(
         breadviews.generate_excel_view(
             models.Person.objects.all(),
