@@ -5,6 +5,7 @@ from bread.utils import pretty_modelname
 from bread.utils.urls import reverse_model
 from django import forms
 from django.apps import apps
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -205,9 +206,10 @@ def generate_add_form_for(model, request, data, files, initial=None):
 
 
 # The WizardView contains mostly control-flow logic and some configuration
-class AddPersonWizard(NamedUrlSessionWizardView):
+class AddPersonWizard(PermissionRequiredMixin, NamedUrlSessionWizardView):
     kwargs = {"url_name": "core:person:add_wizard", "urlparams": {"step": "str"}}
     urlparams = (("step", str),)
+    permission_required = "core.add_person"
 
     form_list = [
         ("Search", SearchForm),
