@@ -10,6 +10,7 @@ from bread.views import generate_wizard_form
 from django import forms
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import redirect
@@ -219,11 +220,14 @@ class AssignmentForm(forms.Form):
 
 
 # The WizardView contains mostly control-flow logic and some configuration
-class ContributionsImportWizard(NamedUrlSessionWizardView):
+
+
+class ContributionsImportWizard(PermissionRequiredMixin, NamedUrlSessionWizardView):
     urlparams = (("step", str),)
     file_storage = FileSystemStorage(
         location=os.path.join(settings.MEDIA_ROOT, "wizards")
     )
+    permission_required = "contributions.add_contributionimport"
 
     form_list = [
         ("upload_file", UploadForm),
