@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-04 12:01+0700\n"
-"PO-Revision-Date: 2021-03-16 04:55+0000\n"
+"PO-Revision-Date: 2021-03-16 05:33+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect-contributions/th/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
 #: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:64
 msgid "Contributions"
-msgstr "ผลงาน"
+msgstr "เงินบริจาค"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:15
 msgid "Preferred Currency"
@@ -56,11 +56,11 @@ msgstr "จำนวนรวม"
 
 #: basxconnect/contributions/models.py:52
 msgid "Contribution Import"
-msgstr "นำเข้าผลงาน"
+msgstr "นำเข้าเงินบริจาค"
 
 #: basxconnect/contributions/models.py:53
 msgid "Contributions Imports"
-msgstr "นำเข้าผลงาน"
+msgstr "นำเข้าเงินบริจาค"
 
 #: basxconnect/contributions/models.py:64
 msgid "Import"
@@ -95,7 +95,7 @@ msgstr "สกุลเงิน"
 
 #: basxconnect/contributions/models.py:87
 msgid "Contribution"
-msgstr "ผลงาน"
+msgstr "เงินบริจาค"
 
 #: basxconnect/contributions/urls.py:25
 msgid "Import date"
@@ -107,7 +107,7 @@ msgstr "นำเข้า"
 
 #: basxconnect/contributions/urls.py:64
 msgid "Contribution imports"
-msgstr "นำเข้าผลงาน"
+msgstr "นำเข้าเงินบริจาค"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:82
 msgid "Upload a file"
@@ -131,79 +131,81 @@ msgstr "คัดกรองรายการที่ซ้ำกัน"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:95
 msgid "Import options"
-msgstr ""
+msgstr "ตัวเลือกการนำเข้า"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:103
 msgid "Required field"
-msgstr ""
+msgstr "จำเป็น"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:123
 msgid "CSV import problem: "
-msgstr ""
+msgstr "เกิดปัญหาการนำเข้าCVS "
 
 #: basxconnect/contributions/wizards/contributionsimport.py:128
 msgid "Assignment"
-msgstr ""
+msgstr "การมอบหมาย"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:134
 msgid "Account"
-msgstr ""
+msgstr "บัญชี"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:135
 msgid "Cost Center"
-msgstr ""
+msgstr "ศูนย์ต้นทุน"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:136
 msgid "Person Number"
-msgstr ""
+msgstr "หมายเลขประจำตัว"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:137
 msgid "Donor Number"
-msgstr ""
+msgstr "หมายเลขผู้บริจาค"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:139
 msgid "Assignment state"
-msgstr ""
+msgstr "สถานะการมอบหมาย"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:158
 msgid "Overview of contributions to import"
-msgstr ""
+msgstr "ภาพรวมของเงินบริจาคที่จะนำเข้า"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:164
 msgid "contributions"
-msgstr ""
+msgstr "เงินบริจาค"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:168
 msgid "Sum"
-msgstr ""
+msgstr "ผลรวม"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:199
 msgid " contributions could not been assigned"
-msgstr ""
+msgstr " ไม่สามารถมอบหมายเงินบริจาคได้"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:202
 msgid ""
 "Please make sure that each entry has contributor number which matches with a "
 "person number and do the import again"
 msgstr ""
+"โปรดตรวจสอบให้แน่ใจว่าแต่ละรายการมีหมายเลขผู้สนับสนุนซึ่งตรงกับหมายเลขบุคคลแล"
+"ะทำการนำเข้าอีกครั้ง"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:207
 msgid "Cancel import"
-msgstr ""
+msgstr "ยกเลิกการนำเข้า"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:213
 msgid "Assignment complete"
-msgstr ""
+msgstr "การมอบหมายเรียบร้อย"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:214
 msgid "Continue in order to complete the import"
-msgstr ""
+msgstr "ดำเนินการต่อเพื่อดำเนินการนำเข้าให้เสร็จสมบูรณ์"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:243
 msgid "Import contributions"
-msgstr ""
+msgstr "นำเข้าเงินบริจาค"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:286
 #, python-format
 msgid "Successfully imported %d contributions"
-msgstr ""
+msgstr "นำเข้าเงินบริจาค% d สำเร็จแล้ว"
