@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-12 12:37+0700\n"
+"POT-Creation-Date: 2021-03-16 12:17+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr "Löschen"
 msgid "Copy"
 msgstr "Kopieren"
 
-#: basxconnect/core/layouts.py:40 basxconnect/core/wizards/add_person.py:113
+#: basxconnect/core/layouts.py:40 basxconnect/core/wizards/add_person.py:114
 msgid "Search person"
 msgstr "Suche"
 
@@ -85,6 +85,14 @@ msgstr "Verwerfen"
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
+#: basxconnect/core/layouts.py:143
+msgid "View"
+msgstr "Ansicht"
+
+#: basxconnect/core/layouts.py:145
+msgid "Edit"
+msgstr "Bearbeiten"
+
 #: basxconnect/core/layouts.py:199 basxconnect/core/layouts.py:263
 #: basxconnect/core/layouts.py:301
 msgid "Base data"
@@ -95,7 +103,7 @@ msgid "General Information"
 msgstr "Allgemeine Angaben"
 
 #: basxconnect/core/layouts.py:339 basxconnect/core/models/addresses.py:146
-#: basxconnect/core/wizards/add_person.py:33
+#: basxconnect/core/wizards/add_person.py:34
 msgid "Address"
 msgstr "Adresse"
 
@@ -163,7 +171,7 @@ msgstr "Person"
 #: basxconnect/core/models/persons.py:218
 #: basxconnect/core/models/persons.py:239
 #: basxconnect/core/models/relationships.py:36
-#: basxconnect/core/wizards/add_person.py:221
+#: basxconnect/core/wizards/add_person.py:223
 msgid "Type"
 msgstr "Typ"
 
@@ -434,27 +442,27 @@ msgstr "Keine Ergebnisse gefunden"
 msgid "No address"
 msgstr "Keine Adresse"
 
-#: basxconnect/core/wizards/add_person.py:68
+#: basxconnect/core/wizards/add_person.py:69
 msgid "Back"
 msgstr "Zurück"
 
-#: basxconnect/core/wizards/add_person.py:79
+#: basxconnect/core/wizards/add_person.py:80
 msgid "Complete"
 msgstr "Fertigstellen"
 
-#: basxconnect/core/wizards/add_person.py:82
+#: basxconnect/core/wizards/add_person.py:83
 msgid "Continue"
 msgstr "Weiter"
 
-#: basxconnect/core/wizards/add_person.py:94
+#: basxconnect/core/wizards/add_person.py:95
 msgid "Check for existing people before continuing"
 msgstr "Auf existierende Einträge prüfen bevor es weitergehen kann"
 
-#: basxconnect/core/wizards/add_person.py:101
+#: basxconnect/core/wizards/add_person.py:102
 msgid "Start typing to search for a person..."
 msgstr "Tippen um nach Personen zu suchen..."
 
-#: basxconnect/core/wizards/add_person.py:117
+#: basxconnect/core/wizards/add_person.py:118
 msgid ""
 "Before a new person can be added it must be confirmed that the person does "
 "not exists yet."
@@ -462,59 +470,59 @@ msgstr ""
 "Bevor eine neue Person hinzugefügt wird muss überprüft werden, ob die Person "
 "nicht bereits existiert"
 
-#: basxconnect/core/wizards/add_person.py:133
+#: basxconnect/core/wizards/add_person.py:134
 msgid "Type of person"
 msgstr "Personentyp"
 
-#: basxconnect/core/wizards/add_person.py:139
+#: basxconnect/core/wizards/add_person.py:140
 msgid "Choose person main type"
 msgstr "Hauptyp auswählen"
 
-#: basxconnect/core/wizards/add_person.py:142
+#: basxconnect/core/wizards/add_person.py:143
 msgid "Please choose what type of person you want to add:"
 msgstr "Bitte den Personentyp wählen"
 
-#: basxconnect/core/wizards/add_person.py:157
+#: basxconnect/core/wizards/add_person.py:158
 msgid "Subtype of person"
 msgstr "Art der Person"
 
-#: basxconnect/core/wizards/add_person.py:170
+#: basxconnect/core/wizards/add_person.py:171
 msgid "Choose person type"
 msgstr "Bitte den Personentyp wählen"
 
-#: basxconnect/core/wizards/add_person.py:178
+#: basxconnect/core/wizards/add_person.py:179
 msgid "Add person"
 msgstr "Person hinzufügen"
 
-#: basxconnect/core/wizards/add_person.py:186
+#: basxconnect/core/wizards/add_person.py:187
 msgid "Finish"
 msgstr "Beenden"
 
-#: basxconnect/core/wizards/add_person.py:220
+#: basxconnect/core/wizards/add_person.py:222
 msgid "Search"
 msgstr "Suche"
 
-#: basxconnect/core/wizards/add_person.py:222
+#: basxconnect/core/wizards/add_person.py:224
 msgid "Subtype"
 msgstr "Art"
 
-#: basxconnect/core/wizards/add_person.py:223
+#: basxconnect/core/wizards/add_person.py:225
 msgid "Information"
 msgstr "Informationen"
 
-#: basxconnect/core/wizards/add_person.py:224
+#: basxconnect/core/wizards/add_person.py:226
 msgid "Confirmation"
 msgstr "Bestätigung"
 
-#: basxconnect/core/wizards/add_person.py:248
+#: basxconnect/core/wizards/add_person.py:250
 msgid "Add new person"
 msgstr "Neue Person hinzufügen"
 
-#: basxconnect/core/wizards/add_person.py:292
+#: basxconnect/core/wizards/add_person.py:294
 msgid "Review and confirm the entered information"
 msgstr "Überprüfen und bestätigen Sie die eingetragenen Informationen"
 
-#: basxconnect/core/wizards/add_person.py:300
+#: basxconnect/core/wizards/add_person.py:302
 #, python-format
 msgid "Add %s"
 msgstr "%s hinzufügen"

@@ -140,9 +140,9 @@ def editperson_head(request, isreadview):
             C(hg.H3(hg.I(hg.C("object"))), width=12, breakpoint="lg"),
             C(
                 layout.content_switcher.ContentSwitcher(
-                    ("View", view_button_attrs),
+                    (_("View"), view_button_attrs),
                     (
-                        "Edit",
+                        _("Edit"),
                         layout.aslink_attributes(
                             hg.F(
                                 lambda c, e: reverse_model(
