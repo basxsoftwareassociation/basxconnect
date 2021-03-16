@@ -238,7 +238,7 @@ msgstr "Anschriften"
 
 #: basxconnect/core/models/persons.py:15
 msgid "Person number"
-msgstr "Stammnummer"
+msgstr "Stamm-Nr."
 
 #: basxconnect/core/models/persons.py:18
 msgid "Display name"
