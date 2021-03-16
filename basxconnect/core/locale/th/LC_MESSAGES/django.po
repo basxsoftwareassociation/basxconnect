@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-04 12:01+0700\n"
-"PO-Revision-Date: 2021-03-16 04:45+0000\n"
+"PO-Revision-Date: 2021-03-16 04:55+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -129,7 +129,7 @@ msgstr "วันที่"
 
 #: basxconnect/core/layouts.py:402
 msgid "User"
-msgstr "ผู้ใช้งาน"
+msgstr "ชื่อผู้ใช้งาน"
 
 #: basxconnect/core/layouts.py:403
 msgid "Change"
