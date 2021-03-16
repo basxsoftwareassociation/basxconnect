@@ -61,6 +61,7 @@ class Email(Address):
     def asbutton(self):
         return hg.DIV(
             hg.SPAN(self.email, style="margin-right: 0.25rem"),
+            hg.SPAN(style="flex-grow: 1"),
             button.Button(
                 icon="email",
                 onclick=f"window.location = 'mailto:{self.email}';",
