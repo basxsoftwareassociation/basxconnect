@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-04 12:01+0700\n"
-"PO-Revision-Date: 2021-03-16 04:55+0000\n"
+"PO-Revision-Date: 2021-03-16 05:51+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -89,11 +89,11 @@ msgstr "บันทึกการเปลี่ยนแปลง"
 
 #: basxconnect/core/layouts.py:143
 msgid "View"
-msgstr ""
+msgstr "ดู"
 
 #: basxconnect/core/layouts.py:145
 msgid "Edit"
-msgstr ""
+msgstr "แก้ไข"
 
 #: basxconnect/core/layouts.py:199 basxconnect/core/layouts.py:263
 #: basxconnect/core/layouts.py:301
@@ -255,16 +255,12 @@ msgid "Prefered Language"
 msgstr "เลือกใช้ภาษา"
 
 #: basxconnect/core/models/persons.py:44
-#, fuzzy
-#| msgid "Postal address"
 msgid "Primary postal address"
-msgstr "ไปรษณีย์พื้นที่"
+msgstr "ที่อยู่สำหรับติดต่อ"
 
 #: basxconnect/core/models/persons.py:57
-#, fuzzy
-#| msgid "Email address"
 msgid "Primary email address"
-msgstr "ที่อยู่อีเมล์"
+msgstr "อีเมล์สำหรับติดต่อ"
 
 #: basxconnect/core/models/persons.py:64
 msgid "Remarks"
@@ -276,14 +272,10 @@ msgid "Category"
 msgstr "หมวดหมู่"
 
 #: basxconnect/core/models/persons.py:94
-#, fuzzy
-#| msgid "Inactive"
 msgid "active"
-msgstr "ไม่ใช้งาน"
+msgstr "ใช้งาน"
 
 #: basxconnect/core/models/persons.py:96
-#, fuzzy
-#| msgid "Inactive"
 msgid "inactive"
 msgstr "ไม่ใช้งาน"
 
@@ -309,7 +301,7 @@ msgstr "คำนำหน้านาม"
 
 #: basxconnect/core/models/persons.py:110
 msgid "Form of address"
-msgstr "ไม่มีที่อยู่"
+msgstr "ประเภทที่อยู่อาศัย"
 
 #: basxconnect/core/models/persons.py:168
 msgid "Profession"
@@ -321,21 +313,19 @@ msgstr "วันเดือนปีเกิด"
 
 #: basxconnect/core/models/persons.py:173
 msgid "Deceased"
-msgstr ""
+msgstr "เสียชีวิต"
 
 #: basxconnect/core/models/persons.py:174
 msgid "Deceased Date"
-msgstr ""
+msgstr "วันที่เสียชีวิต"
 
 #: basxconnect/core/models/persons.py:183
 msgid "Gender"
 msgstr "เพศ"
 
 #: basxconnect/core/models/persons.py:192
-#, fuzzy
-#| msgid "Person Association"
 msgid "Person category"
-msgstr "กลุ่มบุคคล"
+msgstr "ประเภทบุคคล"
 
 #: basxconnect/core/models/persons.py:205
 msgid "Natural Person"
@@ -371,7 +361,7 @@ msgstr "ประเภทความสัมพันธ์"
 
 #: basxconnect/core/models/relationships.py:14
 msgid "Backward name for relationship type"
-msgstr "ประเภทความสัมพันธ์"
+msgstr "ประเภทความสัมพันธ์ก่อนหน้านี้"
 
 #: basxconnect/core/models/relationships.py:30
 msgid "Relationship type"
@@ -422,26 +412,20 @@ msgid "Terms"
 msgstr "หมวดหมู่"
 
 #: basxconnect/core/views.py:127
-#, fuzzy
-#| msgid "Inactive"
 msgid "Show inactive"
-msgstr "ไม่ใช้งาน"
+msgstr "แสดงว่าไม่ใช้งาน"
 
 #: basxconnect/core/views.py:131
-#, fuzzy
-#| msgid "Prefered Language"
 msgid "Preferred Language"
 msgstr "เลือกใช้ภาษา"
 
 #: basxconnect/core/views.py:138
-#, fuzzy
-#| msgid "Category"
 msgid "Person Category"
-msgstr "หมวดหมู่"
+msgstr "หมวดหมู่บุคคล"
 
 #: basxconnect/core/views.py:234
 msgid "Information about our organization"
-msgstr "ข้อมูลเกี่ยวกับองค์กร "
+msgstr "ข้อมูลเกี่ยวกับองค์กร"
 
 #: basxconnect/core/views.py:246
 #, python-format
@@ -470,21 +454,21 @@ msgstr "เรียบร้อย"
 
 #: basxconnect/core/wizards/add_person.py:83
 msgid "Continue"
-msgstr "ต่อไป"
+msgstr "ดำเนินการต่อไป"
 
 #: basxconnect/core/wizards/add_person.py:95
 msgid "Check for existing people before continuing"
-msgstr "ตรวจสอบข้อมูลก่อนยืนยัน"
+msgstr "ตรวจสอบข้อมูลก่อนดำเนินการต่อ"
 
 #: basxconnect/core/wizards/add_person.py:102
 msgid "Start typing to search for a person..."
-msgstr "เริ่มพิมพ์เพื่อค้นหาบุคคล"
+msgstr "พิมพ์เพื่อค้นหาบุคคล"
 
 #: basxconnect/core/wizards/add_person.py:118
 msgid ""
 "Before a new person can be added it must be confirmed that the person does "
 "not exists yet."
-msgstr "ก่อนที่จะเพิ่มบุคคลใหม่จะต้องได้รับการยืนยันว่าบุคคลนั้นยังไม่มี "
+msgstr "ก่อนที่จะเพิ่มบุคคลใหม่จะต้องได้รับการยืนยันว่าบุคคลนั้นยังไม่ปรากฏ"
 
 #: basxconnect/core/wizards/add_person.py:134
 msgid "Type of person"
