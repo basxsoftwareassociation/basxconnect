@@ -3,126 +3,131 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-16 12:17+0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2021-03-04 12:01+0700\n"
+"PO-Revision-Date: 2021-03-16 04:55+0000\n"
+"Last-Translator: Tidaphan <tida@basx.dev>\n"
+"Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
+"basxconnect-contributions/th/>\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
 #: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:64
 msgid "Contributions"
-msgstr ""
+msgstr "ผลงาน"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:15
 msgid "Preferred Currency"
-msgstr ""
+msgstr "สกุลเงิน"
 
 #: basxconnect/contributions/models.py:18
 #: basxconnect/contributions/models.py:70
 #: basxconnect/contributions/wizards/contributionsimport.py:132
 msgid "Date"
-msgstr ""
+msgstr "วันที่"
 
 #: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:27
 msgid "Importfile"
-msgstr ""
+msgstr "นำเข้าไฟล์"
 
 #: basxconnect/contributions/models.py:23
 msgid "User"
-msgstr ""
+msgstr "ชื่อผู้ใช้งาน"
 
 #: basxconnect/contributions/models.py:28
 msgid "Booking range"
-msgstr ""
+msgstr "ช่วงการจอง"
 
 #: basxconnect/contributions/models.py:33
 msgid "Number of bookings"
-msgstr ""
+msgstr "หมายเลขการจอง"
 
 #: basxconnect/contributions/models.py:46
 msgid "Total amount"
-msgstr ""
+msgstr "จำนวนรวม"
 
 #: basxconnect/contributions/models.py:52
 msgid "Contribution Import"
-msgstr ""
+msgstr "นำเข้าผลงาน"
 
 #: basxconnect/contributions/models.py:53
 msgid "Contributions Imports"
-msgstr ""
+msgstr "นำเข้าผลงาน"
 
 #: basxconnect/contributions/models.py:64
 msgid "Import"
-msgstr ""
+msgstr "นำเข้า"
 
 #: basxconnect/contributions/models.py:68
 msgid "Person"
-msgstr ""
+msgstr "บุคคล"
 
 #: basxconnect/contributions/models.py:71
 #: basxconnect/contributions/wizards/contributionsimport.py:133
 msgid "Note"
-msgstr ""
+msgstr "บันทึกเพิ่ม"
 
 #: basxconnect/contributions/models.py:72
 msgid "Debit Account"
-msgstr ""
+msgstr "บัญชีเดบิต"
 
 #: basxconnect/contributions/models.py:73
 msgid "Credit Account"
-msgstr ""
+msgstr "บัญชีเครดิต"
 
 #: basxconnect/contributions/models.py:74
 #: basxconnect/contributions/models.py:81
 #: basxconnect/contributions/wizards/contributionsimport.py:155
 msgid "Amount"
-msgstr ""
+msgstr "จำนวน"
 
 #: basxconnect/contributions/models.py:75
 msgid "Currency"
-msgstr ""
+msgstr "สกุลเงิน"
 
 #: basxconnect/contributions/models.py:87
 msgid "Contribution"
-msgstr ""
+msgstr "ผลงาน"
 
 #: basxconnect/contributions/urls.py:25
 msgid "Import date"
-msgstr ""
+msgstr "วันที่นำเข้า"
 
 #: basxconnect/contributions/urls.py:58
 msgid "Imports"
-msgstr ""
+msgstr "นำเข้า"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:83
+#: basxconnect/contributions/urls.py:64
+msgid "Contribution imports"
+msgstr "นำเข้าผลงาน"
+
+#: basxconnect/contributions/wizards/contributionsimport.py:82
 msgid "Upload a file"
-msgstr ""
+msgstr "อัพโหลดไฟล์"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:85
 msgid "File to import"
-msgstr ""
+msgstr "ไฟล์สำหรับนำเข้า"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:85
 msgid "Choose a CSV file"
-msgstr ""
+msgstr "เลือกไฟล์ CSV"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:88
 msgid "First line is header"
-msgstr ""
+msgstr "หัวเรื่องบรรทัดแรก"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:91
 msgid "Filter out duplicates"
-msgstr ""
+msgstr "คัดกรองรายการที่ซ้ำกัน"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:95
 msgid "Import options"

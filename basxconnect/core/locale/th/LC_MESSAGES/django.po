@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-16 12:17+0700\n"
-"PO-Revision-Date: 2021-01-15 11:09+0700\n"
-"Last-Translator: Tida <tida@basx.dev>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2021-03-04 12:01+0700\n"
+"PO-Revision-Date: 2021-03-16 04:55+0000\n"
+"Last-Translator: Tidaphan <tida@basx.dev>\n"
+"Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
+"basxconnect/th/>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/layouts.py:202 basxconnect/core/views.py:233
@@ -62,9 +63,7 @@ msgstr "ใช้งาน"
 msgid "Person status"
 msgstr "บุคคล"
 
-#: basxconnect/core/layouts.py:85 basxconnect/core/models/persons.py:89
-#, fuzzy
-#| msgid "Type"
+#: basxconnect/core/layouts.py:76 basxconnect/core/models/persons.py:48
 msgid "Main Type"
 msgstr "ประเภท"
 
@@ -78,15 +77,15 @@ msgstr "เปลี่ยน"
 
 #: basxconnect/core/layouts.py:113
 msgid "Unsaved changes"
-msgstr ""
+msgstr "ไม่บันทึก"
 
 #: basxconnect/core/layouts.py:116
 msgid "Discard"
-msgstr ""
+msgstr "ละทิ้ง"
 
 #: basxconnect/core/layouts.py:127 basxconnect/core/layouts.py:179
 msgid "Save changes"
-msgstr ""
+msgstr "บันทึกการเปลี่ยนแปลง"
 
 #: basxconnect/core/layouts.py:143
 msgid "View"
@@ -110,9 +109,7 @@ msgstr "ข้อมูลเบื้องต้น"
 msgid "Address"
 msgstr "ที่อยู่"
 
-#: basxconnect/core/layouts.py:369
-#, fuzzy
-#| msgid "Number"
+#: basxconnect/core/layouts.py:343
 msgid "Numbers"
 msgstr "เบอร์โทรศัพท์"
 
@@ -123,7 +120,7 @@ msgstr "อีเมล์"
 
 #: basxconnect/core/layouts.py:403
 msgid "URLs"
-msgstr ""
+msgstr "URLs"
 
 #: basxconnect/core/layouts.py:414 basxconnect/core/models/persons.py:35
 #: basxconnect/core/models/utils.py:25 basxconnect/core/views.py:143
@@ -132,7 +129,7 @@ msgstr "หมวดหมู่"
 
 #: basxconnect/core/layouts.py:419
 msgid "Other"
-msgstr ""
+msgstr "อื่นๆ"
 
 #: basxconnect/core/layouts.py:428
 msgid "Revisions"
@@ -144,7 +141,7 @@ msgstr "วันที่"
 
 #: basxconnect/core/layouts.py:433
 msgid "User"
-msgstr "ผู้ใช้งาน"
+msgstr "ชื่อผู้ใช้งาน"
 
 #: basxconnect/core/layouts.py:434
 msgid "Change"
@@ -310,9 +307,7 @@ msgstr "เรื่อง"
 msgid "Salutation"
 msgstr "คำนำหน้านาม"
 
-#: basxconnect/core/models/persons.py:165
-#, fuzzy
-#| msgid "No address"
+#: basxconnect/core/models/persons.py:110
 msgid "Form of address"
 msgstr "ไม่มีที่อยู่"
 
@@ -375,8 +370,6 @@ msgid "Name for relationship type"
 msgstr "ประเภทความสัมพันธ์"
 
 #: basxconnect/core/models/relationships.py:14
-#, fuzzy
-#| msgid "Name for relationship type"
 msgid "Backward name for relationship type"
 msgstr "ประเภทความสัมพันธ์"
 
