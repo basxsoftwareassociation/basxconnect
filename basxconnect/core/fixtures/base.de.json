@@ -1,0 +1,330 @@
+[
+   {
+      "fields" : {
+         "name" : "Geschlecht",
+         "slug" : "gender"
+      },
+      "model" : "core.category",
+      "pk" : 1
+   },
+   {
+      "fields" : {
+         "name" : "Titel",
+         "slug" : "title"
+      },
+      "model" : "core.category",
+      "pk" : 2
+   },
+   {
+      "fields" : {
+         "name" : "Anrede",
+         "slug" : "salutation"
+      },
+      "model" : "core.category",
+      "pk" : 3
+   },
+   {
+      "fields" : {
+         "name" : "Addresstyp",
+         "slug" : "addresstype"
+      },
+      "model" : "core.category",
+      "pk" : 4
+   },
+   {
+      "fields" : {
+         "name" : "Telefontyp",
+         "slug" : "phonetype"
+      },
+      "model" : "core.category",
+      "pk" : 5
+   },
+   {
+      "fields" : {
+         "name" : "Kategorie",
+         "slug" : "category"
+      },
+      "model" : "core.category",
+      "pk" : 6
+   },
+   {
+      "fields" : {
+         "name" : "URL Typ",
+         "slug" : "urltype"
+      },
+      "model" : "core.category",
+      "pk" : 7
+   },
+   {
+      "fields" : {
+         "name" : "Anredeform",
+         "slug" : "form_of_address"
+      },
+      "model" : "core.category",
+      "pk" : 8
+   },
+   {
+      "fields" : {
+         "name" : "Juristische Form",
+         "slug" : "legaltype"
+      },
+      "model" : "core.category",
+      "pk" : 9
+   },
+   {
+      "fields" : {
+         "name" : "Personenkategorie",
+         "slug" : "naturaltype"
+      },
+      "model" : "core.category",
+      "pk" : 10
+   },
+   {
+      "fields" : {
+         "name" : "Personenverbindungstyp",
+         "slug" : "associationtype"
+      },
+      "model" : "core.category",
+      "pk" : 11
+   },
+   {
+      "fields" : {
+         "category" : 1,
+         "term" : "Unbekannt"
+      },
+      "model" : "core.term",
+      "pk" : 1
+   },
+   {
+      "fields" : {
+         "category" : 1,
+         "term" : "Männlich"
+      },
+      "model" : "core.term",
+      "pk" : 2
+   },
+   {
+      "fields" : {
+         "category" : 1,
+         "term" : "Weiblich"
+      },
+      "model" : "core.term",
+      "pk" : 3
+   },
+   {
+      "fields" : {
+         "category" : 3,
+         "term" : "Herr"
+      },
+      "model" : "core.term",
+      "pk" : 4
+   },
+   {
+      "fields" : {
+         "category" : 3,
+         "term" : "Frau"
+      },
+      "model" : "core.term",
+      "pk" : 5
+   },
+   {
+      "fields" : {
+         "category" : 8,
+         "term" : "Du"
+      },
+      "model" : "core.term",
+      "pk" : 12
+   },
+   {
+      "fields" : {
+         "category" : 8,
+         "term" : "Sie"
+      },
+      "model" : "core.term",
+      "pk" : 13
+   },
+   {
+      "fields" : {
+         "category" : 8,
+         "term" : "Ihr"
+      },
+      "model" : "core.term",
+      "pk" : 14
+   },
+   {
+      "fields" : {
+         "category" : 9,
+         "term" : "Kirche"
+      },
+      "model" : "core.term",
+      "pk" : 15
+   },
+   {
+      "fields" : {
+         "category" : 9,
+         "term" : "Stiftung"
+      },
+      "model" : "core.term",
+      "pk" : 17
+   },
+   {
+      "fields" : {
+         "category" : 9,
+         "term" : "Kanton/Bundesland"
+      },
+      "model" : "core.term",
+      "pk" : 18
+   },
+   {
+      "fields" : {
+         "category" : 9,
+         "term" : "Stadt/Gemeinde"
+      },
+      "model" : "core.term",
+      "pk" : 19
+   },
+   {
+      "fields" : {
+         "category" : 9,
+         "term" : "Firma"
+      },
+      "model" : "core.term",
+      "pk" : 20
+   },
+   {
+      "fields" : {
+         "category" : 9,
+         "term" : "Partner"
+      },
+      "model" : "core.term",
+      "pk" : 21
+   },
+   {
+      "fields" : {
+         "category" : 9,
+         "term" : "Behörde"
+      },
+      "model" : "core.term",
+      "pk" : 22
+   },
+   {
+      "fields" : {
+         "category" : 4,
+         "term" : "Domizil"
+      },
+      "model" : "core.term",
+      "pk" : 23
+   },
+   {
+      "fields" : {
+         "category" : 5,
+         "term" : "Privat"
+      },
+      "model" : "core.term",
+      "pk" : 24
+   },
+   {
+      "fields" : {
+         "category" : 10,
+         "term" : "Mitglied"
+      },
+      "model" : "core.term",
+      "pk" : 25
+   },
+   {
+      "fields" : {
+         "category" : 4,
+         "term" : "Geschäftlich"
+      },
+      "model" : "core.term",
+      "pk" : 26
+   },
+   {
+      "fields" : {
+         "category" : 10,
+         "term" : "Interessent"
+      },
+      "model" : "core.term",
+      "pk" : 31
+   },
+   {
+      "fields" : {
+         "category" : 10,
+         "term" : "Spender"
+      },
+      "model" : "core.term",
+      "pk" : 33
+   },
+   {
+      "fields" : {
+         "category" : 5,
+         "term" : "Mobiltelefon"
+      },
+      "model" : "core.term",
+      "pk" : 35
+   },
+   {
+      "fields" : {
+         "category" : 2,
+         "term" : "Dr."
+      },
+      "model" : "core.term",
+      "pk" : 43
+   },
+   {
+      "fields" : {
+         "category" : 5,
+         "term" : "Telefax"
+      },
+      "model" : "core.term",
+      "pk" : 44
+   },
+   {
+      "fields" : {
+         "category" : 5,
+         "term" : "Geschäftlich"
+      },
+      "model" : "core.term",
+      "pk" : 55
+   },
+   {
+      "fields" : {
+         "category" : 4,
+         "term" : "Privat"
+      },
+      "model" : "core.term",
+      "pk" : 65
+   },
+   {
+      "fields" : {
+         "category" : 5,
+         "term" : "Direktwahl"
+      },
+      "model" : "core.term",
+      "pk" : 67
+   },
+   {
+      "fields" : {
+         "category" : 2,
+         "term" : "Dr. med."
+      },
+      "model" : "core.term",
+      "pk" : 77
+   },
+   {
+      "fields" : {
+         "category" : 7,
+         "term" : "Internet"
+      },
+      "model" : "core.term",
+      "pk" : 78
+   },
+   {
+      "fields" : {
+         "category" : 4,
+         "term" : "Postfach"
+      },
+      "model" : "core.term",
+      "pk" : 96
+   }
+]
