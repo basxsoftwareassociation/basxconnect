@@ -34,22 +34,6 @@ urlpatterns = [
         model_urlname(models.Person, "addwizard"),
     ),
     *default_model_paths(models.Person, browseview=views.PersonBrowseView),
-    generate_path(
-        breadviews.generate_excel_view(
-            models.Person.objects.all(),
-            [
-                "personnumber",
-                "status",
-                "maintype",
-                "name",
-                "address",
-                "postalcode",
-                "city",
-                "country",
-            ],
-        ),
-        model_urlname(models.Person, "export"),
-    ),
     *default_model_paths(
         models.NaturalPerson,
         editview=views.NaturalPersonEditView,
@@ -82,5 +66,11 @@ urlpatterns = [
     generate_path(
         breadviews.BulkDeleteView.as_view(model=models.Person),
         model_urlname(models.Person, "bulkdelete"),
+    ),
+    generate_path(
+        breadviews.ExcelExportView.as_view(
+            model=models.Person, columns=views.PersonBrowseView.columns
+        ),
+        model_urlname(models.Person, "bulkexport"),
     ),
 ]

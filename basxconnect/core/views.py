@@ -5,7 +5,6 @@ from bread.forms.forms import generate_form
 from bread.menu import Link
 from bread.utils.urls import aslayout, reverse, reverse_model
 from bread.views import BrowseView, EditView, ReadView, layoutasreadonly
-from django import forms
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.html import mark_safe
@@ -14,7 +13,6 @@ from django.views.decorators.csrf import csrf_exempt
 from haystack.query import SearchQuerySet
 
 from . import layouts, models, settings
-from .models import LegalPerson, NaturalPerson, Person, PersonAssociation
 
 # ADD MODEL VIEWS AND REGISTER URLS -------------------------------------------
 
@@ -100,116 +98,153 @@ class PersonBrowseView(BrowseView):
             label=_("Delete"),
             icon="trash-can",
         ),
-        # Link(
-        # reverse_model(models.Person, "export"),
-        # label="Excel",
-        # icon="download",
-        # ),
+        Link(
+            reverse_model(models.Person, "bulkexport"),
+            label="Excel",
+            icon="download",
+        ),
     )
     searchurl = reverse("basxconnect.core.views.searchperson")
     rowclickaction = "read"
-    filteroptions = [
-        (
-            models.NaturalPerson._meta.verbose_name_plural,
-            '_maintype = "naturalperson"',
-        ),
-        (
-            models.LegalPerson._meta.verbose_name_plural,
-            '_maintype = "legalperson"',
-        ),
-        (
-            models.PersonAssociation._meta.verbose_name_plural,
-            '_maintype = "personassociation"',
-        ),
-    ]
 
-    class FilterForm(forms.Form):
-        show_inactive = forms.BooleanField(required=False, label=_("Show inactive"))
-        preferred_language = forms.ChoiceField(
-            choices=[(None, "--------")] + settings.PREFERRED_LANGUAGES,
-            required=False,
-            label=_("Preferred Language"),
-        )
-        _type = forms.ModelMultipleChoiceField(
-            queryset=models.Term.objects.filter(
-                category__slug__in=["naturaltype", "legaltype", "associationtype"]
-            ),
-            required=False,
-            label=_("Person Category"),
-        )
-        categories = forms.ModelMultipleChoiceField(
-            queryset=models.Term.objects.filter(category__slug="category"),
-            required=False,
-            label=_("Categories"),
-        )
-
-    def get_queryset(self, *args, **kwargs):
-        qs = super().get_queryset(*args, **kwargs)
-        form = self.FilterForm(self.request.GET)
-        if form.is_valid():
-            for field in form.fields.keys():
-                if field in form.cleaned_data and not form.cleaned_data[field]:
-                    form.cleaned_data.pop(field)
-            if not form.cleaned_data.pop("show_inactive", False):
-                form.cleaned_data["active"] = True
-            if "_type" in form.cleaned_data:
-                form.cleaned_data["_type__in"] = form.cleaned_data.pop("_type")
-            if "categories" in form.cleaned_data:
-                form.cleaned_data["categories__in"] = form.cleaned_data.pop(
-                    "categories"
-                )
-            qs = qs.filter(**form.cleaned_data)
-        return qs
-
-    def layout(self, *args, **kwargs):
-        form = self.FilterForm(self.request.GET)
-        ret = super().layout(*args, **kwargs)
-        filters = _layout.form.Form(
-            form,
-            _layout.grid.Grid(
-                _layout.grid.Row(
-                    _layout.grid.Col(
-                        _layout.form.FormField("show_inactive"),
-                        width=2,
-                        breakpoint="lg",
-                    ),
-                    _layout.grid.Col(
-                        _layout.form.FormField("preferred_language"),
-                        width=3,
-                        breakpoint="lg",
-                    ),
-                    _layout.grid.Col(
-                        _layout.form.FormField("_type"),
-                        width=4,
-                        breakpoint="lg",
-                    ),
-                    _layout.grid.Col(
-                        _layout.form.FormField("categories"),
-                        width=4,
-                        breakpoint="lg",
-                    ),
-                    _layout.grid.Col(
-                        _layout.button.Button(
-                            icon="filter--remove",
-                            onclick=f"window.location = '{self.request.path}'",
-                            buttontype="secondary",
-                            style="margin-left: 0.25rem; float: right",
+    def get_settingspanel(self):
+        return hg.DIV(
+            hg.DIV(
+                hg.DIV(
+                    hg.DIV(_layout.helpers.Label(_("Categories"))),
+                    hg.DIV(
+                        hg.DIV(
+                            _layout.checkbox.Checkbox(
+                                _("Natural Persons"),
+                                widgetattributes={
+                                    "value": "_maintype == &quot;naturalperson&quot;",
+                                },
+                            ),
+                            *[
+                                _layout.checkbox.Checkbox(
+                                    term.term,
+                                    widgetattributes={
+                                        "value": f"_type == {term.id}",
+                                    },
+                                    style="padding-left: 1rem",
+                                )
+                                for term in models.Term.objects.filter(
+                                    category__slug="naturaltype"
+                                )
+                            ],
+                            hg.DIV(style="margin-top: 1rem"),
+                            _layout.checkbox.Checkbox(
+                                _("Person Associations"),
+                                widgetattributes={
+                                    "value": "_maintype == &quot;personassociation&quot;",
+                                },
+                            ),
+                            *[
+                                _layout.checkbox.Checkbox(
+                                    term.term,
+                                    widgetattributes={
+                                        "value": f"_type == {term.id}",
+                                    },
+                                    style="padding-left: 1rem",
+                                )
+                                for term in models.Term.objects.filter(
+                                    category__slug="associationtype"
+                                )
+                            ],
+                            style="margin-right: 1rem",
                         ),
-                        _layout.button.Button(
-                            "Filter",
-                            icon="filter",
-                            type="submit",
-                            style="float: right",
+                        hg.DIV(
+                            _layout.checkbox.Checkbox(
+                                _("Legal Persons"),
+                                widgetattributes={
+                                    "value": "_maintype == &quot;legalperson&quot;",
+                                },
+                            ),
+                            *[
+                                _layout.checkbox.Checkbox(
+                                    term.term,
+                                    widgetattributes={
+                                        "value": f"_type == {term.id}",
+                                    },
+                                    style="padding-left: 1rem",
+                                )
+                                for term in models.Term.objects.filter(
+                                    category__slug="legaltype"
+                                )
+                            ],
                         ),
-                        width=3,
-                        breakpoint="lg",
+                        style="display: flex",
                     ),
-                )
+                    onclick="this.value = '(' + $$('input[checked]', this).map((i) => i.value).join(') or (') + ')'",
+                    data_filter_group=True,
+                    style="border-right: #ccc solid 1px;",
+                    _class="bx--tile",
+                ),
+                hg.DIV(
+                    hg.DIV(_layout.helpers.Label(_("Tags"))),
+                    *[
+                        _layout.checkbox.Checkbox(
+                            term.term,
+                            widgetattributes={
+                                "value": f"categories == {term.id}",
+                            },
+                        )
+                        for term in models.Term.objects.filter(
+                            category__slug="category"
+                        )
+                    ],
+                    onclick="this.value = '(' + $$('input[checked]', this).map((i) => i.value).join(') or (') + ')'",
+                    data_filter_group=True,
+                    style="border-right: #ccc solid 1px",
+                    _class="bx--tile",
+                ),
+                hg.DIV(
+                    hg.DIV(_layout.helpers.Label(_("Languages"))),
+                    *[
+                        _layout.checkbox.Checkbox(
+                            lang[1],
+                            widgetattributes={
+                                "value": f"preferred_language == &quot;{lang[0]}&quot;",
+                            },
+                        )
+                        for lang in settings.PREFERRED_LANGUAGES
+                    ],
+                    onclick="this.value = '(' + $$('input[checked]', this).map((i) => i.value).join(') or (') + ')'",
+                    data_filter_group=True,
+                    style="border-right: #ccc solid 1px",
+                    _class="bx--tile",
+                ),
+                hg.DIV(
+                    hg.DIV(_layout.helpers.Label(_("Status"))),
+                    _layout.checkbox.Checkbox(
+                        _("Active"),
+                        widgetattributes={"value": "active == True"},
+                    ),
+                    _layout.checkbox.Checkbox(
+                        _("Inactive"),
+                        widgetattributes={"value": "active == False"},
+                    ),
+                    onclick="this.value = '(' + $$('input[checked]', this).map((i) => i.value).join(') or (') + ')'",
+                    data_filter_group=True,
+                    _class="bx--tile",
+                ),
+                style="display: flex; margin: -1rem; padding-bottom: 2rem",
+                onclick="this.value = '(' + $$('div[data-filter-group]', this).filter((i) => Boolean(i.value)).map((i) => i.value).join(') and (') + ')'",
             ),
-            method="GET",
+            hg.DIV(
+                _layout.button.Button(("Filter"), style="float: right", aslink=True),
+                _layout.button.Button(
+                    ("Reset"), buttontype="secondary", style="float: right"
+                ),
+                _layout.button.Button(
+                    ("Cancel"),
+                    buttontype="ghost",
+                    style="float: right",
+                    onclick="this.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
+                ),
+                style="margin-bottom: 2rem; margin-right: -1rem",
+            ),
         )
-        ret[0].append(filters)
-        return ret
 
 
 # ADD SETTING VIEWS AND REGISTER URLS -------------------------------------------
@@ -220,9 +255,9 @@ def generalsettings(request):
     layoutobj = layouts.generalsettings(request)
     form = generate_form(
         request,
-        LegalPerson,
+        models.LegalPerson,
         layoutobj,
-        Person.objects.get(id=settings.OWNER_PERSON_ID),
+        models.Person.objects.get(id=settings.OWNER_PERSON_ID),
     )
 
     if request.method == "POST":
@@ -239,7 +274,7 @@ def generalsettings(request):
 @csrf_exempt
 def togglepersonstatus(request, pk: int):
     if request.method == "POST":
-        person = get_object_or_404(Person, pk=pk)
+        person = get_object_or_404(models.Person, pk=pk)
         person.active = not person.active
         person.save()
     return HttpResponse(
@@ -263,7 +298,9 @@ persongroup = menu.Group(_("Persons"), icon="group")
 settingsgroup = menu.Group(_("Settings"), icon="settings", order=100)
 
 menu.registeritem(
-    menu.Item(menu.Link(reverse_model(Person, "browse"), _("Persons")), persongroup)
+    menu.Item(
+        menu.Link(reverse_model(models.Person, "browse"), _("Persons")), persongroup
+    )
 )
 
 menu.registeritem(
@@ -299,7 +336,7 @@ def searchperson(request):
     objects = [
         result.object
         for result in SearchQuerySet()
-        .models(NaturalPerson, LegalPerson, PersonAssociation)
+        .models(models.NaturalPerson, models.LegalPerson, models.PersonAssociation)
         .autocomplete(name_auto=query)
         if result.object
     ]
