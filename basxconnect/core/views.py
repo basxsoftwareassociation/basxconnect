@@ -2,9 +2,11 @@ import htmlgenerator as hg
 from bread import layout as _layout
 from bread import menu
 from bread.forms.forms import generate_form
-from bread.menu import Link
+from bread.menu import Action, Link
 from bread.utils.urls import aslayout, reverse, reverse_model
 from bread.views import BrowseView, EditView, ReadView, layoutasreadonly
+from django import forms
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.html import mark_safe
@@ -98,8 +100,8 @@ class PersonBrowseView(BrowseView):
             label=_("Delete"),
             icon="trash-can",
         ),
-        Link(
-            reverse_model(models.Person, "bulkexport"),
+        Action(
+            js="var u = new window.URL(window.location.toString()); u.search += '&export=1'; window.location = u.toString()",
             label="Excel",
             icon="download",
         ),
@@ -107,142 +109,203 @@ class PersonBrowseView(BrowseView):
     searchurl = reverse("basxconnect.core.views.searchperson")
     rowclickaction = "read"
 
+    class FilterForm(forms.Form):
+        naturalperson = forms.BooleanField(required=False, label=_("Natural Person"))
+        legalperson = forms.BooleanField(required=False, label=_("Legal Person"))
+        personassociation = forms.BooleanField(
+            required=False, label=_("Person Association")
+        )
+        naturalperson_subtypes = forms.ModelMultipleChoiceField(
+            queryset=models.Term.objects.filter(category__slug="naturaltype"),
+            widget=forms.CheckboxSelectMultiple,
+            required=False,
+        )
+        legalperson_subtypes = forms.ModelMultipleChoiceField(
+            queryset=models.Term.objects.filter(category__slug="legaltype"),
+            widget=forms.CheckboxSelectMultiple,
+            required=False,
+        )
+        personassociation_subtypes = forms.ModelMultipleChoiceField(
+            queryset=models.Term.objects.filter(category__slug="associationtype"),
+            widget=forms.CheckboxSelectMultiple,
+            required=False,
+        )
+        categories = forms.ModelMultipleChoiceField(
+            queryset=models.Term.objects.filter(category__slug="category"),
+            widget=forms.CheckboxSelectMultiple,
+            required=False,
+        )
+        preferred_language = forms.MultipleChoiceField(
+            choices=settings.PREFERRED_LANGUAGES,
+            widget=forms.CheckboxSelectMultiple,
+            required=False,
+        )
+        status = forms.MultipleChoiceField(
+            choices=[("active", _("Active")), ("inactive", _("Inactive"))],
+            widget=forms.CheckboxSelectMultiple,
+            required=False,
+        )
+
+    def _filterform(self):
+        return self.FilterForm({"status": ["active"], **self.request.GET})
+
+    def get_queryset(self):
+        ret = super().get_queryset()
+        form = self._filterform()
+        if form.is_valid():
+            if any(
+                [
+                    form.cleaned_data[i]
+                    for i in (
+                        "naturalperson",
+                        "legalperson",
+                        "personassociation",
+                        "naturalperson_subtypes",
+                        "legalperson_subtypes",
+                        "personassociation_subtypes",
+                    )
+                ]
+            ):
+                q = Q()
+                for i in ("naturalperson", "legalperson", "personassociation"):
+                    if form.cleaned_data[i]:
+                        q |= Q(_maintype=i)
+                    if form.cleaned_data[f"{i}_subtypes"]:
+                        q |= Q(_type__in=form.cleaned_data[f"{i}_subtypes"])
+                ret = ret.filter(q)
+            if form.cleaned_data.get("categories"):
+                ret = ret.filter(categories__in=form.cleaned_data["categories"])
+            if form.cleaned_data.get("preferred_language"):
+                ret = ret.filter(
+                    preferred_language__in=form.cleaned_data["preferred_language"]
+                )
+            if len(form.cleaned_data.get("status")) == 1:
+                ret = ret.filter(active=form.cleaned_data.get("status")[0] == "active")
+
+        return ret
+
     def get_settingspanel(self):
         return hg.DIV(
-            hg.DIV(
+            _layout.form.Form(
+                self._filterform(),
                 hg.DIV(
-                    hg.DIV(_layout.helpers.Label(_("Categories"))),
                     hg.DIV(
+                        hg.DIV(_layout.helpers.Label(_("Categories"))),
                         hg.DIV(
-                            _layout.checkbox.Checkbox(
-                                _("Natural Persons"),
-                                widgetattributes={
-                                    "value": "_maintype == &quot;naturalperson&quot;",
-                                },
-                            ),
-                            *[
-                                _layout.checkbox.Checkbox(
-                                    term.term,
-                                    widgetattributes={
-                                        "value": f"_type == {term.id}",
+                            hg.DIV(
+                                hg.DIV(
+                                    _layout.form.FormField(
+                                        "naturalperson",
+                                        elementattributes={
+                                            "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
+                                        },
+                                    ),
+                                    hg.DIV(
+                                        _layout.form.FormField(
+                                            "naturalperson_subtypes",
+                                            elementattributes={
+                                                "style": "padding-left: 1rem",
+                                            },
+                                        ),
+                                        style="margin-top: -2rem; margin-bottom: 1rem",
+                                    ),
+                                ),
+                                _layout.form.FormField(
+                                    "personassociation",
+                                    elementattributes={
+                                        "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
                                     },
-                                    style="padding-left: 1rem",
-                                )
-                                for term in models.Term.objects.filter(
-                                    category__slug="naturaltype"
-                                )
-                            ],
-                            hg.DIV(style="margin-top: 1rem"),
-                            _layout.checkbox.Checkbox(
-                                _("Person Associations"),
-                                widgetattributes={
-                                    "value": "_maintype == &quot;personassociation&quot;",
-                                },
+                                ),
+                                hg.DIV(
+                                    _layout.form.FormField(
+                                        "personassociation_subtypes",
+                                        elementattributes={
+                                            "style": "padding-left: 1rem"
+                                        },
+                                    ),
+                                    style="margin-top: -2rem; margin-bottom: 1rem",
+                                ),
+                                style="margin-right: 1rem",
                             ),
-                            *[
-                                _layout.checkbox.Checkbox(
-                                    term.term,
-                                    widgetattributes={
-                                        "value": f"_type == {term.id}",
+                            hg.DIV(
+                                _layout.form.FormField(
+                                    "legalperson",
+                                    elementattributes={
+                                        "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
                                     },
-                                    style="padding-left: 1rem",
-                                )
-                                for term in models.Term.objects.filter(
-                                    category__slug="associationtype"
-                                )
-                            ],
-                            style="margin-right: 1rem",
+                                ),
+                                hg.DIV(
+                                    _layout.form.FormField(
+                                        "legalperson_subtypes",
+                                        elementattributes={
+                                            "style": "padding-left: 1rem"
+                                        },
+                                    ),
+                                    style="margin-top: -2rem; margin-bottom: 1rem",
+                                ),
+                                style="margin-right: 1rem",
+                            ),
+                            style="display: flex",
                         ),
-                        hg.DIV(
-                            _layout.checkbox.Checkbox(
-                                _("Legal Persons"),
-                                widgetattributes={
-                                    "value": "_maintype == &quot;legalperson&quot;",
-                                },
-                            ),
-                            *[
-                                _layout.checkbox.Checkbox(
-                                    term.term,
-                                    widgetattributes={
-                                        "value": f"_type == {term.id}",
-                                    },
-                                    style="padding-left: 1rem",
-                                )
-                                for term in models.Term.objects.filter(
-                                    category__slug="legaltype"
-                                )
-                            ],
-                        ),
-                        style="display: flex",
+                        style="border-right: #ccc solid 1px; margin-top: 1rem",
+                        _class="bx--tile",
                     ),
-                    onclick="this.value = '(' + $$('input[checked]', this).map((i) => i.value).join(') or (') + ')'",
-                    data_filter_group=True,
-                    style="border-right: #ccc solid 1px;",
-                    _class="bx--tile",
+                    hg.DIV(
+                        hg.DIV(_layout.helpers.Label(_("Tags"))),
+                        _layout.form.FormField("categories"),
+                        style="border-right: #ccc solid 1px; margin-top: 1rem; overflow-y: scroll",
+                        _class="bx--tile",
+                    ),
+                    hg.DIV(
+                        hg.DIV(_layout.helpers.Label(_("Languages"))),
+                        _layout.form.FormField("preferred_language"),
+                        style="border-right: #ccc solid 1px; margin-top: 1rem",
+                        _class="bx--tile",
+                    ),
+                    hg.DIV(
+                        hg.DIV(_layout.helpers.Label(_("Status"))),
+                        _layout.form.FormField("status"),
+                        style="margin-top: 1rem",
+                        _class="bx--tile",
+                    ),
+                    style="display: flex; margin: -1rem; padding-bottom: 2rem; max-height: 50vh",
                 ),
                 hg.DIV(
-                    hg.DIV(_layout.helpers.Label(_("Tags"))),
-                    *[
-                        _layout.checkbox.Checkbox(
-                            term.term,
-                            widgetattributes={
-                                "value": f"categories == {term.id}",
-                            },
-                        )
-                        for term in models.Term.objects.filter(
-                            category__slug="category"
-                        )
-                    ],
-                    onclick="this.value = '(' + $$('input[checked]', this).map((i) => i.value).join(') or (') + ')'",
-                    data_filter_group=True,
-                    style="border-right: #ccc solid 1px",
-                    _class="bx--tile",
-                ),
-                hg.DIV(
-                    hg.DIV(_layout.helpers.Label(_("Languages"))),
-                    *[
-                        _layout.checkbox.Checkbox(
-                            lang[1],
-                            widgetattributes={
-                                "value": f"preferred_language == &quot;{lang[0]}&quot;",
-                            },
-                        )
-                        for lang in settings.PREFERRED_LANGUAGES
-                    ],
-                    onclick="this.value = '(' + $$('input[checked]', this).map((i) => i.value).join(') or (') + ')'",
-                    data_filter_group=True,
-                    style="border-right: #ccc solid 1px",
-                    _class="bx--tile",
-                ),
-                hg.DIV(
-                    hg.DIV(_layout.helpers.Label(_("Status"))),
-                    _layout.checkbox.Checkbox(
-                        _("Active"),
-                        widgetattributes={"value": "active == True"},
+                    _layout.button.Button(
+                        ("Filter"),
+                        type="submit",
+                        style="float: right",
                     ),
-                    _layout.checkbox.Checkbox(
-                        _("Inactive"),
-                        widgetattributes={"value": "active == False"},
+                    _layout.button.Button(
+                        ("Reset"),
+                        buttontype="secondary",
+                        style="float: right",
+                        islink=True,
+                        href=self.request.path,
                     ),
-                    onclick="this.value = '(' + $$('input[checked]', this).map((i) => i.value).join(') or (') + ')'",
-                    data_filter_group=True,
-                    _class="bx--tile",
+                    _layout.button.Button(
+                        ("Cancel"),
+                        buttontype="ghost",
+                        style="float: right",
+                        onclick="this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
+                    ),
+                    style="margin-bottom: 2rem; margin-right: -1rem",
                 ),
-                style="display: flex; margin: -1rem; padding-bottom: 2rem",
-                onclick="this.value = '(' + $$('div[data-filter-group]', this).filter((i) => Boolean(i.value)).map((i) => i.value).join(') and (') + ')'",
+                method="GET",
             ),
-            hg.DIV(
-                _layout.button.Button(("Filter"), style="float: right", aslink=True),
-                _layout.button.Button(
-                    ("Reset"), buttontype="secondary", style="float: right"
-                ),
-                _layout.button.Button(
-                    ("Cancel"),
-                    buttontype="ghost",
-                    style="float: right",
-                    onclick="this.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
-                ),
-                style="margin-bottom: 2rem; margin-right: -1rem",
+            hg.SCRIPT(
+                mark_safe(
+                    """
+                    function updateCheckboxGroupItems(group) {
+                        var items = $$('input[type=checkbox]', group);
+                        var value = items[0].getAttribute('aria-checked');
+                        value = value == 'true' ? 'true' : 'false';
+                        for(var i = 1; i < items.length; ++i) {
+                            new CarbonComponents.Checkbox(items[i]).setState(value);
+                        }
+                    }
+                    """
+                )
             ),
         )
 
@@ -344,7 +407,7 @@ def searchperson(request):
         return HttpResponse(
             hg.DIV(
                 _("No results"),
-                _class="bx--tile",
+                _class="bx--tile raised",
                 style="margin-bottom: 1rem; padding: 0.5rem; opacity: 0.85; outline: auto",
             ).render({})
         )
@@ -377,7 +440,6 @@ def searchperson(request):
                     for object in objects
                 ]
             ),
-            _class="bx--tile",
-            style="margin-bottom: 1rem; padding: 0; opacity: 0.95; outline: auto",
+            _class="bx--tile raised",
         ).render({})
     )

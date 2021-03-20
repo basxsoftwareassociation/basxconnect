@@ -67,10 +67,4 @@ urlpatterns = [
         breadviews.BulkDeleteView.as_view(model=models.Person),
         model_urlname(models.Person, "bulkdelete"),
     ),
-    generate_path(
-        breadviews.ExcelExportView.as_view(
-            model=models.Person, columns=views.PersonBrowseView.columns
-        ),
-        model_urlname(models.Person, "bulkexport"),
-    ),
 ]
