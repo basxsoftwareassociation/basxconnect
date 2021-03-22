@@ -496,19 +496,20 @@ def personsettings(request):
 def generalsettings(request):
     return hg.BaseElement(
         layout.grid.Grid(
-            R(C(F("type"))),
             R(C(F("name"))),
             R(C(F("name_addition"))),
+            gutter=False,
         ),
         layout.form.FormsetField(
             "core_postal_list",
             layout.grid.Grid(
                 R(C(F("address"))),
                 R(
-                    C(F("postcode"), breakpoint="lg", width=2),
-                    C(F("city"), breakpoint="lg", width=3),
-                    C(F("country"), breakpoint="lg", width=3),
+                    C(F("postcode"), breakpoint="sm", width=1),
+                    C(F("city"), breakpoint="sm", width=3),
                 ),
+                R(C(F("country"))),
+                gutter=False,
             ),
             can_delete=False,
             max_num=1,
@@ -517,17 +518,18 @@ def generalsettings(request):
         layout.grid.Grid(
             R(
                 C(single_item_fieldset("core_phone_list", "number")),
-                C(single_item_fieldset("core_fax_list", "number")),
-            ),
-            R(
                 C(
                     single_item_fieldset(
                         "core_email_list",
                         "email",
                     )
                 ),
-                C(single_item_fieldset("core_web_list", "url")),
             ),
+            R(
+                C(single_item_fieldset("core_web_list", "url")),
+                C(),
+            ),
+            gutter=False,
         ),
         layout.helpers.SubmitButton(_("Save")),
     )
