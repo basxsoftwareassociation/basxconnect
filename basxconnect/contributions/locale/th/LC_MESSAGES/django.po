@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-04 12:01+0700\n"
+"POT-Creation-Date: 2021-03-22 14:20+0700\n"
 "PO-Revision-Date: 2021-03-16 05:33+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
@@ -105,11 +105,7 @@ msgstr "วันที่นำเข้า"
 msgid "Imports"
 msgstr "นำเข้า"
 
-#: basxconnect/contributions/urls.py:64
-msgid "Contribution imports"
-msgstr "นำเข้าเงินบริจาค"
-
-#: basxconnect/contributions/wizards/contributionsimport.py:82
+#: basxconnect/contributions/wizards/contributionsimport.py:83
 msgid "Upload a file"
 msgstr "อัพโหลดไฟล์"
 
@@ -185,9 +181,7 @@ msgstr " ไม่สามารถมอบหมายเงินบริ�
 msgid ""
 "Please make sure that each entry has contributor number which matches with a "
 "person number and do the import again"
-msgstr ""
-"โปรดตรวจสอบให้แน่ใจว่าแต่ละรายการมีหมายเลขผู้สนับสนุนซึ่งตรงกับหมายเลขบุคคลแล"
-"ะทำการนำเข้าอีกครั้ง"
+msgstr "โปรดตรวจสอบให้แน่ใจว่าแต่ละรายการมีหมายเลขผู้สนับสนุนซึ่งตรงกับหมายเลขบุคคลและทำการนำเข้าอีกครั้ง"
 
 #: basxconnect/contributions/wizards/contributionsimport.py:207
 msgid "Cancel import"
@@ -209,3 +203,6 @@ msgstr "นำเข้าเงินบริจาค"
 #, python-format
 msgid "Successfully imported %d contributions"
 msgstr "นำเข้าเงินบริจาค% d สำเร็จแล้ว"
+
+#~ msgid "Contribution imports"
+#~ msgstr "นำเข้าเงินบริจาค"
