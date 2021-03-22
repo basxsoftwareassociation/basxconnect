@@ -50,6 +50,7 @@ def editperson_toolbar(request):
                     layout.button.PrintPageButton(buttontype="ghost"),
                 ),
             ),
+            gridmode="full-width",
         ),
         hg.DIV(_class="section-separator-bottom", style="margin-top: 1rem"),
         style="margin-bottom: 2rem",
@@ -190,6 +191,7 @@ def editperson_head(request, isreadview):
             _class="disabled-02" if isreadview else "",
         ),
         style="position: sticky; top: 3rem; z-index: 99; background-color: inherit; margin-bottom: 1rem; box-shadow: 0 3px 3px -2px black;",
+        gridmode="full-width",
     )
 
 
@@ -244,6 +246,7 @@ def editnaturalperson_form(request):
                             ),
                         ),
                     ),
+                    gridmode="full-width",
                 ),
                 hg.DIV(_class="section-separator-bottom"),
                 address_and_relationships(request),
@@ -282,6 +285,7 @@ def editlegalperson_form(request):
                             ),
                         ),
                     ),
+                    gridmode="full-width",
                 ),
                 hg.DIV(_class="section-separator-bottom"),
                 address_and_relationships(request),
@@ -320,6 +324,7 @@ def editpersonassociation_form(request):
                             ),
                         ),
                     ),
+                    gridmode="full-width",
                 ),
                 hg.DIV(_class="section-separator-bottom"),
                 address_and_relationships(request),
@@ -420,6 +425,7 @@ def address_and_relationships(request):
             C(),
             style="margin-top: 1rem",
         ),
+        gridmode="full-width",
     )
 
 
