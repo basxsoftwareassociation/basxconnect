@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-22 14:20+0700\n"
-"PO-Revision-Date: 2021-03-16 05:51+0000\n"
+"PO-Revision-Date: 2021-03-22 08:32+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -414,11 +414,9 @@ msgstr "หมวดหมู่"
 
 #: basxconnect/core/views.py:254
 msgid "Tags"
-msgstr ""
+msgstr "แท็ก"
 
 #: basxconnect/core/views.py:260
-#, fuzzy
-#| msgid "Prefered Language"
 msgid "Languages"
 msgstr "เลือกใช้ภาษา"
 
