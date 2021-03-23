@@ -10,7 +10,16 @@ from .. import settings
 from .utils import Note, Term
 
 
+class PersonManager(models.Manager):
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(deleted=False)
+
+    def get_deleted(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(deleted=True)
+
+
 class Person(models.Model):
+    deleted = models.BooleanField(_("Deleted"), blank=True, default=False)
     personnumber = models.CharField(
         _("Person number"), max_length=255, unique=True, blank=True
     )
@@ -79,6 +88,8 @@ class Person(models.Model):
         Term, on_delete=models.SET_NULL, null=True, blank=True, related_name="+"
     )
     _type.verbose_name = _("Category")
+
+    objects = PersonManager()
 
     def __str__(self):
         return self.name
