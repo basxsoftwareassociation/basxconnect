@@ -2,7 +2,7 @@ import htmlgenerator as hg
 from bread import layout as _layout
 from bread import menu
 from bread.forms.forms import generate_form
-from bread.menu import Action, Link
+from bread.menu import Link
 from bread.utils.urls import aslayout, reverse, reverse_model
 from bread.views import BrowseView, EditView, ReadView, layoutasreadonly
 from django import forms
@@ -100,8 +100,8 @@ class PersonBrowseView(BrowseView):
             label=_("Delete"),
             icon="trash-can",
         ),
-        Action(
-            js="var u = new window.URL(window.location.toString()); u.search += '&export=1'; window.location = u.toString()",
+        Link(
+            reverse_model(models.Person, "excel"),
             label="Excel",
             icon="download",
         ),
