@@ -39,7 +39,20 @@ urlpatterns = [
         editview=views.NaturalPersonEditView,
         readview=views.NaturalPersonReadView,
         copyview=breadviews.generate_copyview(
-            models.NaturalPerson, attrs={"personnumber": None}, labelfield="name"
+            models.NaturalPerson,
+            attrs={
+                "personnumber": None,
+                "primary_postal_address": None,
+                "primary_email_address": None,
+            },
+            labelfield="name",
+            copy_related_fields=(
+                "core_web_list",
+                "core_email_list",
+                "core_phone_list",
+                "core_fax_list",
+                "core_postal_list",
+            ),
         ),
     ),
     *default_model_paths(
