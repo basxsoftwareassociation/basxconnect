@@ -67,7 +67,9 @@ urlpatterns = [
     ),
     *default_model_paths(models.Relationship),
     *default_model_paths(models.RelationshipType),
-    *default_model_paths(models.Term),
+    *default_model_paths(
+        models.Term, deleteview=breadviews.DeleteView._with(harddelete=True)
+    ),
     *default_model_paths(models.Category),
     generate_path(views.generalsettings),
     generate_path(
