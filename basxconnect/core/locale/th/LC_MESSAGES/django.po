@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-24 09:34+0700\n"
-"PO-Revision-Date: 2021-03-22 08:32+0000\n"
+"PO-Revision-Date: 2021-03-25 02:48+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -240,8 +240,6 @@ msgid "Postal addresses"
 msgstr "ไปรษณีย์พื้นที่"
 
 #: basxconnect/core/models/persons.py:22
-#, fuzzy
-#| msgid "Delete"
 msgid "Deleted"
 msgstr "ลบ"
 
