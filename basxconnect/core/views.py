@@ -1,5 +1,5 @@
 import htmlgenerator as hg
-from bread import layout as _layout
+from bread import layout as layout
 from bread import menu
 from bread.forms.forms import generate_form
 from bread.menu import Link
@@ -23,54 +23,66 @@ def personform_shortcut(request, formlayout, isreadview):
     return hg.BaseElement(
         layouts.editperson_toolbar(request),
         layouts.editperson_head(request, isreadview=isreadview),
-        _layout.form.Form(hg.C("form"), formlayout),
+        layout.form.Form(hg.C("form"), formlayout),
     )
 
 
 class NaturalPersonEditView(EditView):
-    def layout(self, request):
+    def layout(self):
         return personform_shortcut(
-            request, layouts.editnaturalperson_form(request), isreadview=False
+            self.request,
+            layouts.editnaturalperson_form(self.request),
+            isreadview=False,
         )
 
 
 class NaturalPersonReadView(ReadView):
-    def layout(self, request):
+    def layout(self):
         return layoutasreadonly(
             personform_shortcut(
-                request, layouts.editnaturalperson_form(request), isreadview=True
+                self.request,
+                layouts.editnaturalperson_form(self.request),
+                isreadview=True,
             )
         )
 
 
 class LegalPersonEditView(EditView):
-    def layout(self, request):
+    def layout(self):
         return personform_shortcut(
-            request, layouts.editlegalperson_form(request), isreadview=False
+            self.request,
+            layouts.editlegalperson_form(self.request),
+            isreadview=False,
         )
 
 
 class LegalPersonReadView(ReadView):
-    def layout(self, request):
+    def layout(self):
         return layoutasreadonly(
             personform_shortcut(
-                request, layouts.editlegalperson_form(request), isreadview=True
+                self.request,
+                layouts.editlegalperson_form(self.request),
+                isreadview=True,
             )
         )
 
 
 class PersonAssociationEditView(EditView):
-    def layout(self, request):
+    def layout(self):
         return personform_shortcut(
-            request, layouts.editpersonassociation_form(request), isreadview=False
+            self.request,
+            layouts.editpersonassociation_form(self.request),
+            isreadview=False,
         )
 
 
 class PersonAssociationReadView(ReadView):
-    def layout(self, request):
+    def layout(self):
         return layoutasreadonly(
             personform_shortcut(
-                request, layouts.editpersonassociation_form(request), isreadview=True
+                self.request,
+                layouts.editpersonassociation_form(self.request),
+                isreadview=True,
             )
         )
 
@@ -186,22 +198,22 @@ class PersonBrowseView(BrowseView):
 
     def get_settingspanel(self):
         return hg.DIV(
-            _layout.form.Form(
+            layout.form.Form(
                 self._filterform(),
                 hg.DIV(
                     hg.DIV(
-                        hg.DIV(_layout.helpers.Label(_("Categories"))),
+                        hg.DIV(layout.helpers.Label(_("Categories"))),
                         hg.DIV(
                             hg.DIV(
                                 hg.DIV(
-                                    _layout.form.FormField(
+                                    layout.form.FormField(
                                         "naturalperson",
                                         elementattributes={
                                             "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
                                         },
                                     ),
                                     hg.DIV(
-                                        _layout.form.FormField(
+                                        layout.form.FormField(
                                             "naturalperson_subtypes",
                                             elementattributes={
                                                 "style": "padding-left: 1rem",
@@ -210,14 +222,14 @@ class PersonBrowseView(BrowseView):
                                         style="",
                                     ),
                                 ),
-                                _layout.form.FormField(
+                                layout.form.FormField(
                                     "personassociation",
                                     elementattributes={
                                         "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
                                     },
                                 ),
                                 hg.DIV(
-                                    _layout.form.FormField(
+                                    layout.form.FormField(
                                         "personassociation_subtypes",
                                         elementattributes={
                                             "style": "padding-left: 1rem"
@@ -228,14 +240,14 @@ class PersonBrowseView(BrowseView):
                                 style="margin-right: 16px",
                             ),
                             hg.DIV(
-                                _layout.form.FormField(
+                                layout.form.FormField(
                                     "legalperson",
                                     elementattributes={
                                         "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
                                     },
                                 ),
                                 hg.DIV(
-                                    _layout.form.FormField(
+                                    layout.form.FormField(
                                         "legalperson_subtypes",
                                         elementattributes={
                                             "style": "padding-left: 1rem"
@@ -250,40 +262,40 @@ class PersonBrowseView(BrowseView):
                         style="border-right: #ccc solid 1px; margin: 0 16px 0 0",
                     ),
                     hg.DIV(
-                        hg.DIV(_layout.helpers.Label(_("Tags"))),
+                        hg.DIV(layout.helpers.Label(_("Tags"))),
                         hg.DIV(
-                            _layout.form.FormField("categories"),
+                            layout.form.FormField("categories"),
                             style="margin-right: 16px",
                         ),
                         style="border-right: #ccc solid 1px; margin: 0 16px 0 0; overflow-y: scroll",
                     ),
                     hg.DIV(
-                        hg.DIV(_layout.helpers.Label(_("Languages"))),
+                        hg.DIV(layout.helpers.Label(_("Languages"))),
                         hg.DIV(
-                            _layout.form.FormField("preferred_language"),
+                            layout.form.FormField("preferred_language"),
                             style="margin-right: 16px",
                         ),
                         style="border-right: #ccc solid 1px; margin: 0 16px 0 0",
                     ),
                     hg.DIV(
-                        hg.DIV(_layout.helpers.Label(_("Status"))),
-                        _layout.form.FormField("status"),
+                        hg.DIV(layout.helpers.Label(_("Status"))),
+                        layout.form.FormField("status"),
                     ),
                     style="display: flex; max-height: 50vh; padding: 24px 32px 0 32px",
                 ),
                 hg.DIV(
-                    _layout.button.Button(
+                    layout.button.Button(
                         ("Cancel"),
                         buttontype="ghost",
                         onclick="this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
                     ),
-                    _layout.button.Button(
+                    layout.button.Button(
                         ("Reset"),
                         buttontype="secondary",
                         islink=True,
                         href=self.request.path,
                     ),
-                    _layout.button.Button(
+                    layout.button.Button(
                         ("Filter"),
                         type="submit",
                     ),
@@ -316,22 +328,31 @@ class PersonBrowseView(BrowseView):
 @aslayout
 def generalsettings(request):
     layoutobj = layouts.generalsettings(request)
-    form = generate_form(
-        request,
-        models.LegalPerson,
-        layoutobj,
-        models.Person.objects.get(id=settings.OWNER_PERSON_ID),
-    )
+    if models.Person.objects.filter(id=settings.OWNER_PERSON_ID).exists():
+        form = generate_form(
+            request,
+            models.LegalPerson,
+            layoutobj,
+            models.Person.objects.filter(id=settings.OWNER_PERSON_ID).first(),
+        )
 
-    if request.method == "POST":
-        if form.is_valid():
-            form.save()
+        if request.method == "POST":
+            if form.is_valid():
+                form.save()
 
-    return lambda request: hg.BaseElement(
+        return hg.BaseElement(
+            hg.H3(_("Settings")),
+            hg.H4(_("General")),
+            hg.H5(_("Information about our organization")),
+            layout.form.Form(form, layoutobj, style="max-width: 480px"),
+        )
+    return hg.BaseElement(
         hg.H3(_("Settings")),
         hg.H4(_("General")),
         hg.H5(_("Information about our organization")),
-        _layout.form.Form(form, layoutobj, style="max-width: 480px"),
+        _(
+            "The django setting BASXCONNECT.OWNER_PERSON_ID needs to be set to an existing person in order to be able to edit this screen"
+        ),
     )
 
 
@@ -348,12 +369,12 @@ def togglepersonstatus(request, pk: int):
 
 @aslayout
 def personsettings(request):
-    return lambda request: layouts.personsettings(request)
+    return layouts.personsettings(request)
 
 
 @aslayout
 def relationshipssettings(request):
-    return lambda request: layouts.relationshipssettings(request)
+    return layouts.relationshipssettings(request)
 
 
 # MENU ENTRIES ---------------------------------------------------------------------

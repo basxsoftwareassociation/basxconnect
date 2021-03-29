@@ -246,7 +246,7 @@ class AddPersonWizard(PermissionRequiredMixin, NamedUrlSessionWizardView):
                 status = "current"
             steps.append((_(step), status))
 
-        context["layout"] = lambda request: hg.BaseElement(
+        context["layout"] = hg.BaseElement(
             hg.H3(_("Add new person")),
             hg.H4(self.get_form().title),
             layout.progress_indicator.ProgressIndicator(

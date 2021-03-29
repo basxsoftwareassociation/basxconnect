@@ -233,8 +233,7 @@ class ContributionsImportWizard(PermissionRequiredMixin, NamedUrlSessionWizardVi
         ("upload_file", UploadForm),
         ("assignment", AssignmentForm),
     ]
-    # translation detection
-    template_name = "contributions/wizards/import.html"
+    template_name = "bread/base.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -244,7 +243,7 @@ class ContributionsImportWizard(PermissionRequiredMixin, NamedUrlSessionWizardVi
             self.get_form().title,
             self.get_form().layout,
         )
-        context["layout"] = lambda request: layout
+        context["layout"] = layout
 
         upload_file = self.get_cleaned_data_for_step("upload_file")
         context["contributions"] = ()
