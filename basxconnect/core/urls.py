@@ -59,11 +59,43 @@ urlpatterns = [
         models.LegalPerson,
         editview=views.LegalPersonEditView,
         readview=views.LegalPersonReadView,
+        copyview=breadviews.generate_copyview(
+            models.LegalPerson,
+            attrs={
+                "personnumber": None,
+                "primary_postal_address": None,
+                "primary_email_address": None,
+            },
+            labelfield="name",
+            copy_related_fields=(
+                "core_web_list",
+                "core_email_list",
+                "core_phone_list",
+                "core_fax_list",
+                "core_postal_list",
+            ),
+        ),
     ),
     *default_model_paths(
         models.PersonAssociation,
         editview=views.PersonAssociationEditView,
         readview=views.PersonAssociationReadView,
+        copyview=breadviews.generate_copyview(
+            models.PersonAssociation,
+            attrs={
+                "personnumber": None,
+                "primary_postal_address": None,
+                "primary_email_address": None,
+            },
+            labelfield="name",
+            copy_related_fields=(
+                "core_web_list",
+                "core_email_list",
+                "core_phone_list",
+                "core_fax_list",
+                "core_postal_list",
+            ),
+        ),
     ),
     *default_model_paths(models.Relationship),
     *default_model_paths(models.RelationshipType),
