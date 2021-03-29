@@ -1,6 +1,5 @@
 [![basxconnect-ci](https://github.com/basxsoftwareassociation/basxconnect/actions/workflows/main.yml/badge.svg)](https://github.com/basxsoftwareassociation/basxconnect/actions/workflows/main.yml)
-[![Translation status](https://hosted.weblate.org/widgets/basxconnect/-/svg-badge.svg)]
-(https://hosted.weblate.org/engage/basxconnect/)
+[![Translation status](https://hosted.weblate.org/widgets/basxconnect/-/svg-badge.svg)](https://hosted.weblate.org/engage/basxconnect/)
 
 basxconnect
 ===========
