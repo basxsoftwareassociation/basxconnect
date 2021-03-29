@@ -33,11 +33,16 @@ urlpatterns = [
         AddPersonWizard.as_view(url_name=model_urlname(models.Person, "addwizard")),
         model_urlname(models.Person, "addwizard"),
     ),
-    *default_model_paths(models.Person, browseview=views.PersonBrowseView),
+    *default_model_paths(
+        models.Person,
+        browseview=views.PersonBrowseView,
+        deleteview=breadviews.DeleteView._with(softdeletefield="deleted"),
+    ),
     *default_model_paths(
         models.NaturalPerson,
         editview=views.NaturalPersonEditView,
         readview=views.NaturalPersonReadView,
+        deleteview=breadviews.DeleteView._with(softdeletefield="deleted"),
         copyview=breadviews.generate_copyview(
             models.NaturalPerson,
             attrs={
@@ -59,6 +64,7 @@ urlpatterns = [
         models.LegalPerson,
         editview=views.LegalPersonEditView,
         readview=views.LegalPersonReadView,
+        deleteview=breadviews.DeleteView._with(softdeletefield="deleted"),
         copyview=breadviews.generate_copyview(
             models.LegalPerson,
             attrs={
@@ -80,6 +86,7 @@ urlpatterns = [
         models.PersonAssociation,
         editview=views.PersonAssociationEditView,
         readview=views.PersonAssociationReadView,
+        deleteview=breadviews.DeleteView._with(softdeletefield="deleted"),
         copyview=breadviews.generate_copyview(
             models.PersonAssociation,
             attrs={
@@ -99,9 +106,7 @@ urlpatterns = [
     ),
     *default_model_paths(models.Relationship),
     *default_model_paths(models.RelationshipType),
-    *default_model_paths(
-        models.Term, deleteview=breadviews.DeleteView._with(harddelete=True)
-    ),
+    *default_model_paths(models.Term),
     *default_model_paths(models.Category),
     generate_path(views.generalsettings),
     generate_path(
@@ -111,7 +116,9 @@ urlpatterns = [
     generate_path(views.relationshipssettings),
     generate_path(views.searchperson),
     generate_path(
-        breadviews.BulkDeleteView.as_view(model=models.Person),
+        breadviews.BulkDeleteView.as_view(
+            model=models.Person, softdeletefield="deleted"
+        ),
         model_urlname(models.Person, "bulkdelete"),
     ),
 ]
