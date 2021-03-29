@@ -207,7 +207,7 @@ class PersonBrowseView(BrowseView):
                                                 "style": "padding-left: 1rem",
                                             },
                                         ),
-                                        style="margin-top: -2rem; margin-bottom: 1rem",
+                                        style="",
                                     ),
                                 ),
                                 _layout.form.FormField(
@@ -223,9 +223,9 @@ class PersonBrowseView(BrowseView):
                                             "style": "padding-left: 1rem"
                                         },
                                     ),
-                                    style="margin-top: -2rem; margin-bottom: 1rem",
+                                    style="",
                                 ),
-                                style="margin-right: 1rem",
+                                style="margin-right: 16px",
                             ),
                             hg.DIV(
                                 _layout.form.FormField(
@@ -241,55 +241,54 @@ class PersonBrowseView(BrowseView):
                                             "style": "padding-left: 1rem"
                                         },
                                     ),
-                                    style="margin-top: -2rem; margin-bottom: 1rem",
+                                    style="",
                                 ),
-                                style="margin-right: 1rem",
+                                style="margin-right: 16px",
                             ),
                             style="display: flex",
                         ),
-                        style="border-right: #ccc solid 1px; margin-top: 1rem",
-                        _class="bx--tile",
+                        style="border-right: #ccc solid 1px; margin: 0 16px 0 0",
                     ),
                     hg.DIV(
                         hg.DIV(_layout.helpers.Label(_("Tags"))),
-                        _layout.form.FormField("categories"),
-                        style="border-right: #ccc solid 1px; margin-top: 1rem; overflow-y: scroll",
-                        _class="bx--tile",
+                        hg.DIV(
+                            _layout.form.FormField("categories"),
+                            style="margin-right: 16px",
+                        ),
+                        style="border-right: #ccc solid 1px; margin: 0 16px 0 0; overflow-y: scroll",
                     ),
                     hg.DIV(
                         hg.DIV(_layout.helpers.Label(_("Languages"))),
-                        _layout.form.FormField("preferred_language"),
-                        style="border-right: #ccc solid 1px; margin-top: 1rem",
-                        _class="bx--tile",
+                        hg.DIV(
+                            _layout.form.FormField("preferred_language"),
+                            style="margin-right: 16px",
+                        ),
+                        style="border-right: #ccc solid 1px; margin: 0 16px 0 0",
                     ),
                     hg.DIV(
                         hg.DIV(_layout.helpers.Label(_("Status"))),
                         _layout.form.FormField("status"),
-                        style="margin-top: 1rem",
-                        _class="bx--tile",
                     ),
-                    style="display: flex; margin: -1rem; padding-bottom: 2rem; max-height: 50vh",
+                    style="display: flex; max-height: 50vh; padding: 24px 32px 0 32px",
                 ),
                 hg.DIV(
                     _layout.button.Button(
-                        ("Filter"),
-                        type="submit",
-                        style="float: right",
+                        ("Cancel"),
+                        buttontype="ghost",
+                        onclick="this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
                     ),
                     _layout.button.Button(
                         ("Reset"),
                         buttontype="secondary",
-                        style="float: right",
                         islink=True,
                         href=self.request.path,
                     ),
                     _layout.button.Button(
-                        ("Cancel"),
-                        buttontype="ghost",
-                        style="float: right",
-                        onclick="this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
+                        ("Filter"),
+                        type="submit",
                     ),
-                    style="margin-bottom: 2rem; margin-right: -1rem",
+                    style="display: flex; justify-content: flex-end; margin-top: 24px",
+                    _class="bx--modal-footer",
                 ),
                 method="GET",
             ),
@@ -307,6 +306,7 @@ class PersonBrowseView(BrowseView):
                     """
                 )
             ),
+            style="background-color: #fff",
         )
 
 
