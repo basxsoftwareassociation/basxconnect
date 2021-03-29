@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-24 09:34+0700\n"
+"POT-Creation-Date: 2021-03-29 20:55+0700\n"
 "PO-Revision-Date: 2021-03-25 02:49+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/basxconnect/"
@@ -197,11 +197,11 @@ msgstr "Affectation terminée"
 msgid "Continue in order to complete the import"
 msgstr "Continuez afin de compléter l'import"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:243
+#: basxconnect/contributions/wizards/contributionsimport.py:242
 msgid "Import contributions"
 msgstr "Importer des contibutions"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:286
+#: basxconnect/contributions/wizards/contributionsimport.py:285
 #, python-format
 msgid "Successfully imported %d contributions"
 msgstr "%d contributions ont bien été importées"

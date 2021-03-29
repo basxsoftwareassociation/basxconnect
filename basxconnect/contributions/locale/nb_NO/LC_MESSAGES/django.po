@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-24 09:34+0700\n"
+"POT-Creation-Date: 2021-03-29 20:55+0700\n"
 "PO-Revision-Date: 2021-03-27 03:29+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -206,12 +206,12 @@ msgstr "Tildelning fullført"
 msgid "Continue in order to complete the import"
 msgstr "Fortsett for å fullføre importen"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:243
+#: basxconnect/contributions/wizards/contributionsimport.py:242
 #, fuzzy
 msgid "Import contributions"
 msgstr "Importer bildrag"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:286
+#: basxconnect/contributions/wizards/contributionsimport.py:285
 #, fuzzy, python-format
 msgid "Successfully imported %d contributions"
 msgstr "Importerte %d bidrag"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-24 09:34+0700\n"
+"POT-Creation-Date: 2021-03-29 20:55+0700\n"
 "PO-Revision-Date: 2021-03-16 05:33+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
@@ -195,11 +195,11 @@ msgstr "การมอบหมายเรียบร้อย"
 msgid "Continue in order to complete the import"
 msgstr "ดำเนินการต่อเพื่อดำเนินการนำเข้าให้เสร็จสมบูรณ์"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:243
+#: basxconnect/contributions/wizards/contributionsimport.py:242
 msgid "Import contributions"
 msgstr "นำเข้าเงินบริจาค"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:286
+#: basxconnect/contributions/wizards/contributionsimport.py:285
 #, python-format
 msgid "Successfully imported %d contributions"
 msgstr "นำเข้าเงินบริจาค% d สำเร็จแล้ว"

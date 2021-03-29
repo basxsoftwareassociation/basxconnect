@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-24 09:34+0700\n"
+"POT-Creation-Date: 2021-03-29 20:55+0700\n"
 "PO-Revision-Date: 2021-03-25 02:49+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/basxconnect/"
@@ -20,8 +20,8 @@ msgstr ""
 "X-Generator: Weblate 4.5.2-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
-#: basxconnect/core/layouts.py:204 basxconnect/core/views.py:332
-#: basxconnect/core/views.py:372
+#: basxconnect/core/layouts.py:204 basxconnect/core/views.py:345
+#: basxconnect/core/views.py:351 basxconnect/core/views.py:393
 msgid "General"
 msgstr "Général"
 
@@ -33,7 +33,7 @@ msgstr "En-tête de l'expéditeur"
 msgid "Logo"
 msgstr "Logo"
 
-#: basxconnect/core/layouts.py:18 basxconnect/core/views.py:100
+#: basxconnect/core/layouts.py:18 basxconnect/core/views.py:112
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -46,17 +46,17 @@ msgid "Search person"
 msgstr "Rechercher une personne"
 
 #: basxconnect/core/layouts.py:64 basxconnect/core/models/addresses.py:39
-#: basxconnect/core/models/persons.py:110 basxconnect/core/views.py:266
+#: basxconnect/core/models/persons.py:110 basxconnect/core/views.py:281
 msgid "Status"
 msgstr "État"
 
-#: basxconnect/core/layouts.py:69 basxconnect/core/views.py:144
-#: basxconnect/core/views.py:345
+#: basxconnect/core/layouts.py:69 basxconnect/core/views.py:156
+#: basxconnect/core/views.py:366
 msgid "Inactive"
 msgstr "Inactif"
 
 #: basxconnect/core/layouts.py:69 basxconnect/core/models/persons.py:28
-#: basxconnect/core/views.py:144 basxconnect/core/views.py:345
+#: basxconnect/core/views.py:156 basxconnect/core/views.py:366
 msgid "Active"
 msgstr "Actif"
 
@@ -115,7 +115,7 @@ msgid "Numbers"
 msgstr "Numéros"
 
 #: basxconnect/core/layouts.py:386 basxconnect/core/models/addresses.py:51
-#: basxconnect/core/models/addresses.py:74 basxconnect/core/views.py:89
+#: basxconnect/core/models/addresses.py:74 basxconnect/core/views.py:101
 msgid "Email"
 msgstr "E-mail"
 
@@ -124,7 +124,7 @@ msgid "URLs"
 msgstr "URL"
 
 #: basxconnect/core/layouts.py:419 basxconnect/core/models/persons.py:44
-#: basxconnect/core/models/utils.py:25 basxconnect/core/views.py:193
+#: basxconnect/core/models/utils.py:25 basxconnect/core/views.py:205
 msgid "Categories"
 msgstr "Catégories"
 
@@ -149,13 +149,13 @@ msgid "Change"
 msgstr "Modifier"
 
 #: basxconnect/core/layouts.py:450 basxconnect/core/layouts.py:474
-#: basxconnect/core/models/relationships.py:55 basxconnect/core/views.py:386
+#: basxconnect/core/models/relationships.py:55 basxconnect/core/views.py:407
 msgid "Relationships"
 msgstr "Relations"
 
 #: basxconnect/core/layouts.py:489 basxconnect/core/models/persons.py:142
-#: basxconnect/core/views.py:361 basxconnect/core/views.py:366
-#: basxconnect/core/views.py:378
+#: basxconnect/core/views.py:382 basxconnect/core/views.py:387
+#: basxconnect/core/views.py:399
 msgid "Persons"
 msgstr "Personnes"
 
@@ -272,7 +272,7 @@ msgid "Remarks"
 msgstr "Remarques"
 
 #: basxconnect/core/models/persons.py:90 basxconnect/core/models/utils.py:24
-#: basxconnect/core/models/utils.py:30 basxconnect/core/views.py:82
+#: basxconnect/core/models/utils.py:30 basxconnect/core/views.py:94
 msgid "Category"
 msgstr "Catégorie"
 
@@ -332,7 +332,7 @@ msgstr "Genre"
 msgid "Person category"
 msgstr "Catégorie de personne"
 
-#: basxconnect/core/models/persons.py:216 basxconnect/core/views.py:113
+#: basxconnect/core/models/persons.py:216 basxconnect/core/views.py:125
 msgid "Natural Person"
 msgstr "Personne physique"
 
@@ -344,7 +344,7 @@ msgstr "Personnes morales"
 msgid "Addition name"
 msgstr "Nom supplémentaire"
 
-#: basxconnect/core/models/persons.py:238 basxconnect/core/views.py:114
+#: basxconnect/core/models/persons.py:238 basxconnect/core/views.py:126
 msgid "Legal Person"
 msgstr "Personne morale"
 
@@ -356,7 +356,7 @@ msgstr "Personnes morales"
 msgid "Name"
 msgstr "Nom"
 
-#: basxconnect/core/models/persons.py:262 basxconnect/core/views.py:116
+#: basxconnect/core/models/persons.py:262 basxconnect/core/views.py:128
 msgid "Person Association"
 msgstr "Association"
 
@@ -416,32 +416,39 @@ msgstr "Terme"
 msgid "Terms"
 msgstr "Termes"
 
-#: basxconnect/core/views.py:254
+#: basxconnect/core/views.py:265
 msgid "Tags"
 msgstr "Étiquettes"
 
-#: basxconnect/core/views.py:260
+#: basxconnect/core/views.py:273
 msgid "Languages"
 msgstr "Langues"
 
-#: basxconnect/core/views.py:331 basxconnect/core/views.py:362
+#: basxconnect/core/views.py:344 basxconnect/core/views.py:350
+#: basxconnect/core/views.py:383
 msgid "Settings"
 msgstr "Paramètres"
 
-#: basxconnect/core/views.py:333
+#: basxconnect/core/views.py:346 basxconnect/core/views.py:352
 msgid "Information about our organization"
 msgstr "Informations sur votre organisation"
 
-#: basxconnect/core/views.py:345
+#: basxconnect/core/views.py:354
+msgid ""
+"The django setting BASXCONNECT.OWNER_PERSON_ID needs to be set to an "
+"existing person in order to be able to edit this screen"
+msgstr ""
+
+#: basxconnect/core/views.py:366
 #, python-format
 msgid "%s is %s"
 msgstr "%s est %s"
 
-#: basxconnect/core/views.py:410
+#: basxconnect/core/views.py:431
 msgid "No results"
 msgstr "Aucun résultat"
 
-#: basxconnect/core/views.py:425
+#: basxconnect/core/views.py:446
 msgid "No address"
 msgstr "Aucune adresse"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-24 09:34+0700\n"
+"POT-Creation-Date: 2021-03-29 20:55+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,11 +197,11 @@ msgstr "Zuweisung vollstängid"
 msgid "Continue in order to complete the import"
 msgstr "Weiterfahren um den Import abzuschliessen"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:243
+#: basxconnect/contributions/wizards/contributionsimport.py:242
 msgid "Import contributions"
 msgstr "Zuwendungen importieren"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:286
+#: basxconnect/contributions/wizards/contributionsimport.py:285
 #, python-format
 msgid "Successfully imported %d contributions"
 msgstr "%d Zuwendungen wurden erfolgreich importiert"
