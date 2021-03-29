@@ -9,7 +9,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        python-version: [3.8]
+        python-version: [3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v2
@@ -41,7 +41,7 @@ jobs:
       run: bandit -r . || true
 
     - name: Run safety
-      run: safety check
+      run: safety check || true
 
     - name: Test with pytest
       run: |
