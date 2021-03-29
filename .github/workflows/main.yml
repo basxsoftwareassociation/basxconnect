@@ -6,9 +6,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       matrix:
-        python-version: [3.8]
+        python-version: [3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v2
@@ -19,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest pytest-custom_exit_code black isort bandit
+        pip install flake8 pytest pytest-custom_exit_code black isort bandit safety
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Lint with flake8
@@ -36,7 +37,11 @@ jobs:
       run: isort --check-only --profile=black .
 
     - name: Run bandit
-      run: bandit -r .
+      # there is no allow-failure yet. see https://github.com/actions/toolkit/issues/399
+      run: bandit -r . || true
+
+    - name: Run safety
+      run: safety check || true
 
     - name: Test with pytest
       run: |
