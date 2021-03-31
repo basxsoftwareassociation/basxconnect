@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-03-29 20:55+0700\n"
-"PO-Revision-Date: 2021-03-25 02:48+0000\n"
+"PO-Revision-Date: 2021-03-31 02:26+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/layouts.py:204 basxconnect/core/views.py:345
@@ -438,6 +438,8 @@ msgid ""
 "The django setting BASXCONNECT.OWNER_PERSON_ID needs to be set to an "
 "existing person in order to be able to edit this screen"
 msgstr ""
+"การตั้งค่า Django ที่ BASXCONNECT.OWNER_PERSON_ID "
+"ต้องเป็นบุคคลที่ถูกตั้งค่าให้สามารถแก้ไขหน้าจอนี้ได้"
 
 #: basxconnect/core/views.py:366
 #, python-format
