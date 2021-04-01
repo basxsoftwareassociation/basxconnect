@@ -439,13 +439,15 @@ def searchperson(request):
 
     if objects:
         ret = hg.UL(
+            hg.LI(_("%s items found") % len(objects), style="margin-bottom: 20px"),
             hg.Iterator(
                 objects,
                 "object",
                 hg.LI(
                     hg.F(
-                        lambda c, e: mark_safe(
-                            highlight.highlight(c["object"].personnumber)
+                        lambda c, e: hg.SPAN(
+                            mark_safe(highlight.highlight(c["object"].personnumber)),
+                            style="width: 48px; display: inline-block",
                         )
                     ),
                     " ",
@@ -454,7 +456,7 @@ def searchperson(request):
                             highlight.highlight(c["object"].search_index_snippet())
                         )
                     ),
-                    style="cursor: pointer; padding: 0.5rem;",
+                    style="cursor: pointer; padding: 8px 0;",
                     onclick=hg.BaseElement(
                         "document.location = '",
                         hg.F(
@@ -467,7 +469,7 @@ def searchperson(request):
                     onmouseenter="this.style.backgroundColor = 'lightgray'",
                     onmouseleave="this.style.backgroundColor = 'initial'",
                 ),
-            )
+            ),
         )
     return HttpResponse(
         hg.DIV(
