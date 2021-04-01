@@ -240,10 +240,8 @@ msgid "Postal addresses"
 msgstr "Anschriften"
 
 #: basxconnect/core/models/persons.py:22
-#, fuzzy
-#| msgid "Delete"
 msgid "Deleted"
-msgstr "Löschen"
+msgstr "Gelöscht"
 
 #: basxconnect/core/models/persons.py:24
 msgid "Person number"
@@ -439,7 +437,8 @@ msgstr "Angaben zu unserer Organisation"
 msgid ""
 "The django setting BASXCONNECT.OWNER_PERSON_ID needs to be set to an "
 "existing person in order to be able to edit this screen"
-msgstr ""
+msgstr "Die Django Einstellung BASXCONNECT.OWNER_PERSON_ID muss auf "
+"den Wert einer existierender Person gesetzt sein um diese Ansicht editieren zu können"
 
 #: basxconnect/core/views.py:367
 #, python-format
@@ -453,7 +452,7 @@ msgstr "Keine Ergebnisse gefunden"
 #: basxconnect/core/views.py:442
 #, python-format
 msgid "%s items found"
-msgstr ""
+msgstr "%s Einträge gefunden"
 
 #: basxconnect/core/wizards/add_person.py:69
 msgid "Back"
