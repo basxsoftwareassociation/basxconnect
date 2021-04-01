@@ -426,14 +426,12 @@ def searchperson(request):
     if not query:
         return HttpResponse("")
 
-    objects = [
-        result.object
-        for result in SearchQuerySet()
+    objects = (
+        SearchQuerySet()
         .models(models.Person)
         .autocomplete(name_auto=query)
         .filter_or(personnumber=query)
-        if result.object
-    ]
+    )
 
     ret = _("No results")
 
@@ -443,31 +441,40 @@ def searchperson(request):
             hg.Iterator(
                 objects,
                 "object",
-                hg.LI(
-                    hg.F(
-                        lambda c, e: hg.SPAN(
-                            mark_safe(highlight.highlight(c["object"].personnumber)),
-                            style="width: 48px; display: inline-block",
-                        )
-                    ),
-                    " ",
-                    hg.F(
-                        lambda c, e: mark_safe(
-                            highlight.highlight(c["object"].search_index_snippet())
-                        )
-                    ),
-                    style="cursor: pointer; padding: 8px 0;",
-                    onclick=hg.BaseElement(
-                        "document.location = '",
+                hg.If(
+                    hg.C("object.object"),
+                    hg.LI(
                         hg.F(
-                            lambda c, e: reverse_model(
-                                c["object"], "edit", kwargs={"pk": c["object"].pk}
+                            lambda c, e: hg.SPAN(
+                                mark_safe(
+                                    highlight.highlight(c["object"].object.personnumber)
+                                ),
+                                style="width: 48px; display: inline-block",
                             )
                         ),
-                        "'",
+                        " ",
+                        hg.F(
+                            lambda c, e: mark_safe(
+                                highlight.highlight(
+                                    c["object"].object.search_index_snippet()
+                                )
+                            )
+                        ),
+                        style="cursor: pointer; padding: 8px 0;",
+                        onclick=hg.BaseElement(
+                            "document.location = '",
+                            hg.F(
+                                lambda c, e: reverse_model(
+                                    c["object"].object,
+                                    "edit",
+                                    kwargs={"pk": c["object"].object.pk},
+                                )
+                            ),
+                            "'",
+                        ),
+                        onmouseenter="this.style.backgroundColor = 'lightgray'",
+                        onmouseleave="this.style.backgroundColor = 'initial'",
                     ),
-                    onmouseenter="this.style.backgroundColor = 'lightgray'",
-                    onmouseleave="this.style.backgroundColor = 'initial'",
                 ),
             ),
         )
