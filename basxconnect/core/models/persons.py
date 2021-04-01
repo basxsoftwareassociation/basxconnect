@@ -136,6 +136,16 @@ class Person(models.Model):
             self.personnumber = str(self.pk)
             super().save(*args, **kwargs)
 
+    def search_index_snippet(self):
+        addr = self.primary_postal_address
+        pieces = [self.name]
+        if addr:
+            pieces.append(addr.address.replace("\n", " "))
+            pieces.append(f"{addr.postcode} {addr.city}")
+            pieces.append(addr.country.code)
+
+        return ", ".join(pieces)
+
     class Meta:
         ordering = ["name"]
         verbose_name = _("Person")

@@ -13,6 +13,7 @@ from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from haystack.query import SearchQuerySet
+from haystack.utils.highlighting import Highlighter
 
 from . import layouts, models, settings
 
@@ -411,57 +412,67 @@ menu.registeritem(
 )
 
 
+class CustomHighlighter(Highlighter):
+    def find_window(self, highlight_locations):
+        return (0, self.max_length)
+
+
 # Search view
 # simple person search view, for use with ajax calls
 def searchperson(request):
     query = request.GET.get("q")
+    highlight = CustomHighlighter(query)
+
     if not query:
         return HttpResponse("")
 
     objects = [
         result.object
         for result in SearchQuerySet()
-        .models(models.NaturalPerson, models.LegalPerson, models.PersonAssociation)
+        .models(models.Person)
         .autocomplete(name_auto=query)
+        .filter_or(personnumber=query)
         if result.object
     ]
-    if not objects:
-        return HttpResponse(
-            hg.DIV(
-                _("No results"),
-                _class="bx--tile raised",
-                style="margin-bottom: 1rem; padding: 0.5rem;",
-            ).render({})
-        )
 
+    ret = _("No results")
+
+    if objects:
+        ret = hg.UL(
+            hg.Iterator(
+                objects,
+                "object",
+                hg.LI(
+                    hg.F(
+                        lambda c, e: mark_safe(
+                            highlight.highlight(c["object"].personnumber)
+                        )
+                    ),
+                    " ",
+                    hg.F(
+                        lambda c, e: mark_safe(
+                            highlight.highlight(c["object"].search_index_snippet())
+                        )
+                    ),
+                    style="cursor: pointer; padding: 0.5rem;",
+                    onclick=hg.BaseElement(
+                        "document.location = '",
+                        hg.F(
+                            lambda c, e: reverse_model(
+                                c["object"], "edit", kwargs={"pk": c["object"].pk}
+                            )
+                        ),
+                        "'",
+                    ),
+                    onmouseenter="this.style.backgroundColor = 'lightgray'",
+                    onmouseleave="this.style.backgroundColor = 'initial'",
+                ),
+            )
+        )
     return HttpResponse(
         hg.DIV(
-            hg.UL(
-                *[
-                    hg.LI(
-                        hg.DIV(
-                            object,
-                            hg.DIV(
-                                mark_safe(
-                                    object.core_postal_list.first() or _("No address")
-                                ),
-                                style="font-size: small; padding-bottom: 0.5rem; padding-top: 0.5rem",
-                            ),
-                        ),
-                        style="cursor: pointer; padding: 0.5rem;",
-                        onclick=(
-                            "document.location = '"
-                            + str(
-                                reverse_model(object, "edit", kwargs={"pk": object.pk})
-                            )
-                            + "'"
-                        ),
-                        onmouseenter="this.style.backgroundColor = 'lightgray'",
-                        onmouseleave="this.style.backgroundColor = 'initial'",
-                    )
-                    for object in objects
-                ]
-            ),
-            _class="bx--tile raised",
+            ret,
+            _class="raised",
+            style="margin-bottom: 1rem; padding: 16px 0 48px 48px; background-color: #fff",
         ).render({})
     )
