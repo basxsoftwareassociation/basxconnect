@@ -224,7 +224,7 @@ class AddPersonWizard(PermissionRequiredMixin, NamedUrlSessionWizardView):
     _("Subtype")
     _("Information")
     _("Confirmation")
-    template_name = "core/wizards/add_person.html"
+    template_name = "bread/base.html"
     condition_dict = {
         "Subtype": lambda wizard: ChooseSubType.ALLOWED_SUBTYPE_CATEGORY.get(
             (wizard.get_cleaned_data_for_step("Type") or {}).get("persontype")
