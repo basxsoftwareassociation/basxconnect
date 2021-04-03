@@ -190,7 +190,7 @@ def editperson_head(request, isreadview):
             ),
             _class="disabled-02" if isreadview else "",
         ),
-        style="position: sticky; top: 3rem; z-index: 99; background-color: inherit; margin-bottom: 1rem; box-shadow: 0 3px 3px -2px black;",
+        style="position: sticky; top: 3rem; z-index: 99; background-color: #fff; margin-bottom: 1rem; box-shadow: 0 3px 3px -2px black;",
         gridmode="full-width",
     )
 

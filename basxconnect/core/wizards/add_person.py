@@ -315,6 +315,7 @@ class AddPersonWizard(PermissionRequiredMixin, NamedUrlSessionWizardView):
                 if k in ("address", "city", "postcode", "country")
             }
         )
+        newperson.save()
         return redirect(
             reverse_model(
                 newperson._meta.model,
