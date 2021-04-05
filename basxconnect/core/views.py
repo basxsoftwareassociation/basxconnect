@@ -29,7 +29,7 @@ def personform_shortcut(request, formlayout, isreadview):
 
 
 class NaturalPersonEditView(EditView):
-    def layout(self):
+    def get_layout(self):
         return personform_shortcut(
             self.request,
             layouts.editnaturalperson_form(self.request),
@@ -38,7 +38,7 @@ class NaturalPersonEditView(EditView):
 
 
 class NaturalPersonReadView(ReadView):
-    def layout(self):
+    def get_layout(self):
         return layoutasreadonly(
             personform_shortcut(
                 self.request,
@@ -49,7 +49,7 @@ class NaturalPersonReadView(ReadView):
 
 
 class LegalPersonEditView(EditView):
-    def layout(self):
+    def get_layout(self):
         return personform_shortcut(
             self.request,
             layouts.editlegalperson_form(self.request),
@@ -58,7 +58,7 @@ class LegalPersonEditView(EditView):
 
 
 class LegalPersonReadView(ReadView):
-    def layout(self):
+    def get_layout(self):
         return layoutasreadonly(
             personform_shortcut(
                 self.request,
@@ -69,7 +69,7 @@ class LegalPersonReadView(ReadView):
 
 
 class PersonAssociationEditView(EditView):
-    def layout(self):
+    def get_layout(self):
         return personform_shortcut(
             self.request,
             layouts.editpersonassociation_form(self.request),
@@ -78,7 +78,7 @@ class PersonAssociationEditView(EditView):
 
 
 class PersonAssociationReadView(ReadView):
-    def layout(self):
+    def get_layout(self):
         return layoutasreadonly(
             personform_shortcut(
                 self.request,
@@ -159,8 +159,51 @@ class PersonBrowseView(BrowseView):
             required=False,
         )
 
+    def get_layout(self):
+        ret = super().get_layout()
+        toolbar = list(
+            ret.filter(
+                lambda e, a: getattr(e, "attributes", {}).get("_class", "")
+                == "bx--toolbar-content"
+            )
+        )[0]
+        toolbar.insert(
+            -2,
+            hg.DIV(
+                self._checkbox_count(),
+                layout.icon.Icon(
+                    "close",
+                    focusable="false",
+                    size=15,
+                    role="img",
+                    onclick=f"document.location = '{self.request.path}'",
+                ),
+                role="button",
+                _class="bx--list-box__selection bx--list-box__selection--multi bx--tag--filter",
+                style="margin: auto 0.5rem;",
+                tabindex="0",
+                title=("Reset"),
+            ),
+        )
+        return ret
+
     def _filterform(self):
         return self.FilterForm({"status": ["active"], **self.request.GET})
+
+    def _checkbox_count(self):
+        counter = 0
+        form = self._filterform()
+        if form.is_valid():
+            counter += 1 if form.cleaned_data["naturalperson"] else 0
+            counter += 1 if form.cleaned_data["legalperson"] else 0
+            counter += 1 if form.cleaned_data["personassociation"] else 0
+            counter += form.cleaned_data["naturalperson_subtypes"].count()
+            counter += form.cleaned_data["legalperson_subtypes"].count()
+            counter += form.cleaned_data["personassociation_subtypes"].count()
+            counter += form.cleaned_data["categories"].count()
+            counter += len(form.cleaned_data["preferred_language"])
+            counter += len(form.cleaned_data["status"])
+        return counter
 
     def get_queryset(self):
         ret = super().get_queryset()
@@ -220,7 +263,7 @@ class PersonBrowseView(BrowseView):
                                                 "style": "padding-left: 1rem",
                                             },
                                         ),
-                                        style="",
+                                        style="margin-top: -2rem",
                                     ),
                                 ),
                                 layout.form.FormField(
@@ -236,7 +279,7 @@ class PersonBrowseView(BrowseView):
                                             "style": "padding-left: 1rem"
                                         },
                                     ),
-                                    style="",
+                                    style="margin-top: -2rem",
                                 ),
                                 style="margin-right: 16px",
                             ),
@@ -254,7 +297,7 @@ class PersonBrowseView(BrowseView):
                                             "style": "padding-left: 1rem"
                                         },
                                     ),
-                                    style="",
+                                    style="margin-top: -2rem",
                                 ),
                                 style="margin-right: 16px",
                             ),
