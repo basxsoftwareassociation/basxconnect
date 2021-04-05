@@ -286,18 +286,18 @@ class PersonBrowseView(BrowseView):
                 ),
                 hg.DIV(
                     layout.button.Button(
-                        ("Cancel"),
+                        _("Cancel"),
                         buttontype="ghost",
                         onclick="this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
                     ),
                     layout.button.Button(
-                        ("Reset"),
+                        _("Reset"),
                         buttontype="secondary",
                         islink=True,
                         href=self.request.path,
                     ),
                     layout.button.Button(
-                        ("Filter"),
+                        _("Filter"),
                         type="submit",
                     ),
                     style="display: flex; justify-content: flex-end; margin-top: 24px",

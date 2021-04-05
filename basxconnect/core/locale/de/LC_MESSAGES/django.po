@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-01 21:11+0700\n"
+"POT-Creation-Date: 2021-04-05 13:40+0700\n"
 "PO-Revision-Date: 2021-03-24 02:36+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/basxconnect/"
@@ -424,6 +424,18 @@ msgstr "Tags"
 msgid "Languages"
 msgstr "Sprachen"
 
+#: basxconnect/core/views.py:289
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: basxconnect/core/views.py:294
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: basxconnect/core/views.py:300
+msgid "Filter"
+msgstr "Anwenden"
+
 #: basxconnect/core/views.py:345 basxconnect/core/views.py:351
 #: basxconnect/core/views.py:384
 msgid "Settings"
@@ -437,19 +449,20 @@ msgstr "Angaben zu unserer Organisation"
 msgid ""
 "The django setting BASXCONNECT.OWNER_PERSON_ID needs to be set to an "
 "existing person in order to be able to edit this screen"
-msgstr "Die Django Einstellung BASXCONNECT.OWNER_PERSON_ID muss auf "
-"den Wert einer existierender Person gesetzt sein um diese Ansicht editieren zu können"
+msgstr ""
+"Die Django Einstellung BASXCONNECT.OWNER_PERSON_ID muss auf den Wert einer "
+"existierender Person gesetzt sein um diese Ansicht editieren zu können"
 
 #: basxconnect/core/views.py:367
 #, python-format
 msgid "%s is %s"
 msgstr "%s ist %s"
 
-#: basxconnect/core/views.py:438
+#: basxconnect/core/views.py:436
 msgid "No results"
 msgstr "Keine Ergebnisse gefunden"
 
-#: basxconnect/core/views.py:442
+#: basxconnect/core/views.py:440
 #, python-format
 msgid "%s items found"
 msgstr "%s Einträge gefunden"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-01 21:11+0700\n"
+"POT-Creation-Date: 2021-04-05 13:40+0700\n"
 "PO-Revision-Date: 2021-03-27 03:29+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -432,6 +432,18 @@ msgstr "Etiketter"
 msgid "Languages"
 msgstr "Språk"
 
+#: basxconnect/core/views.py:289
+msgid "Cancel"
+msgstr ""
+
+#: basxconnect/core/views.py:294
+msgid "Reset"
+msgstr ""
+
+#: basxconnect/core/views.py:300
+msgid "Filter"
+msgstr ""
+
 #: basxconnect/core/views.py:345 basxconnect/core/views.py:351
 #: basxconnect/core/views.py:384
 msgid "Settings"
@@ -453,11 +465,11 @@ msgstr ""
 msgid "%s is %s"
 msgstr "%s er %s"
 
-#: basxconnect/core/views.py:438
+#: basxconnect/core/views.py:436
 msgid "No results"
 msgstr "Resultatløst"
 
-#: basxconnect/core/views.py:442
+#: basxconnect/core/views.py:440
 #, python-format
 msgid "%s items found"
 msgstr ""
