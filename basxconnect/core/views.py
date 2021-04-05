@@ -160,6 +160,7 @@ class PersonBrowseView(BrowseView):
         )
 
     def get_layout(self):
+        self.checkboxcounterid = hg.html_id(self, "checkbox-counter")
         ret = super().get_layout()
         toolbar = list(
             ret.filter(
@@ -170,7 +171,7 @@ class PersonBrowseView(BrowseView):
         toolbar.insert(
             -2,
             hg.DIV(
-                self._checkbox_count(),
+                hg.SPAN(self._checkbox_count(), id=self.checkboxcounterid),
                 layout.icon.Icon(
                     "close",
                     focusable="false",
@@ -359,10 +360,19 @@ class PersonBrowseView(BrowseView):
                             new CarbonComponents.Checkbox(items[i]).setState(value);
                         }
                     }
+                    function updateCheckboxCounter(group) {
+                        var items = $$('input[type=checkbox]', group);
+                        var count = 0;
+                        for(item of items)
+                            count += item.getAttribute('aria-checked') == 'true' ? 1 : 0
+                        $('#%s').innerHTML = count;
+                    }
                     """
+                    % (self.checkboxcounterid,)
                 )
             ),
             style="background-color: #fff",
+            onclick="updateCheckboxCounter(this)",
         )
 
 
