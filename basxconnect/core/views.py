@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 from django.views.decorators.csrf import csrf_exempt
 from haystack.query import SearchQuerySet
 from haystack.utils.highlighting import Highlighter
@@ -341,7 +342,7 @@ class PersonBrowseView(BrowseView):
                         href=self.request.path,
                     ),
                     layout.button.Button(
-                        _("Filter"),
+                        pgettext_lazy("apply filter", "Filter"),
                         type="submit",
                     ),
                     style="display: flex; justify-content: flex-end; margin-top: 24px",
