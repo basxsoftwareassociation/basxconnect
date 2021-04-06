@@ -4,7 +4,7 @@ pip:
 	twine upload dist/*
 
 locale:
-	./manage.py makemessages -l de -l th -l nb_NO -l fr
+	./manage.py makemessages -l de -l th -l nb_NO -l fr -l pt
 
 checks:
 	black --check basxconnect
