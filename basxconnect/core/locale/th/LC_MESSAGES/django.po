@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-05 20:56+0700\n"
-"PO-Revision-Date: 2021-03-31 02:26+0000\n"
+"PO-Revision-Date: 2021-04-07 01:59+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -426,16 +426,16 @@ msgstr "เลือกใช้ภาษา"
 
 #: basxconnect/core/views.py:334
 msgid "Cancel"
-msgstr ""
+msgstr "ยกเลิก"
 
 #: basxconnect/core/views.py:339
 msgid "Reset"
-msgstr ""
+msgstr "ตั้งค่าใหม่"
 
 #: basxconnect/core/views.py:345
 msgctxt "apply filter"
 msgid "Filter"
-msgstr ""
+msgstr "เลือก"
 
 #: basxconnect/core/views.py:399 basxconnect/core/views.py:405
 #: basxconnect/core/views.py:438
@@ -466,7 +466,7 @@ msgstr "ไม่มีผลลัพท์"
 #: basxconnect/core/views.py:494
 #, python-format
 msgid "%s items found"
-msgstr ""
+msgstr "%sรายการที่พบ"
 
 #: basxconnect/core/wizards/add_person.py:69
 msgid "Back"
