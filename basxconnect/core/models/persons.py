@@ -9,6 +9,8 @@ from simple_history.models import HistoricalRecords
 from .. import settings
 from .utils import Note, Term
 
+LanguageField.db_collation = None  # fix issue with LanguageField in django 3.2
+
 
 class PersonManager(models.Manager):
     def get_queryset(self, *args, **kwargs):
