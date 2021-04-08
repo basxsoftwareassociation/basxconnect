@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-05 20:56+0700\n"
-"PO-Revision-Date: 2021-03-25 02:49+0000\n"
+"PO-Revision-Date: 2021-04-08 02:26+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/fr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/layouts.py:204 basxconnect/core/views.py:400
@@ -426,16 +426,16 @@ msgstr "Langues"
 
 #: basxconnect/core/views.py:334
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: basxconnect/core/views.py:339
 msgid "Reset"
-msgstr ""
+msgstr "Réinitialiser"
 
 #: basxconnect/core/views.py:345
 msgctxt "apply filter"
 msgid "Filter"
-msgstr ""
+msgstr "Filtrer"
 
 #: basxconnect/core/views.py:399 basxconnect/core/views.py:405
 #: basxconnect/core/views.py:438
@@ -451,6 +451,8 @@ msgid ""
 "The django setting BASXCONNECT.OWNER_PERSON_ID needs to be set to an "
 "existing person in order to be able to edit this screen"
 msgstr ""
+"Le paramètre django BASXCONNECT.OWNER_PERSON_ID doit être défini à une "
+"personne existante afin de pourvoir modifier cet écran"
 
 #: basxconnect/core/views.py:421
 #, python-format
@@ -464,7 +466,7 @@ msgstr "Aucun résultat"
 #: basxconnect/core/views.py:494
 #, python-format
 msgid "%s items found"
-msgstr ""
+msgstr "%s éléments trouvés"
 
 #: basxconnect/core/wizards/add_person.py:69
 msgid "Back"
