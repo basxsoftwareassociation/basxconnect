@@ -62,11 +62,11 @@ msgstr "Aktiv"
 
 #: basxconnect/core/layouts.py:78
 msgid "Person status"
-msgstr "Status"
+msgstr "Status der Person"
 
 #: basxconnect/core/layouts.py:86 basxconnect/core/models/persons.py:100
 msgid "Main Type"
-msgstr "Personen-Art"
+msgstr "Personen-Typ"
 
 #: basxconnect/core/layouts.py:94
 msgid "Created"
@@ -74,7 +74,7 @@ msgstr "Erstellt"
 
 #: basxconnect/core/layouts.py:104
 msgid "Changed"
-msgstr "Geändert"
+msgstr "zuletzt geändert"
 
 #: basxconnect/core/layouts.py:114
 msgid "Unsaved changes"
@@ -112,7 +112,7 @@ msgstr "Adresse"
 
 #: basxconnect/core/layouts.py:374
 msgid "Numbers"
-msgstr "Nummern"
+msgstr "Telefon + Fax"
 
 #: basxconnect/core/layouts.py:386 basxconnect/core/models/addresses.py:51
 #: basxconnect/core/models/addresses.py:74 basxconnect/core/views.py:103
@@ -121,7 +121,7 @@ msgstr "E-Mail"
 
 #: basxconnect/core/layouts.py:408
 msgid "URLs"
-msgstr "URLs"
+msgstr "Internet"
 
 #: basxconnect/core/layouts.py:419 basxconnect/core/models/persons.py:44
 #: basxconnect/core/models/utils.py:25 basxconnect/core/views.py:251
@@ -151,7 +151,7 @@ msgstr "Änderung"
 #: basxconnect/core/layouts.py:450 basxconnect/core/layouts.py:474
 #: basxconnect/core/models/relationships.py:55 basxconnect/core/views.py:462
 msgid "Relationships"
-msgstr "Beziehungen"
+msgstr "Verknüpfungen"
 
 #: basxconnect/core/layouts.py:489 basxconnect/core/models/persons.py:152
 #: basxconnect/core/views.py:437 basxconnect/core/views.py:442
@@ -225,7 +225,7 @@ msgstr "Land"
 
 #: basxconnect/core/models/addresses.py:148
 msgid "Post Code"
-msgstr "Postleitzahl"
+msgstr "PLZ"
 
 #: basxconnect/core/models/addresses.py:149
 msgid "City"
