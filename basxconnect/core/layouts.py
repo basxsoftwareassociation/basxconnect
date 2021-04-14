@@ -249,7 +249,7 @@ def editnaturalperson_form(request):
                     gridmode="full-width",
                 ),
                 hg.DIV(_class="section-separator-bottom"),
-                address_and_relationships(request),
+                addresses(request),
             ),
         ),
         relationshipstab(request),
@@ -288,7 +288,7 @@ def editlegalperson_form(request):
                     gridmode="full-width",
                 ),
                 hg.DIV(_class="section-separator-bottom"),
-                address_and_relationships(request),
+                addresses(request),
             ),
         ),
         relationshipstab(request),
@@ -327,7 +327,7 @@ def editpersonassociation_form(request):
                     gridmode="full-width",
                 ),
                 hg.DIV(_class="section-separator-bottom"),
-                address_and_relationships(request),
+                addresses(request),
             ),
         ),
         relationshipstab(request),
@@ -337,7 +337,7 @@ def editpersonassociation_form(request):
     return ret
 
 
-def address_and_relationships(request):
+def addresses(request):
     return layout.grid.Grid(
         R(
             C(
