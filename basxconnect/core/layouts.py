@@ -86,10 +86,6 @@ def editperson_head(request, isreadview):
         hg.LABEL(_("Main Type"), _class="bx--label"),
         hg.DIV(layout.ModelName("object"), style="margin-top: 1rem"),
     )
-    persontype = hg.DIV(
-        hg.LABEL(layout.fieldlabel(Person, "_type"), _class="bx--label"),
-        hg.DIV(hg.C("object._type"), style="margin-top: 1rem"),
-    )
     created = hg.DIV(
         hg.LABEL(_("Created"), _class="bx--label"),
         hg.DIV(
@@ -167,7 +163,6 @@ def editperson_head(request, isreadview):
             C(active_toggle, width=1, breakpoint="md"),
             C(personnumber, width=1, breakpoint="md"),
             C(personmaintype, width=1, breakpoint="md"),
-            C(persontype, width=1, breakpoint="md"),
             C(created, width=1, breakpoint="md"),
             C(last_change, width=1, breakpoint="md"),
             C(),
