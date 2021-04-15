@@ -32,6 +32,13 @@ def editperson_toolbar(request):
             hg.F(lambda c, e: layout.objectaction(c["object"], "copy"))
         ),
     )
+    add_person_button = layout.button.Button(
+        _("Add person"),
+        buttontype="primary",
+        icon="add",
+        notext=True,
+        **layout.aslink_attributes(hg.F(lambda c, e: reverse_model(Person, "add"))),
+    )
 
     return hg.DIV(
         layout.grid.Grid(
@@ -48,6 +55,7 @@ def editperson_toolbar(request):
                     deletebutton,
                     copybutton,
                     layout.button.PrintPageButton(buttontype="ghost"),
+                    add_person_button,
                 ),
             ),
             gridmode="full-width",
