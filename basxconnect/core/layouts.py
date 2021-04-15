@@ -183,11 +183,11 @@ def editperson_head(request, isreadview):
                             _("Save changes"),
                             id=hg.BaseElement("save-button-", hg.C("object.pk")),
                             icon="save",
-                            buttontype="ghost",
+                            buttontype="tertiary",
                             onclick="document.querySelector('div.bx--content form[method=POST]').submit()",
                         ),
-                        width=1,
-                        breakpoint="md",
+                        width=4,
+                        breakpoint="lg",
                     )
                 ]
             ),
