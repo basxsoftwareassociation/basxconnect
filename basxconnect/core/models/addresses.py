@@ -57,6 +57,7 @@ class Email(Address):
         related_name="type_%(app_label)s_%(class)s_list",
         limit_choices_to={"category__slug": "addresstype"},
     )
+    type.verbose_name = _("Type")
 
     def asbutton(self):
         return hg.DIV(
@@ -91,6 +92,7 @@ class Web(Address):
         related_name="type_%(app_label)s_%(class)s_list",
         limit_choices_to={"category__slug": "urltype"},
     )
+    type.verbose_name = _("Type")
 
     def __str__(self):
         return format_html('<a href="{}">{}</a>', self.url, self.url)
