@@ -193,7 +193,7 @@ def editperson_head(request, isreadview):
             ),
             _class="disabled-02" if isreadview else "",
         ),
-        style="position: sticky; top: 3rem; z-index: 99; background-color: #fff; margin-bottom: 1rem; box-shadow: 0 3px 3px -2px black;",
+        style="position: sticky; top: 3rem; z-index: 99; background-color: #fff; margin-bottom: 1rem;",
         gridmode="full-width",
     )
 
@@ -258,7 +258,7 @@ def editnaturalperson_form(request):
         relationshipstab(request),
         container=True,
     )
-    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
+    apply_styling_for_edit_person(ret)
     return ret
 
 
@@ -297,7 +297,7 @@ def editlegalperson_form(request):
         relationshipstab(request),
         container=True,
     )
-    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
+    apply_styling_for_edit_person(ret)
     return ret
 
 
@@ -336,8 +336,21 @@ def editpersonassociation_form(request):
         relationshipstab(request),
         container=True,
     )
-    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
+    apply_styling_for_edit_person(ret)
     return ret
+
+
+def apply_styling_for_edit_person(ret):
+    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
+    ret[0].attributes["style"] = (
+        "position: sticky;"
+        "top: 14.75rem;"
+        "background-color:#fff;"
+        "z-index: 99;"
+        "padding-left: 2.5rem;"
+        "padding-right: 2.5rem;"
+        "border-bottom: #f4f4f4 solid;"
+    )
 
 
 def addresses(request):
