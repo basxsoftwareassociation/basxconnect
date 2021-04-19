@@ -257,7 +257,7 @@ msgstr "Briefanrede"
 
 #: basxconnect/core/models/persons.py:35
 msgid "Prefered Language"
-msgstr "Bevorzugte Sprache"
+msgstr "Sprache"
 
 #: basxconnect/core/models/persons.py:53
 msgid "Primary postal address"
