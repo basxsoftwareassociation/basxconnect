@@ -369,9 +369,10 @@ def addresses(request):
                 layout.form.FormsetField(
                     "core_postal_list",
                     R(
-                        C(F("type")),
-                        C(F("address", widgetattributes={"style": "height: 8.5rem"})),
-                        C(R(C(F("postcode"))), R(C(F("country")))),
+                        C(F("type"), width=2, breakpoint="lg"),
+                        C(F("address", widgetattributes={"style": "height: 1rem"})),
+                        C(F("postcode"), width=2, breakpoint="lg"),
+                        C(F("country")),
                         C(F("city")),
                         C(
                             layout.form.InlineDeleteButton(".bx--row"),
