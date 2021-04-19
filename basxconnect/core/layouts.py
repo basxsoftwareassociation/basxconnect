@@ -280,6 +280,7 @@ def editlegalperson_form(request):
                                 C(F("type")),
                                 C(F("preferred_language")),
                             ),
+                            _class="section-separator-right",
                         ),
                         C(
                             R(
