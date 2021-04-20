@@ -530,9 +530,9 @@ def addresses(request):
 def widgetattributes_textinput_icon(icon):
     return {
         "style": f"background-image: url(/static/{icon}.svg);"
-        "background-position: right 8px center;"
+        "background-position: right 12px center;"
         "background-repeat: no-repeat;"
-        "background-size: 24px"
+        "background-size: 16px"
     }
 
 
