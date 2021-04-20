@@ -1,3 +1,4 @@
+import htmlgenerator
 import htmlgenerator as hg
 from bread import layout as layout
 from bread import menu
@@ -59,6 +60,8 @@ class LegalPersonEditView(EditView):
 
 
 class LegalPersonReadView(ReadView):
+    htmlgenerator.__DEBUG__ = True
+
     def get_layout(self):
         return layoutasreadonly(
             personform_shortcut(
