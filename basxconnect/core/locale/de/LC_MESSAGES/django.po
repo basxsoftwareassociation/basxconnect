@@ -41,7 +41,11 @@ msgstr "Löschen"
 msgid "Copy"
 msgstr "Kopieren"
 
-#: basxconnect/core/layouts.py:40 basxconnect/core/wizards/add_person.py:114
+#: basxconnect/core/layouts.py:36 basxconnect/core/wizards/add_person.py:179
+msgid "Add person"
+msgstr "Person hinzufügen"
+
+#: basxconnect/core/layouts.py:47 basxconnect/core/wizards/add_person.py:114
 msgid "Search person"
 msgstr "Suche"
 
@@ -110,21 +114,37 @@ msgstr "Allgemeine Angaben"
 msgid "Address"
 msgstr "Adresse"
 
-#: basxconnect/core/layouts.py:374
+#: basxconnect/core/layouts.py:392
+msgid "Add address"
+msgstr "Adresse hinzufügen"
+
+#: basxconnect/core/layouts.py:400
 msgid "Numbers"
 msgstr "Telefon + Fax"
 
-#: basxconnect/core/layouts.py:386 basxconnect/core/models/addresses.py:51
-#: basxconnect/core/models/addresses.py:74 basxconnect/core/views.py:103
+#: basxconnect/core/layouts.py:412
+msgid "Add number"
+msgstr "Nr. hinzufügen"
+
+#: basxconnect/core/layouts.py:417 basxconnect/core/models/addresses.py:51
+#: basxconnect/core/models/addresses.py:75 basxconnect/core/views.py:106
 msgid "Email"
 msgstr "E-Mail"
 
-#: basxconnect/core/layouts.py:408
+#: basxconnect/core/layouts.py:436
+msgid "Add email address"
+msgstr "E-Mail Adresse hinzufügen"
+
+#: basxconnect/core/layouts.py:444
 msgid "URLs"
 msgstr "Internet"
 
-#: basxconnect/core/layouts.py:419 basxconnect/core/models/persons.py:44
-#: basxconnect/core/models/utils.py:25 basxconnect/core/views.py:251
+#: basxconnect/core/layouts.py:456
+msgid "Add Url"
+msgstr "Link hinzufügen"
+
+#: basxconnect/core/layouts.py:460 basxconnect/core/models/persons.py:46
+#: basxconnect/core/models/utils.py:25 basxconnect/core/views.py:254
 msgid "Categories"
 msgstr "Kategorien"
 
