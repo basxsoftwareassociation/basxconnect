@@ -402,7 +402,16 @@ def addresses(request):
                     "core_phone_list",
                     R(
                         C(F("type"), breakpoint="lg", width=4),
-                        C(F("number"), breakpoint="lg", width=12),
+                        C(
+                            F(
+                                "number",
+                                widgetattributes=widgetattributes_textinput_icon(
+                                    "phone"
+                                ),
+                            ),
+                            breakpoint="lg",
+                            width=12,
+                        ),
                     ),
                 ),
                 layout.form.FormsetAddButton(
@@ -426,7 +435,16 @@ def addresses(request):
                     "core_email_list",
                     R(
                         C(F("type"), breakpoint="lg", width=4),
-                        C(F("email"), breakpoint="lg", width=12),
+                        C(
+                            F(
+                                "email",
+                                widgetattributes=widgetattributes_textinput_icon(
+                                    "email"
+                                ),
+                            ),
+                            breakpoint="lg",
+                            width=12,
+                        ),
                     ),
                 ),
                 layout.form.FormsetAddButton(
@@ -446,7 +464,16 @@ def addresses(request):
                     "core_web_list",
                     R(
                         C(F("type"), breakpoint="lg", width=4),
-                        C(F("url"), breakpoint="lg", width=12),
+                        C(
+                            F(
+                                "url",
+                                widgetattributes=widgetattributes_textinput_icon(
+                                    "link"
+                                ),
+                            ),
+                            breakpoint="lg",
+                            width=12,
+                        ),
                     ),
                 ),
                 layout.form.FormsetAddButton(
@@ -468,6 +495,15 @@ def addresses(request):
         ),
         gridmode="full-width",
     )
+
+
+def widgetattributes_textinput_icon(icon):
+    return {
+        "style": f"background-image: url(/static/{icon}.svg);"
+        "background-position: right 8px center;"
+        "background-repeat: no-repeat;"
+        "background-size: 24px"
+    }
 
 
 def revisionstab(request):
