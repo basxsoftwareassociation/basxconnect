@@ -273,19 +273,22 @@ def editlegalperson_form(request):
                     R(
                         C(
                             R(
-                                C(F("name")),
-                                C(F("name_addition")),
-                            ),
-                            R(
-                                C(F("type")),
-                                C(F("preferred_language")),
+                                C(
+                                    R(C(F("name"))),
+                                    R(C(F("name_addition"))),
+                                    width=8,
+                                    breakpoint="lg",
+                                )
                             ),
                             _class="section-separator-right",
                         ),
                         C(
                             R(
-                                C(),
-                                C(F("salutation_letter")),
+                                C(F("preferred_language"), width=4, breakpoint="lg"),
+                                C(F("type"), width=8, breakpoint="lg"),
+                            ),
+                            R(
+                                C(F("salutation_letter"), width=12, breakpoint="lg"),
                             ),
                         ),
                     ),
