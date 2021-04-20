@@ -378,7 +378,10 @@ def addresses(request):
                         C(F("country")),
                         C(F("city")),
                         C(
-                            layout.form.InlineDeleteButton(".bx--row"),
+                            layout.form.InlineDeleteButton(
+                                ".bx--row",
+                                icon="subtract--alt",
+                            ),
                             style="margin-top: 1.5rem",
                             breakpoint="lg",
                             width=1,
