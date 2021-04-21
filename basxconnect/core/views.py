@@ -16,15 +16,22 @@ from django.views.decorators.csrf import csrf_exempt
 from haystack.query import SearchQuerySet
 from haystack.utils.highlighting import Highlighter
 
-from . import layouts, models, settings
+import basxconnect.core.layouts.person as person_layout
+import basxconnect.core.layouts.naturalperson as naturalperson_layout
+import basxconnect.core.layouts.legalperson as legalperson_layout
+import basxconnect.core.layouts.personassociation as personassociation_layout
+import basxconnect.core.layouts.settings as settings_layout
+
+from . import models, settings
+
 
 # ADD MODEL VIEWS AND REGISTER URLS -------------------------------------------
 
 
 def personform_shortcut(request, formlayout, isreadview):
     return hg.BaseElement(
-        layouts.editperson_toolbar(request),
-        layouts.editperson_head(request, isreadview=isreadview),
+        person_layout.editperson_toolbar(request),
+        person_layout.editperson_head(request, isreadview=isreadview),
         layout.form.Form(hg.C("form"), formlayout),
     )
 
@@ -33,7 +40,7 @@ class NaturalPersonEditView(EditView):
     def get_layout(self):
         return personform_shortcut(
             self.request,
-            layouts.editnaturalperson_form(self.request),
+            naturalperson_layout.naturalperson(self.request),
             isreadview=False,
         )
 
@@ -43,7 +50,7 @@ class NaturalPersonReadView(ReadView):
         return layoutasreadonly(
             personform_shortcut(
                 self.request,
-                layouts.editnaturalperson_form(self.request),
+                naturalperson_layout.naturalperson(self.request),
                 isreadview=True,
             )
         )
@@ -53,7 +60,7 @@ class LegalPersonEditView(EditView):
     def get_layout(self):
         return personform_shortcut(
             self.request,
-            layouts.editlegalperson_form(self.request),
+            legalperson_layout.legalperson(self.request),
             isreadview=False,
         )
 
@@ -63,7 +70,7 @@ class LegalPersonReadView(ReadView):
         return layoutasreadonly(
             personform_shortcut(
                 self.request,
-                layouts.editlegalperson_form(self.request),
+                legalperson_layout.legalperson(self.request),
                 isreadview=True,
             )
         )
@@ -73,7 +80,7 @@ class PersonAssociationEditView(EditView):
     def get_layout(self):
         return personform_shortcut(
             self.request,
-            layouts.editpersonassociation_form(self.request),
+            personassociation_layout.personassociation(self.request),
             isreadview=False,
         )
 
@@ -83,7 +90,7 @@ class PersonAssociationReadView(ReadView):
         return layoutasreadonly(
             personform_shortcut(
                 self.request,
-                layouts.editpersonassociation_form(self.request),
+                personassociation_layout.personassociation(self.request),
                 isreadview=True,
             )
         )
@@ -382,7 +389,7 @@ class PersonBrowseView(BrowseView):
 
 @aslayout
 def generalsettings(request):
-    layoutobj = layouts.generalsettings(request)
+    layoutobj = settings_layout.generalsettings(request)
     if models.Person.objects.filter(id=settings.OWNER_PERSON_ID).exists():
         form = generate_form(
             request,
@@ -424,12 +431,12 @@ def togglepersonstatus(request, pk: int):
 
 @aslayout
 def personsettings(request):
-    return layouts.personsettings(request)
+    return settings_layout.personsettings(request)
 
 
 @aslayout
 def relationshipssettings(request):
-    return layouts.relationshipssettings(request)
+    return settings_layout.relationshipssettings(request)
 
 
 # MENU ENTRIES ---------------------------------------------------------------------
