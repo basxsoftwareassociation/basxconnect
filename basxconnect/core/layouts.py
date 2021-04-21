@@ -258,7 +258,7 @@ def editnaturalperson_form(request):
         relationshipstab(request),
         container=True,
     )
-    apply_styling_for_edit_person(ret)
+    style_editperson(ret)
     return ret
 
 
@@ -302,7 +302,7 @@ def editlegalperson_form(request):
         relationshipstab(request),
         container=True,
     )
-    apply_styling_for_edit_person(ret)
+    style_editperson(ret)
     return ret
 
 
@@ -341,11 +341,11 @@ def editpersonassociation_form(request):
         relationshipstab(request),
         container=True,
     )
-    apply_styling_for_edit_person(ret)
+    style_editperson(ret)
     return ret
 
 
-def apply_styling_for_edit_person(ret):
+def style_editperson(ret):
     ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
     ret[0].attributes["style"] = (
         "position: sticky;"
