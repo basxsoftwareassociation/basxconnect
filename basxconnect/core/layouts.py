@@ -269,9 +269,9 @@ def editlegalperson_form(request):
             _("Base data"),
             hg.BaseElement(
                 layout.grid.Grid(
-                    R(C(hg.H4(_("General Information")))),
                     R(
                         C(
+                            R(C(hg.H4(_("Name")))),
                             R(
                                 C(
                                     R(C(F("name"))),
@@ -283,6 +283,7 @@ def editlegalperson_form(request):
                             _class="section-separator-right",
                         ),
                         C(
+                            R(C(hg.H4(_("Mailings")))),
                             R(
                                 C(F("preferred_language"), width=4, breakpoint="lg"),
                                 C(F("type"), width=8, breakpoint="lg"),
@@ -400,7 +401,7 @@ def addresses(request):
         ),
         R(
             C(
-                hg.H5(_("Numbers")),
+                hg.H4(_("Numbers")),
                 layout.form.FormsetField(
                     "core_phone_list",
                     R(
@@ -435,7 +436,7 @@ def addresses(request):
                 _class="section-separator-right",
             ),
             C(
-                hg.H5(_("Email")),
+                hg.H4(_("Email")),
                 hg.If(
                     hg.F(
                         lambda c, e: hasattr(c["object"], "core_email_list")
@@ -480,7 +481,7 @@ def addresses(request):
         ),
         R(
             C(
-                hg.H5(_("URLs")),
+                hg.H4(_("URLs")),
                 layout.form.FormsetField(
                     "core_web_list",
                     R(
@@ -514,12 +515,12 @@ def addresses(request):
                 ),
                 _class="section-separator-right",
             ),
-            C(hg.H5(_("Categories")), layout.form.FormField("categories")),
+            C(hg.H4(_("Categories")), layout.form.FormField("categories")),
             _class="section-separator-bottom",
             style="padding-bottom: 2rem",
         ),
         R(
-            C(hg.H5(_("Other")), F("remarks")),
+            C(hg.H4(_("Other")), F("remarks")),
             C(),
             style="margin-top: 1rem",
         ),
