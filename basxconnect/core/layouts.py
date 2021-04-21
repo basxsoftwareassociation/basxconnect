@@ -352,8 +352,8 @@ def apply_styling_for_edit_person(ret):
         "top: 14.75rem;"
         "background-color:#fff;"
         "z-index: 99;"
-        "padding-left: 2.5rem;"
-        "padding-right: 2.5rem;"
+        "padding-left: 2rem;"
+        "padding-right: 2rem;"
         "border-bottom: #f4f4f4 solid;"
     )
 
