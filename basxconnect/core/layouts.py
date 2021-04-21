@@ -362,7 +362,7 @@ def addresses(request):
     return layout.grid.Grid(
         R(
             C(
-                hg.H4(_("Address")),
+                hg.H4(_("Address(es)")),
                 hg.If(
                     hg.F(
                         lambda c, e: hasattr(c["object"], "core_postal_list")

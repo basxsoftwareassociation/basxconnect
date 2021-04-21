@@ -114,6 +114,9 @@ msgstr "Allgemeine Angaben"
 msgid "Address"
 msgstr "Adresse"
 
+msgid "Address(es)"
+msgstr "Adresse(n)"
+
 #: basxconnect/core/layouts.py:392
 msgid "Add address"
 msgstr "Adresse hinzufügen"
