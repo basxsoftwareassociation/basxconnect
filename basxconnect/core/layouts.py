@@ -32,6 +32,13 @@ def editperson_toolbar(request):
             hg.F(lambda c, e: layout.objectaction(c["object"], "copy"))
         ),
     )
+    add_person_button = layout.button.Button(
+        _("Add person"),
+        buttontype="primary",
+        icon="add",
+        notext=True,
+        **layout.aslink_attributes(hg.F(lambda c, e: reverse_model(Person, "add"))),
+    )
 
     return hg.DIV(
         layout.grid.Grid(
@@ -48,6 +55,7 @@ def editperson_toolbar(request):
                     deletebutton,
                     copybutton,
                     layout.button.PrintPageButton(buttontype="ghost"),
+                    add_person_button,
                 ),
             ),
             gridmode="full-width",
@@ -175,17 +183,17 @@ def editperson_head(request, isreadview):
                             _("Save changes"),
                             id=hg.BaseElement("save-button-", hg.C("object.pk")),
                             icon="save",
-                            buttontype="ghost",
+                            buttontype="tertiary",
                             onclick="document.querySelector('div.bx--content form[method=POST]').submit()",
                         ),
-                        width=1,
-                        breakpoint="md",
+                        width=4,
+                        breakpoint="lg",
                     )
                 ]
             ),
             _class="disabled-02" if isreadview else "",
         ),
-        style="position: sticky; top: 3rem; z-index: 99; background-color: #fff; margin-bottom: 1rem; box-shadow: 0 3px 3px -2px black;",
+        style="position: sticky; top: 3rem; z-index: 99; background-color: #fff; margin-bottom: 1rem;",
         gridmode="full-width",
     )
 
@@ -250,7 +258,7 @@ def editnaturalperson_form(request):
         relationshipstab(request),
         container=True,
     )
-    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
+    style_editperson(ret)
     return ret
 
 
@@ -261,22 +269,27 @@ def editlegalperson_form(request):
             _("Base data"),
             hg.BaseElement(
                 layout.grid.Grid(
-                    R(C(hg.H4(_("General Information")))),
                     R(
                         C(
+                            R(C(hg.H4(_("Name")))),
                             R(
-                                C(F("name")),
-                                C(F("name_addition")),
+                                C(
+                                    R(C(F("name"))),
+                                    R(C(F("name_addition"))),
+                                    width=8,
+                                    breakpoint="lg",
+                                )
                             ),
-                            R(
-                                C(F("type")),
-                                C(F("preferred_language")),
-                            ),
+                            _class="section-separator-right",
                         ),
                         C(
+                            R(C(hg.H4(_("Mailings")))),
                             R(
-                                C(),
-                                C(F("salutation_letter")),
+                                C(F("preferred_language"), width=4, breakpoint="lg"),
+                                C(F("type"), width=8, breakpoint="lg"),
+                            ),
+                            R(
+                                C(F("salutation_letter"), width=12, breakpoint="lg"),
                             ),
                         ),
                     ),
@@ -289,7 +302,7 @@ def editlegalperson_form(request):
         relationshipstab(request),
         container=True,
     )
-    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
+    style_editperson(ret)
     return ret
 
 
@@ -328,15 +341,28 @@ def editpersonassociation_form(request):
         relationshipstab(request),
         container=True,
     )
-    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
+    style_editperson(ret)
     return ret
+
+
+def style_editperson(ret):
+    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
+    ret[0].attributes["style"] = (
+        "position: sticky;"
+        "top: 14.75rem;"
+        "background-color:#fff;"
+        "z-index: 1;"
+        "padding-left: 2rem;"
+        "padding-right: 2rem;"
+        "border-bottom: #f4f4f4 solid;"
+    )
 
 
 def addresses(request):
     return layout.grid.Grid(
         R(
             C(
-                hg.H4(_("Address")),
+                hg.H4(_("Address(es)")),
                 hg.If(
                     hg.F(
                         lambda c, e: hasattr(c["object"], "core_postal_list")
@@ -347,38 +373,70 @@ def addresses(request):
                 layout.form.FormsetField(
                     "core_postal_list",
                     R(
-                        C(F("type")),
-                        C(F("address", widgetattributes={"style": "height: 8.5rem"})),
-                        C(R(C(F("postcode"))), R(C(F("country")))),
+                        C(F("type"), width=2, breakpoint="lg"),
+                        C(F("address", widgetattributes={"style": "height: 1rem"})),
+                        C(F("postcode"), width=2, breakpoint="lg"),
+                        C(F("country")),
                         C(F("city")),
                         C(
-                            layout.form.InlineDeleteButton(".bx--row"),
+                            layout.form.InlineDeleteButton(
+                                ".bx--row",
+                                icon="subtract--alt",
+                            ),
                             style="margin-top: 1.5rem",
                             breakpoint="lg",
                             width=1,
                         ),
                     ),
                 ),
-                layout.form.FormsetAddButton("core_postal_list", style="float: right"),
+                layout.form.FormsetAddButton(
+                    "core_postal_list",
+                    buttontype="ghost",
+                    notext=False,
+                    label=_("Add address"),
+                ),
                 _class="section-separator-bottom",
                 style="padding-bottom: 2rem",
             ),
         ),
         R(
             C(
-                hg.H5(_("Numbers")),
+                hg.H4(_("Numbers")),
                 layout.form.FormsetField(
                     "core_phone_list",
                     R(
                         C(F("type"), breakpoint="lg", width=4),
-                        C(F("number"), breakpoint="lg", width=12),
+                        C(
+                            F(
+                                "number",
+                                widgetattributes=widgetattributes_textinput_icon(
+                                    "phone"
+                                ),
+                            ),
+                            breakpoint="lg",
+                            width=8,
+                        ),
+                        C(
+                            layout.form.InlineDeleteButton(
+                                ".bx--row",
+                                icon="subtract--alt",
+                            ),
+                            style="margin-top: 1.5rem",
+                            breakpoint="lg",
+                            width=2,
+                        ),
                     ),
                 ),
-                layout.form.FormsetAddButton("core_phone_list", style="float: right"),
+                layout.form.FormsetAddButton(
+                    "core_phone_list",
+                    buttontype="ghost",
+                    notext=False,
+                    label=_("Add number"),
+                ),
                 _class="section-separator-right",
             ),
             C(
-                hg.H5(_("Email")),
+                hg.H4(_("Email")),
                 hg.If(
                     hg.F(
                         lambda c, e: hasattr(c["object"], "core_email_list")
@@ -390,38 +448,93 @@ def addresses(request):
                     "core_email_list",
                     R(
                         C(F("type"), breakpoint="lg", width=4),
-                        C(F("email"), breakpoint="lg", width=12),
+                        C(
+                            F(
+                                "email",
+                                widgetattributes=widgetattributes_textinput_icon(
+                                    "email"
+                                ),
+                            ),
+                            breakpoint="lg",
+                            width=8,
+                        ),
+                        C(
+                            layout.form.InlineDeleteButton(
+                                ".bx--row",
+                                icon="subtract--alt",
+                            ),
+                            style="margin-top: 1.5rem",
+                            breakpoint="lg",
+                            width=2,
+                        ),
                     ),
                 ),
-                layout.form.FormsetAddButton("core_email_list", style="float: right"),
+                layout.form.FormsetAddButton(
+                    "core_email_list",
+                    buttontype="ghost",
+                    notext=False,
+                    label=_("Add email address"),
+                ),
             ),
             _class="section-separator-bottom",
             style="padding-bottom: 2rem",
         ),
         R(
             C(
-                hg.H5(_("URLs")),
+                hg.H4(_("URLs")),
                 layout.form.FormsetField(
                     "core_web_list",
                     R(
                         C(F("type"), breakpoint="lg", width=4),
-                        C(F("url"), breakpoint="lg", width=12),
+                        C(
+                            F(
+                                "url",
+                                widgetattributes=widgetattributes_textinput_icon(
+                                    "link"
+                                ),
+                            ),
+                            breakpoint="lg",
+                            width=8,
+                        ),
+                        C(
+                            layout.form.InlineDeleteButton(
+                                ".bx--row",
+                                icon="subtract--alt",
+                            ),
+                            style="margin-top: 1.5rem",
+                            breakpoint="lg",
+                            width=2,
+                        ),
                     ),
                 ),
-                layout.form.FormsetAddButton("core_web_list", style="float: right"),
+                layout.form.FormsetAddButton(
+                    "core_web_list",
+                    buttontype="ghost",
+                    notext=False,
+                    label=_("Add Url"),
+                ),
                 _class="section-separator-right",
             ),
-            C(hg.H5(_("Categories")), layout.form.FormField("categories")),
+            C(hg.H4(_("Categories")), layout.form.FormField("categories")),
             _class="section-separator-bottom",
             style="padding-bottom: 2rem",
         ),
         R(
-            C(hg.H5(_("Other")), F("remarks")),
+            C(hg.H4(_("Other")), F("remarks")),
             C(),
             style="margin-top: 1rem",
         ),
         gridmode="full-width",
     )
+
+
+def widgetattributes_textinput_icon(icon):
+    return {
+        "style": f"background-image: url(/static/{icon}.svg);"
+        "background-position: right 12px center;"
+        "background-repeat: no-repeat;"
+        "background-size: 16px"
+    }
 
 
 def revisionstab(request):
