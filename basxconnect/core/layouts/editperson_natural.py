@@ -3,9 +3,14 @@ from bread import layout
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.layouts.editperson import (
-    contact_details,
+    addresses,
+    categories,
+    email,
+    numbers,
+    other,
     relationshipstab,
     style_person,
+    urls,
 )
 
 R = layout.grid.Row
@@ -28,13 +33,12 @@ def base_data_tab(request):
         _("Base data"),
         hg.BaseElement(
             layout.grid.Grid(
-                R(C(hg.H4(_("General")))),
                 R(
                     C(
+                        R(C(hg.H4(_("Name")))),
                         R(
-                            C(F("salutation")),
-                            C(F("title")),
-                            C(F("type")),
+                            C(F("salutation"), width=4, breakpoint="lg"),
+                            C(F("title"), width=4, breakpoint="lg"),
                         ),
                         R(
                             C(F("first_name")),
@@ -42,40 +46,69 @@ def base_data_tab(request):
                         ),
                         R(
                             C(F("name")),
-                            C(F("profession")),
                         ),
+                        _class="section-separator-right",
                     ),
                     C(
+                        R(C(hg.H4(_("Mailings")))),
                         R(
-                            C(width=1, breakpoint="lg"),
-                            C(F("form_of_address")),
-                            C(F("gender")),
-                            C(width=1, breakpoint="lg"),
                             C(F("preferred_language"), width=4, breakpoint="lg"),
-                        ),
-                        R(
-                            C(width=1, breakpoint="lg"),
-                            C(F("salutation_letter")),
-                            C(width=1, breakpoint="lg"),
                             C(width=4, breakpoint="lg"),
+                            C(F("type"), width=8, breakpoint="lg"),
                         ),
                         R(
-                            C(width=1, breakpoint="lg"),
-                            C(F("date_of_birth"), width=4, breakpoint="lg"),
-                            C(),
-                            C(
-                                F(
-                                    "deceased",
-                                    elementattributes={"_class": "standalone"},
-                                )
-                            ),
-                            C(F("decease_date"), width=4, breakpoint="lg"),
+                            C(F("salutation_letter"), width=4, breakpoint="lg"),
+                            C(F("gender"), width=4, breakpoint="lg"),
+                            C(F("form_of_address"), width=8, breakpoint="lg"),
                         ),
                     ),
                 ),
                 gridmode="full-width",
             ),
             hg.DIV(_class="section-separator-bottom"),
-            contact_details(request),
+            contact_details_naturalperson(request),
+        ),
+    )
+
+
+def contact_details_naturalperson(request):
+    return layout.grid.Grid(
+        addresses(),
+        R(
+            numbers(),
+            email(),
+            _class="section-separator-bottom",
+            style="padding-bottom: 2rem",
+        ),
+        R(
+            urls(),
+            personal(),
+            _class="section-separator-bottom",
+            style="padding-bottom: 2rem",
+        ),
+        R(
+            categories(),
+            other(),
+            style="margin-top: 1rem",
+        ),
+        gridmode="full-width",
+    )
+
+
+def personal():
+    return C(
+        hg.H4("Personal"),
+        R(C(F("profession"))),
+        R(
+            C(F("date_of_birth")),
+            C(
+                F(
+                    "deceased",
+                    elementattributes={"_class": "standalone"},
+                ),
+                width=4,
+                breakpoint="lg",
+            ),
+            C(F("decease_date"), width=4, breakpoint="lg"),
         ),
     )
