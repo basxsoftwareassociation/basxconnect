@@ -2,17 +2,18 @@ import htmlgenerator as hg
 from bread import layout
 from django.utils.translation import gettext_lazy as _
 
-from basxconnect.core.layouts.person import (
-    R,
-    C,
-    F,
+from basxconnect.core.layouts.editperson import (
     contact_details,
     relationshipstab,
     style_person,
 )
 
+R = layout.grid.Row
+C = layout.grid.Col
+F = layout.form.FormField
 
-def naturalperson(request):
+
+def editperson_natural_tabs(request):
     ret = layout.tabs.Tabs(
         base_data_tab(request),
         relationshipstab(request),
