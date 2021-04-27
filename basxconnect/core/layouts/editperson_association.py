@@ -33,18 +33,9 @@ def base_data_tab(request):
                 R(
                     C(
                         R(
-                            C(F("name")),
-                            C(),
-                        ),
-                        R(
-                            C(),
-                            C(F("preferred_language")),
-                        ),
-                    ),
-                    C(
-                        R(
-                            C(),
-                            C(F("salutation_letter")),
+                            C(F("name"), width=4, breakpoint="lg"),
+                            C(F("preferred_language"), width=2, breakpoint="lg"),
+                            C(F("salutation_letter"), width=4, breakpoint="lg"),
                         ),
                     ),
                 ),

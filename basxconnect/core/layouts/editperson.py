@@ -379,10 +379,25 @@ def addresses():
                 "core_postal_list",
                 R(
                     C(F("type"), width=2, breakpoint="lg"),
-                    C(F("address", widgetattributes={"style": "height: 1rem"})),
+                    C(
+                        F(
+                            "address",
+                            widgetattributes={"style": "height: 1rem"},
+                        ),
+                        width=4,
+                        breakpoint="lg",
+                    ),
                     C(F("postcode"), width=2, breakpoint="lg"),
-                    C(F("country")),
-                    C(F("city")),
+                    C(
+                        F("city"),
+                        width=4,
+                        breakpoint="lg",
+                    ),
+                    C(
+                        F("country"),
+                        width=3,
+                        breakpoint="lg",
+                    ),
                     C(
                         layout.form.InlineDeleteButton(
                             ".bx--row",
