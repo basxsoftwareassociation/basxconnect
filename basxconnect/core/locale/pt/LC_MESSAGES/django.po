@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-06 19:37+0700\n"
-"PO-Revision-Date: 2021-04-14 17:26+0000\n"
+"PO-Revision-Date: 2021-04-24 18:31+0000\n"
 "Last-Translator: Adneuza Tête <adneuzaquaresma@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/pt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/layouts.py:204 basxconnect/core/views.py:400
@@ -402,11 +402,11 @@ msgstr "Relação"
 
 #: basxconnect/core/models/utils.py:14
 msgid "Slug"
-msgstr ""
+msgstr "Slug"
 
 #: basxconnect/core/models/utils.py:16
 msgid "slug is human-readable, to make referencing easier"
-msgstr ""
+msgstr "slug é legível por humanos, para facilitar a referenciação"
 
 #: basxconnect/core/models/utils.py:31 basxconnect/core/models/utils.py:38
 msgid "Term"
