@@ -252,7 +252,6 @@ def numbers():
                 C(
                     F(
                         "number",
-                        widgetattributes=widgetattributes_textinput_icon("phone"),
                     ),
                     breakpoint="lg",
                     width=8,
@@ -295,7 +294,6 @@ def email():
                 C(
                     F(
                         "email",
-                        widgetattributes=widgetattributes_textinput_icon("email"),
                     ),
                     breakpoint="lg",
                     width=8,
@@ -334,7 +332,6 @@ def urls():
                 C(
                     F(
                         "url",
-                        widgetattributes=widgetattributes_textinput_icon("link"),
                     ),
                     breakpoint="lg",
                     width=8,
@@ -419,15 +416,6 @@ def addresses():
             style="padding-bottom: 2rem",
         ),
     )
-
-
-def widgetattributes_textinput_icon(icon):
-    return {
-        "style": f"background-image: url(/static/{icon}.svg);"
-        "background-position: right 12px center;"
-        "background-repeat: no-repeat;"
-        "background-size: 16px"
-    }
 
 
 def revisionstab(request):
