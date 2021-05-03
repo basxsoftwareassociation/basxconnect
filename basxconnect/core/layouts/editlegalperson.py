@@ -13,7 +13,7 @@ C = layout.grid.Col
 F = layout.form.FormField
 
 
-def editperson_association_tabs(request):
+def editlegalperson_form(request):
     # fix: alignment of tab content and tab should be on global grid I think
     ret = layout.tabs.Tabs(
         base_data_tab(request),
@@ -29,13 +29,27 @@ def base_data_tab(request):
         _("Base data"),
         hg.BaseElement(
             layout.grid.Grid(
-                R(C(hg.H4(_("General Information")))),
                 R(
                     C(
+                        R(C(hg.H4(_("Name")))),
                         R(
-                            C(F("name"), width=4, breakpoint="lg"),
-                            C(F("preferred_language"), width=2, breakpoint="lg"),
-                            C(F("salutation_letter"), width=4, breakpoint="lg"),
+                            C(
+                                R(C(F("name"))),
+                                R(C(F("name_addition"))),
+                                width=8,
+                                breakpoint="lg",
+                            )
+                        ),
+                        _class="section-separator-right",
+                    ),
+                    C(
+                        R(C(hg.H4(_("Mailings")))),
+                        R(
+                            C(F("preferred_language"), width=4, breakpoint="lg"),
+                            C(F("type"), width=8, breakpoint="lg"),
+                        ),
+                        R(
+                            C(F("salutation_letter"), width=12, breakpoint="lg"),
                         ),
                     ),
                 ),

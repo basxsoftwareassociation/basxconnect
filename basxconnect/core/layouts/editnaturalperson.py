@@ -18,7 +18,7 @@ C = layout.grid.Col
 F = layout.form.FormField
 
 
-def editperson_natural_tabs(request):
+def editnaturalperson_form(request):
     ret = layout.tabs.Tabs(
         base_data_tab(request),
         relationshipstab(request),
