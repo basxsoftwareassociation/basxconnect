@@ -17,10 +17,10 @@ from haystack.query import SearchQuerySet
 from haystack.utils.highlighting import Highlighter
 
 import basxconnect.core.layouts.settings_layout as settings_layout
+from basxconnect.core.layouts.editlegalperson import editlegalperson_form
+from basxconnect.core.layouts.editnaturalperson import editnaturalperson_form
 from basxconnect.core.layouts.editperson import editperson_head, editperson_toolbar
-from basxconnect.core.layouts.editperson_association import editperson_association_tabs
-from basxconnect.core.layouts.editperson_legal import editperson_legal_tabs
-from basxconnect.core.layouts.editperson_natural import editperson_natural_tabs
+from basxconnect.core.layouts.editpersonassociation import editpersonassociation_form
 
 from . import models, settings
 
@@ -39,7 +39,7 @@ class NaturalPersonEditView(EditView):
     def get_layout(self):
         return personform_shortcut(
             self.request,
-            editperson_natural_tabs(self.request),
+            editnaturalperson_form(self.request),
             isreadview=False,
         )
 
@@ -49,7 +49,7 @@ class NaturalPersonReadView(ReadView):
         return layoutasreadonly(
             personform_shortcut(
                 self.request,
-                editperson_natural_tabs(self.request),
+                editnaturalperson_form(self.request),
                 isreadview=True,
             )
         )
@@ -59,7 +59,7 @@ class LegalPersonEditView(EditView):
     def get_layout(self):
         return personform_shortcut(
             self.request,
-            editperson_legal_tabs(self.request),
+            editlegalperson_form(self.request),
             isreadview=False,
         )
 
@@ -69,7 +69,7 @@ class LegalPersonReadView(ReadView):
         return layoutasreadonly(
             personform_shortcut(
                 self.request,
-                editperson_legal_tabs(self.request),
+                editlegalperson_form(self.request),
                 isreadview=True,
             )
         )
@@ -79,7 +79,7 @@ class PersonAssociationEditView(EditView):
     def get_layout(self):
         return personform_shortcut(
             self.request,
-            editperson_association_tabs(self.request),
+            editpersonassociation_form(self.request),
             isreadview=False,
         )
 
@@ -89,7 +89,7 @@ class PersonAssociationReadView(ReadView):
         return layoutasreadonly(
             personform_shortcut(
                 self.request,
-                editperson_association_tabs(self.request),
+                editpersonassociation_form(self.request),
                 isreadview=True,
             )
         )
