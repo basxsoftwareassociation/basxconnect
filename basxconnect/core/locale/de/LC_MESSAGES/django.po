@@ -281,7 +281,7 @@ msgid "Salutation Letter"
 msgstr "Briefanrede"
 
 #: basxconnect/core/models/persons.py:37
-msgid "Prefered Language"
+msgid "Preferred Language"
 msgstr "Sprache"
 
 #: basxconnect/core/models/persons.py:55

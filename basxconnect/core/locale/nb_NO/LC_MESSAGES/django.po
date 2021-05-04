@@ -263,7 +263,7 @@ msgid "Salutation Letter"
 msgstr ""
 
 #: basxconnect/core/models/persons.py:35
-msgid "Prefered Language"
+msgid "Preferred Language"
 msgstr "Foretrukket språk"
 
 #: basxconnect/core/models/persons.py:53
