@@ -256,7 +256,7 @@ msgid "Salutation Letter"
 msgstr "คำขึ้นต้น จดหมาย"
 
 #: basxconnect/core/models/persons.py:35
-msgid "Prefered Language"
+msgid "Preferred Language"
 msgstr "เลือกใช้ภาษา"
 
 #: basxconnect/core/models/persons.py:53

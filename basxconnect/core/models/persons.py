@@ -34,7 +34,7 @@ class Person(models.Model):
         blank=True,
     )
     preferred_language = LanguageField(
-        _("Prefered Language"), blank=True, max_length=8
+        _("Preferred Language"), blank=True, max_length=8
     )  # mitigate up-stream bug
     preferred_language.lazy_choices = (
         lambda field, request, instance: settings.PREFERRED_LANGUAGES
