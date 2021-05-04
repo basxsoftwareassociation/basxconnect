@@ -557,9 +557,6 @@ msgstr "เพิ่ม %s"
 #~ msgid "Show inactive"
 #~ msgstr "แสดงว่าไม่ใช้งาน"
 
-#~ msgid "Preferred Language"
-#~ msgstr "เลือกใช้ภาษา"
-
 #~ msgid "Person Category"
 #~ msgstr "หมวดหมู่บุคคล"
 

@@ -580,9 +580,6 @@ msgstr "%s hinzufügen"
 #~ msgid "Show inactive"
 #~ msgstr "Zeige Inaktive"
 
-#~ msgid "Preferred Language"
-#~ msgstr "Bevorzugte Sprache"
-
 #~ msgid "Person Category"
 #~ msgstr "Personenkategorie"
 
