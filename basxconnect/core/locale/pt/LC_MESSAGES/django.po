@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-06 19:37+0700\n"
-"PO-Revision-Date: 2021-04-24 18:31+0000\n"
-"Last-Translator: Adneuza Tête <adneuzaquaresma@gmail.com>\n"
+"PO-Revision-Date: 2021-05-08 22:32+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/pt/>\n"
 "Language: pt\n"
@@ -142,7 +142,7 @@ msgstr "Data"
 
 #: basxconnect/core/layouts.py:439
 msgid "User"
-msgstr "Usuário"
+msgstr "Utilizador"
 
 #: basxconnect/core/layouts.py:440
 msgid "Change"
