@@ -100,15 +100,16 @@ def personal():
         hg.H4("Personal"),
         R(C(F("profession"))),
         R(
-            C(F("date_of_birth")),
+            C(F("date_of_birth"), width=6, breakpoint="lg"),
+            C("", width=1, breakpoint="lg"),
             C(
                 F(
                     "deceased",
                     elementattributes={"_class": "standalone"},
                 ),
-                width=4,
+                width=3,
                 breakpoint="lg",
             ),
-            C(F("decease_date"), width=4, breakpoint="lg"),
+            C(F("decease_date"), width=6, breakpoint="lg"),
         ),
     )
