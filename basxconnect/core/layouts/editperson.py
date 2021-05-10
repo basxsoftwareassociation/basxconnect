@@ -207,15 +207,9 @@ def active_toggle_readview():
 
 def style_person(ret):
     ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
-    ret[0].attributes["style"] = (
-        "position: sticky;"
-        "top: 14.75rem;"
-        "background-color:#fff;"
-        "z-index: 1;"
-        "padding-left: 2rem;"
-        "padding-right: 2rem;"
-        "border-bottom: #f4f4f4 solid;"
-    )
+    ret[0].attributes[
+        "style"
+    ] = "padding-left: 2rem; padding-right: 2rem; border-bottom: #f4f4f4 solid;"
 
 
 def contact_details(request):
@@ -443,7 +437,6 @@ def relationshipstab(request):
                 lambda c, e: c["object"].relationships_to.all()
                 | c["object"].relationships_from.all()
             ),
-            title="",
             addurl=reverse_model(
                 Relationship,
                 "add",
