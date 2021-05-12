@@ -1,5 +1,8 @@
+from collections import Callable
+
 import htmlgenerator as hg
-from bread import layout
+from bread import layout, menu
+from bread.layout.components.datatable import DataTableColumn
 from bread.utils import reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -417,11 +420,13 @@ def revisionstab(request):
         _("Revisions"),
         hg.BaseElement(
             layout.datatable.DataTable(
-                columns=(
-                    (_("Date"), layout.FC("row.history_date"), None),
-                    (_("User"), layout.FC("row.history_user"), None),
-                    (_("Change"), layout.FC("row.get_history_type_display"), None),
-                ),
+                columns=[
+                    DataTableColumn(_("Date"), layout.FC("row.history_date")),
+                    DataTableColumn(_("User"), layout.FC("row.history_user")),
+                    DataTableColumn(
+                        _("Change"), layout.FC("row.get_history_type_display")
+                    ),
+                ],
                 row_iterator=hg.F(lambda c, e: c["object"].history.all()),
             )
         ),
@@ -445,7 +450,57 @@ def relationshipstab(request):
                     "person_a_nohide": True,
                 },
             ),
+            rowactions=[menu.Delete()],
             backurl=request.get_full_path(),
             preven_automatic_sortingnames=True,
+            columns=[
+                "type",
+                person_a_column(),
+                person_b_column(),
+                "start_date",
+                "end_date",
+            ],
         ),
     )
+
+
+def person_a_column() -> DataTableColumn:
+    return DataTableColumn(
+        "Person A",
+        hg.SPAN(
+            person_name("person_a"),
+            person_number_in_brackets("person_a"),
+            **attributes_for_link_to_person(lambda relationship: relationship.person_a),
+        ),
+    )
+
+
+def person_b_column() -> DataTableColumn:
+    return DataTableColumn(
+        "Person B",
+        hg.SPAN(
+            person_name("person_b"),
+            person_number_in_brackets("person_b"),
+            **attributes_for_link_to_person(lambda relationship: relationship.person_b),
+        ),
+    )
+
+
+def attributes_for_link_to_person(get_person: Callable[[Relationship], Person]):
+    return layout.aslink_attributes(
+        hg.F(
+            lambda c, e: reverse_model(
+                get_person(c["row"]),
+                "read",
+                kwargs={"pk": get_person(c["row"]).pk},
+            )
+        )
+    )
+
+
+def person_name(field):
+    return hg.C(f"row.{field}")
+
+
+def person_number_in_brackets(field):
+    return hg.SPAN(" [", hg.C(f"row.{field}.personnumber"), "]")
