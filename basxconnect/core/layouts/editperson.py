@@ -450,14 +450,6 @@ def relationshipstab(request):
                     "person_a_nohide": True,
                 },
             ),
-            rowactions=[
-                menu.Action(
-                    js=hg.F(
-                        lambda c, e: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
-                    ),
-                    icon="trash-can",
-                )
-            ],
             backurl=request.get_full_path(),
             prevent_automatic_sortingnames=True,
             columns=[
@@ -471,7 +463,22 @@ def relationshipstab(request):
                 "start_date",
                 "end_date",
             ],
+            rowactions=[
+                row_action("delete", "trash-can", _("Delete")),
+                row_action("edit", "edit", _("Edit")),
+            ],
+            rowactions_dropdown=True,
         ),
+    )
+
+
+def row_action(object_action, icon, label):
+    return menu.Action(
+        js=hg.F(
+            lambda c, e: f'window.location = \'{layout.objectaction(c["row"], object_action)}?next=\' + window.location.pathname + window.location.search',
+        ),
+        icon=icon,
+        label=label,
     )
 
 
