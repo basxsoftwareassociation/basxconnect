@@ -462,8 +462,12 @@ def relationshipstab(request):
             prevent_automatic_sortingnames=True,
             columns=[
                 "type",
-                person_a_column(),
-                person_b_column(),
+                person_in_relationship(
+                    "Person A", "person_a", lambda relationship: relationship.person_a
+                ),
+                person_in_relationship(
+                    "Person B", "person_b", lambda relationship: relationship.person_b
+                ),
                 "start_date",
                 "end_date",
             ],
@@ -471,24 +475,17 @@ def relationshipstab(request):
     )
 
 
-def person_a_column() -> DataTableColumn:
+def person_in_relationship(
+    header: str,
+    field_name: str,
+    get_person: Callable[[Relationship], Person],
+) -> DataTableColumn:
     return DataTableColumn(
-        "Person A",
+        header,
         hg.SPAN(
-            person_name("person_a"),
-            person_number_in_brackets("person_a"),
-            **attributes_for_link_to_person(lambda relationship: relationship.person_a),
-        ),
-    )
-
-
-def person_b_column() -> DataTableColumn:
-    return DataTableColumn(
-        "Person B",
-        hg.SPAN(
-            person_name("person_b"),
-            person_number_in_brackets("person_b"),
-            **attributes_for_link_to_person(lambda relationship: relationship.person_b),
+            person_name(field_name),
+            person_number_in_brackets(field_name),
+            **attributes_for_link_to_person(get_person),
         ),
     )
 
