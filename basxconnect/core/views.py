@@ -2,6 +2,7 @@ import htmlgenerator as hg
 from bread import layout as layout
 from bread import menu
 from bread.forms.forms import generate_form
+from bread.layout.components.datatable import DataTableColumn
 from bread.menu import Link
 from bread.utils.urls import aslayout, reverse, reverse_model
 from bread.views import BrowseView, EditView, ReadView, layoutasreadonly
@@ -99,13 +100,13 @@ class PersonBrowseView(BrowseView):
     columns = [
         "personnumber",
         "status",
-        (_("Category"), hg.C("row._type"), "_type"),
+        DataTableColumn(_("Category"), hg.C("row._type"), "_type"),
         "name",
         "primary_postal_address.address",
         "primary_postal_address.postcode",
         "primary_postal_address.city",
         "primary_postal_address.country",
-        (
+        DataTableColumn(
             _("Email"),
             hg.C(
                 "row.primary_email_address.asbutton",

@@ -103,7 +103,7 @@ def generate_term_datatable(title, category_slug):
                 "category": cat.id,
             },
         ),
-        preven_automatic_sortingnames=True,
+        prevent_automatic_sortingnames=True,
         rowclickaction="edit",
         rowactions=[
             menu.Action(

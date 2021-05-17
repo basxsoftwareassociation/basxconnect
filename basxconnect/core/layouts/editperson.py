@@ -1,5 +1,8 @@
+from collections import Callable
+
 import htmlgenerator as hg
-from bread import layout
+from bread import layout, menu
+from bread.layout.components.datatable import DataTableColumn
 from bread.utils import reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -417,11 +420,13 @@ def revisionstab(request):
         _("Revisions"),
         hg.BaseElement(
             layout.datatable.DataTable(
-                columns=(
-                    (_("Date"), layout.FC("row.history_date"), None),
-                    (_("User"), layout.FC("row.history_user"), None),
-                    (_("Change"), layout.FC("row.get_history_type_display"), None),
-                ),
+                columns=[
+                    DataTableColumn(_("Date"), layout.FC("row.history_date")),
+                    DataTableColumn(_("User"), layout.FC("row.history_user")),
+                    DataTableColumn(
+                        _("Change"), layout.FC("row.get_history_type_display")
+                    ),
+                ],
                 row_iterator=hg.F(lambda c, e: c["object"].history.all()),
             )
         ),
@@ -446,6 +451,67 @@ def relationshipstab(request):
                 },
             ),
             backurl=request.get_full_path(),
-            preven_automatic_sortingnames=True,
+            prevent_automatic_sortingnames=True,
+            columns=[
+                "type",
+                person_in_relationship(
+                    "Person A", "person_a", lambda relationship: relationship.person_a
+                ),
+                person_in_relationship(
+                    "Person B", "person_b", lambda relationship: relationship.person_b
+                ),
+                "start_date",
+                "end_date",
+            ],
+            rowactions=[
+                row_action("delete", "trash-can", _("Delete")),
+                row_action("edit", "edit", _("Edit")),
+            ],
+            rowactions_dropdown=True,
         ),
     )
+
+
+def row_action(object_action, icon, label):
+    return menu.Action(
+        js=hg.F(
+            lambda c, e: f'window.location = \'{layout.objectaction(c["row"], object_action)}?next=\' + window.location.pathname + window.location.search',
+        ),
+        icon=icon,
+        label=label,
+    )
+
+
+def person_in_relationship(
+    header: str,
+    field_name: str,
+    get_person: Callable[[Relationship], Person],
+) -> DataTableColumn:
+    return DataTableColumn(
+        header,
+        hg.SPAN(
+            person_name(field_name),
+            person_number_in_brackets(field_name),
+            **attributes_for_link_to_person(get_person),
+        ),
+    )
+
+
+def attributes_for_link_to_person(get_person: Callable[[Relationship], Person]):
+    return layout.aslink_attributes(
+        hg.F(
+            lambda c, e: reverse_model(
+                get_person(c["row"]),
+                "read",
+                kwargs={"pk": get_person(c["row"]).pk},
+            )
+        )
+    )
+
+
+def person_name(field):
+    return hg.C(f"row.{field}")
+
+
+def person_number_in_brackets(field):
+    return hg.SPAN(" [", hg.C(f"row.{field}.personnumber"), "]")
