@@ -459,7 +459,7 @@ def relationshipstab(request):
                 )
             ],
             backurl=request.get_full_path(),
-            preven_automatic_sortingnames=True,
+            prevent_automatic_sortingnames=True,
             columns=[
                 "type",
                 person_a_column(),
