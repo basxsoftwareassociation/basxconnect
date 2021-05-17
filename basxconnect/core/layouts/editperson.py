@@ -450,7 +450,14 @@ def relationshipstab(request):
                     "person_a_nohide": True,
                 },
             ),
-            rowactions=[menu.Delete()],
+            rowactions=[
+                menu.Action(
+                    js=hg.F(
+                        lambda c, e: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
+                    ),
+                    icon="trash-can",
+                )
+            ],
             backurl=request.get_full_path(),
             preven_automatic_sortingnames=True,
             columns=[

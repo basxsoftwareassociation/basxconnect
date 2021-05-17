@@ -105,6 +105,13 @@ def generate_term_datatable(title, category_slug):
         ),
         preven_automatic_sortingnames=True,
         rowclickaction="edit",
-        rowactions=[menu.Delete()],
+        rowactions=[
+            menu.Action(
+                js=hg.F(
+                    lambda c, e: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
+                ),
+                icon="trash-can",
+            )
+        ],
         backurl=reverse("basxconnect.core.views.personsettings"),
     )
