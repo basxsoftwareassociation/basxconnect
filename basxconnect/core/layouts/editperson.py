@@ -1,4 +1,4 @@
-from collections import Callable
+from typing import Callable
 
 import htmlgenerator as hg
 from bread import layout, menu
