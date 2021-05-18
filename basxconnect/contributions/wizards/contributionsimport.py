@@ -129,13 +129,21 @@ class AssignmentForm(forms.Form):
     layout = hg.BaseElement(
         _layout.datatable.DataTable(
             columns=(
-                (_("Date"), hg.C("row.date"), None),
-                (_("Note"), hg.C("row.note"), None),
-                (_("Account"), hg.C("row.debitaccount"), None),
-                (_("Cost Center"), hg.C("row.creditaccount"), None),
-                (_("Person Number"), hg.C("row.person.personnumber"), None),
-                (_("Donor Number"), hg.C("row.donornumber"), None),
-                (
+                _layout.datatable.DataTableColumn(_("Date"), hg.C("row.date"), None),
+                _layout.datatable.DataTableColumn(_("Note"), hg.C("row.note"), None),
+                _layout.datatable.DataTableColumn(
+                    _("Account"), hg.C("row.debitaccount"), None
+                ),
+                _layout.datatable.DataTableColumn(
+                    _("Cost Center"), hg.C("row.creditaccount"), None
+                ),
+                _layout.datatable.DataTableColumn(
+                    _("Person Number"), hg.C("row.person.personnumber"), None
+                ),
+                _layout.datatable.DataTableColumn(
+                    _("Donor Number"), hg.C("row.donornumber"), None
+                ),
+                _layout.datatable.DataTableColumn(
                     _("Assignment state"),
                     hg.If(
                         hg.C("row.person"),
@@ -152,7 +160,9 @@ class AssignmentForm(forms.Form):
                     ),
                     None,
                 ),
-                (_("Amount"), hg.C("row.amount_formatted"), None),
+                _layout.datatable.DataTableColumn(
+                    _("Amount"), hg.C("row.amount_formatted"), None
+                ),
             ),
             row_iterator=hg.C("contributions"),
         ).with_toolbar(_("Overview of contributions to import"), hg.C("importfile")),
