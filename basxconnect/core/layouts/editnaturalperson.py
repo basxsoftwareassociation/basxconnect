@@ -2,16 +2,7 @@ import htmlgenerator as hg
 from bread import layout
 from django.utils.translation import gettext_lazy as _
 
-from basxconnect.core.layouts.editperson import (
-    addresses,
-    categories,
-    email,
-    numbers,
-    other,
-    relationshipstab,
-    style_person,
-    urls,
-)
+from basxconnect.core.layouts import editperson
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -19,16 +10,10 @@ F = layout.form.FormField
 
 
 def editnaturalperson_form(request):
-    ret = layout.tabs.Tabs(
-        base_data_tab(request),
-        relationshipstab(request),
-        container=True,
-    )
-    style_person(ret)
-    return ret
+    return editperson.editperson_form(request, base_data_tab)
 
 
-def base_data_tab(request):
+def base_data_tab():
     return (
         _("Base data"),
         hg.BaseElement(
@@ -47,7 +32,6 @@ def base_data_tab(request):
                         R(
                             C(F("name")),
                         ),
-                        _class="section-separator-right",
                     ),
                     C(
                         R(C(hg.H4(_("Mailings")))),
@@ -65,31 +49,25 @@ def base_data_tab(request):
                 ),
                 gridmode="full-width",
             ),
-            hg.DIV(_class="section-separator-bottom"),
-            contact_details_naturalperson(request),
+            contact_details_naturalperson(),
         ),
     )
 
 
-def contact_details_naturalperson(request):
+def contact_details_naturalperson():
     return layout.grid.Grid(
-        addresses(),
+        editperson.addresses(),
         R(
-            numbers(),
-            email(),
-            _class="section-separator-bottom",
-            style="padding-bottom: 2rem",
+            editperson.numbers(),
+            editperson.email(),
         ),
         R(
-            urls(),
+            editperson.urls(),
             personal(),
-            _class="section-separator-bottom",
-            style="padding-bottom: 2rem",
         ),
         R(
-            categories(),
-            other(),
-            style="margin-top: 1rem",
+            editperson.categories(),
+            editperson.other(),
         ),
         gridmode="full-width",
     )
