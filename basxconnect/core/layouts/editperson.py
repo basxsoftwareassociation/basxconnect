@@ -81,11 +81,6 @@ def editperson_toolbar(request):
 
 
 def editperson_head(request, isreadview):
-    if isreadview:
-        active_toggle = active_toggle_readview()
-    else:
-        active_toggle = active_toggle_editview()
-
     personnumber = hg.DIV(
         hg.LABEL(layout.fieldlabel(Person, "personnumber"), _class="bx--label"),
         hg.DIV(hg.C("object.personnumber"), style="margin-top: 1rem"),
@@ -125,11 +120,13 @@ def editperson_head(request, isreadview):
             ),
         ),
     )
+
     view_button_attrs = {}
     if not isreadview:
         view_button_attrs = {
             **areyousure.openerattributes,
         }
+
     return layout.grid.Grid(
         R(
             C(hg.H3(hg.I(hg.C("object"))), width=12, breakpoint="lg"),
@@ -158,7 +155,7 @@ def editperson_head(request, isreadview):
             style="padding-top: 1rem",
         ),
         R(
-            C(active_toggle, width=1, breakpoint="md"),
+            C(active_toggle(isreadview), width=1, breakpoint="md"),
             C(personnumber, width=1, breakpoint="md"),
             C(personmaintype, width=1, breakpoint="md"),
             C(created, width=1, breakpoint="md"),
@@ -181,7 +178,6 @@ def editperson_head(request, isreadview):
                     )
                 ]
             ),
-            _class="disabled-02" if isreadview else "",
         ),
         gridmode="narrow",
     )
@@ -199,8 +195,10 @@ def last_change():
     )
 
 
-def active_toggle_editview():
+def active_toggle(isreadview):
     active_toggle = layout.toggle.Toggle(None, _("Inactive"), _("Active"))
+    if isreadview:
+        active_toggle.input.attributes["onclick"] = "return false;"
     active_toggle.input.attributes["id"] = "person_active_toggle"
     active_toggle.input.attributes["hx_trigger"] = "change"
     active_toggle.input.attributes["hx_post"] = hg.F(
@@ -210,14 +208,6 @@ def active_toggle_editview():
     active_toggle.label.insert(0, _("Person status"))
     active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
     return active_toggle
-
-
-def active_toggle_readview():
-    return hg.DIV(
-        layout.helpers.LabelElement(_("Status"), _for=False),
-        hg.DIV(hg.C("object.status")),
-        _class="bx--form-item",
-    )
 
 
 def contact_details():
