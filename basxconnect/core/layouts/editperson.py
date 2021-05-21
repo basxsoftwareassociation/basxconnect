@@ -14,6 +14,20 @@ C = layout.grid.Col
 F = layout.form.FormField
 
 
+def editperson_form(request, base_data_tab):
+    return layout.tabs.Tabs(
+        base_data_tab(),
+        relationshipstab(request),
+        container=True,
+        tabpanel_attributes={
+            "_class": "theme-white",
+            "style": (
+                "background-color: white; " "margin-left:-2rem; " "margin-right: -2rem"
+            ),
+        },
+    )
+
+
 def editperson_toolbar(request):
     deletebutton = layout.button.Button(
         _("Delete"),
@@ -33,6 +47,7 @@ def editperson_toolbar(request):
             hg.F(lambda c, e: layout.objectaction(c["object"], "copy"))
         ),
     )
+
     add_person_button = layout.button.Button(
         _("Add person"),
         buttontype="primary",
@@ -40,7 +55,6 @@ def editperson_toolbar(request):
         notext=True,
         **layout.aslink_attributes(hg.F(lambda c, e: reverse_model(Person, "add"))),
     )
-
     return hg.DIV(
         layout.grid.Grid(
             R(
@@ -59,10 +73,9 @@ def editperson_toolbar(request):
                     add_person_button,
                 ),
             ),
-            gridmode="full-width",
+            gridmode="narrow",
         ),
-        hg.DIV(_class="section-separator-bottom", style="margin-top: 1rem"),
-        style="margin-bottom: 2rem",
+        style="margin-bottom: 1rem;",
         _class="no-print",
     )
 
@@ -170,8 +183,7 @@ def editperson_head(request, isreadview):
             ),
             _class="disabled-02" if isreadview else "",
         ),
-        style="position: sticky; top: 3rem; z-index: 99; background-color: #fff; margin-bottom: 1rem;",
-        gridmode="full-width",
+        gridmode="narrow",
     )
 
 
@@ -208,26 +220,17 @@ def active_toggle_readview():
     )
 
 
-def style_person(ret):
-    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
-    ret[0].attributes[
-        "style"
-    ] = "padding-left: 2rem; padding-right: 2rem; border-bottom: #f4f4f4 solid;"
-
-
-def contact_details(request):
+def contact_details():
     return layout.grid.Grid(
         addresses(),
         R(
             numbers(),
             email(),
-            _class="section-separator-bottom",
             style="padding-bottom: 2rem",
         ),
         R(
             urls(),
             categories(),
-            _class="section-separator-bottom",
             style="padding-bottom: 2rem",
         ),
         R(
@@ -270,7 +273,6 @@ def numbers():
             notext=False,
             label=_("Add number"),
         ),
-        _class="section-separator-right",
     )
 
 
@@ -316,7 +318,10 @@ def email():
 
 
 def categories():
-    return C(hg.H4(_("Categories")), layout.form.FormField("categories"))
+    return C(
+        hg.H4(_("Categories")),
+        layout.form.FormField("categories"),
+    )
 
 
 def urls():
@@ -350,12 +355,14 @@ def urls():
             notext=False,
             label=_("Add Url"),
         ),
-        _class="section-separator-right",
     )
 
 
 def other():
-    return C(hg.H4(_("Other")), F("remarks"))
+    return C(
+        hg.H4(_("Other")),
+        F("remarks"),
+    )
 
 
 def addresses():
@@ -409,13 +416,12 @@ def addresses():
                 notext=False,
                 label=_("Add address"),
             ),
-            _class="section-separator-bottom",
             style="padding-bottom: 2rem",
         ),
     )
 
 
-def revisionstab(request):
+def revisionstab():
     return (
         _("Revisions"),
         hg.BaseElement(
@@ -436,38 +442,49 @@ def revisionstab(request):
 def relationshipstab(request):
     return (
         _("Relationships"),
-        layout.datatable.DataTable.from_model(
-            Relationship,
-            hg.F(
-                lambda c, e: c["object"].relationships_to.all()
-                | c["object"].relationships_from.all()
+        layout.grid.Grid(
+            R(
+                C(
+                    layout.datatable.DataTable.from_model(
+                        Relationship,
+                        hg.F(
+                            lambda c, e: c["object"].relationships_to.all()
+                            | c["object"].relationships_from.all()
+                        ),
+                        addurl=reverse_model(
+                            Relationship,
+                            "add",
+                            query={
+                                "person_a": request.resolver_match.kwargs["pk"],
+                                "person_a_nohide": True,
+                            },
+                        ),
+                        backurl=request.get_full_path(),
+                        prevent_automatic_sortingnames=True,
+                        columns=[
+                            "type",
+                            person_in_relationship(
+                                "Person A",
+                                "person_a",
+                                lambda relationship: relationship.person_a,
+                            ),
+                            person_in_relationship(
+                                "Person B",
+                                "person_b",
+                                lambda relationship: relationship.person_b,
+                            ),
+                            "start_date",
+                            "end_date",
+                        ],
+                        rowactions=[
+                            row_action("delete", "trash-can", _("Delete")),
+                            row_action("edit", "edit", _("Edit")),
+                        ],
+                        rowactions_dropdown=True,
+                    )
+                )
             ),
-            addurl=reverse_model(
-                Relationship,
-                "add",
-                query={
-                    "person_a": request.resolver_match.kwargs["pk"],
-                    "person_a_nohide": True,
-                },
-            ),
-            backurl=request.get_full_path(),
-            prevent_automatic_sortingnames=True,
-            columns=[
-                "type",
-                person_in_relationship(
-                    "Person A", "person_a", lambda relationship: relationship.person_a
-                ),
-                person_in_relationship(
-                    "Person B", "person_b", lambda relationship: relationship.person_b
-                ),
-                "start_date",
-                "end_date",
-            ],
-            rowactions=[
-                row_action("delete", "trash-can", _("Delete")),
-                row_action("edit", "edit", _("Edit")),
-            ],
-            rowactions_dropdown=True,
+            gridmode="narrow",
         ),
     )
 
