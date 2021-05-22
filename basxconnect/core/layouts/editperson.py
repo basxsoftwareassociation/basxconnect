@@ -436,38 +436,31 @@ def revisionstab(request):
 def relationshipstab(request):
     return (
         _("Relationships"),
-        layout.datatable.DataTable.from_model(
-            Relationship,
-            hg.F(
-                lambda c, e: c["object"].relationships_to.all()
-                | c["object"].relationships_from.all()
+        layout.grid.Grid(
+            layout.form.FormsetField.as_datatable(
+                "relationships_to",
+                [
+                    layout.datatable.DataTableColumn("", hg.C("object")),
+                    "type",
+                    "person_b",
+                    "start_date",
+                    "end_date",
+                ],
+                title=_("Relationships from .. to"),
+                can_delete=False,
             ),
-            addurl=reverse_model(
-                Relationship,
-                "add",
-                query={
-                    "person_a": request.resolver_match.kwargs["pk"],
-                    "person_a_nohide": True,
-                },
+            hg.DIV(style="margin-top: 2rem"),
+            layout.form.FormsetField.as_datatable(
+                "relationships_from",
+                [
+                    "person_a",
+                    "type",
+                    layout.datatable.DataTableColumn("", hg.C("object")),
+                    "start_date",
+                    "end_date",
+                ],
+                title=_("Relationships to .. from"),
             ),
-            backurl=request.get_full_path(),
-            prevent_automatic_sortingnames=True,
-            columns=[
-                "type",
-                person_in_relationship(
-                    "Person A", "person_a", lambda relationship: relationship.person_a
-                ),
-                person_in_relationship(
-                    "Person B", "person_b", lambda relationship: relationship.person_b
-                ),
-                "start_date",
-                "end_date",
-            ],
-            rowactions=[
-                row_action("delete", "trash-can", _("Delete")),
-                row_action("edit", "edit", _("Edit")),
-            ],
-            rowactions_dropdown=True,
         ),
     )
 
