@@ -101,6 +101,7 @@ def generate_term_datatable(title, category_slug):
             "add",
             query={
                 "category": cat.id,
+                "next": reverse("basxconnect.core.views.personsettings"),
             },
         ),
         prevent_automatic_sortingnames=True,
