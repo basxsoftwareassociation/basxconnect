@@ -113,8 +113,15 @@ class Person(models.Model):
     status.sorting_name = "active"
 
     def save(self, *args, **kwargs):
+        created = self.pk
+        # automatically generate a person number if empty
+        # if this object is just beeing create we do not have
+        # a person number (because there is no pk) and we need
+        # to do the same thing again after a call to super.save
+        # and then save again
         if not self.personnumber:
             self.personnumber = str(self.pk or "")
+
         if not self._maintype:
             self._maintype = "person"
         if hasattr(self, "core_postal_list"):
@@ -133,10 +140,23 @@ class Person(models.Model):
                 self.primary_email_address = self.core_email_list.first()
         else:
             self.primary_email_address = None
+
         super().save(*args, **kwargs)
         if not self.personnumber:
             self.personnumber = str(self.pk)
             super().save(*args, **kwargs)
+
+        # this signal needs to be sent manually in order to trigger the search-index update
+        # Django does only send a signal for the child-model but our search-index only observes
+        # this base model
+        models.signals.post_save.send(
+            sender=Person,
+            instance=self,
+            created=created,
+            update_fields=kwargs.get("update_fields"),
+            raw=False,
+            using=kwargs.get("using"),
+        )
 
     def search_index_snippet(self):
         addr = self.primary_postal_address
