@@ -1,5 +1,3 @@
-from typing import Callable
-
 import htmlgenerator as hg
 from bread import layout, menu
 from bread.layout.components.datatable import DataTableColumn
@@ -7,7 +5,7 @@ from bread.utils import reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from basxconnect.core.models import Person, Relationship
+from basxconnect.core.models import Person
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -473,38 +471,3 @@ def row_action(object_action, icon, label):
         icon=icon,
         label=label,
     )
-
-
-def person_in_relationship(
-    header: str,
-    field_name: str,
-    get_person: Callable[[Relationship], Person],
-) -> DataTableColumn:
-    return DataTableColumn(
-        header,
-        hg.SPAN(
-            person_name(field_name),
-            person_number_in_brackets(field_name),
-            **attributes_for_link_to_person(get_person),
-        ),
-    )
-
-
-def attributes_for_link_to_person(get_person: Callable[[Relationship], Person]):
-    return layout.aslink_attributes(
-        hg.F(
-            lambda c, e: reverse_model(
-                get_person(c["row"]),
-                "read",
-                kwargs={"pk": get_person(c["row"]).pk},
-            )
-        )
-    )
-
-
-def person_name(field):
-    return hg.C(f"row.{field}")
-
-
-def person_number_in_brackets(field):
-    return hg.SPAN(" [", hg.C(f"row.{field}.personnumber"), "]")
