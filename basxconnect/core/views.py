@@ -122,8 +122,15 @@ class PersonBrowseView(BrowseView):
             icon="trash-can",
         ),
         Link(
-            reverse_model(models.Person, "excel"),
-            label="Excel",
+            # make sure possible filter values of the browse view get
+            # passed along to the excel-export view
+            # TODO: maybe this behaviour should be better integrated in the bread views?
+            hg.F(
+                lambda c, e: reverse_model(models.Person, "excel")
+                + "?"
+                + c["request"].META["QUERY_STRING"]
+            ),
+            label=_("Excel"),
             icon="download",
         ),
     )
@@ -382,6 +389,33 @@ class PersonBrowseView(BrowseView):
             style="background-color: #fff",
             onclick="updateCheckboxCounter(this)",
         )
+
+    def export(self, *args, **kwargs):
+        # Fields which are filtered should also be displayed in columns
+        form = self._filterform()
+        columns = list(self.columns)
+        if form.is_valid():
+
+            # only the categories selected in the filter should be visible in the export
+            if form.cleaned_data.get("categories"):
+                categories = set(form.cleaned_data.get("categories"))
+
+                def render_matching_categories(context, element):
+                    return ", ".join(
+                        str(i)
+                        for i in categories & set(context["row"].categories.all())
+                    )
+
+                columns.append(
+                    DataTableColumn(
+                        layout.fieldlabel(models.Person, "categories"),
+                        hg.F(render_matching_categories),
+                    )
+                )
+            if form.cleaned_data.get("preferred_language"):
+                columns.append("preferred_language")
+
+        return super().export(*args, columns=columns, **kwargs)
 
 
 # ADD SETTING VIEWS AND REGISTER URLS -------------------------------------------
