@@ -14,7 +14,7 @@ def editpersonassociation_form(request):
 
 
 def base_data_tab():
-    return (
+    return layout.tabs.Tab(
         _("Base data"),
         hg.BaseElement(
             layout.grid.Grid(

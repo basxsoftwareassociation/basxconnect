@@ -430,7 +430,7 @@ def revisionstab():
 
 
 def relationshipstab(request):
-    return (
+    return layout.tabs.Tab(
         _("Relationships"),
         layout.grid.Grid(
             R(
