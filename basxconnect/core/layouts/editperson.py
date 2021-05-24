@@ -15,16 +15,21 @@ F = layout.form.FormField
 
 
 def editperson_form(request, base_data_tab):
-    return layout.tabs.Tabs(
-        base_data_tab(),
-        relationshipstab(request),
-        container=True,
-        tabpanel_attributes={
-            "_class": "theme-white",
-            "style": (
-                "background-color: white; " "margin-left:-2rem; " "margin-right: -2rem"
+    return R(
+        C(
+            layout.grid.Grid(
+                layout.tabs.Tabs(
+                    base_data_tab(),
+                    relationshipstab(request),
+                    container=True,
+                    tabpanel_attributes={
+                        "_class": "theme-white full-width-white-background",
+                    },
+                ),
+                gutter=False,
             ),
-        },
+            _class="bx--no-gutter",
+        ),
     )
 
 
@@ -55,28 +60,23 @@ def editperson_toolbar(request):
         notext=True,
         **layout.aslink_attributes(hg.F(lambda c, e: reverse_model(Person, "add"))),
     )
-    return hg.DIV(
-        layout.grid.Grid(
-            R(
-                C(
-                    layout.search.Search(placeholder=_("Search person")).withajaxurl(
-                        url=reverse_lazy("basxconnect.core.views.searchperson"),
-                        query_urlparameter="q",
-                    ),
-                    width=2,
-                    breakpoint="md",
-                ),
-                C(
-                    deletebutton,
-                    copybutton,
-                    layout.button.PrintPageButton(buttontype="ghost"),
-                    add_person_button,
-                ),
+    return R(
+        C(
+            layout.search.Search(placeholder=_("Search person")).withajaxurl(
+                url=reverse_lazy("basxconnect.core.views.searchperson"),
+                query_urlparameter="q",
             ),
-            gridmode="narrow",
+            width=2,
+            breakpoint="md",
         ),
-        style="margin-bottom: 1rem;",
+        C(
+            deletebutton,
+            copybutton,
+            layout.button.PrintPageButton(buttontype="ghost"),
+            add_person_button,
+        ),
         _class="no-print",
+        style="margin-bottom: 1rem;",
     )
 
 
@@ -127,7 +127,7 @@ def editperson_head(request, isreadview):
             **areyousure.openerattributes,
         }
 
-    return layout.grid.Grid(
+    return hg.BaseElement(
         R(
             C(hg.H3(hg.I(hg.C("object"))), width=12, breakpoint="lg"),
             C(
@@ -179,7 +179,6 @@ def editperson_head(request, isreadview):
                 ]
             ),
         ),
-        gridmode="narrow",
     )
 
 

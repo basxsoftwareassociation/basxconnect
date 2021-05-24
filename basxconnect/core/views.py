@@ -30,9 +30,11 @@ from . import models, settings
 
 def personform_shortcut(request, formlayout, isreadview):
     return hg.BaseElement(
-        editperson_toolbar(request),
-        editperson_head(request, isreadview=isreadview),
-        layout.form.Form(hg.C("form"), formlayout),
+        layout.grid.Grid(
+            editperson_toolbar(request),
+            editperson_head(request, isreadview=isreadview),
+            layout.form.Form(hg.C("form"), formlayout),
+        )
     )
 
 

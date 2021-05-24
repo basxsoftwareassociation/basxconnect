@@ -48,6 +48,7 @@ def base_data_tab():
                     ),
                 ),
                 gridmode="full-width",
+                gutter=False,
             ),
             contact_details_naturalperson(),
         ),
