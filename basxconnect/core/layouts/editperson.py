@@ -5,7 +5,7 @@ from bread.utils import reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from basxconnect.core.models import Person
+from basxconnect.core.models import Person, Relationship
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -438,14 +438,19 @@ def relationshipstab(request):
             layout.form.FormsetField.as_datatable(
                 "relationships_to",
                 [
-                    layout.datatable.DataTableColumn("", hg.C("object")),
+                    layout.datatable.DataTableColumn(
+                        layout.fieldlabel(Relationship, "person_a"), hg.C("object")
+                    ),
                     "type",
                     "person_b",
                     "start_date",
                     "end_date",
                 ],
-                title=_("Relationships from .. to"),
-                can_delete=False,
+                # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
+                # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
+                title=hg.F(
+                    lambda c, e: _("Relationships from %s to person B") % c["object"]
+                ),
             ),
             hg.DIV(style="margin-top: 2rem"),
             layout.form.FormsetField.as_datatable(
@@ -453,11 +458,15 @@ def relationshipstab(request):
                 [
                     "person_a",
                     "type",
-                    layout.datatable.DataTableColumn("", hg.C("object")),
+                    layout.datatable.DataTableColumn(
+                        layout.fieldlabel(Relationship, "person_a"), hg.C("object")
+                    ),
                     "start_date",
                     "end_date",
                 ],
-                title=_("Relationships to .. from"),
+                title=hg.F(
+                    lambda c, e: _("Relationships from person A to %s") % c["object"]
+                ),
             ),
         ),
     )
