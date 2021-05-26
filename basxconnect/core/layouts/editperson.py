@@ -228,6 +228,7 @@ def contact_details():
             style="margin-top: 1rem",
         ),
         gridmode="full-width",
+        gutter=False,
     )
 
 
@@ -474,6 +475,7 @@ def relationshipstab(request):
                 )
             ),
             gridmode="narrow",
+            gutter=False,
         ),
     )
 

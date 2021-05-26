@@ -76,6 +76,7 @@ def contact_details_naturalperson():
             editperson.other(),
         ),
         gridmode="full-width",
+        gutter=False,
     )
 
 
