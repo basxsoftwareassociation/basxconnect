@@ -24,6 +24,8 @@ def editperson_form(request, base_data_tab):
                     container=True,
                     tabpanel_attributes={
                         "_class": "theme-white full-width-white-background",
+                        # to prevent the relationship tab to look weird if there are no relationships.
+                        "style": "min-height: 400px",
                     },
                 ),
                 gutter=False,
