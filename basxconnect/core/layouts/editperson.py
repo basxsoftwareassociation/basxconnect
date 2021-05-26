@@ -86,10 +86,12 @@ def editperson_head(request, isreadview):
     personnumber = hg.DIV(
         hg.LABEL(layout.fieldlabel(Person, "personnumber"), _class="bx--label"),
         hg.DIV(hg.C("object.personnumber"), style="margin-top: 1rem"),
+        style="margin-left: 2rem",
     )
     personmaintype = hg.DIV(
         hg.LABEL(_("Main Type"), _class="bx--label"),
-        hg.DIV(layout.ModelName("object"), style="margin-top: 1rem"),
+        hg.DIV(layout.ModelName("object"), style="margin-top: 1rem;"),
+        style="margin-left: 2rem",
     )
     created = hg.DIV(
         hg.LABEL(_("Created"), _class="bx--label"),
@@ -99,6 +101,7 @@ def editperson_head(request, isreadview):
             hg.C("object.history.last.history_user"),
             style="margin-top: 1rem",
         ),
+        style="margin-left: 2rem",
     )
 
     areyousure = layout.modal.Modal(
@@ -157,12 +160,18 @@ def editperson_head(request, isreadview):
             style="padding-top: 1rem",
         ),
         R(
-            C(active_toggle(isreadview), width=1, breakpoint="md"),
-            C(personnumber, width=1, breakpoint="md"),
-            C(personmaintype, width=1, breakpoint="md"),
-            C(created, width=1, breakpoint="md"),
-            C(last_change(), width=1, breakpoint="md"),
-            C(),
+            C(
+                hg.DIV(
+                    active_toggle(isreadview),
+                    personnumber,
+                    personmaintype,
+                    created,
+                    last_change(),
+                    style="display:flex;",
+                ),
+                width=9,
+                breakpoint="lg",
+            ),
             *(
                 []
                 if isreadview
@@ -177,6 +186,7 @@ def editperson_head(request, isreadview):
                         ),
                         width=4,
                         breakpoint="lg",
+                        _class="bx--offset-lg-3",
                     )
                 ]
             ),
@@ -193,6 +203,7 @@ def last_change():
             hg.C("object.history.first.history_user"),
             style="margin-top: 1rem",
         ),
+        style=" margin-left: 2rem",
     )
 
 
@@ -208,7 +219,7 @@ def active_toggle(isreadview):
     active_toggle.input.attributes["checked"] = hg.F(lambda c, e: c["object"].active)
     active_toggle.label.insert(0, _("Person status"))
     active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
-    return active_toggle
+    return hg.DIV(active_toggle)
 
 
 def contact_details():
@@ -474,7 +485,8 @@ def relationshipstab(request):
                         ],
                         rowactions_dropdown=True,
                     )
-                )
+                ),
+                style="padding-top: 1rem",
             ),
             gridmode="narrow",
             gutter=False,
