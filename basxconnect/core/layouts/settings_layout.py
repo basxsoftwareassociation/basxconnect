@@ -94,7 +94,9 @@ def single_item_fieldset(related_field, fieldname, queryset=None):
 
 
 def generate_term_datatable(title, category_slug):
-    """Helper function to display a table for all terms of a certain term"""
+    """Helper function to display a table for all terms of a certain term, currently always returns to the personsettings view"""
+    # TODO: make the backurl dynamic to return to current view (needs correct handling in the DataTable code)
+
     cat = Category.objects.filter(slug=category_slug).first() or ""
     return layout.datatable.DataTable.from_queryset(
         Term.objects.filter(category__slug=category_slug),
@@ -105,6 +107,7 @@ def generate_term_datatable(title, category_slug):
             "add",
             query={
                 "category": cat.id,
+                "next": reverse("basxconnect.core.views.personsettings"),
             },
         ),
         prevent_automatic_sortingnames=True,
