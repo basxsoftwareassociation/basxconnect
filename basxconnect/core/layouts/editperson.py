@@ -240,7 +240,7 @@ def contact_details(request):
 def numbers():
     return C(
         hg.H4(_("Numbers")),
-        layout.form.FormsetField(
+        layout.form.FormsetField.as_plain(
             "core_phone_list",
             R(
                 C(F("type"), breakpoint="lg", width=4),
@@ -261,12 +261,7 @@ def numbers():
                     width=2,
                 ),
             ),
-        ),
-        layout.form.FormsetAddButton(
-            "core_phone_list",
-            buttontype="ghost",
-            notext=False,
-            label=_("Add number"),
+            add_label=_("Add number"),
         ),
         _class="section-separator-right",
     )
@@ -282,7 +277,7 @@ def email():
             ),
             R(C(F("primary_email_address"), breakpoint="lg", width=4)),
         ),
-        layout.form.FormsetField(
+        layout.form.FormsetField.as_plain(
             "core_email_list",
             R(
                 C(F("type"), breakpoint="lg", width=4),
@@ -303,12 +298,7 @@ def email():
                     width=2,
                 ),
             ),
-        ),
-        layout.form.FormsetAddButton(
-            "core_email_list",
-            buttontype="ghost",
-            notext=False,
-            label=_("Add email address"),
+            add_label=_("Add email address"),
         ),
     )
 
@@ -320,7 +310,7 @@ def categories():
 def urls():
     return C(
         hg.H4(_("URLs")),
-        layout.form.FormsetField(
+        layout.form.FormsetField.as_plain(
             "core_web_list",
             R(
                 C(F("type"), breakpoint="lg", width=4),
@@ -341,12 +331,7 @@ def urls():
                     width=2,
                 ),
             ),
-        ),
-        layout.form.FormsetAddButton(
-            "core_web_list",
-            buttontype="ghost",
-            notext=False,
-            label=_("Add Url"),
+            add_label=_("Add Url"),
         ),
         _class="section-separator-right",
     )
@@ -367,7 +352,7 @@ def addresses():
                 ),
                 R(C(F("primary_postal_address"), breakpoint="lg", width=4)),
             ),
-            layout.form.FormsetField(
+            layout.form.FormsetField.as_plain(
                 "core_postal_list",
                 R(
                     C(F("type"), width=2, breakpoint="lg"),
@@ -400,12 +385,7 @@ def addresses():
                         width=1,
                     ),
                 ),
-            ),
-            layout.form.FormsetAddButton(
-                "core_postal_list",
-                buttontype="ghost",
-                notext=False,
-                label=_("Add address"),
+                add_label=_("Add address"),
             ),
             _class="section-separator-bottom",
             style="padding-bottom: 2rem",
