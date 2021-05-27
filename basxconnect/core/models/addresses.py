@@ -18,16 +18,6 @@ class Address(models.Model):
         related_name="%(app_label)s_%(class)s_list",
     )
     person.verbose_name = _("Person")
-    type = models.ForeignKey(
-        Term,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="type_%(app_label)s_%(class)s_list",
-        limit_choices_to={"category__slug": "addresstype"},
-    )
-    type.verbose_name = _("Type")
-
     status = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,
@@ -55,7 +45,7 @@ class Email(Address):
         null=True,
         blank=True,
         related_name="type_%(app_label)s_%(class)s_list",
-        limit_choices_to={"category__slug": "addresstype"},
+        limit_choices_to={"category__slug": "emailtype"},
     )
     type.verbose_name = _("Type")
 
@@ -149,6 +139,15 @@ class Postal(Address):
     address = models.TextField(_("Address"), blank=True)
     postcode = models.CharField(_("Post Code"), max_length=16, blank=True)
     city = models.CharField(_("City"), max_length=255, blank=True)
+    type = models.ForeignKey(
+        Term,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="type_%(app_label)s_%(class)s_list",
+        limit_choices_to={"category__slug": "addresstype"},
+    )
+    type.verbose_name = _("Type")
 
     def __str__(self):
         ret = [self.address]

@@ -89,6 +89,14 @@
    },
    {
       "fields" : {
+         "name" : "Email Typ",
+         "slug" : "emailtype"
+      },
+      "model" : "core.category",
+      "pk" : 12
+   },
+   {
+      "fields" : {
          "category" : 1,
          "term" : "Unbekannt"
       },
