@@ -11,69 +11,73 @@ F = layout.form.FormField
 
 
 def relationshipssettings(request):
-    return hg.BaseElement(
-        hg.H3(_("Relationships")),
-        layout.datatable.DataTable.from_queryset(
-            RelationshipType.objects.all(),
-            columns=["name"],
-            addurl=reverse_model(
-                RelationshipType,
-                "add",
-                query={"next": reverse("basxconnect.core.views.relationshipssettings")},
-            ),
-            backurl=reverse("basxconnect.core.views.relationshipssettings"),
+    return layout.grid.Grid(
+        R(C(hg.H3(_("Relationships")))),
+        R(
+            C(
+                layout.datatable.DataTable.from_queryset(
+                    RelationshipType.objects.all(),
+                    columns=["name"],
+                    addurl=reverse_model(
+                        RelationshipType,
+                        "add",
+                        query={
+                            "next": reverse(
+                                "basxconnect.core.views.relationshipssettings"
+                            )
+                        },
+                    ),
+                    backurl=reverse("basxconnect.core.views.relationshipssettings"),
+                ),
+            )
         ),
     )
 
 
 def personsettings(request):
-    dist = hg.DIV(style="margin-bottom: 2rem")
-    ret = hg.BaseElement(hg.H3(_("Persons")))
+    ret = layout.grid.Grid(R(C(hg.H3(_("Persons")))))
     for category in Category.objects.all():
-        ret.append(generate_term_datatable(category.name, category.slug))
-        ret.append(dist)
+        ret.append(
+            R(
+                C(generate_term_datatable(category.name, category.slug)),
+                style="margin-bottom: 2rem",
+            )
+        )
     return ret
 
 
 def generalsettings(request):
     return hg.BaseElement(
-        layout.grid.Grid(
-            R(C(F("name"))),
-            R(C(F("name_addition"))),
-            gutter=False,
-        ),
+        R(C(F("name"))),
+        R(C(F("name_addition"))),
         layout.form.FormsetField(
             "core_postal_list",
-            layout.grid.Grid(
+            hg.BaseElement(
                 R(C(F("address"))),
                 R(
                     C(F("postcode"), breakpoint="sm", width=1),
                     C(F("city"), breakpoint="sm", width=3),
                 ),
                 R(C(F("country"))),
-                gutter=False,
             ),
             can_delete=False,
             max_num=1,
             extra=1,
         ),
-        layout.grid.Grid(
-            R(
-                C(single_item_fieldset("core_phone_list", "number")),
-                C(
-                    single_item_fieldset(
-                        "core_email_list",
-                        "email",
-                    )
-                ),
+        R(
+            C(single_item_fieldset("core_phone_list", "number")),
+            C(
+                single_item_fieldset(
+                    "core_email_list",
+                    "email",
+                )
             ),
-            R(
-                C(single_item_fieldset("core_web_list", "url")),
-                C(),
-            ),
-            gutter=False,
         ),
-        layout.helpers.SubmitButton(_("Save")),
+        R(
+            C(single_item_fieldset("core_web_list", "url")),
+            C(),
+        ),
+        R(C(layout.helpers.SubmitButton(_("Save")))),
     )
 
 

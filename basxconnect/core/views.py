@@ -25,14 +25,20 @@ from basxconnect.core.layouts.editpersonassociation import editpersonassociation
 
 from . import models, settings
 
+R = layout.grid.Row
+C = layout.grid.Col
+F = layout.form.FormField
+
 # ADD MODEL VIEWS AND REGISTER URLS -------------------------------------------
 
 
 def personform_shortcut(request, formlayout, isreadview):
     return hg.BaseElement(
-        editperson_toolbar(request),
-        editperson_head(request, isreadview=isreadview),
-        layout.form.Form(hg.C("form"), formlayout),
+        layout.grid.Grid(
+            editperson_toolbar(request),
+            editperson_head(request, isreadview=isreadview),
+            layout.form.Form(hg.C("form"), formlayout),
+        )
     )
 
 
@@ -402,19 +408,18 @@ def generalsettings(request):
             if form.is_valid():
                 form.save()
 
-        return hg.BaseElement(
-            hg.H3(_("Settings")),
-            hg.H4(_("General")),
-            hg.H5(_("Information about our organization")),
-            layout.form.Form(form, layoutobj, style="max-width: 480px"),
+        content = layout.form.Form(form, layoutobj, style="max-width: 480px")
+    else:
+        content = (
+            _(
+                "The django setting BASXCONNECT.OWNER_PERSON_ID needs to be set to an existing person in order to be able to edit this screen"
+            ),
         )
-    return hg.BaseElement(
-        hg.H3(_("Settings")),
-        hg.H4(_("General")),
-        hg.H5(_("Information about our organization")),
-        _(
-            "The django setting BASXCONNECT.OWNER_PERSON_ID needs to be set to an existing person in order to be able to edit this screen"
-        ),
+    return layout.grid.Grid(
+        R(C(hg.H3(_("Settings")))),
+        R(C(hg.H4(_("General")))),
+        R(C(hg.H5(_("Information about our organization")))),
+        R(C(content)),
     )
 
 
