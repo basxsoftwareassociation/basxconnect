@@ -1,5 +1,3 @@
-from typing import Callable
-
 import htmlgenerator as hg
 from bread import layout, menu
 from bread.layout.components.datatable import DataTableColumn
@@ -248,7 +246,7 @@ def contact_details():
 def numbers():
     return C(
         hg.H4(_("Numbers")),
-        layout.form.FormsetField(
+        layout.form.FormsetField.as_plain(
             "core_phone_list",
             R(
                 C(F("type"), breakpoint="lg", width=4),
@@ -269,12 +267,7 @@ def numbers():
                     width=2,
                 ),
             ),
-        ),
-        layout.form.FormsetAddButton(
-            "core_phone_list",
-            buttontype="ghost",
-            notext=False,
-            label=_("Add number"),
+            add_label=_("Add number"),
         ),
     )
 
@@ -289,7 +282,7 @@ def email():
             ),
             R(C(F("primary_email_address"), breakpoint="lg", width=4)),
         ),
-        layout.form.FormsetField(
+        layout.form.FormsetField.as_plain(
             "core_email_list",
             R(
                 C(F("type"), breakpoint="lg", width=4),
@@ -310,12 +303,7 @@ def email():
                     width=2,
                 ),
             ),
-        ),
-        layout.form.FormsetAddButton(
-            "core_email_list",
-            buttontype="ghost",
-            notext=False,
-            label=_("Add email address"),
+            add_label=_("Add email address"),
         ),
     )
 
@@ -330,7 +318,7 @@ def categories():
 def urls():
     return C(
         hg.H4(_("URLs")),
-        layout.form.FormsetField(
+        layout.form.FormsetField.as_plain(
             "core_web_list",
             R(
                 C(F("type"), breakpoint="lg", width=4),
@@ -351,12 +339,7 @@ def urls():
                     width=2,
                 ),
             ),
-        ),
-        layout.form.FormsetAddButton(
-            "core_web_list",
-            buttontype="ghost",
-            notext=False,
-            label=_("Add Url"),
+            add_label=_("Add Url"),
         ),
     )
 
@@ -379,7 +362,7 @@ def addresses():
                 ),
                 R(C(F("primary_postal_address"), breakpoint="lg", width=4)),
             ),
-            layout.form.FormsetField(
+            layout.form.FormsetField.as_plain(
                 "core_postal_list",
                 R(
                     C(F("type"), width=2, breakpoint="lg"),
@@ -412,12 +395,7 @@ def addresses():
                         width=1,
                     ),
                 ),
-            ),
-            layout.form.FormsetAddButton(
-                "core_postal_list",
-                buttontype="ghost",
-                notext=False,
-                label=_("Add address"),
+                add_label=_("Add address"),
             ),
             style="padding-bottom: 2rem",
         ),
@@ -448,33 +426,34 @@ def relationshipstab(request):
         layout.grid.Grid(
             R(
                 C(
-                    layout.datatable.DataTable.from_model(
-                        Relationship,
-                        hg.F(
-                            lambda c, e: c["object"].relationships_to.all()
-                            | c["object"].relationships_from.all()
-                        ),
-                        addurl=reverse_model(
-                            Relationship,
-                            "add",
-                            query={
-                                "person_a": request.resolver_match.kwargs["pk"],
-                                "person_a_nohide": True,
-                            },
-                        ),
-                        backurl=request.get_full_path(),
-                        prevent_automatic_sortingnames=True,
-                        columns=[
-                            "type",
-                            person_in_relationship(
-                                "Person A",
-                                "person_a",
-                                lambda relationship: relationship.person_a,
+                    layout.form.FormsetField.as_datatable(
+                        "relationships_to",
+                        [
+                            layout.datatable.DataTableColumn(
+                                layout.fieldlabel(Relationship, "person_a"),
+                                hg.C("object"),
                             ),
-                            person_in_relationship(
-                                "Person B",
-                                "person_b",
-                                lambda relationship: relationship.person_b,
+                            "type",
+                            "person_b",
+                            "start_date",
+                            "end_date",
+                        ],
+                        # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
+                        # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
+                        title=hg.F(
+                            lambda c, e: _("Relationships from %s to person B")
+                            % c["object"]
+                        ),
+                    ),
+                    hg.DIV(style="margin-top: 2rem"),
+                    layout.form.FormsetField.as_datatable(
+                        "relationships_from",
+                        [
+                            "person_a",
+                            "type",
+                            layout.datatable.DataTableColumn(
+                                layout.fieldlabel(Relationship, "person_a"),
+                                hg.C("object"),
                             ),
                             "start_date",
                             "end_date",
@@ -484,9 +463,13 @@ def relationshipstab(request):
                             row_action("edit", "edit", _("Edit")),
                         ],
                         rowactions_dropdown=True,
-                    )
-                ),
-                style="padding-top: 1rem",
+                        title=hg.F(
+                            lambda c, e: _("Relationships from person A to %s")
+                            % c["object"]
+                        ),
+                    ),
+                    style="padding-top: 1rem",
+                )
             ),
             gridmode="narrow",
             gutter=False,
@@ -502,38 +485,3 @@ def row_action(object_action, icon, label):
         icon=icon,
         label=label,
     )
-
-
-def person_in_relationship(
-    header: str,
-    field_name: str,
-    get_person: Callable[[Relationship], Person],
-) -> DataTableColumn:
-    return DataTableColumn(
-        header,
-        hg.SPAN(
-            person_name(field_name),
-            person_number_in_brackets(field_name),
-            **attributes_for_link_to_person(get_person),
-        ),
-    )
-
-
-def attributes_for_link_to_person(get_person: Callable[[Relationship], Person]):
-    return layout.aslink_attributes(
-        hg.F(
-            lambda c, e: reverse_model(
-                get_person(c["row"]),
-                "read",
-                kwargs={"pk": get_person(c["row"]).pk},
-            )
-        )
-    )
-
-
-def person_name(field):
-    return hg.C(f"row.{field}")
-
-
-def person_number_in_brackets(field):
-    return hg.SPAN(" [", hg.C(f"row.{field}.personnumber"), "]")

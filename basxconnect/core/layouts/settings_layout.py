@@ -35,7 +35,6 @@ def relationshipssettings(request):
 
 
 def personsettings(request):
-    dist = hg.DIV(style="margin-bottom: 2rem")
     ret = layout.grid.Grid(R(C(hg.H3(_("Persons")))))
     for category in Category.objects.all():
         ret.append(
