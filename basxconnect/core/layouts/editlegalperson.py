@@ -41,7 +41,7 @@ def base_data_tab():
                         ),
                     ),
                 ),
-                gridmode="full-width",
+                gutter=False,
             ),
             editperson.contact_details(),
         ),

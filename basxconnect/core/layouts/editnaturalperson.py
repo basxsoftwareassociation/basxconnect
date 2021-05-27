@@ -32,6 +32,8 @@ def base_data_tab():
                         R(
                             C(F("name")),
                         ),
+                        width=7,
+                        breakpoint="lg",
                     ),
                     C(
                         R(C(hg.H4(_("Mailings")))),
@@ -45,9 +47,13 @@ def base_data_tab():
                             C(F("gender"), width=4, breakpoint="lg"),
                             C(F("form_of_address"), width=8, breakpoint="lg"),
                         ),
+                        _class="bx--offset-xlg-1",
+                        width=7,
+                        breakpoint="lg",
                     ),
                 ),
                 gridmode="full-width",
+                gutter=False,
             ),
             contact_details_naturalperson(),
         ),
@@ -70,6 +76,7 @@ def contact_details_naturalperson():
             editperson.other(),
         ),
         gridmode="full-width",
+        gutter=False,
     )
 
 

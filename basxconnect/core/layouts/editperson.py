@@ -15,16 +15,23 @@ F = layout.form.FormField
 
 
 def editperson_form(request, base_data_tab):
-    return layout.tabs.Tabs(
-        base_data_tab(),
-        relationshipstab(request),
-        container=True,
-        tabpanel_attributes={
-            "_class": "theme-white",
-            "style": (
-                "background-color: white; " "margin-left:-2rem; " "margin-right: -2rem"
+    return R(
+        C(
+            layout.grid.Grid(
+                layout.tabs.Tabs(
+                    base_data_tab(),
+                    relationshipstab(request),
+                    container=True,
+                    tabpanel_attributes={
+                        "_class": "theme-white full-width-white-background",
+                        # to prevent the relationship tab to look weird if there are no relationships.
+                        "style": "min-height: 400px",
+                    },
+                ),
+                gutter=False,
             ),
-        },
+            _class="bx--no-gutter",
+        ),
     )
 
 
@@ -55,28 +62,23 @@ def editperson_toolbar(request):
         notext=True,
         **layout.aslink_attributes(hg.F(lambda c, e: reverse_model(Person, "add"))),
     )
-    return hg.DIV(
-        layout.grid.Grid(
-            R(
-                C(
-                    layout.search.Search(placeholder=_("Search person")).withajaxurl(
-                        url=reverse_lazy("basxconnect.core.views.searchperson"),
-                        query_urlparameter="q",
-                    ),
-                    width=2,
-                    breakpoint="md",
-                ),
-                C(
-                    deletebutton,
-                    copybutton,
-                    layout.button.PrintPageButton(buttontype="ghost"),
-                    add_person_button,
-                ),
+    return R(
+        C(
+            layout.search.Search(placeholder=_("Search person")).withajaxurl(
+                url=reverse_lazy("basxconnect.core.views.searchperson"),
+                query_urlparameter="q",
             ),
-            gridmode="narrow",
+            width=2,
+            breakpoint="md",
         ),
-        style="margin-bottom: 1rem;",
+        C(
+            deletebutton,
+            copybutton,
+            layout.button.PrintPageButton(buttontype="ghost"),
+            add_person_button,
+        ),
         _class="no-print",
+        style="margin-bottom: 1rem;",
     )
 
 
@@ -84,10 +86,12 @@ def editperson_head(request, isreadview):
     personnumber = hg.DIV(
         hg.LABEL(layout.fieldlabel(Person, "personnumber"), _class="bx--label"),
         hg.DIV(hg.C("object.personnumber"), style="margin-top: 1rem"),
+        style="margin-left: 2rem",
     )
     personmaintype = hg.DIV(
         hg.LABEL(_("Main Type"), _class="bx--label"),
-        hg.DIV(layout.ModelName("object"), style="margin-top: 1rem"),
+        hg.DIV(layout.ModelName("object"), style="margin-top: 1rem;"),
+        style="margin-left: 2rem",
     )
     created = hg.DIV(
         hg.LABEL(_("Created"), _class="bx--label"),
@@ -97,6 +101,7 @@ def editperson_head(request, isreadview):
             hg.C("object.history.last.history_user"),
             style="margin-top: 1rem",
         ),
+        style="margin-left: 2rem",
     )
 
     areyousure = layout.modal.Modal(
@@ -127,7 +132,7 @@ def editperson_head(request, isreadview):
             **areyousure.openerattributes,
         }
 
-    return layout.grid.Grid(
+    return hg.BaseElement(
         R(
             C(hg.H3(hg.I(hg.C("object"))), width=12, breakpoint="lg"),
             C(
@@ -155,12 +160,18 @@ def editperson_head(request, isreadview):
             style="padding-top: 1rem",
         ),
         R(
-            C(active_toggle(isreadview), width=1, breakpoint="md"),
-            C(personnumber, width=1, breakpoint="md"),
-            C(personmaintype, width=1, breakpoint="md"),
-            C(created, width=1, breakpoint="md"),
-            C(last_change(), width=1, breakpoint="md"),
-            C(),
+            C(
+                hg.DIV(
+                    active_toggle(isreadview),
+                    personnumber,
+                    personmaintype,
+                    created,
+                    last_change(),
+                    style="display:flex;",
+                ),
+                width=9,
+                breakpoint="lg",
+            ),
             *(
                 []
                 if isreadview
@@ -175,11 +186,11 @@ def editperson_head(request, isreadview):
                         ),
                         width=4,
                         breakpoint="lg",
+                        _class="bx--offset-lg-3",
                     )
                 ]
             ),
         ),
-        gridmode="narrow",
     )
 
 
@@ -192,6 +203,7 @@ def last_change():
             hg.C("object.history.first.history_user"),
             style="margin-top: 1rem",
         ),
+        style=" margin-left: 2rem",
     )
 
 
@@ -207,7 +219,7 @@ def active_toggle(isreadview):
     active_toggle.input.attributes["checked"] = hg.F(lambda c, e: c["object"].active)
     active_toggle.label.insert(0, _("Person status"))
     active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
-    return active_toggle
+    return hg.DIV(active_toggle)
 
 
 def contact_details():
@@ -229,6 +241,7 @@ def contact_details():
             style="margin-top: 1rem",
         ),
         gridmode="full-width",
+        gutter=False,
     )
 
 
@@ -472,9 +485,11 @@ def relationshipstab(request):
                         ],
                         rowactions_dropdown=True,
                     )
-                )
+                ),
+                style="padding-top: 1rem",
             ),
             gridmode="narrow",
+            gutter=False,
         ),
     )
 
