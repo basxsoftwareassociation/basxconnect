@@ -12,6 +12,20 @@ C = layout.grid.Col
 F = layout.form.FormField
 
 
+def editperson_form(request, base_data_tab):
+    return layout.tabs.Tabs(
+        base_data_tab(),
+        relationshipstab(request),
+        container=True,
+        tabpanel_attributes={
+            "_class": "theme-white",
+            "style": (
+                "background-color: white; " "margin-left:-2rem; " "margin-right: -2rem"
+            ),
+        },
+    )
+
+
 def editperson_toolbar(request):
     deletebutton = layout.button.Button(
         _("Delete"),
@@ -31,6 +45,7 @@ def editperson_toolbar(request):
             hg.F(lambda c, e: layout.objectaction(c["object"], "copy"))
         ),
     )
+
     add_person_button = layout.button.Button(
         _("Add person"),
         buttontype="primary",
@@ -38,7 +53,6 @@ def editperson_toolbar(request):
         notext=True,
         **layout.aslink_attributes(hg.F(lambda c, e: reverse_model(Person, "add"))),
     )
-
     return hg.DIV(
         layout.grid.Grid(
             R(
@@ -57,20 +71,14 @@ def editperson_toolbar(request):
                     add_person_button,
                 ),
             ),
-            gridmode="full-width",
+            gridmode="narrow",
         ),
-        hg.DIV(_class="section-separator-bottom", style="margin-top: 1rem"),
-        style="margin-bottom: 2rem",
+        style="margin-bottom: 1rem;",
         _class="no-print",
     )
 
 
 def editperson_head(request, isreadview):
-    if isreadview:
-        active_toggle = active_toggle_readview()
-    else:
-        active_toggle = active_toggle_editview()
-
     personnumber = hg.DIV(
         hg.LABEL(layout.fieldlabel(Person, "personnumber"), _class="bx--label"),
         hg.DIV(hg.C("object.personnumber"), style="margin-top: 1rem"),
@@ -110,11 +118,13 @@ def editperson_head(request, isreadview):
             ),
         ),
     )
+
     view_button_attrs = {}
     if not isreadview:
         view_button_attrs = {
             **areyousure.openerattributes,
         }
+
     return layout.grid.Grid(
         R(
             C(hg.H3(hg.I(hg.C("object"))), width=12, breakpoint="lg"),
@@ -143,7 +153,7 @@ def editperson_head(request, isreadview):
             style="padding-top: 1rem",
         ),
         R(
-            C(active_toggle, width=1, breakpoint="md"),
+            C(active_toggle(isreadview), width=1, breakpoint="md"),
             C(personnumber, width=1, breakpoint="md"),
             C(personmaintype, width=1, breakpoint="md"),
             C(created, width=1, breakpoint="md"),
@@ -166,10 +176,8 @@ def editperson_head(request, isreadview):
                     )
                 ]
             ),
-            _class="disabled-02" if isreadview else "",
         ),
-        style="position: sticky; top: 3rem; z-index: 99; background-color: #fff; margin-bottom: 1rem;",
-        gridmode="full-width",
+        gridmode="narrow",
     )
 
 
@@ -185,8 +193,10 @@ def last_change():
     )
 
 
-def active_toggle_editview():
+def active_toggle(isreadview):
     active_toggle = layout.toggle.Toggle(None, _("Inactive"), _("Active"))
+    if isreadview:
+        active_toggle.input.attributes["onclick"] = "return false;"
     active_toggle.input.attributes["id"] = "person_active_toggle"
     active_toggle.input.attributes["hx_trigger"] = "change"
     active_toggle.input.attributes["hx_post"] = hg.F(
@@ -198,34 +208,17 @@ def active_toggle_editview():
     return active_toggle
 
 
-def active_toggle_readview():
-    return hg.DIV(
-        layout.helpers.LabelElement(_("Status"), _for=False),
-        hg.DIV(hg.C("object.status")),
-        _class="bx--form-item",
-    )
-
-
-def style_person(ret):
-    ret.tabpanels.attributes["style"] = "padding-left: 0; padding-right: 0; "
-    ret[0].attributes[
-        "style"
-    ] = "padding-left: 2rem; padding-right: 2rem; border-bottom: #f4f4f4 solid;"
-
-
-def contact_details(request):
+def contact_details():
     return layout.grid.Grid(
         addresses(),
         R(
             numbers(),
             email(),
-            _class="section-separator-bottom",
             style="padding-bottom: 2rem",
         ),
         R(
             urls(),
             categories(),
-            _class="section-separator-bottom",
             style="padding-bottom: 2rem",
         ),
         R(
@@ -263,7 +256,6 @@ def numbers():
             ),
             add_label=_("Add number"),
         ),
-        _class="section-separator-right",
     )
 
 
@@ -304,7 +296,10 @@ def email():
 
 
 def categories():
-    return C(hg.H4(_("Categories")), layout.form.FormField("categories"))
+    return C(
+        hg.H4(_("Categories")),
+        layout.form.FormField("categories"),
+    )
 
 
 def urls():
@@ -333,12 +328,14 @@ def urls():
             ),
             add_label=_("Add Url"),
         ),
-        _class="section-separator-right",
     )
 
 
 def other():
-    return C(hg.H4(_("Other")), F("remarks"))
+    return C(
+        hg.H4(_("Other")),
+        F("remarks"),
+    )
 
 
 def addresses():
@@ -387,13 +384,12 @@ def addresses():
                 ),
                 add_label=_("Add address"),
             ),
-            _class="section-separator-bottom",
             style="padding-bottom: 2rem",
         ),
     )
 
 
-def revisionstab(request):
+def revisionstab():
     return (
         _("Revisions"),
         hg.BaseElement(
@@ -412,42 +408,51 @@ def revisionstab(request):
 
 
 def relationshipstab(request):
-    return (
+    return layout.tabs.Tab(
         _("Relationships"),
         layout.grid.Grid(
-            layout.form.FormsetField.as_datatable(
-                "relationships_to",
-                [
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_a"), hg.C("object")
+            R(
+                C(
+                    layout.form.FormsetField.as_datatable(
+                        "relationships_to",
+                        [
+                            layout.datatable.DataTableColumn(
+                                layout.fieldlabel(Relationship, "person_a"),
+                                hg.C("object"),
+                            ),
+                            "type",
+                            "person_b",
+                            "start_date",
+                            "end_date",
+                        ],
+                        # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
+                        # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
+                        title=hg.F(
+                            lambda c, e: _("Relationships from %s to person B")
+                            % c["object"]
+                        ),
                     ),
-                    "type",
-                    "person_b",
-                    "start_date",
-                    "end_date",
-                ],
-                # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
-                # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
-                title=hg.F(
-                    lambda c, e: _("Relationships from %s to person B") % c["object"]
-                ),
-            ),
-            hg.DIV(style="margin-top: 2rem"),
-            layout.form.FormsetField.as_datatable(
-                "relationships_from",
-                [
-                    "person_a",
-                    "type",
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_a"), hg.C("object")
+                    hg.DIV(style="margin-top: 2rem"),
+                    layout.form.FormsetField.as_datatable(
+                        "relationships_from",
+                        [
+                            "person_a",
+                            "type",
+                            layout.datatable.DataTableColumn(
+                                layout.fieldlabel(Relationship, "person_a"),
+                                hg.C("object"),
+                            ),
+                            "start_date",
+                            "end_date",
+                        ],
+                        title=hg.F(
+                            lambda c, e: _("Relationships from person A to %s")
+                            % c["object"]
+                        ),
                     ),
-                    "start_date",
-                    "end_date",
-                ],
-                title=hg.F(
-                    lambda c, e: _("Relationships from person A to %s") % c["object"]
-                ),
+                )
             ),
+            gridmode="narrow",
         ),
     )
 

@@ -2,11 +2,7 @@ import htmlgenerator as hg
 from bread import layout
 from django.utils.translation import gettext_lazy as _
 
-from basxconnect.core.layouts.editperson import (
-    contact_details,
-    relationshipstab,
-    style_person,
-)
+from basxconnect.core.layouts import editperson
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -14,18 +10,11 @@ F = layout.form.FormField
 
 
 def editlegalperson_form(request):
-    # fix: alignment of tab content and tab should be on global grid I think
-    ret = layout.tabs.Tabs(
-        base_data_tab(request),
-        relationshipstab(request),
-        container=True,
-    )
-    style_person(ret)
-    return ret
+    return editperson.editperson_form(request, base_data_tab)
 
 
-def base_data_tab(request):
-    return (
+def base_data_tab():
+    return layout.tabs.Tab(
         _("Base data"),
         hg.BaseElement(
             layout.grid.Grid(
@@ -40,7 +29,6 @@ def base_data_tab(request):
                                 breakpoint="lg",
                             )
                         ),
-                        _class="section-separator-right",
                     ),
                     C(
                         R(C(hg.H4(_("Mailings")))),
@@ -55,7 +43,6 @@ def base_data_tab(request):
                 ),
                 gridmode="full-width",
             ),
-            hg.DIV(_class="section-separator-bottom"),
-            contact_details(request),
+            editperson.contact_details(),
         ),
     )
