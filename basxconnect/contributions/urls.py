@@ -22,8 +22,10 @@ urlpatterns = [
         models.ContributionImport,
         browseview=views.BrowseView._with(
             columns=(
-                (_("Import date"), layout.FC("row.date.date"), None),
-                (
+                layout.datatable.DataTableColumn(
+                    _("Import date"), layout.FC("row.date.date"), None
+                ),
+                layout.datatable.DataTableColumn(
                     _("Importfile"),
                     hg.BaseElement(
                         layout.FC("row.importfile.name"), layout.FC("row.importfile")
