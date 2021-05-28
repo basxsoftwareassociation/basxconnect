@@ -449,11 +449,14 @@ def generalsettings(request):
                 "The django setting BASXCONNECT.OWNER_PERSON_ID needs to be set to an existing person in order to be able to edit this screen"
             ),
         )
-    return layout.grid.Grid(
-        R(C(hg.H3(_("Settings")))),
-        R(C(hg.H4(_("General")))),
-        R(C(hg.H5(_("Information about our organization")))),
-        R(C(content)),
+    return hg.WithContext(
+        layout.grid.Grid(
+            R(C(hg.H3(_("Settings")))),
+            R(C(hg.H4(_("General")))),
+            R(C(hg.H5(_("Information about our organization")))),
+            R(C(content)),
+        ),
+        form=content.form,
     )
 
 
