@@ -50,7 +50,7 @@ def generalsettings(request):
     return hg.BaseElement(
         R(C(F("name"))),
         R(C(F("name_addition"))),
-        layout.form.FormsetField(
+        layout.form.FormsetField.as_plain(
             "core_postal_list",
             hg.BaseElement(
                 R(C(F("address"))),
@@ -83,7 +83,7 @@ def generalsettings(request):
 
 def single_item_fieldset(related_field, fieldname, queryset=None):
     """Helper function to show only a single item of a (foreign-key) related item list"""
-    return layout.form.FormsetField(
+    return layout.form.FormsetField.as_plain(
         related_field,
         F(fieldname),
         formsetinitial={"queryset": queryset},
