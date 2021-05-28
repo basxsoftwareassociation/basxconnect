@@ -441,8 +441,9 @@ def relationshipstab(request):
                         # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
                         # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
                         title=hg.F(
-                            lambda c, e: _("Relationships from %s to person B")
-                            % c["object"]
+                            lambda c, e: _("Relationships from")
+                            + " %s " % c["object"]
+                            + _('to "person B"')
                         ),
                     ),
                     hg.DIV(style="margin-top: 2rem"),
@@ -464,8 +465,8 @@ def relationshipstab(request):
                         ],
                         rowactions_dropdown=True,
                         title=hg.F(
-                            lambda c, e: _("Relationships from person A to %s")
-                            % c["object"]
+                            lambda c, e: _('Relationships from "person A" to ')
+                            + " %s " % c["object"]
                         ),
                     ),
                     style="padding-top: 1rem; margin-left: -1rem",
