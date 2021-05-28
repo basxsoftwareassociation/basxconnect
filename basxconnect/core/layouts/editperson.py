@@ -468,10 +468,9 @@ def relationshipstab(request):
                             % c["object"]
                         ),
                     ),
-                    style="padding-top: 1rem",
+                    style="padding-top: 1rem; margin-left: -1rem",
                 )
             ),
-            gridmode="narrow",
             gutter=False,
         ),
     )
