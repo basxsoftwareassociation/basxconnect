@@ -452,7 +452,7 @@ def relationshipstab(request):
                             "person_a",
                             "type",
                             layout.datatable.DataTableColumn(
-                                layout.fieldlabel(Relationship, "person_a"),
+                                layout.fieldlabel(Relationship, "person_b"),
                                 hg.C("object"),
                             ),
                             "start_date",
