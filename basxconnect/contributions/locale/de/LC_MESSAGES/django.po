@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-05 20:56+0700\n"
+"POT-Creation-Date: 2021-05-29 10:59+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:64
+#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:66
 msgid "Contributions"
 msgstr "Zuwendungen"
 
@@ -33,7 +33,7 @@ msgstr "Bevorzute Währung"
 msgid "Date"
 msgstr "Datum"
 
-#: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:27
+#: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:29
 msgid "Importfile"
 msgstr "Importdatei"
 
@@ -84,7 +84,7 @@ msgstr "Kostenstelle"
 
 #: basxconnect/contributions/models.py:74
 #: basxconnect/contributions/models.py:81
-#: basxconnect/contributions/wizards/contributionsimport.py:155
+#: basxconnect/contributions/wizards/contributionsimport.py:164
 msgid "Amount"
 msgstr "Betrag"
 
@@ -96,11 +96,11 @@ msgstr "Währung"
 msgid "Contribution"
 msgstr "Zuwendung"
 
-#: basxconnect/contributions/urls.py:25
+#: basxconnect/contributions/urls.py:26
 msgid "Import date"
 msgstr "Importdatum"
 
-#: basxconnect/contributions/urls.py:58
+#: basxconnect/contributions/urls.py:60
 msgid "Imports"
 msgstr "Importe"
 
@@ -140,43 +140,43 @@ msgstr "Problem beim CSV import: "
 msgid "Assignment"
 msgstr "Zuweisung"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:134
+#: basxconnect/contributions/wizards/contributionsimport.py:135
 msgid "Account"
 msgstr "Konto"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:135
+#: basxconnect/contributions/wizards/contributionsimport.py:138
 msgid "Cost Center"
 msgstr "Kostenstelle"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:136
+#: basxconnect/contributions/wizards/contributionsimport.py:141
 msgid "Person Number"
 msgstr "Personennummer"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:137
+#: basxconnect/contributions/wizards/contributionsimport.py:144
 msgid "Donor Number"
 msgstr "Spendernummer"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:139
+#: basxconnect/contributions/wizards/contributionsimport.py:147
 msgid "Assignment state"
 msgstr "Zuweisungsstatus"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:158
+#: basxconnect/contributions/wizards/contributionsimport.py:168
 msgid "Overview of contributions to import"
 msgstr "Überblick der zu importierenden Buchungen"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:164
+#: basxconnect/contributions/wizards/contributionsimport.py:174
 msgid "contributions"
 msgstr "Zuwendungen"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:168
+#: basxconnect/contributions/wizards/contributionsimport.py:178
 msgid "Sum"
 msgstr "Summe"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:199
+#: basxconnect/contributions/wizards/contributionsimport.py:209
 msgid " contributions could not been assigned"
 msgstr " Zuwendungen konnten nicht zugewiesen werden"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:202
+#: basxconnect/contributions/wizards/contributionsimport.py:212
 msgid ""
 "Please make sure that each entry has contributor number which matches with a "
 "person number and do the import again"
@@ -185,26 +185,23 @@ msgstr ""
 "mit der Stammnummer einer Person aus der Datenbank übereinstimmt und "
 "versuchen Sie erneut zu importieren"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:207
+#: basxconnect/contributions/wizards/contributionsimport.py:217
 msgid "Cancel import"
 msgstr "Import abbrechen"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:213
+#: basxconnect/contributions/wizards/contributionsimport.py:223
 msgid "Assignment complete"
 msgstr "Zuweisung vollstängid"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:214
+#: basxconnect/contributions/wizards/contributionsimport.py:224
 msgid "Continue in order to complete the import"
 msgstr "Weiterfahren um den Import abzuschliessen"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:242
+#: basxconnect/contributions/wizards/contributionsimport.py:252
 msgid "Import contributions"
 msgstr "Zuwendungen importieren"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:285
+#: basxconnect/contributions/wizards/contributionsimport.py:295
 #, python-format
 msgid "Successfully imported %d contributions"
 msgstr "%d Zuwendungen wurden erfolgreich importiert"
-
-#~ msgid "Contribution imports"
-#~ msgstr "Zuwendungsimporte"
