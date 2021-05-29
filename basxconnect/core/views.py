@@ -246,9 +246,27 @@ class PersonBrowseView(BrowseView):
             ):
                 q = Q()
                 for i in ("naturalperson", "legalperson", "personassociation"):
-                    if form.cleaned_data[i]:
-                        q |= Q(_maintype=i)
-                    if form.cleaned_data[f"{i}_subtypes"]:
+                    # setup some logic descriptors
+                    maintype_selected = bool(form.cleaned_data[i])
+                    subtype_selected = bool(form.cleaned_data[f"{i}_subtypes"])
+                    all_subtypes_selected = bool(
+                        form.cleaned_data[f"{i}_subtypes"].count()
+                        == form.fields[f"{i}_subtypes"].queryset.count()
+                    )
+
+                    # the semantics for this filter are not 100% clear
+                    # there are also cases where a subtype has the wrong maintype
+                    # This code tries to make the selection consistent to what a user
+                    # would expect, but these expectations can still vary...
+                    if maintype_selected:
+                        typeq = Q(_maintype=i)
+                        if subtype_selected:
+                            if not all_subtypes_selected:
+                                typeq &= Q(_type__in=form.cleaned_data[f"{i}_subtypes"])
+                        else:
+                            typeq &= ~Q(_type__in=form.fields[f"{i}_subtypes"].queryset)
+                        q |= typeq
+                    else:
                         q |= Q(_type__in=form.cleaned_data[f"{i}_subtypes"])
                 ret = ret.filter(q)
             if form.cleaned_data.get("categories"):
