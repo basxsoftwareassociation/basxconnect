@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-05-29 11:55+0700\n"
-"PO-Revision-Date: 2021-04-07 01:59+0000\n"
+"PO-Revision-Date: 2021-05-29 09:05+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/views.py:455 basxconnect/core/views.py:497
@@ -47,7 +47,7 @@ msgstr "ชื่อ"
 #: basxconnect/core/layouts/editlegalperson.py:34
 #: basxconnect/core/layouts/editnaturalperson.py:39
 msgid "Mailings"
-msgstr ""
+msgstr "การส่งจดหมาย"
 
 #: basxconnect/core/layouts/editperson.py:38
 #: basxconnect/core/layouts/editperson.py:462 basxconnect/core/views.py:127
@@ -123,10 +123,8 @@ msgid "Numbers"
 msgstr "เบอร์โทรศัพท์"
 
 #: basxconnect/core/layouts/editperson.py:270
-#, fuzzy
-#| msgid "Fax number"
 msgid "Add number"
-msgstr "แฟกซ์"
+msgstr "เพิ่มเบอร์"
 
 #: basxconnect/core/layouts/editperson.py:277
 #: basxconnect/core/models/addresses.py:41
@@ -135,10 +133,8 @@ msgid "Email"
 msgstr "อีเมล์"
 
 #: basxconnect/core/layouts/editperson.py:306
-#, fuzzy
-#| msgid "Email address"
 msgid "Add email address"
-msgstr "ที่อยู่อีเมล์"
+msgstr "เพิ่มที่อยู่อีเมล์"
 
 #: basxconnect/core/layouts/editperson.py:313
 #: basxconnect/core/models/persons.py:46 basxconnect/core/models/utils.py:25
@@ -151,26 +147,20 @@ msgid "URLs"
 msgstr "URLs"
 
 #: basxconnect/core/layouts/editperson.py:342
-#, fuzzy
-#| msgid "Add %s"
 msgid "Add Url"
-msgstr "เพิ่ม %s"
+msgstr "เพิ่ม Url"
 
 #: basxconnect/core/layouts/editperson.py:349
 msgid "Other"
 msgstr "อื่นๆ"
 
 #: basxconnect/core/layouts/editperson.py:357
-#, fuzzy
-#| msgid "Address"
 msgid "Address(es)"
 msgstr "ที่อยู่"
 
 #: basxconnect/core/layouts/editperson.py:398
-#, fuzzy
-#| msgid "Address"
 msgid "Add address"
-msgstr "ที่อยู่"
+msgstr "เพิ่มที่อยู่"
 
 #: basxconnect/core/layouts/editperson.py:407
 msgid "Revisions"
@@ -195,16 +185,14 @@ msgid "Relationships"
 msgstr "ความสัมพันธ์"
 
 #: basxconnect/core/layouts/editperson.py:444
-#, fuzzy, python-format
-#| msgid "Relationship types"
+#, python-format
 msgid "Relationships from %s to \"person B\""
-msgstr "ประเภทความสัมพันธ์"
+msgstr "ความสัมพันธ์ของ %sกับ \"person B\""
 
 #: basxconnect/core/layouts/editperson.py:467
-#, fuzzy, python-format
-#| msgid "Relationship types"
+#, python-format
 msgid "Relationships from \"person A\" to %s"
-msgstr "ประเภทความสัมพันธ์"
+msgstr "ความสัมพันธ์ของ\"person A\" กับ %s"
 
 #: basxconnect/core/layouts/editpersonassociation.py:21
 msgid "General Information"
@@ -483,7 +471,7 @@ msgstr "หมวดหมู่"
 
 #: basxconnect/core/views.py:139
 msgid "Excel"
-msgstr ""
+msgstr "Excel"
 
 #: basxconnect/core/views.py:331
 msgid "Tags"
