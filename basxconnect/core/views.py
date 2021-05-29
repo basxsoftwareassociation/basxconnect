@@ -448,6 +448,7 @@ class PersonBrowseView(BrowseView):
 @aslayout
 def generalsettings(request):
     layoutobj = settings_layout.generalsettings(request)
+    form = None
     if models.Person.objects.filter(id=settings.OWNER_PERSON_ID).exists():
         form = generate_form(
             request,
@@ -474,7 +475,7 @@ def generalsettings(request):
             R(C(hg.H5(_("Information about our organization")))),
             R(C(content)),
         ),
-        form=content.form,
+        form=form,
     )
 
 
