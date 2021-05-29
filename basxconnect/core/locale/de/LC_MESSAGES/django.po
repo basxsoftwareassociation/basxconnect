@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-29 10:59+0700\n"
+"POT-Creation-Date: 2021-05-29 11:55+0700\n"
 "PO-Revision-Date: 2021-04-08 02:26+0000\n"
 "Last-Translator: Frederik Bugglin <bugglin@basx.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/basxconnect/"
@@ -50,7 +50,7 @@ msgid "Mailings"
 msgstr "Mailings"
 
 #: basxconnect/core/layouts/editperson.py:38
-#: basxconnect/core/layouts/editperson.py:463 basxconnect/core/views.py:127
+#: basxconnect/core/layouts/editperson.py:462 basxconnect/core/views.py:127
 msgid "Delete"
 msgstr "Löschen"
 
@@ -95,7 +95,7 @@ msgid "View"
 msgstr "Ansicht"
 
 #: basxconnect/core/layouts/editperson.py:140
-#: basxconnect/core/layouts/editperson.py:464
+#: basxconnect/core/layouts/editperson.py:463
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -185,19 +185,12 @@ msgid "Relationships"
 msgstr "Verknüpfungen"
 
 #: basxconnect/core/layouts/editperson.py:444
-#| msgid "Relationships"
-msgid "Relationships from"
-msgstr "Verknüpfungen von"
+msgid "Relationships from %s to \"person B\""
+msgstr "Beziehungen von %s zu \"Person B\""
 
-#: basxconnect/core/layouts/editperson.py:446
-#| msgid "Person B"
-msgid "to \"person B\""
-msgstr "zu \"Person B\""
-
-#: basxconnect/core/layouts/editperson.py:468
-#| msgid "Relationship types"
-msgid "Relationships from \"person A\" to "
-msgstr "Beziehungen von \"Person A\" zu "
+#: basxconnect/core/layouts/editperson.py:467
+msgid "Relationships from \"person A\" to %s"
+msgstr "Beziehungen von \"Person A\" zu %s"
 
 #: basxconnect/core/layouts/editpersonassociation.py:21
 msgid "General Information"

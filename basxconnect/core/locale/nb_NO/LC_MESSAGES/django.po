@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-29 10:59+0700\n"
+"POT-Creation-Date: 2021-05-29 11:55+0700\n"
 "PO-Revision-Date: 2021-03-27 03:29+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -50,7 +50,7 @@ msgid "Mailings"
 msgstr ""
 
 #: basxconnect/core/layouts/editperson.py:38
-#: basxconnect/core/layouts/editperson.py:463 basxconnect/core/views.py:127
+#: basxconnect/core/layouts/editperson.py:462 basxconnect/core/views.py:127
 msgid "Delete"
 msgstr "Slett"
 
@@ -98,7 +98,7 @@ msgid "View"
 msgstr "Vis"
 
 #: basxconnect/core/layouts/editperson.py:140
-#: basxconnect/core/layouts/editperson.py:464
+#: basxconnect/core/layouts/editperson.py:463
 msgid "Edit"
 msgstr "Rediger"
 
@@ -199,21 +199,15 @@ msgid "Relationships"
 msgstr "Relasjoner"
 
 #: basxconnect/core/layouts/editperson.py:444
-#, fuzzy
-#| msgid "Relationships"
-msgid "Relationships from"
-msgstr "Relasjoner"
-
-#: basxconnect/core/layouts/editperson.py:446
-#, fuzzy
-#| msgid "Person B"
-msgid "to \"person B\""
-msgstr "Person B"
-
-#: basxconnect/core/layouts/editperson.py:468
-#, fuzzy
+#, fuzzy, python-format
 #| msgid "Relationship types"
-msgid "Relationships from \"person A\" to "
+msgid "Relationships from %s to \"person B\""
+msgstr "Relasjonstyper"
+
+#: basxconnect/core/layouts/editperson.py:467
+#, fuzzy, python-format
+#| msgid "Relationship types"
+msgid "Relationships from \"person A\" to %s"
 msgstr "Relasjonstyper"
 
 #: basxconnect/core/layouts/editpersonassociation.py:21
@@ -629,6 +623,16 @@ msgstr "Gjennomse og bekreft innskrevet info"
 #, python-format
 msgid "Add %s"
 msgstr "Legg til %s"
+
+#, fuzzy
+#~| msgid "Relationships"
+#~ msgid "Relationships from"
+#~ msgstr "Relasjoner"
+
+#, fuzzy
+#~| msgid "Person B"
+#~ msgid "to \"person B\""
+#~ msgstr "Person B"
 
 #~ msgid "No address"
 #~ msgstr "Ingen adresse"

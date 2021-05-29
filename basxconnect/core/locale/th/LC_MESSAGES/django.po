@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-29 10:59+0700\n"
+"POT-Creation-Date: 2021-05-29 11:55+0700\n"
 "PO-Revision-Date: 2021-04-07 01:59+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
@@ -50,7 +50,7 @@ msgid "Mailings"
 msgstr ""
 
 #: basxconnect/core/layouts/editperson.py:38
-#: basxconnect/core/layouts/editperson.py:463 basxconnect/core/views.py:127
+#: basxconnect/core/layouts/editperson.py:462 basxconnect/core/views.py:127
 msgid "Delete"
 msgstr "ลบ"
 
@@ -95,7 +95,7 @@ msgid "View"
 msgstr "ดู"
 
 #: basxconnect/core/layouts/editperson.py:140
-#: basxconnect/core/layouts/editperson.py:464
+#: basxconnect/core/layouts/editperson.py:463
 msgid "Edit"
 msgstr "แก้ไข"
 
@@ -195,21 +195,15 @@ msgid "Relationships"
 msgstr "ความสัมพันธ์"
 
 #: basxconnect/core/layouts/editperson.py:444
-#, fuzzy
-#| msgid "Relationships"
-msgid "Relationships from"
-msgstr "ความสัมพันธ์"
-
-#: basxconnect/core/layouts/editperson.py:446
-#, fuzzy
-#| msgid "Person B"
-msgid "to \"person B\""
-msgstr "บุคคล B"
-
-#: basxconnect/core/layouts/editperson.py:468
-#, fuzzy
+#, fuzzy, python-format
 #| msgid "Relationship types"
-msgid "Relationships from \"person A\" to "
+msgid "Relationships from %s to \"person B\""
+msgstr "ประเภทความสัมพันธ์"
+
+#: basxconnect/core/layouts/editperson.py:467
+#, fuzzy, python-format
+#| msgid "Relationship types"
+msgid "Relationships from \"person A\" to %s"
 msgstr "ประเภทความสัมพันธ์"
 
 #: basxconnect/core/layouts/editpersonassociation.py:21
@@ -620,6 +614,16 @@ msgstr "ตรวจสอบและยืนยันข้อมูล"
 #, python-format
 msgid "Add %s"
 msgstr "เพิ่ม %s"
+
+#, fuzzy
+#~| msgid "Relationships"
+#~ msgid "Relationships from"
+#~ msgstr "ความสัมพันธ์"
+
+#, fuzzy
+#~| msgid "Person B"
+#~ msgid "to \"person B\""
+#~ msgstr "บุคคล B"
 
 #~ msgid "No address"
 #~ msgstr "ไม่มีที่อยู่"
