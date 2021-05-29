@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-29 11:55+0700\n"
+"POT-Creation-Date: 2021-05-29 16:49+0700\n"
 "PO-Revision-Date: 2021-05-29 09:05+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.7-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
-#: basxconnect/core/views.py:455 basxconnect/core/views.py:497
+#: basxconnect/core/views.py:473 basxconnect/core/views.py:515
 msgid "General"
 msgstr "ทั่วไป"
 
@@ -48,6 +48,10 @@ msgstr "ชื่อ"
 #: basxconnect/core/layouts/editnaturalperson.py:39
 msgid "Mailings"
 msgstr "การส่งจดหมาย"
+
+#: basxconnect/core/layouts/editnaturalperson.py:85
+msgid "Personal"
+msgstr "ข้อมูลบุคคล"
 
 #: basxconnect/core/layouts/editperson.py:38
 #: basxconnect/core/layouts/editperson.py:462 basxconnect/core/views.py:127
@@ -104,13 +108,13 @@ msgid "Changed"
 msgstr "เปลี่ยน"
 
 #: basxconnect/core/layouts/editperson.py:209 basxconnect/core/views.py:178
-#: basxconnect/core/views.py:470
+#: basxconnect/core/views.py:488
 msgid "Inactive"
 msgstr "ไม่ใช้งาน"
 
 #: basxconnect/core/layouts/editperson.py:209
 #: basxconnect/core/models/persons.py:30 basxconnect/core/views.py:178
-#: basxconnect/core/views.py:470
+#: basxconnect/core/views.py:488
 msgid "Active"
 msgstr "ใช้งาน"
 
@@ -138,7 +142,7 @@ msgstr "เพิ่มที่อยู่อีเมล์"
 
 #: basxconnect/core/layouts/editperson.py:313
 #: basxconnect/core/models/persons.py:46 basxconnect/core/models/utils.py:25
-#: basxconnect/core/views.py:271
+#: basxconnect/core/views.py:289
 msgid "Categories"
 msgstr "หมวดหมู่"
 
@@ -180,7 +184,7 @@ msgstr "เปลี่ยน"
 
 #: basxconnect/core/layouts/editperson.py:425
 #: basxconnect/core/layouts/settings_layout.py:15
-#: basxconnect/core/models/relationships.py:55 basxconnect/core/views.py:511
+#: basxconnect/core/models/relationships.py:55 basxconnect/core/views.py:529
 msgid "Relationships"
 msgstr "ความสัมพันธ์"
 
@@ -199,8 +203,8 @@ msgid "General Information"
 msgstr "ข้อมูลเบื้องต้น"
 
 #: basxconnect/core/layouts/settings_layout.py:38
-#: basxconnect/core/models/persons.py:174 basxconnect/core/views.py:486
-#: basxconnect/core/views.py:491 basxconnect/core/views.py:503
+#: basxconnect/core/models/persons.py:174 basxconnect/core/views.py:504
+#: basxconnect/core/views.py:509 basxconnect/core/views.py:521
 msgid "Persons"
 msgstr "บุคคล"
 
@@ -214,7 +218,7 @@ msgid "Person"
 msgstr "บุคคล"
 
 #: basxconnect/core/models/addresses.py:29
-#: basxconnect/core/models/persons.py:112 basxconnect/core/views.py:347
+#: basxconnect/core/models/persons.py:112 basxconnect/core/views.py:365
 msgid "Status"
 msgstr "สถานะภาพ"
 
@@ -473,28 +477,28 @@ msgstr "หมวดหมู่"
 msgid "Excel"
 msgstr "Excel"
 
-#: basxconnect/core/views.py:331
+#: basxconnect/core/views.py:349
 msgid "Tags"
 msgstr "แท็ก"
 
-#: basxconnect/core/views.py:339
+#: basxconnect/core/views.py:357
 msgid "Languages"
 msgstr "เลือกใช้ภาษา"
 
-#: basxconnect/core/views.py:354
+#: basxconnect/core/views.py:372
 msgid "Cancel"
 msgstr "ยกเลิก"
 
-#: basxconnect/core/views.py:359
+#: basxconnect/core/views.py:377
 msgid "Reset"
 msgstr "ตั้งค่าใหม่"
 
-#: basxconnect/core/views.py:365
+#: basxconnect/core/views.py:383
 msgctxt "apply filter"
 msgid "Filter"
 msgstr "เลือก"
 
-#: basxconnect/core/views.py:449
+#: basxconnect/core/views.py:467
 msgid ""
 "The django setting BASXCONNECT.OWNER_PERSON_ID needs to be set to an "
 "existing person in order to be able to edit this screen"
@@ -502,24 +506,24 @@ msgstr ""
 "การตั้งค่า Django ที่ BASXCONNECT.OWNER_PERSON_ID "
 "ต้องเป็นบุคคลที่ถูกตั้งค่าให้สามารถแก้ไขหน้าจอนี้ได้"
 
-#: basxconnect/core/views.py:454 basxconnect/core/views.py:487
+#: basxconnect/core/views.py:472 basxconnect/core/views.py:505
 msgid "Settings"
 msgstr "ตั้งค่า"
 
-#: basxconnect/core/views.py:456
+#: basxconnect/core/views.py:474
 msgid "Information about our organization"
 msgstr "ข้อมูลเกี่ยวกับองค์กร"
 
-#: basxconnect/core/views.py:470
+#: basxconnect/core/views.py:488
 #, python-format
 msgid "%s is %s"
 msgstr "%s คือ %s"
 
-#: basxconnect/core/views.py:539
+#: basxconnect/core/views.py:557
 msgid "No results"
 msgstr "ไม่มีผลลัพท์"
 
-#: basxconnect/core/views.py:543
+#: basxconnect/core/views.py:561
 #, python-format
 msgid "%s items found"
 msgstr "%sรายการที่พบ"

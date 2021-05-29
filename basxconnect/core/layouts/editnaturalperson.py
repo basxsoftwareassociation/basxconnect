@@ -82,7 +82,7 @@ def contact_details_naturalperson():
 
 def personal():
     return C(
-        hg.H4("Personal"),
+        hg.H4(_("Personal")),
         R(C(F("profession"))),
         R(
             C(F("date_of_birth"), width=6, breakpoint="lg"),

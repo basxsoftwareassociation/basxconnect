@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-29 11:55+0700\n"
+"POT-Creation-Date: 2021-05-29 16:49+0700\n"
 "PO-Revision-Date: 2021-03-27 03:29+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.6-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
-#: basxconnect/core/views.py:455 basxconnect/core/views.py:497
+#: basxconnect/core/views.py:473 basxconnect/core/views.py:515
 msgid "General"
 msgstr "Generelt"
 
@@ -48,6 +48,12 @@ msgstr "Navn"
 #: basxconnect/core/layouts/editnaturalperson.py:39
 msgid "Mailings"
 msgstr ""
+
+#: basxconnect/core/layouts/editnaturalperson.py:85
+#, fuzzy
+#| msgid "Person"
+msgid "Personal"
+msgstr "Person"
 
 #: basxconnect/core/layouts/editperson.py:38
 #: basxconnect/core/layouts/editperson.py:462 basxconnect/core/views.py:127
@@ -107,13 +113,13 @@ msgid "Changed"
 msgstr "Endret"
 
 #: basxconnect/core/layouts/editperson.py:209 basxconnect/core/views.py:178
-#: basxconnect/core/views.py:470
+#: basxconnect/core/views.py:488
 msgid "Inactive"
 msgstr "Inaktiv"
 
 #: basxconnect/core/layouts/editperson.py:209
 #: basxconnect/core/models/persons.py:30 basxconnect/core/views.py:178
-#: basxconnect/core/views.py:470
+#: basxconnect/core/views.py:488
 msgid "Active"
 msgstr "Aktiv"
 
@@ -146,7 +152,7 @@ msgstr "E-postadresse"
 
 #: basxconnect/core/layouts/editperson.py:313
 #: basxconnect/core/models/persons.py:46 basxconnect/core/models/utils.py:25
-#: basxconnect/core/views.py:271
+#: basxconnect/core/views.py:289
 msgid "Categories"
 msgstr "Kategorier"
 
@@ -194,7 +200,7 @@ msgstr "Endre"
 
 #: basxconnect/core/layouts/editperson.py:425
 #: basxconnect/core/layouts/settings_layout.py:15
-#: basxconnect/core/models/relationships.py:55 basxconnect/core/views.py:511
+#: basxconnect/core/models/relationships.py:55 basxconnect/core/views.py:529
 msgid "Relationships"
 msgstr "Relasjoner"
 
@@ -216,8 +222,8 @@ msgid "General Information"
 msgstr "Generell info"
 
 #: basxconnect/core/layouts/settings_layout.py:38
-#: basxconnect/core/models/persons.py:174 basxconnect/core/views.py:486
-#: basxconnect/core/views.py:491 basxconnect/core/views.py:503
+#: basxconnect/core/models/persons.py:174 basxconnect/core/views.py:504
+#: basxconnect/core/views.py:509 basxconnect/core/views.py:521
 msgid "Persons"
 msgstr "Personer"
 
@@ -231,7 +237,7 @@ msgid "Person"
 msgstr "Person"
 
 #: basxconnect/core/models/addresses.py:29
-#: basxconnect/core/models/persons.py:112 basxconnect/core/views.py:347
+#: basxconnect/core/models/persons.py:112 basxconnect/core/views.py:365
 msgid "Status"
 msgstr "Status"
 
@@ -493,52 +499,52 @@ msgstr ""
 msgid "Excel"
 msgstr ""
 
-#: basxconnect/core/views.py:331
+#: basxconnect/core/views.py:349
 msgid "Tags"
 msgstr "Etiketter"
 
-#: basxconnect/core/views.py:339
+#: basxconnect/core/views.py:357
 msgid "Languages"
 msgstr "Språk"
 
-#: basxconnect/core/views.py:354
+#: basxconnect/core/views.py:372
 msgid "Cancel"
 msgstr ""
 
-#: basxconnect/core/views.py:359
+#: basxconnect/core/views.py:377
 msgid "Reset"
 msgstr ""
 
-#: basxconnect/core/views.py:365
+#: basxconnect/core/views.py:383
 msgctxt "apply filter"
 msgid "Filter"
 msgstr ""
 
-#: basxconnect/core/views.py:449
+#: basxconnect/core/views.py:467
 msgid ""
 "The django setting BASXCONNECT.OWNER_PERSON_ID needs to be set to an "
 "existing person in order to be able to edit this screen"
 msgstr ""
 
-#: basxconnect/core/views.py:454 basxconnect/core/views.py:487
+#: basxconnect/core/views.py:472 basxconnect/core/views.py:505
 msgid "Settings"
 msgstr "Innstillinger"
 
-#: basxconnect/core/views.py:456
+#: basxconnect/core/views.py:474
 #, fuzzy
 msgid "Information about our organization"
 msgstr "Info om vår organisasjon"
 
-#: basxconnect/core/views.py:470
+#: basxconnect/core/views.py:488
 #, python-format
 msgid "%s is %s"
 msgstr "%s er %s"
 
-#: basxconnect/core/views.py:539
+#: basxconnect/core/views.py:557
 msgid "No results"
 msgstr "Resultatløst"
 
-#: basxconnect/core/views.py:543
+#: basxconnect/core/views.py:561
 #, python-format
 msgid "%s items found"
 msgstr ""
