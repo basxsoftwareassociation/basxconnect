@@ -40,7 +40,7 @@ setup(
     include_package_data=True,
     setup_requires=["setuptools_scm"],
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Environment :: Console",
         "Environment :: Web Environment",
         "Intended Audience :: Developers",
