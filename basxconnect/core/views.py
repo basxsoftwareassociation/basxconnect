@@ -545,7 +545,7 @@ def searchperson(request):
     query = request.GET.get("q")
     highlight = CustomHighlighter(query)
 
-    if not query:
+    if not query or len(query) < 3:
         return HttpResponse("")
 
     objects = (
