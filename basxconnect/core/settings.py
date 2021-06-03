@@ -12,3 +12,5 @@ PREFERRED_LANGUAGES.sort(key=lambda e: preferred_codes.index(e[0]))
 OWNER_PERSON_ID = getattr(settings, "BASXCONNECT", {}).get(
     "OWNER_PERSON_ID", DEFAULTS["OWNER_PERSON_ID"]
 )
+
+ENABLE_CONTRIBUTIONS = False
