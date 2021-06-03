@@ -37,7 +37,7 @@ def editperson_form(request, base_data_tab):
 def editperson_tabs(base_data_tab, request):
     return [base_data_tab(), relationshipstab(request)] + (
         [
-            contributions_tab.contributions_tab(),
+            contributions_tab.contributions_tab(request),
         ]
         if basxconnect.core.settings.ENABLE_CONTRIBUTIONS
         else []
