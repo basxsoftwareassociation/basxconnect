@@ -561,7 +561,7 @@ def searchperson(request):
         ret = hg.UL(
             hg.LI(_("%s items found") % len(objects), style="margin-bottom: 20px"),
             hg.Iterator(
-                objects,
+                objects[:25],
                 "object",
                 hg.If(
                     hg.C("object.object"),
