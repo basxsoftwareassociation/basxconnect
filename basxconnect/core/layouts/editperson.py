@@ -5,6 +5,8 @@ from bread.utils import reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
+import basxconnect.core.settings
+from basxconnect.core.layouts import contributions_tab
 from basxconnect.core.models import Person, Relationship
 
 R = layout.grid.Row
@@ -17,8 +19,7 @@ def editperson_form(request, base_data_tab):
         C(
             layout.grid.Grid(
                 layout.tabs.Tabs(
-                    base_data_tab(),
-                    relationshipstab(request),
+                    *editperson_tabs(base_data_tab, request),
                     container=True,
                     tabpanel_attributes={
                         "_class": "theme-white full-width-white-background",
@@ -30,6 +31,16 @@ def editperson_form(request, base_data_tab):
             ),
             _class="bx--no-gutter",
         ),
+    )
+
+
+def editperson_tabs(base_data_tab, request):
+    return [base_data_tab(), relationshipstab(request)] + (
+        [
+            contributions_tab.contributions_tab(request),
+        ]
+        if basxconnect.core.settings.ENABLE_CONTRIBUTIONS
+        else []
     )
 
 
