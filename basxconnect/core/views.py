@@ -610,7 +610,7 @@ def searchperson(request):
                             hg.F(
                                 lambda c, e: reverse_model(
                                     c["object"],
-                                    "edit",
+                                    "read",
                                     kwargs={"pk": c["object"].pk},
                                 )
                             ),
