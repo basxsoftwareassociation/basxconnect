@@ -11,3 +11,9 @@ class PersonIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_model(self):
         return models.Person
+
+    def index_queryset(self, using=None):
+        return models.Person.objects.not_deleted()
+
+    def read_queryset(self, using=None):
+        return models.Person.objects.not_deleted()

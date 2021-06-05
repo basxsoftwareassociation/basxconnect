@@ -43,6 +43,19 @@ def editperson_toolbar(request):
             hg.F(lambda c, e: layout.objectaction(c["object"], "delete"))
         ),
     )
+    restorebutton = layout.button.Button(
+        _("Restore"),
+        buttontype="ghost",
+        icon="undo",
+        notext=True,
+        **layout.aslink_attributes(
+            hg.F(
+                lambda c, e: layout.objectaction(
+                    c["object"], "delete", query={"restore": True}
+                )
+            )
+        ),
+    )
     copybutton = layout.button.Button(
         _("Copy"),
         buttontype="ghost",
@@ -70,7 +83,7 @@ def editperson_toolbar(request):
             breakpoint="md",
         ),
         C(
-            deletebutton,
+            hg.If(hg.C("object.deleted"), restorebutton, deletebutton),
             copybutton,
             layout.button.PrintPageButton(buttontype="ghost"),
             add_person_button,
@@ -132,7 +145,16 @@ def editperson_head(request, isreadview):
 
     return hg.BaseElement(
         R(
-            C(hg.H3(hg.I(hg.C("object"))), width=12, breakpoint="lg"),
+            C(
+                hg.H3(
+                    hg.C("object"),
+                    style=hg.If(
+                        hg.C("object.deleted"), "text-decoration: line-through"
+                    ),
+                ),
+                width=12,
+                breakpoint="lg",
+            ),
             C(
                 layout.content_switcher.ContentSwitcher(
                     (_("View"), view_button_attrs),
