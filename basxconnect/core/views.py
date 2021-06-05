@@ -573,19 +573,20 @@ def searchperson(request):
         .autocomplete(name_auto=query)
         .filter_or(personnumber=query)
     )
+    objects.query.set_limits(0, 25)
 
     ret = _("No results")
 
     if objects:
         all_objects = [
             o.object
-            for o in objects
+            for o in objects.query.get_results()
             if getattr(o, "object", None) and not o.object.deleted
-        ]
+        ][:25]
         ret = hg.UL(
-            hg.LI(_("%s items found") % len(all_objects), style="margin-bottom: 20px"),
+            hg.LI(_("%s items found") % objects.count(), style="margin-bottom: 20px"),
             hg.Iterator(
-                all_objects[:25],
+                all_objects,
                 "object",
                 hg.If(
                     hg.C("object"),
