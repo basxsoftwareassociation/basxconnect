@@ -51,7 +51,9 @@ class PersonBrowseView(BrowseView):
             icon="download",
         ),
     )
-    searchurl = reverse("basxconnect.core.views.searchperson")
+    searchurl = reverse(
+        "basxconnect.core.views.person.person_search_views.searchperson"
+    )
     rowclickaction = "read"
 
     class FilterForm(forms.Form):

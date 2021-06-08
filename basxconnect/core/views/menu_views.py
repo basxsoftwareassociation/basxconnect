@@ -22,20 +22,26 @@ menu.registeritem(
 
 menu.registeritem(
     menu.Item(
-        menu.Link(reverse("basxconnect.core.views.generalsettings"), _("General")),
-        settingsgroup,
-    )
-)
-menu.registeritem(
-    menu.Item(
-        menu.Link(reverse("basxconnect.core.views.personsettings"), _("Persons")),
+        menu.Link(
+            reverse("basxconnect.core.views.settings_views.generalsettings"),
+            _("General"),
+        ),
         settingsgroup,
     )
 )
 menu.registeritem(
     menu.Item(
         menu.Link(
-            reverse("basxconnect.core.views.relationshipssettings"),
+            reverse("basxconnect.core.views.settings_views.personsettings"),
+            _("Persons"),
+        ),
+        settingsgroup,
+    )
+)
+menu.registeritem(
+    menu.Item(
+        menu.Link(
+            reverse("basxconnect.core.views.settings_views.relationshipssettings"),
             _("Relationships"),
         ),
         settingsgroup,
