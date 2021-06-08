@@ -7,7 +7,13 @@ from bread.utils.urls import (
 )
 from django.views.generic import RedirectView
 
-from . import models, views
+from basxconnect.core.views import settings_views
+from basxconnect.core.views.person import (
+    person_browse_views,
+    person_details_views,
+    person_search_views,
+)
+from . import models
 from .wizards.add_person import AddPersonWizard
 
 urlpatterns = [
@@ -35,13 +41,13 @@ urlpatterns = [
     ),
     *default_model_paths(
         models.Person,
-        browseview=views.PersonBrowseView,
+        browseview=person_browse_views.PersonBrowseView,
         deleteview=breadviews.DeleteView._with(softdeletefield="deleted"),
     ),
     *default_model_paths(
         models.NaturalPerson,
-        editview=views.NaturalPersonEditView,
-        readview=views.NaturalPersonReadView,
+        editview=person_details_views.NaturalPersonEditView,
+        readview=person_details_views.NaturalPersonReadView,
         deleteview=breadviews.DeleteView._with(softdeletefield="deleted"),
         copyview=breadviews.generate_copyview(
             models.NaturalPerson,
@@ -62,8 +68,8 @@ urlpatterns = [
     ),
     *default_model_paths(
         models.LegalPerson,
-        editview=views.LegalPersonEditView,
-        readview=views.LegalPersonReadView,
+        editview=person_details_views.LegalPersonEditView,
+        readview=person_details_views.LegalPersonReadView,
         deleteview=breadviews.DeleteView._with(softdeletefield="deleted"),
         copyview=breadviews.generate_copyview(
             models.LegalPerson,
@@ -84,8 +90,8 @@ urlpatterns = [
     ),
     *default_model_paths(
         models.PersonAssociation,
-        editview=views.PersonAssociationEditView,
-        readview=views.PersonAssociationReadView,
+        editview=person_details_views.PersonAssociationEditView,
+        readview=person_details_views.PersonAssociationReadView,
         deleteview=breadviews.DeleteView._with(softdeletefield="deleted"),
         copyview=breadviews.generate_copyview(
             models.PersonAssociation,
@@ -108,13 +114,14 @@ urlpatterns = [
     *default_model_paths(models.RelationshipType),
     *default_model_paths(models.Term),
     *default_model_paths(models.Category),
-    generate_path(views.generalsettings),
+    generate_path(settings_views.generalsettings),
     generate_path(
-        views.togglepersonstatus, model_urlname(models.Person, "togglestatus")
+        person_details_views.togglepersonstatus,
+        model_urlname(models.Person, "togglestatus"),
     ),
-    generate_path(views.personsettings),
-    generate_path(views.relationshipssettings),
-    generate_path(views.searchperson),
+    generate_path(settings_views.personsettings),
+    generate_path(settings_views.relationshipssettings),
+    generate_path(person_search_views.searchperson),
     generate_path(
         breadviews.BulkDeleteView.as_view(
             model=models.Person, softdeletefield="deleted"
