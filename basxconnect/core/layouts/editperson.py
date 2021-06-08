@@ -469,6 +469,17 @@ def relationshipstab(request):
                                 hg.C("object"),
                             ),
                             "type",
+                            layout.datatable.DataTableColumn(
+                                layout.fieldlabel(Relationship, "person_b"),
+                                layout.search.Search(
+                                    placeholder=_("Search person")
+                                ).withajaxurl(
+                                    url=reverse_lazy(
+                                        "basxconnect.core.views.searchperson"
+                                    ),
+                                    query_urlparameter="q",
+                                ),
+                            ),
                             "person_b",
                             "start_date",
                             "end_date",
