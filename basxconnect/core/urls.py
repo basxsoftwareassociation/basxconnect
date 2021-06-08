@@ -13,6 +13,7 @@ from basxconnect.core.views.person import (
     person_details_views,
     person_search_views,
 )
+
 from . import models
 from .wizards.add_person import AddPersonWizard
 
