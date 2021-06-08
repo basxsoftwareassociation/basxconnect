@@ -15,7 +15,14 @@ from basxconnect.core import models, settings
 
 class PersonBrowseView(BrowseView):
     columns = [
-        "personnumber",
+        DataTableColumn(
+            layout.fieldlabel(models.Person, "personnumber"),
+            hg.DIV(
+                hg.C("row.personnumber"),
+                style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
+            ),
+            "personnumber",
+        ),
         "status",
         DataTableColumn(_("Category"), hg.C("row._type"), "_type"),
         "name",
@@ -92,6 +99,7 @@ class PersonBrowseView(BrowseView):
             widget=forms.CheckboxSelectMultiple,
             required=False,
         )
+        include_trash = forms.BooleanField(required=False, label=_("Include trash"))
 
     def get_layout(self):
         self.checkboxcounterid = hg.html_id(self, "checkbox-counter")
@@ -138,12 +146,17 @@ class PersonBrowseView(BrowseView):
             counter += form.cleaned_data["categories"].count()
             counter += len(form.cleaned_data["preferred_language"])
             counter += len(form.cleaned_data["status"])
+            counter += 1 if form.cleaned_data["include_trash"] else 0
         return counter
 
     def get_queryset(self):
-        ret = super().get_queryset()
         form = self._filterform()
         if form.is_valid():
+            ret = (
+                super().get_queryset()
+                if form.cleaned_data.get("include_trash", False)
+                else models.Person.objects.not_deleted()
+            )
             if any(
                 [
                     form.cleaned_data[i]
@@ -276,7 +289,13 @@ class PersonBrowseView(BrowseView):
                     ),
                     hg.DIV(
                         hg.DIV(layout.helpers.Label(_("Status"))),
-                        layout.form.FormField("status"),
+                        hg.DIV(layout.form.FormField("status"), style="flex-grow: 0"),
+                        hg.DIV(style="flex-grow: 1"),
+                        hg.DIV(
+                            layout.form.FormField("include_trash"),
+                            style="max-height: 2rem",
+                        ),
+                        style="display: flex; flex-direction: column",
                     ),
                     style="display: flex; max-height: 50vh; padding: 24px 32px 0 32px",
                 ),

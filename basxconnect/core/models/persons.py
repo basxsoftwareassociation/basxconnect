@@ -13,11 +13,11 @@ LanguageField.db_collation = None  # fix issue with LanguageField in django 3.2
 
 
 class PersonManager(models.Manager):
-    def get_queryset(self, *args, **kwargs):
-        return super().get_queryset(*args, **kwargs).filter(deleted=False)
-
-    def get_deleted(self, *args, **kwargs):
+    def trash(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(deleted=True)
+
+    def not_deleted(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(deleted=False)
 
 
 class Person(models.Model):
@@ -113,7 +113,7 @@ class Person(models.Model):
     status.sorting_name = "active"
 
     def save(self, *args, **kwargs):
-        created = self.pk
+        created = self.pk is None
         # automatically generate a person number if empty
         # if this object is just beeing create we do not have
         # a person number (because there is no pk) and we need
@@ -148,15 +148,16 @@ class Person(models.Model):
 
         # this signal needs to be sent manually in order to trigger the search-index update
         # Django does only send a signal for the child-model but our search-index only observes
-        # this base model
-        models.signals.post_save.send(
-            sender=Person,
-            instance=self,
-            created=created,
-            update_fields=kwargs.get("update_fields"),
-            raw=False,
-            using=kwargs.get("using"),
-        )
+        # this base model. It is only needed when creating for some reason...
+        if created:
+            models.signals.post_save.send(
+                sender=Person,
+                instance=self,
+                created=created,
+                update_fields=kwargs.get("update_fields"),
+                raw=False,
+                using=kwargs.get("using"),
+            )
 
     def search_index_snippet(self):
         addr = self.primary_postal_address
