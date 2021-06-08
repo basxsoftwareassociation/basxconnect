@@ -44,10 +44,16 @@ def display_results(objects, highlight):
     if objects.count() == 0:
         return _("No results")
 
+    first_objects = [
+        o.object
+        for o in objects.query.get_results()
+        if getattr(o, "object", None) and not o.object.deleted
+    ][:25]
+
     return hg.UL(
         hg.LI(_("%s items found") % len(objects), style="margin-bottom: 20px"),
         hg.Iterator(
-            objects,
+            first_objects,
             "object",
             hg.If(
                 hg.C("object.object"),
