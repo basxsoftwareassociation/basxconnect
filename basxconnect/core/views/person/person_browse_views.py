@@ -12,10 +12,6 @@ from django.utils.translation import pgettext_lazy
 
 from basxconnect.core import models, settings
 
-R = layout.grid.Row
-C = layout.grid.Col
-F = layout.form.FormField
-
 
 class PersonBrowseView(BrowseView):
     columns = [
