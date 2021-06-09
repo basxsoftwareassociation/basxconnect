@@ -58,7 +58,7 @@ def searchperson(request):
 
 # Search view
 # simple person search view, for use with ajax calls
-def searchperson_select_into_form(request):
+def searchperson_and_insert(request):
     query = request.GET.get("q")
     highlight = CustomHighlighter(query)
 

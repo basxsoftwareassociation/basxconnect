@@ -475,7 +475,7 @@ def relationshipstab(request):
                                     placeholder=_("Search person")
                                 ).withajaxurl(
                                     url=reverse_lazy(
-                                        "basxconnect.core.views.person.person_search_views.searchperson_select_into_form"
+                                        "basxconnect.core.views.person.person_search_views.searchperson_and_insert"
                                     ),
                                     query_urlparameter="q",
                                 ),
