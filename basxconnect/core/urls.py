@@ -123,6 +123,7 @@ urlpatterns = [
     generate_path(settings_views.personsettings),
     generate_path(settings_views.relationshipssettings),
     generate_path(person_search_views.searchperson),
+    generate_path(person_search_views.searchperson_and_insert),
     generate_path(
         breadviews.BulkDeleteView.as_view(
             model=models.Person, softdeletefield="deleted"
