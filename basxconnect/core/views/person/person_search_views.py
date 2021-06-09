@@ -96,43 +96,31 @@ def _display_results(objects, highlight, onclick):
     if objects.count() == 0:
         return _("No results")
 
-    first_objects = [
+    first_results = [
         o.object
         for o in objects.query.get_results()
         if getattr(o, "object", None) and not o.object.deleted
     ][:25]
 
+    def _display_as_list_item(person):
+        return hg.LI(
+            hg.SPAN(
+                mark_safe(person.personnumber),
+                style="width: 48px; display: inline-block",
+            ),
+            " ",
+            mark_safe(highlight.highlight(person.search_index_snippet())),
+            style="cursor: pointer; padding: 8px 0;",
+            onclick=onclick,
+            onmouseenter="this.style.backgroundColor = 'lightgray'",
+            onmouseleave="this.style.backgroundColor = 'initial'",
+        )
+
+    result_list = list(map(_display_as_list_item, first_results))
+
     return hg.UL(
         hg.LI(_("%s items found") % len(objects), style="margin-bottom: 20px"),
-        hg.Iterator(
-            first_objects,
-            "object",
-            hg.If(
-                hg.C("object.object"),
-                hg.LI(
-                    hg.F(
-                        lambda c, e: hg.SPAN(
-                            mark_safe(
-                                highlight.highlight(c["object"].object.personnumber)
-                            ),
-                            style="width: 48px; display: inline-block",
-                        )
-                    ),
-                    " ",
-                    hg.F(
-                        lambda c, e: mark_safe(
-                            highlight.highlight(
-                                c["object"].object.search_index_snippet()
-                            )
-                        )
-                    ),
-                    style="cursor: pointer; padding: 8px 0;",
-                    onclick=onclick,
-                    onmouseenter="this.style.backgroundColor = 'lightgray'",
-                    onmouseleave="this.style.backgroundColor = 'initial'",
-                ),
-            ),
-        ),
+        *result_list
     )
 
 
