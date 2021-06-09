@@ -30,7 +30,23 @@ def searchperson(request):
         .filter_or(personnumber=query)
     )
 
-    ret = display_results(objects, highlight)
+    onclick = hg.BaseElement(
+        "document.location = '",
+        hg.F(
+            lambda c, e: reverse_model(
+                c["object"].object,
+                "edit",
+                kwargs={"pk": c["object"].object.pk},
+            )
+        ),
+        "'",
+    )
+
+    ret = _display_results(
+        objects,
+        highlight,
+        onclick,
+    )
     return HttpResponse(
         hg.DIV(
             ret,
@@ -40,7 +56,43 @@ def searchperson(request):
     )
 
 
-def display_results(objects, highlight):
+# Search view
+# simple person search view, for use with ajax calls
+def searchperson_select_into_form(request):
+    query = request.GET.get("q")
+    highlight = CustomHighlighter(query)
+
+    if not query or len(query) < 3:
+        return HttpResponse("")
+
+    objects = (
+        SearchQuerySet()
+        .models(models.Person)
+        .autocomplete(name_auto=query)
+        .filter_or(personnumber=query)
+    )
+
+    # TODO
+    onclick = hg.BaseElement(
+        ""
+        # "set_value(",
+        # hg.F(
+        #     lambda c, e: c["object"].object.pk,
+        # ),
+        # ",",
+        # ")",
+    )
+    ret = _display_results(objects, highlight, onclick)
+    return HttpResponse(
+        hg.DIV(
+            ret,
+            _class="raised",
+            style="margin-bottom: 1rem; padding: 16px 0 48px 48px; background-color: #fff",
+        ).render({})
+    )
+
+
+def _display_results(objects, highlight, onclick):
     if objects.count() == 0:
         return _("No results")
 
@@ -75,17 +127,7 @@ def display_results(objects, highlight):
                         )
                     ),
                     style="cursor: pointer; padding: 8px 0;",
-                    onclick=hg.BaseElement(
-                        "document.location = '",
-                        hg.F(
-                            lambda c, e: reverse_model(
-                                c["object"].object,
-                                "edit",
-                                kwargs={"pk": c["object"].object.pk},
-                            )
-                        ),
-                        "'",
-                    ),
+                    onclick=onclick,
                     onmouseenter="this.style.backgroundColor = 'lightgray'",
                     onmouseleave="this.style.backgroundColor = 'initial'",
                 ),
