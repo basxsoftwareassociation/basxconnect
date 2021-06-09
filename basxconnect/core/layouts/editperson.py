@@ -87,7 +87,9 @@ def editperson_toolbar(request):
     return R(
         C(
             layout.search.Search(placeholder=_("Search person")).withajaxurl(
-                url=reverse_lazy("basxconnect.core.views.searchperson"),
+                url=reverse_lazy(
+                    "basxconnect.core.views.person.person_search_views.searchperson"
+                ),
                 query_urlparameter="q",
             ),
             width=2,

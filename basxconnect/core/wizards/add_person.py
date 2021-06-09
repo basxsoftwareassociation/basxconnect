@@ -100,7 +100,9 @@ class SearchForm(forms.Form):
     searchbutton = layout.search.Search(
         widgetattributes={
             "placeholder": _("Start typing to search for a person..."),
-            "hx_get": reverse_lazy("basxconnect.core.views.searchperson"),
+            "hx_get": reverse_lazy(
+                "basxconnect.core.views.person.person_search_views.searchperson"
+            ),
             "hx_trigger": "changed, keyup changed delay:100ms",
             "hx_target": "#search-results",
             "name": "q",
