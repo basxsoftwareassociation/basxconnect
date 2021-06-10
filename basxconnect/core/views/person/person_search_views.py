@@ -30,23 +30,20 @@ def searchperson(request):
         .filter_or(personnumber=query)
     )
 
-    onclick = hg.BaseElement(
-        "document.location = '",
-        hg.F(
-            lambda c, e: reverse_model(
-                c["object"].object,
-                "edit",
-                kwargs={"pk": c["object"].object.pk},
-            )
-        ),
-        "'",
-    )
+    def onclick(person):
+        link = reverse_model(
+            person,
+            "edit",
+            kwargs={"pk": person.pk},
+        )
+        return f"document.location = '{link}'"
 
     ret = _display_results(
         objects,
         highlight,
         onclick,
     )
+
     return HttpResponse(
         hg.DIV(
             ret,
@@ -60,6 +57,7 @@ def searchperson(request):
 # simple person search view, for use with ajax calls
 def searchperson_and_insert(request):
     query = request.GET.get("q")
+    selected_result_selector = request.GET.get("selected_result_selector")
     highlight = CustomHighlighter(query)
 
     if not query or len(query) < 3:
@@ -72,16 +70,9 @@ def searchperson_and_insert(request):
         .filter_or(personnumber=query)
     )
 
-    # TODO
-    onclick = hg.BaseElement(
-        ""
-        # "set_value(",
-        # hg.F(
-        #     lambda c, e: c["object"].object.pk,
-        # ),
-        # ",",
-        # ")",
-    )
+    def onclick(person):
+        return f"set_value('{selected_result_selector}', '{person.pk}')"
+
     ret = _display_results(objects, highlight, onclick)
     return HttpResponse(
         hg.DIV(
@@ -111,16 +102,16 @@ def _display_results(objects, highlight, onclick):
             " ",
             mark_safe(highlight.highlight(person.search_index_snippet())),
             style="cursor: pointer; padding: 8px 0;",
-            onclick=onclick,
+            onclick=onclick(person),
             onmouseenter="this.style.backgroundColor = 'lightgray'",
             onmouseleave="this.style.backgroundColor = 'initial'",
         )
 
-    result_list = list(map(_display_as_list_item, first_results))
+    result_list = list(filter(lambda x: x, map(_display_as_list_item, first_results)))
 
     return hg.UL(
         hg.LI(_("%s items found") % len(objects), style="margin-bottom: 20px"),
-        *result_list
+        *result_list,
     )
 
 
