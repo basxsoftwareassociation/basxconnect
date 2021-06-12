@@ -239,11 +239,9 @@ class PersonBrowseView(BrowseView):
     def get_queryset(self):
         form = self._filterform()
         if form.is_valid():
-            ret = (
-                super().get_queryset()
-                if form.cleaned_data.get("include_trash", False)
-                else models.Person.objects.not_deleted()
-            )
+            ret = super().get_queryset()
+            if not form.cleaned_data.get("include_trash", False):
+                ret = ret.filter(deleted=False)
             if any(
                 [
                     form.cleaned_data[i]
