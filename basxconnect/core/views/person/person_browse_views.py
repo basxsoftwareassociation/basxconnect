@@ -155,7 +155,7 @@ class PersonBrowseView(BrowseView):
             ret = (
                 super().get_queryset()
                 if form.cleaned_data.get("include_trash", False)
-                else models.Person.objects.not_deleted()
+                else self.model.objects.not_deleted()
             )
             if any(
                 [
