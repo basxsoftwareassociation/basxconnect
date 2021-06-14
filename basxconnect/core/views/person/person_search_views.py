@@ -71,7 +71,11 @@ def searchperson_and_insert(request):
     )
 
     def onclick(person):
-        return f"set_value('{selected_result_selector}', '{person.pk}')"
+        return (
+            f"set_value('#{selected_result_selector}', '{person.pk}');"
+            f"$('#{selected_result_selector}-tag .bx--tag__label').innerHTML = '{person}';"
+            f"$('#{selected_result_selector}-tag').style.visibility = 'visible';"
+        )
 
     ret = _display_results(objects, highlight, onclick)
     return HttpResponse(
