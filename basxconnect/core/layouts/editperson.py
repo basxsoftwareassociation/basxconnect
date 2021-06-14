@@ -1,3 +1,4 @@
+import bread
 import htmlgenerator as hg
 from bread import layout, menu
 from bread.layout.components.datatable import DataTableColumn
@@ -471,16 +472,15 @@ def relationshipstab(request):
                             "type",
                             layout.datatable.DataTableColumn(
                                 layout.fieldlabel(Relationship, "person_b"),
-                                layout.search.Search(
-                                    placeholder=_("Search person")
-                                ).withajaxurl(
-                                    url=reverse_lazy(
-                                        "basxconnect.core.views.person.person_search_views.searchperson_and_insert"
-                                    ),
-                                    query_urlparameter="q",
+                                F(
+                                    "person_b",
+                                    fieldtype=layout.search_select.SearchSelect,
+                                    hidelabel=True,
+                                    elementattributes={
+                                        "search_view": "basxconnect.core.views.person.person_search_views.searchperson_and_insert",
+                                    },
                                 ),
                             ),
-                            "person_b",
                             "start_date",
                             "end_date",
                         ],
