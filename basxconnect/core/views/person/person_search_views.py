@@ -57,7 +57,7 @@ def searchperson(request):
 # simple person search view, for use with ajax calls
 def searchperson_and_insert(request):
     query = request.GET.get("q")
-    selected_result_selector = request.GET.get("selected_result_selector")
+    selected_result_selector = request.GET.get("target-id-to-store-selected")
     highlight = CustomHighlighter(query)
 
     if not query or len(query) < 3:
