@@ -495,7 +495,17 @@ def relationshipstab(request):
                     layout.form.FormsetField.as_datatable(
                         "relationships_from",
                         [
-                            "person_a",
+                            layout.datatable.DataTableColumn(
+                                layout.fieldlabel(Relationship, "person_a"),
+                                F(
+                                    "person_a",
+                                    fieldtype=layout.search_select.SearchSelect,
+                                    hidelabel=True,
+                                    elementattributes={
+                                        "search_view": "basxconnect.core.views.person.person_search_views.searchperson_and_insert",
+                                    },
+                                ),
+                            ),
                             "type",
                             layout.datatable.DataTableColumn(
                                 layout.fieldlabel(Relationship, "person_b"),
