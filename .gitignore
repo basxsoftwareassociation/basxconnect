@@ -6,3 +6,5 @@ dist/
 basxconnect.egg-info/
 **/*.mo
 __pycache__
+static/
+media/
