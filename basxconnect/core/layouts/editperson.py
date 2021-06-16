@@ -479,7 +479,7 @@ def relationshipstab(request):
                                     elementattributes={
                                         "search_url": str(
                                             reverse_lazy(
-                                                "basxconnect.core.views.person.person_search_views.searchperson_and_insert"
+                                                "basxconnect.core.views.person.person_search_views.searchselect_person"
                                             )
                                         )
                                         + "?"
@@ -509,7 +509,7 @@ def relationshipstab(request):
                                     elementattributes={
                                         "search_url": str(
                                             reverse_lazy(
-                                                "basxconnect.core.views.person.person_search_views.searchperson_and_insert"
+                                                "basxconnect.core.views.person.person_search_views.searchselect_person"
                                             )
                                         )
                                         + "?"
