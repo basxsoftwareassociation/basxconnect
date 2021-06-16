@@ -63,7 +63,7 @@ def searchperson_and_insert(request):
     if not query or len(query) < 3:
         return HttpResponse("")
 
-    objects = (
+    query_set = (
         SearchQuerySet()
         .models(models.Person)
         .autocomplete(name_auto=query)
@@ -77,7 +77,7 @@ def searchperson_and_insert(request):
             f"$('#{selected_result_selector}-tag').style.visibility = 'visible';"
         )
 
-    ret = _display_results(objects, highlight, onclick)
+    ret = _display_results(query_set, highlight, onclick)
     return HttpResponse(
         hg.DIV(
             ret,
@@ -87,15 +87,9 @@ def searchperson_and_insert(request):
     )
 
 
-def _display_results(objects, highlight, onclick):
-    if objects.count() == 0:
+def _display_results(query_set, highlight, onclick):
+    if query_set.count() == 0:
         return _("No results")
-
-    first_results = [
-        o.object
-        for o in objects.query.get_results()
-        if getattr(o, "object", None) and not o.object.deleted
-    ][:25]
 
     def _display_as_list_item(person):
         return hg.LI(
@@ -111,10 +105,14 @@ def _display_results(objects, highlight, onclick):
             onmouseleave="this.style.backgroundColor = 'initial'",
         )
 
-    result_list = list(filter(lambda x: x, map(_display_as_list_item, first_results)))
+    result_list = [
+        _display_as_list_item(search_result.object)
+        for search_result in query_set[:25]
+        if search_result
+    ]
 
     return hg.UL(
-        hg.LI(_("%s items found") % len(objects), style="margin-bottom: 20px"),
+        hg.LI(_("%s items found") % len(query_set), style="margin-bottom: 20px"),
         *result_list,
     )
 
