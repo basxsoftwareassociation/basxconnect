@@ -1,6 +1,5 @@
 import htmlgenerator as hg
 from bread import layout as layout
-from bread.utils.urls import reverse_model
 from django.http import HttpResponse
 from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -14,47 +13,6 @@ C = layout.grid.Col
 F = layout.form.FormField
 
 
-# Search view
-# simple person search view, for use with ajax calls
-def searchperson(request):
-    query = request.GET.get("q")
-    highlight = CustomHighlighter(query)
-
-    if not query or len(query) < 3:
-        return HttpResponse("")
-
-    objects = (
-        SearchQuerySet()
-        .models(models.Person)
-        .autocomplete(name_auto=query)
-        .filter_or(personnumber=query)
-    )
-
-    def onclick(person):
-        link = reverse_model(
-            person,
-            "edit",
-            kwargs={"pk": person.pk},
-        )
-        return f"document.location = '{link}'"
-
-    ret = _display_results(
-        objects,
-        highlight,
-        onclick,
-    )
-
-    return HttpResponse(
-        hg.DIV(
-            ret,
-            _class="raised",
-            style="margin-bottom: 1rem; padding: 16px 0 48px 48px; background-color: #fff",
-        ).render({})
-    )
-
-
-# Search view
-# simple person search view, for use with ajax calls
 def searchselect_person(request):
     query = request.GET.get("q")
     selected_result_selector = request.GET.get("target-id-to-store-selected")
@@ -77,7 +35,7 @@ def searchselect_person(request):
             f"$('#{selected_result_selector}-tag').style.visibility = 'visible';"
         )
 
-    ret = _display_results(query_set, highlight, onclick)
+    ret = _display_results(query_set, highlight)
     return HttpResponse(
         hg.DIV(
             ret,
@@ -87,7 +45,7 @@ def searchselect_person(request):
     )
 
 
-def _display_results(query_set, highlight, onclick):
+def _display_results(query_set, highlight):
     if query_set.count() == 0:
         return _("No results")
 
@@ -100,7 +58,6 @@ def _display_results(query_set, highlight, onclick):
             " ",
             mark_safe(highlight.highlight(person.search_index_snippet())),
             style="cursor: pointer; padding: 8px 0;",
-            onclick=onclick(person),
             onmouseenter="this.style.backgroundColor = 'lightgray'",
             onmouseleave="this.style.backgroundColor = 'initial'",
         )
