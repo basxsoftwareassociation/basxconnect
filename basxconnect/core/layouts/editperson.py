@@ -477,12 +477,9 @@ def relationshipstab(request):
                                     fieldtype=layout.search_select.SearchSelect,
                                     hidelabel=True,
                                     elementattributes={
-                                        "search_url": str(
-                                            reverse_lazy(
-                                                "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
-                                            )
+                                        "search_url": reverse_lazy(
+                                            "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
                                         )
-                                        + "?"
                                     },
                                 ),
                             ),
@@ -507,12 +504,9 @@ def relationshipstab(request):
                                     fieldtype=layout.search_select.SearchSelect,
                                     hidelabel=True,
                                     elementattributes={
-                                        "search_url": str(
-                                            reverse_lazy(
-                                                "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
-                                            )
+                                        "search_url": reverse_lazy(
+                                            "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
                                         )
-                                        + "?"
                                     },
                                 ),
                             ),
