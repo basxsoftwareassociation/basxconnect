@@ -21,7 +21,7 @@ class PersonBrowseView(BrowseView):
                 hg.C("row.personnumber"),
                 style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
             ),
-            "personnumber",
+            "personnumber__int",
         ),
         "status",
         DataTableColumn(_("Category"), hg.C("row._type"), "_type"),
