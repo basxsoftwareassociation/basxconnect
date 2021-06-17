@@ -1,10 +1,11 @@
 import htmlgenerator as hg
 from bread import layout as layout
+from bread.layout.components import search_select
 from django.http import HttpResponse
-from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 from haystack.query import SearchQuerySet
-from haystack.utils.highlighting import Highlighter
+from haystack.utils import Highlighter
+from htmlgenerator import mark_safe
 
 from ... import models
 
@@ -15,7 +16,6 @@ F = layout.form.FormField
 
 def searchselect_person(request):
     query = request.GET.get("q")
-    selected_result_selector = request.GET.get("target-id-to-store-selected")
     highlight = CustomHighlighter(query)
 
     if not query or len(query) < 3:
@@ -27,13 +27,6 @@ def searchselect_person(request):
         .autocomplete(name_auto=query)
         .filter_or(personnumber=query)
     )
-
-    def onclick(person):
-        return (
-            f"$('#{selected_result_selector}').value = '{person.pk}';"
-            f"$('#{selected_result_selector}-tag .bx--tag__label').innerHTML = '{person}';"
-            f"$('#{selected_result_selector}-tag').style.visibility = 'visible';"
-        )
 
     ret = _display_results(query_set, highlight)
     return HttpResponse(
@@ -54,12 +47,19 @@ def _display_results(query_set, highlight):
             hg.SPAN(
                 mark_safe(person.personnumber),
                 style="width: 48px; display: inline-block",
+                _class=search_select.ITEM_VALUE_SELECTOR,
+            ),
+            hg.SPAN(
+                person.name,
+                _class=search_select.ITEM_LABEL_SELECTOR,
+                style="dispay:hidden;",
             ),
             " ",
             mark_safe(highlight.highlight(person.search_index_snippet())),
             style="cursor: pointer; padding: 8px 0;",
             onmouseenter="this.style.backgroundColor = 'lightgray'",
             onmouseleave="this.style.backgroundColor = 'initial'",
+            _class=search_select.ITEM_SELECTOR,
         )
 
     result_list = [
