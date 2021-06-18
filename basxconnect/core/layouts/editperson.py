@@ -1,3 +1,4 @@
+import bread
 import htmlgenerator as hg
 from bread import layout, menu
 from bread.layout.components.datatable import DataTableColumn
@@ -8,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 import basxconnect.core.settings
 from basxconnect.core.layouts import contributions_tab
 from basxconnect.core.models import Person, Relationship
+from basxconnect.core.views.person import searchselect_person_view
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -88,7 +90,7 @@ def editperson_toolbar(request):
         C(
             layout.search.Search(placeholder=_("Search person")).withajaxurl(
                 url=reverse_lazy(
-                    "basxconnect.core.views.person.person_search_views.searchperson"
+                    "basxconnect.core.views.person.search_person_view.searchperson"
                 ),
                 query_urlparameter="q",
             ),
@@ -469,7 +471,22 @@ def relationshipstab(request):
                                 hg.C("object"),
                             ),
                             "type",
-                            "person_b",
+                            layout.datatable.DataTableColumn(
+                                layout.fieldlabel(Relationship, "person_b"),
+                                F(
+                                    "person_b",
+                                    fieldtype=layout.search_select.SearchSelect,
+                                    hidelabel=True,
+                                    elementattributes={
+                                        "search_url": reverse_lazy(
+                                            "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
+                                        ),
+                                        "item_selector": f".{searchselect_person_view.ITEM_CLASS}",
+                                        "item_label_selector": f".{searchselect_person_view.ITEM_LABEL_CLASS}",
+                                        "item_value_selector": f".{searchselect_person_view.ITEM_VALUE_CLASS}",
+                                    },
+                                ),
+                            ),
                             "start_date",
                             "end_date",
                         ],
@@ -484,7 +501,22 @@ def relationshipstab(request):
                     layout.form.FormsetField.as_datatable(
                         "relationships_from",
                         [
-                            "person_a",
+                            layout.datatable.DataTableColumn(
+                                layout.fieldlabel(Relationship, "person_a"),
+                                F(
+                                    "person_a",
+                                    fieldtype=layout.search_select.SearchSelect,
+                                    hidelabel=True,
+                                    elementattributes={
+                                        "search_url": reverse_lazy(
+                                            "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
+                                        ),
+                                        "item_selector": f".{searchselect_person_view.ITEM_CLASS}",
+                                        "item_label_selector": f".{searchselect_person_view.ITEM_LABEL_CLASS}",
+                                        "item_value_selector": f".{searchselect_person_view.ITEM_VALUE_CLASS}",
+                                    },
+                                ),
+                            ),
                             "type",
                             layout.datatable.DataTableColumn(
                                 layout.fieldlabel(Relationship, "person_b"),

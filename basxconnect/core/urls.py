@@ -11,7 +11,8 @@ from basxconnect.core.views import settings_views
 from basxconnect.core.views.person import (
     person_browse_views,
     person_details_views,
-    person_search_views,
+    search_person_view,
+    searchselect_person_view,
 )
 
 from . import models
@@ -122,7 +123,8 @@ urlpatterns = [
     ),
     generate_path(settings_views.personsettings),
     generate_path(settings_views.relationshipssettings),
-    generate_path(person_search_views.searchperson),
+    generate_path(search_person_view.searchperson),
+    generate_path(searchselect_person_view.searchselect_person),
     generate_path(
         breadviews.BulkDeleteView.as_view(
             model=models.Person, softdeletefield="deleted"
