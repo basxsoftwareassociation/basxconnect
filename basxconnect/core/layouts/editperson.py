@@ -482,8 +482,8 @@ def relationshipstab(request):
                                             "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
                                         ),
                                         "item_selector": f".{searchselect_person_view.ITEM_CLASS}",
-                                        "item_label_selector": f".{searchselect_person_view.ITEM_CLASS}",
-                                        "item_value_selector": f".{searchselect_person_view.ITEM_CLASS}",
+                                        "item_label_selector": f".{searchselect_person_view.ITEM_LABEL_CLASS}",
+                                        "item_value_selector": f".{searchselect_person_view.ITEM_VALUE_CLASS}",
                                     },
                                 ),
                             ),
@@ -510,7 +510,10 @@ def relationshipstab(request):
                                     elementattributes={
                                         "search_url": reverse_lazy(
                                             "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
-                                        )
+                                        ),
+                                        "item_selector": f".{searchselect_person_view.ITEM_CLASS}",
+                                        "item_label_selector": f".{searchselect_person_view.ITEM_LABEL_CLASS}",
+                                        "item_value_selector": f".{searchselect_person_view.ITEM_VALUE_CLASS}",
                                     },
                                 ),
                             ),
