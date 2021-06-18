@@ -1,6 +1,5 @@
 import htmlgenerator as hg
 from bread import layout as layout
-from bread.layout.components import search_select
 from django.http import HttpResponse
 from django.utils.translation import gettext_lazy as _
 from haystack.query import SearchQuerySet
@@ -12,6 +11,10 @@ from ... import models
 R = layout.grid.Row
 C = layout.grid.Col
 F = layout.form.FormField
+
+ITEM_CLASS = "search_result_item"
+ITEM_LABEL_CLASS = "search_result_label"
+ITEM_VALUE_CLASS = "search_result_value"
 
 
 def searchselect_person(request):
@@ -47,11 +50,11 @@ def _display_results(query_set, highlight):
             hg.SPAN(
                 mark_safe(person.personnumber),
                 style="width: 48px; display: inline-block",
-                _class=search_select.ITEM_VALUE_SELECTOR,
+                _class=ITEM_VALUE_CLASS,
             ),
             hg.SPAN(
                 person.name,
-                _class=search_select.ITEM_LABEL_SELECTOR,
+                _class=ITEM_LABEL_CLASS,
                 style="dispay:hidden;",
             ),
             " ",
@@ -59,7 +62,7 @@ def _display_results(query_set, highlight):
             style="cursor: pointer; padding: 8px 0;",
             onmouseenter="this.style.backgroundColor = 'lightgray'",
             onmouseleave="this.style.backgroundColor = 'initial'",
-            _class=search_select.ITEM_SELECTOR,
+            _class=ITEM_CLASS,
         )
 
     result_list = [
