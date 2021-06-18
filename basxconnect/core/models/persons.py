@@ -1,3 +1,5 @@
+import datetime
+
 from bread import layout
 from bread.utils import get_concrete_instance, pretty_modelname
 from django.contrib.contenttypes.fields import GenericRelation
@@ -234,6 +236,19 @@ class NaturalPerson(Person):
         limit_choices_to={"category__slug": "naturaltype"},
     )
     type.verbose_name = _("Person category")
+
+    def age(self):
+        if not self.date_of_birth:
+            return None
+        today = datetime.date.today()
+        birth = self.date_of_birth
+        return (
+            today.year
+            - birth.year
+            - ((today.month, today.day) < (birth.month, birth.day))
+        )
+
+    age.verbose_name = _("Age")
 
     def save(self, *args, **kwargs):
         if not self.name:
