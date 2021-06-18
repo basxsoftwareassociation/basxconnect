@@ -88,11 +88,13 @@ def editperson_toolbar(request):
     )
     return R(
         C(
-            layout.search.Search(placeholder=_("Search person")).withajaxurl(
-                url=reverse_lazy(
-                    "basxconnect.core.views.person.search_person_view.searchperson"
+            layout.search.Search(
+                placeholder=_("Search person"),
+                backend=layout.search.SearchBackendConfig(
+                    reverse_lazy(
+                        "basxconnect.core.views.person.search_person_view.searchperson"
+                    ),
                 ),
-                query_urlparameter="q",
             ),
             width=2,
             breakpoint="md",
@@ -478,12 +480,14 @@ def relationshipstab(request):
                                     fieldtype=layout.search_select.SearchSelect,
                                     hidelabel=True,
                                     elementattributes={
-                                        "search_url": reverse_lazy(
-                                            "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
+                                        "backend": layout.search.SearchBackendConfig(
+                                            reverse_lazy(
+                                                "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
+                                            ),
+                                            result_selector=f".{searchselect_person_view.ITEM_CLASS}",
+                                            result_label_selector=f".{searchselect_person_view.ITEM_LABEL_CLASS}",
+                                            result_value_selector=f".{searchselect_person_view.ITEM_VALUE_CLASS}",
                                         ),
-                                        "item_selector": f".{searchselect_person_view.ITEM_CLASS}",
-                                        "item_label_selector": f".{searchselect_person_view.ITEM_LABEL_CLASS}",
-                                        "item_value_selector": f".{searchselect_person_view.ITEM_VALUE_CLASS}",
                                     },
                                 ),
                             ),
@@ -508,12 +512,14 @@ def relationshipstab(request):
                                     fieldtype=layout.search_select.SearchSelect,
                                     hidelabel=True,
                                     elementattributes={
-                                        "search_url": reverse_lazy(
-                                            "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
+                                        "backend": layout.search.SearchBackendConfig(
+                                            reverse_lazy(
+                                                "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
+                                            ),
+                                            result_selector=f".{searchselect_person_view.ITEM_CLASS}",
+                                            result_label_selector=f".{searchselect_person_view.ITEM_LABEL_CLASS}",
+                                            result_value_selector=f".{searchselect_person_view.ITEM_VALUE_CLASS}",
                                         ),
-                                        "item_selector": f".{searchselect_person_view.ITEM_CLASS}",
-                                        "item_label_selector": f".{searchselect_person_view.ITEM_LABEL_CLASS}",
-                                        "item_value_selector": f".{searchselect_person_view.ITEM_VALUE_CLASS}",
                                     },
                                 ),
                             ),

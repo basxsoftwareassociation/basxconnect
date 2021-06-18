@@ -97,7 +97,7 @@ class SearchForm(forms.Form):
         required=False,
     )
 
-    searchbutton = layout.search.Search(
+    searchelement = layout.search.Search(
         widgetattributes={
             "placeholder": _("Start typing to search for a person..."),
             "hx_get": reverse_lazy(
@@ -109,9 +109,7 @@ class SearchForm(forms.Form):
         },
     )
     # clear search field when search box is emptied
-    searchbutton[3].attributes[
-        "onclick"
-    ] = "this.parentElement.nextElementSibling.innerHTML = ''"
+    searchelement[0][3].attributes["onclick"] = "$('#search-results').innerHTML = ''"
 
     title = _("Search person")
     _layout = hg.DIV(
@@ -121,7 +119,7 @@ class SearchForm(forms.Form):
             ),
             style="margin-bottom: 2rem",
         ),
-        searchbutton,
+        searchelement,
         hg.DIV(id="search-results", style="margin-bottom: 2rem;"),
     )
 
