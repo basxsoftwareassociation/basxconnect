@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-05 18:55+0700\n"
-"PO-Revision-Date: 2021-04-08 02:26+0000\n"
+"PO-Revision-Date: 2021-06-17 19:33+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/fr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/views.py:493 basxconnect/core/views.py:535
@@ -33,10 +33,8 @@ msgid "Logo"
 msgstr "Logo"
 
 #: basxconnect/core/layouts/contributions_tab.py:17
-#, fuzzy
-#| msgid "Confirmation"
 msgid "Contributions"
-msgstr "Confirmation"
+msgstr "Contributions"
 
 #: basxconnect/core/layouts/editlegalperson.py:18
 #: basxconnect/core/layouts/editnaturalperson.py:18
@@ -53,13 +51,11 @@ msgstr "Nom"
 #: basxconnect/core/layouts/editlegalperson.py:34
 #: basxconnect/core/layouts/editnaturalperson.py:39
 msgid "Mailings"
-msgstr ""
+msgstr "Envois"
 
 #: basxconnect/core/layouts/editnaturalperson.py:85
-#, fuzzy
-#| msgid "Person"
 msgid "Personal"
-msgstr "Personne"
+msgstr "Personnel"
 
 #: basxconnect/core/layouts/editperson.py:49
 #: basxconnect/core/layouts/editperson.py:495 basxconnect/core/views.py:134
@@ -68,7 +64,7 @@ msgstr "Supprimer"
 
 #: basxconnect/core/layouts/editperson.py:58
 msgid "Restore"
-msgstr ""
+msgstr "Restaurer"
 
 #: basxconnect/core/layouts/editperson.py:71
 msgid "Copy"
@@ -139,10 +135,8 @@ msgid "Numbers"
 msgstr "Numéros"
 
 #: basxconnect/core/layouts/editperson.py:303
-#, fuzzy
-#| msgid "Fax number"
 msgid "Add number"
-msgstr "Numéro de télécopie"
+msgstr "Ajouter un numéro"
 
 #: basxconnect/core/layouts/editperson.py:310
 #: basxconnect/core/models/addresses.py:41
@@ -151,10 +145,8 @@ msgid "Email"
 msgstr "E-mail"
 
 #: basxconnect/core/layouts/editperson.py:339
-#, fuzzy
-#| msgid "Email address"
 msgid "Add email address"
-msgstr "Adresse e-mail"
+msgstr "Ajouter une adresse e-mail"
 
 #: basxconnect/core/layouts/editperson.py:346
 #: basxconnect/core/models/persons.py:46 basxconnect/core/models/utils.py:25
@@ -167,26 +159,20 @@ msgid "URLs"
 msgstr "URL"
 
 #: basxconnect/core/layouts/editperson.py:375
-#, fuzzy
-#| msgid "Add %s"
 msgid "Add Url"
-msgstr "Ajouter %s"
+msgstr "Ajouter une URL"
 
 #: basxconnect/core/layouts/editperson.py:382
 msgid "Other"
 msgstr "Autre"
 
 #: basxconnect/core/layouts/editperson.py:390
-#, fuzzy
-#| msgid "Address"
 msgid "Address(es)"
-msgstr "Adresse"
+msgstr "Adresse(s)"
 
 #: basxconnect/core/layouts/editperson.py:431
-#, fuzzy
-#| msgid "Address"
 msgid "Add address"
-msgstr "Adresse"
+msgstr "Ajouter une adresse"
 
 #: basxconnect/core/layouts/editperson.py:440
 msgid "Revisions"
@@ -211,16 +197,14 @@ msgid "Relationships"
 msgstr "Relations"
 
 #: basxconnect/core/layouts/editperson.py:477
-#, fuzzy, python-format
-#| msgid "Relationship types"
+#, python-format
 msgid "Relationships from %s to \"person B\""
-msgstr "Types de relation"
+msgstr "Relations de %s vers « personne B »"
 
 #: basxconnect/core/layouts/editperson.py:500
-#, fuzzy, python-format
-#| msgid "Relationship types"
+#, python-format
 msgid "Relationships from \"person A\" to %s"
-msgstr "Types de relation"
+msgstr "Relations de « personne A » vers %s"
 
 #: basxconnect/core/layouts/editpersonassociation.py:21
 msgid "General Information"
@@ -499,11 +483,11 @@ msgstr "Termes"
 
 #: basxconnect/core/views.py:146
 msgid "Excel"
-msgstr ""
+msgstr "Excel"
 
 #: basxconnect/core/views.py:189
 msgid "Include trash"
-msgstr ""
+msgstr "Inclure les éléments supprimés"
 
 #: basxconnect/core/views.py:362
 msgid "Tags"

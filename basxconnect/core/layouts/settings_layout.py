@@ -23,11 +23,21 @@ def relationshipssettings(request):
                         "add",
                         query={
                             "next": reverse(
-                                "basxconnect.core.views.relationshipssettings"
+                                "basxconnect.core.views.settings_views.relationshipssettings"
                             )
                         },
                     ),
-                    backurl=reverse("basxconnect.core.views.relationshipssettings"),
+                    rowactions=[
+                        menu.Action(
+                            js=hg.F(
+                                lambda c, e: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
+                            ),
+                            icon="trash-can",
+                        )
+                    ],
+                    backurl=reverse(
+                        "basxconnect.core.views.settings_views.relationshipssettings"
+                    ),
                 ),
             )
         ),
@@ -107,7 +117,7 @@ def generate_term_datatable(title, category_slug):
             "add",
             query={
                 "category": cat.id,
-                "next": reverse("basxconnect.core.views.personsettings"),
+                "next": reverse("basxconnect.core.views.settings_views.personsettings"),
             },
         ),
         prevent_automatic_sortingnames=True,
@@ -120,5 +130,5 @@ def generate_term_datatable(title, category_slug):
                 icon="trash-can",
             )
         ],
-        backurl=reverse("basxconnect.core.views.personsettings"),
+        backurl=reverse("basxconnect.core.views.settings_views.personsettings"),
     )
