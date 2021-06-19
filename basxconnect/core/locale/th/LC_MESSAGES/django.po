@@ -140,7 +140,7 @@ msgstr "เบอร์โทรศัพท์"
 
 #: basxconnect/core/layouts/editperson.py:307
 msgid "Add number"
-msgstr "เพิ่มเบอร์"
+msgstr "ลำดับที่"
 
 #: basxconnect/core/layouts/editperson.py:314
 #: basxconnect/core/models/addresses.py:41
