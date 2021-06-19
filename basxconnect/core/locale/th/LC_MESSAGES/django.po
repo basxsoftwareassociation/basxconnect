@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.7\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/views/menu_views.py:27
@@ -35,7 +35,7 @@ msgstr "โลโก้"
 
 #: basxconnect/core/layouts/contributions_tab.py:17
 msgid "Contributions"
-msgstr "การสนับสนุน"
+msgstr "เงินบริจาค"
 
 #: basxconnect/core/layouts/editlegalperson.py:18
 #: basxconnect/core/layouts/editnaturalperson.py:18
@@ -507,8 +507,7 @@ msgstr "ตั้งค่า"
 msgid "Excel"
 msgstr "Excel"
 
-#: basxconnect/core/views/person/person_browse_views.py:100
-#, fuzzy
+#: basxconnect/core/views.py:189
 msgid "Include trash"
 msgstr "รวมถึงสิ่งที่ไม่ต้องการ"
 
