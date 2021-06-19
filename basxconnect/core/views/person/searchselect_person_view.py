@@ -55,7 +55,7 @@ def _display_results(query_set, highlight):
             hg.SPAN(
                 person.name,
                 _class=ITEM_LABEL_CLASS,
-                style="dispay:hidden;",
+                style="display:none;",
             ),
             " ",
             mark_safe(highlight.highlight(person.search_index_snippet())),
