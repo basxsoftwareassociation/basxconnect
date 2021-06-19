@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-05 18:55+0700\n"
-"PO-Revision-Date: 2021-06-08 02:23+0000\n"
+"PO-Revision-Date: 2021-06-19 06:33+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.7\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/views.py:493 basxconnect/core/views.py:535
@@ -34,7 +34,7 @@ msgstr "โลโก้"
 
 #: basxconnect/core/layouts/contributions_tab.py:17
 msgid "Contributions"
-msgstr "การสนับสนุน"
+msgstr "เงินบริจาค"
 
 #: basxconnect/core/layouts/editlegalperson.py:18
 #: basxconnect/core/layouts/editnaturalperson.py:18
@@ -486,7 +486,6 @@ msgid "Excel"
 msgstr "Excel"
 
 #: basxconnect/core/views.py:189
-#, fuzzy
 msgid "Include trash"
 msgstr "รวมถึงสิ่งที่ไม่ต้องการ"
 
