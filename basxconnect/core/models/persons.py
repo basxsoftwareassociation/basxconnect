@@ -162,6 +162,9 @@ class Person(models.Model):
             )
 
     def search_index_snippet(self):
+        concrete = get_concrete_instance(self)
+        if concrete != self and hasattr(concrete, "search_index_snippet"):
+            return concrete.search_index_snippet()
         addr = self.primary_postal_address
         pieces = [self.name]
         if addr:
