@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from haystack.query import SearchQuerySet
 from haystack.utils.highlighting import Highlighter
 
-from ... import models
+from ... import models, settings
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -20,7 +20,7 @@ def searchperson(request):
     query = request.GET.get("q")
     highlight = CustomHighlighter(query)
 
-    if not query or len(query) < 3:
+    if not query or len(query) < settings.MIN_CHARACTERS_DYNAMIC_SEARCH:
         return HttpResponse("")
 
     objects = (
