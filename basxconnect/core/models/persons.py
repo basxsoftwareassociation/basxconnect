@@ -151,15 +151,14 @@ class Person(models.Model):
         # this signal needs to be sent manually in order to trigger the search-index update
         # Django does only send a signal for the child-model but our search-index only observes
         # this base model. It is only needed when creating for some reason...
-        if created:
-            models.signals.post_save.send(
-                sender=Person,
-                instance=self,
-                created=created,
-                update_fields=kwargs.get("update_fields"),
-                raw=False,
-                using=kwargs.get("using"),
-            )
+        models.signals.post_save.send(
+            sender=Person,
+            instance=getattr(self, "person_ptr", self),
+            created=created,
+            update_fields=kwargs.get("update_fields"),
+            raw=False,
+            using=kwargs.get("using"),
+        )
 
     def search_index_snippet(self):
         concrete = get_concrete_instance(self)
