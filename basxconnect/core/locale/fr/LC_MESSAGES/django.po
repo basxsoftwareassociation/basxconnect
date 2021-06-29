@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-19 12:54+0700\n"
-"PO-Revision-Date: 2021-06-17 19:33+0000\n"
+"PO-Revision-Date: 2021-06-23 11:33+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/fr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.7\n"
+"X-Generator: Weblate 4.7.1-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/views/menu_views.py:27
@@ -413,7 +413,7 @@ msgstr "Catégorie de personne"
 
 #: basxconnect/core/models/persons.py:251
 msgid "Age"
-msgstr ""
+msgstr "Âge"
 
 #: basxconnect/core/models/persons.py:264
 #: basxconnect/core/views/person/person_browse_views.py:65
