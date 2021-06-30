@@ -98,6 +98,7 @@ class SearchForm(forms.Form):
     )
 
     searchelement = layout.search.Search(
+        model=Person,
         widgetattributes={
             "placeholder": _("Start typing to search for a person..."),
             "hx_get": reverse_lazy(

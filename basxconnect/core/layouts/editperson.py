@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 import basxconnect.core.settings
 from basxconnect.core.layouts import contributions_tab
 from basxconnect.core.models import Person, Relationship
-from basxconnect.core.views.person import searchselect_person_view
+from basxconnect.core.views.person import search_person_view
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -482,11 +482,11 @@ def relationshipstab(request):
                                     elementattributes={
                                         "backend": layout.search.SearchBackendConfig(
                                             reverse_lazy(
-                                                "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
+                                                "basxconnect.core.views.person.search_person_view.searchperson"
                                             ),
-                                            result_selector=f".{searchselect_person_view.ITEM_CLASS}",
-                                            result_label_selector=f".{searchselect_person_view.ITEM_LABEL_CLASS}",
-                                            result_value_selector=f".{searchselect_person_view.ITEM_VALUE_CLASS}",
+                                            result_selector=f".{search_person_view.ITEM_CLASS}",
+                                            result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
+                                            result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
                                         ),
                                     },
                                 ),
@@ -514,11 +514,11 @@ def relationshipstab(request):
                                     elementattributes={
                                         "backend": layout.search.SearchBackendConfig(
                                             reverse_lazy(
-                                                "basxconnect.core.views.person.searchselect_person_view.searchselect_person"
+                                                "basxconnect.core.views.person.search_person_view.searchperson"
                                             ),
-                                            result_selector=f".{searchselect_person_view.ITEM_CLASS}",
-                                            result_label_selector=f".{searchselect_person_view.ITEM_LABEL_CLASS}",
-                                            result_value_selector=f".{searchselect_person_view.ITEM_VALUE_CLASS}",
+                                            result_selector=f".{search_person_view.ITEM_CLASS}",
+                                            result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
+                                            result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
                                         ),
                                     },
                                 ),
