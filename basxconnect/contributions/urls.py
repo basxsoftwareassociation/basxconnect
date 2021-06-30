@@ -37,18 +37,7 @@ urlpatterns = [
                 "numberofbookings",
                 "totalamount",
             ),
-            bulkactions=(
-                menu.Link(
-                    reverse_model(models.ContributionImport, "bulkdelete"),
-                    label="Delete",
-                    icon="trash-can",
-                ),
-            ),
         ),
-    ),
-    generate_path(
-        views.BulkDeleteView.as_view(model=models.ContributionImport),
-        model_urlname(models.ContributionImport, "bulkdelete"),
     ),
     *default_model_paths(models.Contribution),
     generate_path(

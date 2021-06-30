@@ -2,8 +2,10 @@ import htmlgenerator as hg
 from bread import layout as layout
 from bread.layout.components.datatable import DataTableColumn
 from bread.menu import Link
-from bread.utils.urls import reverse, reverse_model
+from bread.utils.urls import reverse
 from bread.views import BrowseView
+from bread.views.browse import delete as breaddelete
+from bread.views.browse import export as breadexport
 from django import forms
 from django.db.models import Q
 from django.utils.html import mark_safe
@@ -11,6 +13,33 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 
 from basxconnect.core import models, settings
+
+
+def export(request, queryset):
+    # Fields which are filtered should also be displayed in columns
+    form = PersonBrowseView.FilterForm({"status": ["active"], **request.GET})
+    columns = list(PersonBrowseView.columns)
+    if form.is_valid():
+
+        # only the categories selected in the filter should be visible in the export
+        if form.cleaned_data.get("categories"):
+            categories = set(form.cleaned_data.get("categories"))
+
+            def render_matching_categories(context, element):
+                return ", ".join(
+                    str(i) for i in categories & set(context["row"].categories.all())
+                )
+
+            columns.append(
+                DataTableColumn(
+                    layout.fieldlabel(models.Person, "categories"),
+                    hg.F(render_matching_categories),
+                )
+            )
+        if form.cleaned_data.get("preferred_language"):
+            columns.append("preferred_language")
+
+    return breadexport(queryset=queryset, columns=columns)
 
 
 class PersonBrowseView(BrowseView):
@@ -40,22 +69,21 @@ class PersonBrowseView(BrowseView):
         ),
     ]
     bulkactions = (
-        Link(
-            reverse_model(models.Person, "bulkdelete"),
-            label=_("Delete"),
-            icon="trash-can",
-        ),
-        Link(
-            # make sure possible filter values of the browse view get
-            # passed along to the excel-export view
-            # TODO: maybe this behaviour should be better integrated in the bread views?
-            hg.F(
-                lambda c, e: reverse_model(models.Person, "excel")
-                + "?"
-                + c["request"].META["QUERY_STRING"]
+        (
+            Link(
+                "delete",
+                label=_("Delete"),
+                icon="trash-can",
             ),
-            label=_("Excel"),
-            icon="download",
+            lambda request, qs: breaddelete(request, qs, softdeletefield="deleted"),
+        ),
+        (
+            Link(
+                "excel",
+                label=_("Excel"),
+                icon="download",
+            ),
+            export,
         ),
     )
     searchurl = reverse("basxconnect.core.views.person.search_person_view.searchperson")
@@ -341,30 +369,3 @@ class PersonBrowseView(BrowseView):
             style="background-color: #fff",
             onclick="updateCheckboxCounter(this)",
         )
-
-    def export(self, *args, **kwargs):
-        # Fields which are filtered should also be displayed in columns
-        form = self._filterform()
-        columns = list(self.columns)
-        if form.is_valid():
-
-            # only the categories selected in the filter should be visible in the export
-            if form.cleaned_data.get("categories"):
-                categories = set(form.cleaned_data.get("categories"))
-
-                def render_matching_categories(context, element):
-                    return ", ".join(
-                        str(i)
-                        for i in categories & set(context["row"].categories.all())
-                    )
-
-                columns.append(
-                    DataTableColumn(
-                        layout.fieldlabel(models.Person, "categories"),
-                        hg.F(render_matching_categories),
-                    )
-                )
-            if form.cleaned_data.get("preferred_language"):
-                columns.append("preferred_language")
-
-        return super().export(*args, columns=columns, **kwargs)
