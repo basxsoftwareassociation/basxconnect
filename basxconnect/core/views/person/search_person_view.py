@@ -69,10 +69,10 @@ def _display_results(query_set, highlight, onclick):
             " ",
             mark_safe(highlight.highlight(person.search_index_snippet())),
             style="cursor: pointer; padding: 8px 0;",
+            onclick=onclick(person),
             onmouseenter="this.style.backgroundColor = 'lightgray'",
             onmouseleave="this.style.backgroundColor = 'initial'",
             _class=ITEM_CLASS,
-            onclick=onclick(person),
         )
 
     result_list = [
