@@ -1,4 +1,3 @@
-import bread
 import htmlgenerator as hg
 from bread import layout, menu
 from bread.layout.components.datatable import DataTableColumn

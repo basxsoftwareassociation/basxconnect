@@ -1,3 +1,5 @@
+import datetime
+
 from bread import layout
 from bread.utils import get_concrete_instance, pretty_modelname
 from django.contrib.contenttypes.fields import GenericRelation
@@ -149,17 +151,19 @@ class Person(models.Model):
         # this signal needs to be sent manually in order to trigger the search-index update
         # Django does only send a signal for the child-model but our search-index only observes
         # this base model. It is only needed when creating for some reason...
-        if created:
-            models.signals.post_save.send(
-                sender=Person,
-                instance=self,
-                created=created,
-                update_fields=kwargs.get("update_fields"),
-                raw=False,
-                using=kwargs.get("using"),
-            )
+        models.signals.post_save.send(
+            sender=Person,
+            instance=getattr(self, "person_ptr", self),
+            created=created,
+            update_fields=kwargs.get("update_fields"),
+            raw=False,
+            using=kwargs.get("using"),
+        )
 
     def search_index_snippet(self):
+        concrete = get_concrete_instance(self)
+        if concrete != self and hasattr(concrete, "search_index_snippet"):
+            return concrete.search_index_snippet()
         addr = self.primary_postal_address
         pieces = [self.name]
         if addr:
@@ -234,6 +238,19 @@ class NaturalPerson(Person):
         limit_choices_to={"category__slug": "naturaltype"},
     )
     type.verbose_name = _("Person category")
+
+    def age(self):
+        if not self.date_of_birth:
+            return None
+        today = datetime.date.today()
+        birth = self.date_of_birth
+        return (
+            today.year
+            - birth.year
+            - ((today.month, today.day) < (birth.month, birth.day))
+        )
+
+    age.verbose_name = _("Age")
 
     def save(self, *args, **kwargs):
         if not self.name:

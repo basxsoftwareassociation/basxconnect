@@ -6,7 +6,7 @@ from . import models
 
 class PersonIndex(CelerySearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, model_attr="search_index_snippet")
-    personnumber = indexes.IntegerField(model_attr="personnumber")
+    personnumber = indexes.CharField(model_attr="personnumber")
     name_auto = indexes.EdgeNgramField(model_attr="search_index_snippet")
 
     def get_model(self):

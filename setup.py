@@ -35,6 +35,7 @@ setup(
         "chardet",
         "tablib",
     ],
+    extras_require={"testing": ["bread[testing]"]},
     packages=find_packages(),
     zip_safe=False,
     include_package_data=True,

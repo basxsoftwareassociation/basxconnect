@@ -1,24 +1,21 @@
+import htmlgenerator as hg
 from bread import layout as layout
+from bread.views import EditView, ReadView, layoutasreadonly
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
+
+from basxconnect.core.layouts.editlegalperson import editlegalperson_form
+from basxconnect.core.layouts.editnaturalperson import editnaturalperson_form
+from basxconnect.core.layouts.editperson import editperson_head, editperson_toolbar
+from basxconnect.core.layouts.editpersonassociation import editpersonassociation_form
 
 from ... import models
 
 R = layout.grid.Row
 C = layout.grid.Col
 F = layout.form.FormField
-
-
-import htmlgenerator as hg
-from bread import layout as layout
-from bread.views import EditView, ReadView, layoutasreadonly
-
-from basxconnect.core.layouts.editlegalperson import editlegalperson_form
-from basxconnect.core.layouts.editnaturalperson import editnaturalperson_form
-from basxconnect.core.layouts.editperson import editperson_head, editperson_toolbar
-from basxconnect.core.layouts.editpersonassociation import editpersonassociation_form
 
 
 def personform_shortcut(request, formlayout, isreadview):

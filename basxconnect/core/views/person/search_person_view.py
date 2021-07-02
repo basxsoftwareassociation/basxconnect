@@ -7,7 +7,7 @@ from haystack.query import SearchQuerySet
 from haystack.utils import Highlighter
 from htmlgenerator import mark_safe
 
-from ... import models
+from ... import models, settings
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -22,7 +22,7 @@ def searchperson(request):
     query = request.GET.get("q")
 
     highlight = CustomHighlighter(query)
-    if not query or len(query) < 3:
+    if not query or len(query) < settings.MIN_CHARACTERS_DYNAMIC_SEARCH:
         return HttpResponse("")
 
     query_set = (
@@ -57,7 +57,7 @@ def _display_results(query_set, highlight, onclick):
     def _display_as_list_item(person):
         return hg.LI(
             hg.SPAN(
-                mark_safe(person.personnumber),
+                mark_safe(highlight.highlight(person.personnumber)),
                 style="width: 48px; display: inline-block",
                 _class=ITEM_VALUE_CLASS,
             ),
@@ -78,7 +78,7 @@ def _display_results(query_set, highlight, onclick):
     result_list = [
         _display_as_list_item(search_result.object)
         for search_result in query_set[:25]
-        if search_result
+        if search_result and search_result.object
     ]
 
     return hg.UL(
