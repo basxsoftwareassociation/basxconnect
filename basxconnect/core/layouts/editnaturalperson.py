@@ -1,5 +1,6 @@
 import htmlgenerator as hg
 from bread import layout
+from bread.utils import reverse
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.layouts import editperson
@@ -14,6 +15,18 @@ def editnaturalperson_form(request):
 
 
 def base_data_tab():
+    modal = layout.modal.Modal.with_ajax_content(
+        heading="hello world",
+        url=hg.F(
+            lambda c, e: reverse(
+                "basxconnect.core.views.person.person_details_views.naturalpersoneditnameview",
+                kwargs={"pk": c["object"].pk},
+                query={"asajax": True},
+            )
+        ),
+        submitlabel="save",
+    )
+
     return layout.tabs.Tab(
         _("Base data"),
         hg.BaseElement(
@@ -31,6 +44,16 @@ def base_data_tab():
                         ),
                         R(
                             C(F("name")),
+                        ),
+                        R(
+                            C(
+                                layout.button.Button(
+                                    "Edit",
+                                    **modal.openerattributes,
+                                    style="float: right"
+                                ),
+                                modal,
+                            ),
                         ),
                         width=7,
                         breakpoint="lg",

@@ -37,6 +37,16 @@ class NaturalPersonEditView(EditView):
         )
 
 
+class NaturalPersonEditNameView(EditView):
+    def get_layout(self):
+        return hg.DIV(
+            layout.form.FormField("name"),
+            layout.form.FormField("first_name"),
+            layout.form.FormField("middle_name"),
+            layout.form.FormField("last_name"),
+        )
+
+
 class NaturalPersonReadView(ReadView):
     def get_layout(self):
         return layoutasreadonly(

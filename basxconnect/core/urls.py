@@ -40,6 +40,11 @@ urlpatterns = [
         AddPersonWizard.as_view(url_name=model_urlname(models.Person, "addwizard")),
         model_urlname(models.Person, "addwizard"),
     ),
+    generate_path(
+        person_details_views.NaturalPersonEditNameView.as_view(
+            model=models.NaturalPerson
+        )
+    ),
     *default_model_paths(
         models.Person,
         browseview=person_browse_views.PersonBrowseView,
