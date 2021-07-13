@@ -1,3 +1,4 @@
+import htmlgenerator as hg
 from bread import layout
 from bread.utils import reverse_model
 from django.shortcuts import get_object_or_404
@@ -15,7 +16,7 @@ def contributions_tab(request):
     person = get_object_or_404(Person, pk=request.resolver_match.kwargs["pk"])
     return layout.tabs.Tab(
         _("Contributions"),
-        layout.grid.Grid(
+        hg.BaseElement(
             R(
                 C(
                     layout.datatable.DataTable.from_queryset(
@@ -39,9 +40,7 @@ def contributions_tab(request):
                         backurl=request.get_full_path(),
                         prevent_automatic_sortingnames=True,
                     ),
-                    style="padding-top: 1rem; margin-left: -1rem",
                 ),
             ),
-            gutter=False,
         ),
     )

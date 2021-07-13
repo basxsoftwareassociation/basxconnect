@@ -18,7 +18,10 @@ def base_data_tab():
         _("Base data"),
         hg.BaseElement(
             layout.grid.Grid(
-                R(C(hg.H4(_("General Information")))),
+                R(
+                    C(hg.H4(_("General Information"))),
+                    style="padding-top: 1rem;",
+                ),
                 R(
                     C(
                         R(
@@ -28,7 +31,7 @@ def base_data_tab():
                         ),
                     ),
                 ),
-                gutter=False,
+                style="padding-left: 1rem; padding-right: 1rem",
             ),
             editperson.contact_details(),
         ),

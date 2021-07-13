@@ -21,11 +21,13 @@ def editperson_form(request, base_data_tab):
             layout.grid.Grid(
                 layout.tabs.Tabs(
                     *editperson_tabs(base_data_tab, request),
-                    container=True,
                     tabpanel_attributes={
                         "_class": "theme-white full-width-white-background",
-                        # to prevent the relationship tab to look weird if there are no relationships.
-                        "style": "min-height: 400px",
+                        "style": "padding: 0;",
+                    },
+                    labelcontainer_attributes={
+                        "_class": "tabs-lg",
+                        "style": "background-color: white; border-bottom: 1px solid #e0e0e0;",
                     },
                 ),
                 gutter=False,
@@ -276,8 +278,7 @@ def contact_details():
             C(),
             style="margin-top: 1rem",
         ),
-        gridmode="full-width",
-        gutter=False,
+        style="padding-left: 1rem; padding-right: 1rem;",
     )
 
 
@@ -461,89 +462,81 @@ def revisionstab():
 def relationshipstab(request):
     return layout.tabs.Tab(
         _("Relationships"),
-        layout.grid.Grid(
-            R(
-                C(
-                    layout.form.FormsetField.as_datatable(
-                        "relationships_to",
-                        [
-                            layout.datatable.DataTableColumn(
-                                layout.fieldlabel(Relationship, "person_a"),
-                                hg.C("object"),
-                            ),
-                            "type",
-                            layout.datatable.DataTableColumn(
-                                layout.fieldlabel(Relationship, "person_b"),
-                                F(
-                                    "person_b",
-                                    fieldtype=layout.search_select.SearchSelect,
-                                    hidelabel=True,
-                                    elementattributes={
-                                        "backend": layout.search.SearchBackendConfig(
-                                            reverse_lazy(
-                                                "basxconnect.core.views.person.search_person_view.searchperson"
-                                            ),
-                                            result_selector=f".{search_person_view.ITEM_CLASS}",
-                                            result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
-                                            result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
-                                        ),
-                                    },
+        hg.BaseElement(
+            layout.form.FormsetField.as_datatable(
+                "relationships_to",
+                [
+                    layout.datatable.DataTableColumn(
+                        layout.fieldlabel(Relationship, "person_a"),
+                        hg.C("object"),
+                    ),
+                    "type",
+                    layout.datatable.DataTableColumn(
+                        layout.fieldlabel(Relationship, "person_b"),
+                        F(
+                            "person_b",
+                            fieldtype=layout.search_select.SearchSelect,
+                            hidelabel=True,
+                            elementattributes={
+                                "backend": layout.search.SearchBackendConfig(
+                                    reverse_lazy(
+                                        "basxconnect.core.views.person.search_person_view.searchperson"
+                                    ),
+                                    result_selector=f".{search_person_view.ITEM_CLASS}",
+                                    result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
+                                    result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
                                 ),
-                            ),
-                            "start_date",
-                            "end_date",
-                        ],
-                        # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
-                        # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
-                        title=hg.F(
-                            lambda c, e: _('Relationships from %s to "person B"')
-                            % c["object"]
+                            },
                         ),
                     ),
-                    hg.DIV(style="margin-top: 2rem"),
-                    layout.form.FormsetField.as_datatable(
-                        "relationships_from",
-                        [
-                            layout.datatable.DataTableColumn(
-                                layout.fieldlabel(Relationship, "person_a"),
-                                F(
-                                    "person_a",
-                                    fieldtype=layout.search_select.SearchSelect,
-                                    hidelabel=True,
-                                    elementattributes={
-                                        "backend": layout.search.SearchBackendConfig(
-                                            reverse_lazy(
-                                                "basxconnect.core.views.person.search_person_view.searchperson"
-                                            ),
-                                            result_selector=f".{search_person_view.ITEM_CLASS}",
-                                            result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
-                                            result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
-                                        ),
-                                    },
-                                ),
-                            ),
-                            "type",
-                            layout.datatable.DataTableColumn(
-                                layout.fieldlabel(Relationship, "person_b"),
-                                hg.C("object"),
-                            ),
-                            "start_date",
-                            "end_date",
-                        ],
-                        rowactions=[
-                            row_action("delete", "trash-can", _("Delete")),
-                            row_action("edit", "edit", _("Edit")),
-                        ],
-                        rowactions_dropdown=True,
-                        title=hg.F(
-                            lambda c, e: _('Relationships from "person A" to %s')
-                            % c["object"]
-                        ),
-                    ),
-                    style="padding-top: 1rem; margin-left: -1rem",
-                )
+                    "start_date",
+                    "end_date",
+                ],
+                # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
+                # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
+                title=hg.F(
+                    lambda c, e: _('Relationships from %s to "person B"') % c["object"]
+                ),
             ),
-            gutter=False,
+            hg.DIV(style="margin-top: 2rem"),
+            layout.form.FormsetField.as_datatable(
+                "relationships_from",
+                [
+                    layout.datatable.DataTableColumn(
+                        layout.fieldlabel(Relationship, "person_a"),
+                        F(
+                            "person_a",
+                            fieldtype=layout.search_select.SearchSelect,
+                            hidelabel=True,
+                            elementattributes={
+                                "backend": layout.search.SearchBackendConfig(
+                                    reverse_lazy(
+                                        "basxconnect.core.views.person.search_person_view.searchperson"
+                                    ),
+                                    result_selector=f".{search_person_view.ITEM_CLASS}",
+                                    result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
+                                    result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
+                                ),
+                            },
+                        ),
+                    ),
+                    "type",
+                    layout.datatable.DataTableColumn(
+                        layout.fieldlabel(Relationship, "person_b"),
+                        hg.C("object"),
+                    ),
+                    "start_date",
+                    "end_date",
+                ],
+                rowactions=[
+                    row_action("delete", "trash-can", _("Delete")),
+                    row_action("edit", "edit", _("Edit")),
+                ],
+                rowactions_dropdown=True,
+                title=hg.F(
+                    lambda c, e: _('Relationships from "person A" to %s') % c["object"]
+                ),
+            ),
         ),
     )
 

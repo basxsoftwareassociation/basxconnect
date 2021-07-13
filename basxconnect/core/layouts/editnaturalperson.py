@@ -51,9 +51,9 @@ def base_data_tab():
                         width=7,
                         breakpoint="lg",
                     ),
+                    style="padding-top: 1rem;",
                 ),
-                gridmode="full-width",
-                gutter=False,
+                style="padding-left: 1rem; padding-right: 1rem",
             ),
             contact_details_naturalperson(),
         ),
@@ -76,7 +76,7 @@ def contact_details_naturalperson():
             editperson.other(),
         ),
         gridmode="full-width",
-        gutter=False,
+        style="padding-left: 1rem; padding-right: 1rem;",
     )
 
 
