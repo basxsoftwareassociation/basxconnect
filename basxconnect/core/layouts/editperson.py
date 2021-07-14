@@ -1,3 +1,5 @@
+import collections
+
 import htmlgenerator as hg
 from bread import layout, menu
 from bread.layout.components.datatable import DataTableColumn
@@ -22,12 +24,12 @@ def editperson_form(request, base_data_tab):
                 layout.tabs.Tabs(
                     *editperson_tabs(base_data_tab, request),
                     tabpanel_attributes={
-                        "_class": "theme-white full-width-white-background",
+                        "_class": "tile-container",
                         "style": "padding: 0;",
                     },
                     labelcontainer_attributes={
                         "_class": "tabs-lg",
-                        "style": "background-color: white; border-bottom: 1px solid #e0e0e0;",
+                        "style": "background-color: white;",
                     },
                 ),
                 gutter=False,
@@ -266,24 +268,21 @@ def contact_details():
         R(
             numbers(),
             email(),
-            style="padding-bottom: 2rem",
         ),
         R(
             urls(),
             categories(),
-            style="padding-bottom: 2rem",
         ),
         R(
             other(),
-            C(),
-            style="margin-top: 1rem",
+            tiling_col(),
         ),
         style="padding-left: 1rem; padding-right: 1rem;",
     )
 
 
 def numbers():
-    return C(
+    return tiling_col(
         hg.H4(_("Numbers")),
         layout.form.FormsetField.as_plain(
             "core_phone_list",
@@ -312,7 +311,7 @@ def numbers():
 
 
 def email():
-    return C(
+    return tiling_col(
         hg.H4(_("Email")),
         hg.If(
             hg.F(
@@ -348,14 +347,14 @@ def email():
 
 
 def categories():
-    return C(
+    return tiling_col(
         hg.H4(_("Categories")),
         layout.form.FormField("categories"),
     )
 
 
 def urls():
-    return C(
+    return tiling_col(
         hg.H4(_("URLs")),
         layout.form.FormsetField.as_plain(
             "core_web_list",
@@ -384,60 +383,58 @@ def urls():
 
 
 def other():
-    return C(
+    return tiling_col(
         hg.H4(_("Other")),
         F("remarks"),
     )
 
 
 def addresses():
-    return R(
-        C(
-            hg.H4(_("Address(es)")),
-            hg.If(
-                hg.F(
-                    lambda c, e: hasattr(c["object"], "core_postal_list")
-                    and c["object"].core_postal_list.count() > 1
-                ),
-                R(C(F("primary_postal_address"), breakpoint="lg", width=4)),
+    return tiling_row(
+        hg.H4(_("Address(es)")),
+        hg.If(
+            hg.F(
+                lambda c, e: hasattr(c["object"], "core_postal_list")
+                and c["object"].core_postal_list.count() > 1
             ),
-            layout.form.FormsetField.as_plain(
-                "core_postal_list",
-                R(
-                    C(F("type"), width=2, breakpoint="lg"),
-                    C(
-                        F(
-                            "address",
-                            widgetattributes={"style": "height: 1rem"},
-                        ),
-                        width=4,
-                        breakpoint="lg",
-                    ),
-                    C(F("postcode"), width=2, breakpoint="lg"),
-                    C(
-                        F("city"),
-                        width=4,
-                        breakpoint="lg",
-                    ),
-                    C(
-                        F("country"),
-                        width=3,
-                        breakpoint="lg",
-                    ),
-                    C(
-                        layout.form.InlineDeleteButton(
-                            ".bx--row",
-                            icon="subtract--alt",
-                        ),
-                        style="margin-top: 1.5rem",
-                        breakpoint="lg",
-                        width=1,
-                    ),
-                ),
-                add_label=_("Add address"),
-            ),
-            style="padding-bottom: 2rem",
+            R(C(F("primary_postal_address"), breakpoint="lg", width=4)),
         ),
+        layout.form.FormsetField.as_plain(
+            "core_postal_list",
+            R(
+                C(F("type"), width=2, breakpoint="lg"),
+                C(
+                    F(
+                        "address",
+                        widgetattributes={"style": "height: 1rem"},
+                    ),
+                    width=4,
+                    breakpoint="lg",
+                ),
+                C(F("postcode"), width=2, breakpoint="lg"),
+                C(
+                    F("city"),
+                    width=4,
+                    breakpoint="lg",
+                ),
+                C(
+                    F("country"),
+                    width=3,
+                    breakpoint="lg",
+                ),
+                C(
+                    layout.form.InlineDeleteButton(
+                        ".bx--row",
+                        icon="subtract--alt",
+                    ),
+                    style="margin-top: 1.5rem",
+                    breakpoint="lg",
+                    width=1,
+                ),
+            ),
+            add_label=_("Add address"),
+        ),
+        style="padding-bottom: 2rem",
     )
 
 
@@ -498,7 +495,6 @@ def relationshipstab(request):
                     lambda c, e: _('Relationships from %s to "person B"') % c["object"]
                 ),
             ),
-            hg.DIV(style="margin-top: 2rem"),
             layout.form.FormsetField.as_datatable(
                 "relationships_from",
                 [
@@ -549,3 +545,15 @@ def row_action(object_action, icon, label):
         icon=icon,
         label=label,
     )
+
+
+def tiling_col(*elems, **attrs):
+    attrs = collections.defaultdict(str, attrs or {})
+    attrs["_class"] += " tile tile-col theme-white"
+    return C(*elems, **attrs)
+
+
+def tiling_row(*elems, **attrs):
+    attrs = collections.defaultdict(str, attrs or {})
+    attrs["_class"] += " tile theme-white"
+    return R(C(*elems, **attrs))

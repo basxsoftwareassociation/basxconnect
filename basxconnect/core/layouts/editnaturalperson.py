@@ -19,7 +19,7 @@ def base_data_tab():
         hg.BaseElement(
             layout.grid.Grid(
                 R(
-                    C(
+                    editperson.tiling_col(
                         R(C(hg.H4(_("Name")))),
                         R(
                             C(F("salutation"), width=4, breakpoint="lg"),
@@ -32,10 +32,10 @@ def base_data_tab():
                         R(
                             C(F("name")),
                         ),
-                        width=7,
+                        width=8,
                         breakpoint="lg",
                     ),
-                    C(
+                    editperson.tiling_col(
                         R(C(hg.H4(_("Mailings")))),
                         R(
                             C(F("preferred_language"), width=4, breakpoint="lg"),
@@ -47,11 +47,9 @@ def base_data_tab():
                             C(F("gender"), width=4, breakpoint="lg"),
                             C(F("form_of_address"), width=8, breakpoint="lg"),
                         ),
-                        _class="bx--offset-xlg-1",
-                        width=7,
+                        width=8,
                         breakpoint="lg",
                     ),
-                    style="padding-top: 1rem;",
                 ),
                 style="padding-left: 1rem; padding-right: 1rem",
             ),
@@ -81,7 +79,7 @@ def contact_details_naturalperson():
 
 
 def personal():
-    return C(
+    return editperson.tiling_col(
         hg.H4(_("Personal")),
         R(C(F("profession"))),
         R(
