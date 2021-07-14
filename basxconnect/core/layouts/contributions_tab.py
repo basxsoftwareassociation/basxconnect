@@ -1,4 +1,3 @@
-import htmlgenerator as hg
 from bread import layout
 from bread.utils import reverse_model
 from django.shortcuts import get_object_or_404
