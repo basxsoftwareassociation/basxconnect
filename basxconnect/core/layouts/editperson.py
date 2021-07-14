@@ -555,5 +555,4 @@ def tiling_col(*elems, **attrs):
 
 def tiling_row(*elems, **attrs):
     attrs = collections.defaultdict(str, attrs or {})
-    attrs["_class"] += " tile theme-white"
-    return R(C(*elems, **attrs))
+    return R(C(*elems, **attrs), _class="tile theme-white")
