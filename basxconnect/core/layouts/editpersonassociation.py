@@ -16,23 +16,20 @@ def editpersonassociation_form(request):
 def base_data_tab():
     return layout.tabs.Tab(
         _("Base data"),
-        hg.BaseElement(
-            layout.grid.Grid(
-                editperson.tiling_row(
-                    R(
-                        C(hg.H4(_("General Information"))),
-                    ),
-                    R(
-                        C(
-                            R(
-                                C(F("name"), width=4, breakpoint="lg"),
-                                C(F("preferred_language"), width=2, breakpoint="lg"),
-                                C(F("salutation_letter"), width=4, breakpoint="lg"),
-                            ),
+        editperson.grid_inside_tab(
+            editperson.tiling_row(
+                R(
+                    C(hg.H4(_("General Information"))),
+                ),
+                R(
+                    C(
+                        R(
+                            C(F("name"), width=4),
+                            C(F("preferred_language"), width=2),
+                            C(F("salutation_letter"), width=4),
                         ),
                     ),
                 ),
-                style="padding-left: 1rem; padding-right: 1rem",
             ),
             editperson.contact_details(),
         ),

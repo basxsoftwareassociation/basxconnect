@@ -17,7 +17,7 @@ def base_data_tab():
     return layout.tabs.Tab(
         _("Base data"),
         hg.BaseElement(
-            layout.grid.Grid(
+            editperson.grid_inside_tab(
                 R(
                     editperson.tiling_col(
                         R(C(hg.H4(_("Name")))),
@@ -26,23 +26,21 @@ def base_data_tab():
                                 R(C(F("name"))),
                                 R(C(F("name_addition"))),
                                 width=8,
-                                breakpoint="lg",
                             )
                         ),
                     ),
                     editperson.tiling_col(
                         R(C(hg.H4(_("Mailings")))),
                         R(
-                            C(F("preferred_language"), width=4, breakpoint="lg"),
-                            C(F("type"), width=8, breakpoint="lg"),
+                            C(F("preferred_language"), width=4),
+                            C(F("type"), width=8),
                         ),
                         R(
-                            C(F("salutation_letter"), width=12, breakpoint="lg"),
+                            C(F("salutation_letter"), width=12),
                         ),
                     ),
                 ),
-                style="padding-left: 1rem; padding-right: 1rem",
+                editperson.contact_details(),
             ),
-            editperson.contact_details(),
         ),
     )
