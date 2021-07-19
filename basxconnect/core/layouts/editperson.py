@@ -173,7 +173,6 @@ def editperson_head(request, isreadview):
                     ),
                 ),
                 width=12,
-                breakpoint="lg",
             ),
             C(
                 layout.content_switcher.ContentSwitcher(
@@ -195,7 +194,6 @@ def editperson_head(request, isreadview):
                 ),
                 areyousure,
                 width=4,
-                breakpoint="lg",
             ),
             style="padding-top: 1rem",
         ),
@@ -210,7 +208,6 @@ def editperson_head(request, isreadview):
                     style="display:flex;",
                 ),
                 width=9,
-                breakpoint="lg",
             ),
             *(
                 []
@@ -225,7 +222,6 @@ def editperson_head(request, isreadview):
                             onclick="document.querySelector('div.bx--content form[method=POST]').submit()",
                         ),
                         width=4,
-                        breakpoint="lg",
                         _class="bx--offset-lg-3",
                     )
                 ]
@@ -263,7 +259,7 @@ def active_toggle(isreadview):
 
 
 def contact_details():
-    return layout.grid.Grid(
+    return hg.BaseElement(
         addresses(),
         R(
             numbers(),
@@ -277,7 +273,6 @@ def contact_details():
             other(),
             tiling_col(),
         ),
-        style="padding-left: 1rem; padding-right: 1rem;",
     )
 
 
@@ -287,21 +282,14 @@ def numbers():
         layout.form.FormsetField.as_plain(
             "core_phone_list",
             R(
-                C(F("type"), breakpoint="lg", width=4),
-                C(
-                    F(
-                        "number",
-                    ),
-                    breakpoint="lg",
-                    width=8,
-                ),
+                C(F("type"), width=4),
+                C(F("number"), width=8),
                 C(
                     layout.form.InlineDeleteButton(
                         ".bx--row",
                         icon="subtract--alt",
                     ),
                     style="margin-top: 1.5rem",
-                    breakpoint="lg",
                     width=2,
                 ),
             ),
@@ -318,26 +306,19 @@ def email():
                 lambda c, e: hasattr(c["object"], "core_email_list")
                 and c["object"].core_email_list.count() > 1
             ),
-            R(C(F("primary_email_address"), breakpoint="lg", width=4)),
+            R(C(F("primary_email_address"), width=4)),
         ),
         layout.form.FormsetField.as_plain(
             "core_email_list",
             R(
-                C(F("type"), breakpoint="lg", width=4),
-                C(
-                    F(
-                        "email",
-                    ),
-                    breakpoint="lg",
-                    width=8,
-                ),
+                C(F("type"), width=4),
+                C(F("email"), width=8),
                 C(
                     layout.form.InlineDeleteButton(
                         ".bx--row",
                         icon="subtract--alt",
                     ),
                     style="margin-top: 1.5rem",
-                    breakpoint="lg",
                     width=2,
                 ),
             ),
@@ -359,21 +340,14 @@ def urls():
         layout.form.FormsetField.as_plain(
             "core_web_list",
             R(
-                C(F("type"), breakpoint="lg", width=4),
-                C(
-                    F(
-                        "url",
-                    ),
-                    breakpoint="lg",
-                    width=8,
-                ),
+                C(F("type"), width=4),
+                C(F("url"), width=8),
                 C(
                     layout.form.InlineDeleteButton(
                         ".bx--row",
                         icon="subtract--alt",
                     ),
                     style="margin-top: 1.5rem",
-                    breakpoint="lg",
                     width=2,
                 ),
             ),
@@ -397,38 +371,28 @@ def addresses():
                 lambda c, e: hasattr(c["object"], "core_postal_list")
                 and c["object"].core_postal_list.count() > 1
             ),
-            R(C(F("primary_postal_address"), breakpoint="lg", width=4)),
+            R(C(F("primary_postal_address"), width=4)),
         ),
         layout.form.FormsetField.as_plain(
             "core_postal_list",
             R(
-                C(F("type"), width=2, breakpoint="lg"),
+                C(F("type"), width=2),
                 C(
                     F(
                         "address",
                         widgetattributes={"style": "height: 1rem"},
                     ),
                     width=4,
-                    breakpoint="lg",
                 ),
-                C(F("postcode"), width=2, breakpoint="lg"),
-                C(
-                    F("city"),
-                    width=4,
-                    breakpoint="lg",
-                ),
-                C(
-                    F("country"),
-                    width=3,
-                    breakpoint="lg",
-                ),
+                C(F("postcode"), width=2),
+                C(F("city"), width=4),
+                C(F("country"), width=3),
                 C(
                     layout.form.InlineDeleteButton(
                         ".bx--row",
                         icon="subtract--alt",
                     ),
                     style="margin-top: 1.5rem",
-                    breakpoint="lg",
                     width=1,
                 ),
             ),
@@ -545,6 +509,12 @@ def row_action(object_action, icon, label):
         icon=icon,
         label=label,
     )
+
+
+def grid_inside_tab(*elems, **attrs):
+    attrs = collections.defaultdict(str, attrs or {})
+    attrs["style"] += " padding-left: 1rem; padding-right: 1rem"
+    return layout.grid.Grid(*elems, **attrs)
 
 
 def tiling_col(*elems, **attrs):

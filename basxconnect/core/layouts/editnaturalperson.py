@@ -17,13 +17,13 @@ def base_data_tab():
     return layout.tabs.Tab(
         _("Base data"),
         hg.BaseElement(
-            layout.grid.Grid(
+            editperson.grid_inside_tab(
                 R(
                     editperson.tiling_col(
                         R(C(hg.H4(_("Name")))),
                         R(
-                            C(F("salutation"), width=4, breakpoint="lg"),
-                            C(F("title"), width=4, breakpoint="lg"),
+                            C(F("salutation"), width=4),
+                            C(F("title"), width=4),
                         ),
                         R(
                             C(F("first_name")),
@@ -33,33 +33,30 @@ def base_data_tab():
                             C(F("name")),
                         ),
                         width=8,
-                        breakpoint="lg",
                     ),
                     editperson.tiling_col(
                         R(C(hg.H4(_("Mailings")))),
                         R(
-                            C(F("preferred_language"), width=4, breakpoint="lg"),
-                            C(width=4, breakpoint="lg"),
-                            C(F("type"), width=8, breakpoint="lg"),
+                            C(F("preferred_language"), width=4),
+                            C(width=4),
+                            C(F("type"), width=8),
                         ),
                         R(
-                            C(F("salutation_letter"), width=4, breakpoint="lg"),
-                            C(F("gender"), width=4, breakpoint="lg"),
-                            C(F("form_of_address"), width=8, breakpoint="lg"),
+                            C(F("salutation_letter"), width=4),
+                            C(F("gender"), width=4),
+                            C(F("form_of_address"), width=8),
                         ),
                         width=8,
-                        breakpoint="lg",
                     ),
                 ),
-                style="padding-left: 1rem; padding-right: 1rem",
+                contact_details_naturalperson(),
             ),
-            contact_details_naturalperson(),
         ),
     )
 
 
 def contact_details_naturalperson():
-    return layout.grid.Grid(
+    return hg.BaseElement(
         editperson.addresses(),
         R(
             editperson.numbers(),
@@ -69,12 +66,7 @@ def contact_details_naturalperson():
             editperson.urls(),
             personal(),
         ),
-        R(
-            editperson.categories(),
-            editperson.other(),
-        ),
-        gridmode="full-width",
-        style="padding-left: 1rem; padding-right: 1rem;",
+        R(editperson.categories(), editperson.other()),
     )
 
 
@@ -83,16 +75,15 @@ def personal():
         hg.H4(_("Personal")),
         R(C(F("profession"))),
         R(
-            C(F("date_of_birth"), width=6, breakpoint="lg"),
-            C("", width=1, breakpoint="lg"),
+            C(F("date_of_birth"), width=6),
+            C("", width=1),
             C(
                 F(
                     "deceased",
                     elementattributes={"_class": "standalone"},
                 ),
                 width=3,
-                breakpoint="lg",
             ),
-            C(F("decease_date"), width=6, breakpoint="lg"),
+            C(F("decease_date"), width=6),
         ),
     )
