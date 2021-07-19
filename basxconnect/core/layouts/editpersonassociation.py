@@ -18,17 +18,21 @@ def base_data_tab():
         _("Base data"),
         hg.BaseElement(
             layout.grid.Grid(
-                R(C(hg.H4(_("General Information")))),
-                R(
-                    C(
-                        R(
-                            C(F("name"), width=4, breakpoint="lg"),
-                            C(F("preferred_language"), width=2, breakpoint="lg"),
-                            C(F("salutation_letter"), width=4, breakpoint="lg"),
+                editperson.tiling_row(
+                    R(
+                        C(hg.H4(_("General Information"))),
+                    ),
+                    R(
+                        C(
+                            R(
+                                C(F("name"), width=4, breakpoint="lg"),
+                                C(F("preferred_language"), width=2, breakpoint="lg"),
+                                C(F("salutation_letter"), width=4, breakpoint="lg"),
+                            ),
                         ),
                     ),
                 ),
-                gutter=False,
+                style="padding-left: 1rem; padding-right: 1rem",
             ),
             editperson.contact_details(),
         ),

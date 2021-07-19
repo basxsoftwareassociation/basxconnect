@@ -19,7 +19,7 @@ def base_data_tab():
         hg.BaseElement(
             layout.grid.Grid(
                 R(
-                    C(
+                    editperson.tiling_col(
                         R(C(hg.H4(_("Name")))),
                         R(
                             C(
@@ -30,7 +30,7 @@ def base_data_tab():
                             )
                         ),
                     ),
-                    C(
+                    editperson.tiling_col(
                         R(C(hg.H4(_("Mailings")))),
                         R(
                             C(F("preferred_language"), width=4, breakpoint="lg"),
@@ -41,7 +41,7 @@ def base_data_tab():
                         ),
                     ),
                 ),
-                gutter=False,
+                style="padding-left: 1rem; padding-right: 1rem",
             ),
             editperson.contact_details(),
         ),

@@ -1,3 +1,5 @@
+import collections
+
 import htmlgenerator as hg
 from bread import layout, menu
 from bread.layout.components.datatable import DataTableColumn
@@ -21,11 +23,13 @@ def editperson_form(request, base_data_tab):
             layout.grid.Grid(
                 layout.tabs.Tabs(
                     *editperson_tabs(base_data_tab, request),
-                    container=True,
                     tabpanel_attributes={
-                        "_class": "theme-white full-width-white-background",
-                        # to prevent the relationship tab to look weird if there are no relationships.
-                        "style": "min-height: 400px",
+                        "_class": "tile-container",
+                        "style": "padding: 0;",
+                    },
+                    labelcontainer_attributes={
+                        "_class": "tabs-lg",
+                        "style": "background-color: white;",
                     },
                 ),
                 gutter=False,
@@ -264,25 +268,21 @@ def contact_details():
         R(
             numbers(),
             email(),
-            style="padding-bottom: 2rem",
         ),
         R(
             urls(),
             categories(),
-            style="padding-bottom: 2rem",
         ),
         R(
             other(),
-            C(),
-            style="margin-top: 1rem",
+            tiling_col(),
         ),
-        gridmode="full-width",
-        gutter=False,
+        style="padding-left: 1rem; padding-right: 1rem;",
     )
 
 
 def numbers():
-    return C(
+    return tiling_col(
         hg.H4(_("Numbers")),
         layout.form.FormsetField.as_plain(
             "core_phone_list",
@@ -311,7 +311,7 @@ def numbers():
 
 
 def email():
-    return C(
+    return tiling_col(
         hg.H4(_("Email")),
         hg.If(
             hg.F(
@@ -347,14 +347,14 @@ def email():
 
 
 def categories():
-    return C(
+    return tiling_col(
         hg.H4(_("Categories")),
         layout.form.FormField("categories"),
     )
 
 
 def urls():
-    return C(
+    return tiling_col(
         hg.H4(_("URLs")),
         layout.form.FormsetField.as_plain(
             "core_web_list",
@@ -383,60 +383,58 @@ def urls():
 
 
 def other():
-    return C(
+    return tiling_col(
         hg.H4(_("Other")),
         F("remarks"),
     )
 
 
 def addresses():
-    return R(
-        C(
-            hg.H4(_("Address(es)")),
-            hg.If(
-                hg.F(
-                    lambda c, e: hasattr(c["object"], "core_postal_list")
-                    and c["object"].core_postal_list.count() > 1
-                ),
-                R(C(F("primary_postal_address"), breakpoint="lg", width=4)),
+    return tiling_row(
+        hg.H4(_("Address(es)")),
+        hg.If(
+            hg.F(
+                lambda c, e: hasattr(c["object"], "core_postal_list")
+                and c["object"].core_postal_list.count() > 1
             ),
-            layout.form.FormsetField.as_plain(
-                "core_postal_list",
-                R(
-                    C(F("type"), width=2, breakpoint="lg"),
-                    C(
-                        F(
-                            "address",
-                            widgetattributes={"style": "height: 1rem"},
-                        ),
-                        width=4,
-                        breakpoint="lg",
-                    ),
-                    C(F("postcode"), width=2, breakpoint="lg"),
-                    C(
-                        F("city"),
-                        width=4,
-                        breakpoint="lg",
-                    ),
-                    C(
-                        F("country"),
-                        width=3,
-                        breakpoint="lg",
-                    ),
-                    C(
-                        layout.form.InlineDeleteButton(
-                            ".bx--row",
-                            icon="subtract--alt",
-                        ),
-                        style="margin-top: 1.5rem",
-                        breakpoint="lg",
-                        width=1,
-                    ),
-                ),
-                add_label=_("Add address"),
-            ),
-            style="padding-bottom: 2rem",
+            R(C(F("primary_postal_address"), breakpoint="lg", width=4)),
         ),
+        layout.form.FormsetField.as_plain(
+            "core_postal_list",
+            R(
+                C(F("type"), width=2, breakpoint="lg"),
+                C(
+                    F(
+                        "address",
+                        widgetattributes={"style": "height: 1rem"},
+                    ),
+                    width=4,
+                    breakpoint="lg",
+                ),
+                C(F("postcode"), width=2, breakpoint="lg"),
+                C(
+                    F("city"),
+                    width=4,
+                    breakpoint="lg",
+                ),
+                C(
+                    F("country"),
+                    width=3,
+                    breakpoint="lg",
+                ),
+                C(
+                    layout.form.InlineDeleteButton(
+                        ".bx--row",
+                        icon="subtract--alt",
+                    ),
+                    style="margin-top: 1.5rem",
+                    breakpoint="lg",
+                    width=1,
+                ),
+            ),
+            add_label=_("Add address"),
+        ),
+        style="padding-bottom: 2rem",
     )
 
 
@@ -461,89 +459,80 @@ def revisionstab():
 def relationshipstab(request):
     return layout.tabs.Tab(
         _("Relationships"),
-        layout.grid.Grid(
-            R(
-                C(
-                    layout.form.FormsetField.as_datatable(
-                        "relationships_to",
-                        [
-                            layout.datatable.DataTableColumn(
-                                layout.fieldlabel(Relationship, "person_a"),
-                                hg.C("object"),
-                            ),
-                            "type",
-                            layout.datatable.DataTableColumn(
-                                layout.fieldlabel(Relationship, "person_b"),
-                                F(
-                                    "person_b",
-                                    fieldtype=layout.search_select.SearchSelect,
-                                    hidelabel=True,
-                                    elementattributes={
-                                        "backend": layout.search.SearchBackendConfig(
-                                            reverse_lazy(
-                                                "basxconnect.core.views.person.search_person_view.searchperson"
-                                            ),
-                                            result_selector=f".{search_person_view.ITEM_CLASS}",
-                                            result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
-                                            result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
-                                        ),
-                                    },
+        hg.BaseElement(
+            layout.form.FormsetField.as_datatable(
+                "relationships_to",
+                [
+                    layout.datatable.DataTableColumn(
+                        layout.fieldlabel(Relationship, "person_a"),
+                        hg.C("object"),
+                    ),
+                    "type",
+                    layout.datatable.DataTableColumn(
+                        layout.fieldlabel(Relationship, "person_b"),
+                        F(
+                            "person_b",
+                            fieldtype=layout.search_select.SearchSelect,
+                            hidelabel=True,
+                            elementattributes={
+                                "backend": layout.search.SearchBackendConfig(
+                                    reverse_lazy(
+                                        "basxconnect.core.views.person.search_person_view.searchperson"
+                                    ),
+                                    result_selector=f".{search_person_view.ITEM_CLASS}",
+                                    result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
+                                    result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
                                 ),
-                            ),
-                            "start_date",
-                            "end_date",
-                        ],
-                        # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
-                        # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
-                        title=hg.F(
-                            lambda c, e: _('Relationships from %s to "person B"')
-                            % c["object"]
+                            },
                         ),
                     ),
-                    hg.DIV(style="margin-top: 2rem"),
-                    layout.form.FormsetField.as_datatable(
-                        "relationships_from",
-                        [
-                            layout.datatable.DataTableColumn(
-                                layout.fieldlabel(Relationship, "person_a"),
-                                F(
-                                    "person_a",
-                                    fieldtype=layout.search_select.SearchSelect,
-                                    hidelabel=True,
-                                    elementattributes={
-                                        "backend": layout.search.SearchBackendConfig(
-                                            reverse_lazy(
-                                                "basxconnect.core.views.person.search_person_view.searchperson"
-                                            ),
-                                            result_selector=f".{search_person_view.ITEM_CLASS}",
-                                            result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
-                                            result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
-                                        ),
-                                    },
-                                ),
-                            ),
-                            "type",
-                            layout.datatable.DataTableColumn(
-                                layout.fieldlabel(Relationship, "person_b"),
-                                hg.C("object"),
-                            ),
-                            "start_date",
-                            "end_date",
-                        ],
-                        rowactions=[
-                            row_action("delete", "trash-can", _("Delete")),
-                            row_action("edit", "edit", _("Edit")),
-                        ],
-                        rowactions_dropdown=True,
-                        title=hg.F(
-                            lambda c, e: _('Relationships from "person A" to %s')
-                            % c["object"]
-                        ),
-                    ),
-                    style="padding-top: 1rem; margin-left: -1rem",
-                )
+                    "start_date",
+                    "end_date",
+                ],
+                # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
+                # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
+                title=hg.F(
+                    lambda c, e: _('Relationships from %s to "person B"') % c["object"]
+                ),
             ),
-            gutter=False,
+            layout.form.FormsetField.as_datatable(
+                "relationships_from",
+                [
+                    layout.datatable.DataTableColumn(
+                        layout.fieldlabel(Relationship, "person_a"),
+                        F(
+                            "person_a",
+                            fieldtype=layout.search_select.SearchSelect,
+                            hidelabel=True,
+                            elementattributes={
+                                "backend": layout.search.SearchBackendConfig(
+                                    reverse_lazy(
+                                        "basxconnect.core.views.person.search_person_view.searchperson"
+                                    ),
+                                    result_selector=f".{search_person_view.ITEM_CLASS}",
+                                    result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
+                                    result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
+                                ),
+                            },
+                        ),
+                    ),
+                    "type",
+                    layout.datatable.DataTableColumn(
+                        layout.fieldlabel(Relationship, "person_b"),
+                        hg.C("object"),
+                    ),
+                    "start_date",
+                    "end_date",
+                ],
+                rowactions=[
+                    row_action("delete", "trash-can", _("Delete")),
+                    row_action("edit", "edit", _("Edit")),
+                ],
+                rowactions_dropdown=True,
+                title=hg.F(
+                    lambda c, e: _('Relationships from "person A" to %s') % c["object"]
+                ),
+            ),
         ),
     )
 
@@ -556,3 +545,14 @@ def row_action(object_action, icon, label):
         icon=icon,
         label=label,
     )
+
+
+def tiling_col(*elems, **attrs):
+    attrs = collections.defaultdict(str, attrs or {})
+    attrs["_class"] += " tile tile-col theme-white"
+    return C(*elems, **attrs)
+
+
+def tiling_row(*elems, **attrs):
+    attrs = collections.defaultdict(str, attrs or {})
+    return R(C(*elems, **attrs), _class="tile theme-white")
