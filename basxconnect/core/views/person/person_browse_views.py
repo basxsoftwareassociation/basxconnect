@@ -2,6 +2,7 @@ import htmlgenerator as hg
 from bread import layout as layout
 from bread.layout.components.datatable import DataTableColumn
 from bread.menu import Link
+from bread.utils import get_concrete_instance
 from bread.utils.urls import reverse
 from bread.views import BrowseView
 from bread.views.browse import delete as breaddelete
@@ -38,6 +39,26 @@ def export(request, queryset):
             )
         if form.cleaned_data.get("preferred_language"):
             columns.append("preferred_language")
+
+    def get_from_concret_object(field):
+        return hg.F(lambda c, e: getattr(get_concrete_instance(c["row"]), field, ""))
+
+    # insert last_name and first_name
+    name_field = columns.index("name")
+    columns.insert(
+        name_field + 1,
+        DataTableColumn(
+            layout.fieldlabel(models.NaturalPerson, "last_name"),
+            get_from_concret_object("last_name"),
+        ),
+    )
+    columns.insert(
+        name_field + 1,
+        DataTableColumn(
+            layout.fieldlabel(models.NaturalPerson, "first_name"),
+            get_from_concret_object("first_name"),
+        ),
+    )
 
     return breadexport(queryset=queryset, columns=columns)
 
