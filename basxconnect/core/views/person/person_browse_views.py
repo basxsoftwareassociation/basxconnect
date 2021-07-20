@@ -146,7 +146,7 @@ class PersonBrowseView(BrowseView):
             widget=forms.CheckboxSelectMultiple,
             required=False,
         )
-        include_trash = forms.BooleanField(required=False, label=_("Include trash"))
+        trash = forms.BooleanField(required=False, label=_("Trash"))
 
     def get_layout(self):
         self.checkboxcounterid = hg.html_id(self, "checkbox-counter")
@@ -193,15 +193,17 @@ class PersonBrowseView(BrowseView):
             counter += form.cleaned_data["categories"].count()
             counter += len(form.cleaned_data["preferred_language"])
             counter += len(form.cleaned_data["status"])
-            counter += 1 if form.cleaned_data["include_trash"] else 0
+            counter += 1 if form.cleaned_data["trash"] else 0
         return counter
 
     def get_queryset(self):
         form = self._filterform()
         if form.is_valid():
-            ret = super().get_queryset()
-            if not form.cleaned_data.get("include_trash", False):
-                ret = ret.filter(deleted=False)
+            ret = (
+                super()
+                .get_queryset()
+                .filter(deleted=form.cleaned_data.get("trash", False))
+            )
             if any(
                 [
                     form.cleaned_data[i]
@@ -246,7 +248,9 @@ class PersonBrowseView(BrowseView):
                 ret = ret.filter(
                     preferred_language__in=form.cleaned_data["preferred_language"]
                 )
-            if len(form.cleaned_data.get("status")) == 1:
+            if len(form.cleaned_data.get("status")) == 1 and not form.cleaned_data.get(
+                "trash", False
+            ):
                 ret = ret.filter(active=form.cleaned_data.get("status")[0] == "active")
 
         return ret
@@ -337,7 +341,7 @@ class PersonBrowseView(BrowseView):
                         hg.DIV(layout.form.FormField("status"), style="flex-grow: 0"),
                         hg.DIV(style="flex-grow: 1"),
                         hg.DIV(
-                            layout.form.FormField("include_trash"),
+                            layout.form.FormField("trash"),
                             style="max-height: 2rem",
                         ),
                         style="display: flex; flex-direction: column",
