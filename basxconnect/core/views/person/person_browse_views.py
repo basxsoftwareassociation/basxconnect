@@ -7,6 +7,7 @@ from bread.utils.urls import reverse
 from bread.views import BrowseView
 from bread.views.browse import delete as breaddelete
 from bread.views.browse import export as breadexport
+from bread.views.browse import restore as breadrestore
 from django import forms
 from django.db.models import Q
 from django.utils.html import mark_safe
@@ -75,7 +76,14 @@ class PersonBrowseView(BrowseView):
         ),
         "status",
         DataTableColumn(_("Category"), hg.C("row._type"), "_type"),
-        "name",
+        DataTableColumn(
+            layout.fieldlabel(models.Person, "name"),
+            hg.DIV(
+                hg.C("row.name"),
+                style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
+            ),
+            "name",
+        ),
         "primary_postal_address.address",
         "primary_postal_address.postcode",
         "primary_postal_address.city",
@@ -97,6 +105,14 @@ class PersonBrowseView(BrowseView):
                 icon="trash-can",
             ),
             lambda request, qs: breaddelete(request, qs, softdeletefield="deleted"),
+        ),
+        (
+            Link(
+                "restore",
+                label=_("Restore"),
+                icon="restart",
+            ),
+            lambda request, qs: breadrestore(request, qs, softdeletefield="deleted"),
         ),
         (
             Link(
