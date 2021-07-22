@@ -16,7 +16,8 @@ settingsgroup = menu.Group(_("Settings"), icon="settings", order=100)
 
 menu.registeritem(
     menu.Item(
-        menu.Link(reverse_model(models.Person, "browse"), _("Persons")), persongroup
+        menu.Link(reverse_model(models.Person, "browse"), _("Persons"), icon="group"),
+        persongroup,
     )
 )
 
