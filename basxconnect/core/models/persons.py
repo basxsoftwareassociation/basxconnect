@@ -1,4 +1,5 @@
 import datetime
+import random
 
 from bread import layout
 from bread.utils import get_concrete_instance, pretty_modelname
@@ -25,7 +26,10 @@ class PersonManager(models.Manager):
 class Person(models.Model):
     deleted = models.BooleanField(_("Deleted"), blank=True, default=False)
     personnumber = models.CharField(
-        _("Person number"), max_length=255, unique=True, blank=True
+        _("Person number"),
+        max_length=255,
+        unique=True,
+        default=lambda: f"__placeholder__{random.randint(100000, 999999)}",
     )
     personnumber.sorting_name = "personnumber__int"
     name = models.CharField(_("Display name"), max_length=255, blank=True)
@@ -121,8 +125,8 @@ class Person(models.Model):
         # a person number (because there is no pk) and we need
         # to do the same thing again after a call to super.save
         # and then save again
-        if not self.personnumber:
-            self.personnumber = str(self.pk or "")
+        # the random-things is a bit ugly but if we want to enforce uniqueness
+        # on the database level we have to use this one during creation
 
         if not self._maintype:
             self._maintype = "person"
@@ -144,7 +148,7 @@ class Person(models.Model):
             self.primary_email_address = None
 
         super().save(*args, **kwargs)
-        if not self.personnumber:
+        if self.personnumber.startswith("__placeholder__"):
             self.personnumber = str(self.pk)
             super().save(*args, **kwargs)
 
