@@ -12,4 +12,6 @@ def basxconnect_core(request):
             models.Person.objects.filter(pk=settings.OWNER_PERSON_ID).first(),
         ),
         "PLATFORMNAME": mark_safe('basx <span style="font-weight: 600">Connect</span>'),
+        "COMPANYNAME": models.Person.objects.filter(pk=settings.OWNER_PERSON_ID).first()
+        or "<Missing Owner>",
     }
