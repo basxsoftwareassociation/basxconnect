@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-19 12:54+0700\n"
+"POT-Creation-Date: 2021-07-23 18:36+0700\n"
 "PO-Revision-Date: 2021-05-08 22:32+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/basxconnect/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.7-dev\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:66
+#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:55
 msgid "Contributions"
 msgstr "Contribuições"
 
@@ -101,7 +101,7 @@ msgstr "Contribuição"
 msgid "Import date"
 msgstr "Data de Importação"
 
-#: basxconnect/contributions/urls.py:60
+#: basxconnect/contributions/urls.py:49
 msgid "Imports"
 msgstr "Importações"
 
@@ -197,11 +197,11 @@ msgstr "Cessão completa"
 msgid "Continue in order to complete the import"
 msgstr "Continuar de forma a completar a importação"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:252
+#: basxconnect/contributions/wizards/contributionsimport.py:283
 msgid "Import contributions"
 msgstr "Importação de contribuições"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:295
+#: basxconnect/contributions/wizards/contributionsimport.py:298
 #, python-format
 msgid "Successfully imported %d contributions"
 msgstr "Contribuições %d importadas com sucesso"

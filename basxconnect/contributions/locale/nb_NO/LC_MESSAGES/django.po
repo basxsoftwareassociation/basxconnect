@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-19 12:54+0700\n"
+"POT-Creation-Date: 2021-07-23 18:36+0700\n"
 "PO-Revision-Date: 2021-03-27 03:29+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.6-dev\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:66
+#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:55
 #, fuzzy
 msgid "Contributions"
 msgstr "Bidragsytere"
@@ -103,7 +103,7 @@ msgstr "Bidrag"
 msgid "Import date"
 msgstr "Importdato"
 
-#: basxconnect/contributions/urls.py:60
+#: basxconnect/contributions/urls.py:49
 msgid "Imports"
 msgstr "Importer"
 
@@ -206,12 +206,12 @@ msgstr "Tildelning fullført"
 msgid "Continue in order to complete the import"
 msgstr "Fortsett for å fullføre importen"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:252
+#: basxconnect/contributions/wizards/contributionsimport.py:283
 #, fuzzy
 msgid "Import contributions"
 msgstr "Importer bildrag"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:295
+#: basxconnect/contributions/wizards/contributionsimport.py:298
 #, fuzzy, python-format
 msgid "Successfully imported %d contributions"
 msgstr "Importerte %d bidrag"

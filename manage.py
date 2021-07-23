@@ -28,6 +28,7 @@ else:
         MIDDLEWARE_CLASSES=(),
         SITE_ID=1,
         INSTALLED_APPS=INSTALLED_APPS,
+        STATIC_URL="static/",
     )
     django.setup()
 

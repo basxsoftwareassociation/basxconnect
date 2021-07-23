@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-19 12:54+0700\n"
+"POT-Creation-Date: 2021-07-23 18:36+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:66
+#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:55
 msgid "Contributions"
 msgstr "Zuwendungen"
 
@@ -100,7 +100,7 @@ msgstr "Zuwendung"
 msgid "Import date"
 msgstr "Importdatum"
 
-#: basxconnect/contributions/urls.py:60
+#: basxconnect/contributions/urls.py:49
 msgid "Imports"
 msgstr "Importe"
 
@@ -197,11 +197,11 @@ msgstr "Zuweisung vollstängid"
 msgid "Continue in order to complete the import"
 msgstr "Weiterfahren um den Import abzuschliessen"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:252
+#: basxconnect/contributions/wizards/contributionsimport.py:283
 msgid "Import contributions"
 msgstr "Zuwendungen importieren"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:295
+#: basxconnect/contributions/wizards/contributionsimport.py:298
 #, python-format
 msgid "Successfully imported %d contributions"
 msgstr "%d Zuwendungen wurden erfolgreich importiert"
