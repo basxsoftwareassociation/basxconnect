@@ -3,6 +3,7 @@ from bread import layout
 from bread.forms.forms import breadmodelform_factory
 from bread.utils import pretty_modelname
 from bread.utils.urls import reverse_model
+from bread.views import BreadView
 from django import forms
 from django.apps import apps
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -207,7 +208,7 @@ def generate_add_form_for(model, request, data, files, initial=None):
 
 
 # The WizardView contains mostly control-flow logic and some configuration
-class AddPersonWizard(PermissionRequiredMixin, NamedUrlSessionWizardView):
+class AddPersonWizard(PermissionRequiredMixin, BreadView, NamedUrlSessionWizardView):
     kwargs = {"url_name": "core:person:add_wizard", "urlparams": {"step": "str"}}
     urlparams = (("step", str),)
     permission_required = "core.add_person"
@@ -225,7 +226,6 @@ class AddPersonWizard(PermissionRequiredMixin, NamedUrlSessionWizardView):
     _("Subtype")
     _("Information")
     _("Confirmation")
-    template_name = "bread/base.html"
     condition_dict = {
         "Subtype": lambda wizard: ChooseSubType.ALLOWED_SUBTYPE_CATEGORY.get(
             (wizard.get_cleaned_data_for_step("Type") or {}).get("persontype")
@@ -235,8 +235,7 @@ class AddPersonWizard(PermissionRequiredMixin, NamedUrlSessionWizardView):
     def get_person_type(self):
         return (self.get_cleaned_data_for_step("Type") or {}).get("persontype")
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_steps(self):
         steps = []
 
         for i, step in enumerate(self.get_form_list().keys()):
@@ -246,17 +245,18 @@ class AddPersonWizard(PermissionRequiredMixin, NamedUrlSessionWizardView):
             if step == self.steps.current:
                 status = "current"
             steps.append((_(step), status))
+        return steps
 
-        context["layout"] = hg.BaseElement(
+    def get_layout(self):
+        return hg.BaseElement(
             hg.H3(_("Add new person")),
             hg.H4(self.get_form().title),
             layout.progress_indicator.ProgressIndicator(
-                steps,
+                self.get_steps(),
                 style="margin-bottom: 2rem",
             ),
             generate_wizard_form(self.get_form()._layout),
         )
-        return context
 
     def get_form_kwargs(self, step):
         ret = super().get_form_kwargs()
