@@ -2,10 +2,12 @@ import htmlgenerator as hg
 from bread import layout as layout
 from bread.layout.components.datatable import DataTableColumn
 from bread.menu import Link
+from bread.utils import get_concrete_instance
 from bread.utils.urls import reverse
 from bread.views import BrowseView
 from bread.views.browse import delete as breaddelete
 from bread.views.browse import export as breadexport
+from bread.views.browse import restore as breadrestore
 from django import forms
 from django.db.models import Q
 from django.utils.html import mark_safe
@@ -39,6 +41,26 @@ def export(request, queryset):
         if form.cleaned_data.get("preferred_language"):
             columns.append("preferred_language")
 
+    def get_from_concret_object(field):
+        return hg.F(lambda c, e: getattr(get_concrete_instance(c["row"]), field, ""))
+
+    # insert last_name and first_name
+    name_field = columns.index("name")
+    columns.insert(
+        name_field + 1,
+        DataTableColumn(
+            layout.fieldlabel(models.NaturalPerson, "last_name"),
+            get_from_concret_object("last_name"),
+        ),
+    )
+    columns.insert(
+        name_field + 1,
+        DataTableColumn(
+            layout.fieldlabel(models.NaturalPerson, "first_name"),
+            get_from_concret_object("first_name"),
+        ),
+    )
+
     return breadexport(queryset=queryset, columns=columns)
 
 
@@ -54,7 +76,14 @@ class PersonBrowseView(BrowseView):
         ),
         "status",
         DataTableColumn(_("Category"), hg.C("row._type"), "_type"),
-        "name",
+        DataTableColumn(
+            layout.fieldlabel(models.Person, "name"),
+            hg.DIV(
+                hg.C("row.name"),
+                style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
+            ),
+            "name",
+        ),
         "primary_postal_address.address",
         "primary_postal_address.postcode",
         "primary_postal_address.city",
@@ -76,6 +105,14 @@ class PersonBrowseView(BrowseView):
                 icon="trash-can",
             ),
             lambda request, qs: breaddelete(request, qs, softdeletefield="deleted"),
+        ),
+        (
+            Link(
+                "restore",
+                label=_("Restore"),
+                icon="restart",
+            ),
+            lambda request, qs: breadrestore(request, qs, softdeletefield="deleted"),
         ),
         (
             Link(
@@ -125,7 +162,7 @@ class PersonBrowseView(BrowseView):
             widget=forms.CheckboxSelectMultiple,
             required=False,
         )
-        include_trash = forms.BooleanField(required=False, label=_("Include trash"))
+        trash = forms.BooleanField(required=False, label=_("Trash"))
 
     def get_layout(self):
         self.checkboxcounterid = hg.html_id(self, "checkbox-counter")
@@ -172,15 +209,17 @@ class PersonBrowseView(BrowseView):
             counter += form.cleaned_data["categories"].count()
             counter += len(form.cleaned_data["preferred_language"])
             counter += len(form.cleaned_data["status"])
-            counter += 1 if form.cleaned_data["include_trash"] else 0
+            counter += 1 if form.cleaned_data["trash"] else 0
         return counter
 
     def get_queryset(self):
         form = self._filterform()
         if form.is_valid():
-            ret = super().get_queryset()
-            if not form.cleaned_data.get("include_trash", False):
-                ret = ret.filter(deleted=False)
+            ret = (
+                super()
+                .get_queryset()
+                .filter(deleted=form.cleaned_data.get("trash", False))
+            )
             if any(
                 [
                     form.cleaned_data[i]
@@ -225,7 +264,9 @@ class PersonBrowseView(BrowseView):
                 ret = ret.filter(
                     preferred_language__in=form.cleaned_data["preferred_language"]
                 )
-            if len(form.cleaned_data.get("status")) == 1:
+            if len(form.cleaned_data.get("status")) == 1 and not form.cleaned_data.get(
+                "trash", False
+            ):
                 ret = ret.filter(active=form.cleaned_data.get("status")[0] == "active")
 
         return ret
@@ -316,7 +357,7 @@ class PersonBrowseView(BrowseView):
                         hg.DIV(layout.form.FormField("status"), style="flex-grow: 0"),
                         hg.DIV(style="flex-grow: 1"),
                         hg.DIV(
-                            layout.form.FormField("include_trash"),
+                            layout.form.FormField("trash"),
                             style="max-height: 2rem",
                         ),
                         style="display: flex; flex-direction: column",
