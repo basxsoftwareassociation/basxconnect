@@ -6,7 +6,7 @@ import htmlgenerator as hg
 import tablib
 from bread import layout as _layout
 from bread.utils.urls import reverse_model
-from bread.views import generate_wizard_form
+from bread.views import BreadView, generate_wizard_form
 from django import forms
 from django.conf import settings
 from django.contrib import messages
@@ -232,7 +232,9 @@ class AssignmentForm(forms.Form):
 # The WizardView contains mostly control-flow logic and some configuration
 
 
-class ContributionsImportWizard(PermissionRequiredMixin, NamedUrlSessionWizardView):
+class ContributionsImportWizard(
+    PermissionRequiredMixin, BreadView, NamedUrlSessionWizardView
+):
     urlparams = (("step", str),)
     file_storage = FileSystemStorage(
         location=os.path.join(settings.MEDIA_ROOT, "wizards")
@@ -247,13 +249,6 @@ class ContributionsImportWizard(PermissionRequiredMixin, NamedUrlSessionWizardVi
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        layout = generate_wizard_form(
-            self,
-            _("Import contributions"),
-            self.get_form().title,
-            self.get_form().layout,
-        )
-        context["layout"] = layout
 
         upload_file = self.get_cleaned_data_for_step("upload_file")
         context["contributions"] = ()
@@ -275,12 +270,20 @@ class ContributionsImportWizard(PermissionRequiredMixin, NamedUrlSessionWizardVi
             self.steps.current == "assignment"
             and context["unassigned_contributions"] > 0
         ):
-            for button in layout.filter(
+            for button in self.get_layout().filter(
                 lambda element, ancestors: isinstance(element, _layout.button.Button)
                 and element.attributes.get("type") == "submit"
             ):
                 button.attributes["disabled"] = True
         return context
+
+    def get_layout(self):
+        return generate_wizard_form(
+            self,
+            _("Import contributions"),
+            self.get_form().title,
+            self.get_form().layout,
+        )
 
     def done(self, form_list, **kwargs):
         context = self.get_context_data(list(form_list)[-1])
