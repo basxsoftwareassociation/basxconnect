@@ -45,7 +45,7 @@ def export(request, queryset):
         return hg.F(lambda c, e: getattr(get_concrete_instance(c["row"]), field, ""))
 
     # insert last_name and first_name
-    name_field = columns.index("name")
+    name_field = [getattr(i, "sortingname", i) for i in columns].index("name")
     columns.insert(
         name_field + 1,
         DataTableColumn(
