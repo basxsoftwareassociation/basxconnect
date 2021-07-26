@@ -1,10 +1,5 @@
 from bread import views as breadviews
-from bread.utils.urls import (
-    default_model_paths,
-    generate_path,
-    model_urlname,
-    reverse_model,
-)
+from bread.utils.urls import autopath, default_model_paths, model_urlname, reverse_model
 from django.views.generic import RedirectView
 
 from basxconnect.core.views import settings_views
@@ -18,25 +13,25 @@ from . import models
 from .wizards.add_person import AddPersonWizard
 
 urlpatterns = [
-    generate_path(
+    autopath(
         RedirectView.as_view(
             url=reverse_model(models.Person, "addwizard", kwargs={"step": "Search"})
         ),
         model_urlname(models.Person, "add"),
     ),
-    generate_path(
+    autopath(
         RedirectView.as_view(url=reverse_model(models.Person, "browse")),
         model_urlname(models.NaturalPerson, "browse"),
     ),
-    generate_path(
+    autopath(
         RedirectView.as_view(url=reverse_model(models.Person, "browse")),
         model_urlname(models.LegalPerson, "browse"),
     ),
-    generate_path(
+    autopath(
         RedirectView.as_view(url=reverse_model(models.Person, "browse")),
         model_urlname(models.PersonAssociation, "browse"),
     ),
-    generate_path(
+    autopath(
         AddPersonWizard.as_view(url_name=model_urlname(models.Person, "addwizard")),
         model_urlname(models.Person, "addwizard"),
     ),
@@ -115,12 +110,12 @@ urlpatterns = [
     *default_model_paths(models.RelationshipType),
     *default_model_paths(models.Term),
     *default_model_paths(models.Category),
-    generate_path(settings_views.generalsettings),
-    generate_path(
+    autopath(settings_views.generalsettings),
+    autopath(
         person_details_views.togglepersonstatus,
         model_urlname(models.Person, "togglestatus"),
     ),
-    generate_path(settings_views.personsettings),
-    generate_path(settings_views.relationshipssettings),
-    generate_path(search_person_view.searchperson),
+    autopath(settings_views.personsettings),
+    autopath(settings_views.relationshipssettings),
+    autopath(search_person_view.searchperson),
 ]

@@ -1,8 +1,8 @@
 import htmlgenerator as hg
 from bread import layout, menu, views
 from bread.utils.urls import (
+    autopath,
     default_model_paths,
-    generate_path,
     model_urlname,
     reverse,
     reverse_model,
@@ -14,7 +14,7 @@ from . import models
 from .wizards.contributionsimport import ContributionsImportWizard
 
 urlpatterns = [
-    generate_path(
+    autopath(
         RedirectView.as_view(url=reverse("importcontributions", kwargs={"step": "1"})),
         model_urlname(models.ContributionImport, "add"),
     ),
@@ -40,7 +40,7 @@ urlpatterns = [
         ),
     ),
     *default_model_paths(models.Contribution),
-    generate_path(
+    autopath(
         ContributionsImportWizard.as_view(url_name="importcontributions"),
         "importcontributions",
     ),
