@@ -23,13 +23,18 @@ class PersonManager(models.Manager):
         return super().get_queryset(*args, **kwargs).filter(deleted=False)
 
 
+# don't delete this function, other initial migrations for new projects will fail
+def random_personid():
+    return (f"__placeholder__{random.randint(100000, 999999)}",)
+
+
 class Person(models.Model):
     deleted = models.BooleanField(_("Deleted"), blank=True, default=False)
     personnumber = models.CharField(
         _("Person number"),
         max_length=255,
         unique=True,
-        default=lambda: f"__placeholder__{random.randint(100000, 999999)}",
+        default=random_personid,
     )
     personnumber.sorting_name = "personnumber__int"
     name = models.CharField(_("Display name"), max_length=255, blank=True)
