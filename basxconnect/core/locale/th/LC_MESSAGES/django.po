@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-26 17:11+0700\n"
-"PO-Revision-Date: 2021-06-08 02:23+0000\n"
+"PO-Revision-Date: 2021-07-26 13:10+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7\n"
+"X-Generator: Weblate 4.7.2-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/views/menu_views.py:28
@@ -414,7 +414,7 @@ msgstr "ประเภทบุคคล"
 
 #: basxconnect/core/models/persons.py:257
 msgid "Age"
-msgstr ""
+msgstr "อายุ"
 
 #: basxconnect/core/models/persons.py:270
 #: basxconnect/core/views/person/person_browse_views.py:130
@@ -510,7 +510,7 @@ msgstr "Excel"
 
 #: basxconnect/core/views/person/person_browse_views.py:165
 msgid "Trash"
-msgstr ""
+msgstr "ลบทิ้ง"
 
 #: basxconnect/core/views/person/person_browse_views.py:340
 msgid "Tags"
