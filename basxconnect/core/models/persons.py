@@ -25,7 +25,7 @@ class PersonManager(models.Manager):
 
 # don't delete this function, other initial migrations for new projects will fail
 def random_personid():
-    return (f"__placeholder__{random.randint(100000, 999999)}",)
+    return f"__placeholder__{random.randint(100000, 999999)}"
 
 
 class Person(models.Model):
