@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-26 17:11+0700\n"
-"PO-Revision-Date: 2021-03-27 03:29+0000\n"
+"PO-Revision-Date: 2021-07-29 21:32+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
 "basxconnect/basxconnect/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7.2-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/views/menu_views.py:28
@@ -35,7 +35,7 @@ msgstr "Logo"
 
 #: basxconnect/core/layouts/contributions_tab.py:17
 msgid "Contributions"
-msgstr ""
+msgstr "Bidragsytere"
 
 #: basxconnect/core/layouts/editlegalperson.py:18
 #: basxconnect/core/layouts/editnaturalperson.py:18
@@ -69,7 +69,7 @@ msgstr "Slett"
 #: basxconnect/core/layouts/editperson.py:63
 #: basxconnect/core/views/person/person_browse_views.py:112
 msgid "Restore"
-msgstr ""
+msgstr "Gjenopprett"
 
 #: basxconnect/core/layouts/editperson.py:76
 #, fuzzy
@@ -79,7 +79,7 @@ msgstr "Kopier"
 #: basxconnect/core/layouts/editperson.py:86
 #: basxconnect/core/wizards/add_person.py:181
 msgid "Add person"
-msgstr ""
+msgstr "Legg til person"
 
 #: basxconnect/core/layouts/editperson.py:95
 #: basxconnect/core/wizards/add_person.py:116
@@ -178,7 +178,7 @@ msgstr "Nettadresser"
 #, fuzzy
 #| msgid "Add %s"
 msgid "Add Url"
-msgstr "Legg til %s"
+msgstr "Legg til nettadresse"
 
 #: basxconnect/core/layouts/editperson.py:361
 msgid "Other"
@@ -220,16 +220,14 @@ msgid "Relationships"
 msgstr "Relasjoner"
 
 #: basxconnect/core/layouts/editperson.py:459
-#, fuzzy, python-format
-#| msgid "Relationship types"
+#, python-format
 msgid "Relationships from %s to \"person B\""
-msgstr "Relasjonstyper"
+msgstr "Relasjoner fra %s til «person B»"
 
 #: basxconnect/core/layouts/editperson.py:497
-#, fuzzy, python-format
-#| msgid "Relationship types"
+#, python-format
 msgid "Relationships from \"person A\" to %s"
-msgstr "Relasjonstyper"
+msgstr "Relasjoner fra «person A» til %s"
 
 #: basxconnect/core/layouts/editpersonassociation.py:22
 #, fuzzy
@@ -436,7 +434,7 @@ msgstr "Personkateogri"
 
 #: basxconnect/core/models/persons.py:257
 msgid "Age"
-msgstr ""
+msgstr "Alder"
 
 #: basxconnect/core/models/persons.py:270
 #: basxconnect/core/views/person/person_browse_views.py:130
@@ -641,11 +639,11 @@ msgstr ""
 
 #: basxconnect/core/wizards/add_person.py:227
 msgid "Information"
-msgstr ""
+msgstr "Info"
 
 #: basxconnect/core/wizards/add_person.py:228
 msgid "Confirmation"
-msgstr ""
+msgstr "Bekreftelse"
 
 #: basxconnect/core/wizards/add_person.py:252
 msgid "Add new person"
