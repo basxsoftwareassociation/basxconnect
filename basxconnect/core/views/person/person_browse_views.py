@@ -268,7 +268,6 @@ class PersonBrowseView(BrowseView):
                 "trash", False
             ):
                 ret = ret.filter(active=form.cleaned_data.get("status")[0] == "active")
-        ret.select_related("_type", "primary_postal_address", "primary_email_address")
 
         return ret
 
