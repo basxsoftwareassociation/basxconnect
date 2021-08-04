@@ -34,7 +34,6 @@ def editperson_form(request, base_data_tab):
                 ),
                 gutter=False,
             ),
-            _class="bx--no-gutter",
         ),
     )
 
