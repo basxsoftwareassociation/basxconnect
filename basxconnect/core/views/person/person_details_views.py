@@ -37,6 +37,17 @@ class NaturalPersonEditView(EditView):
         )
 
 
+class NaturalPersonEditMailingsView(EditView):
+    def get_layout(self):
+        return hg.DIV(
+            layout.form.FormField("preferred_language"),
+            layout.form.FormField("type"),
+            layout.form.FormField("salutation_letter"),
+            layout.form.FormField("gender"),
+            layout.form.FormField("form_of_address"),
+        )
+
+
 class NaturalPersonReadView(ReadView):
     def get_layout(self):
         return layoutasreadonly(

@@ -118,4 +118,9 @@ urlpatterns = [
     autopath(settings_views.personsettings),
     autopath(settings_views.relationshipssettings),
     autopath(search_person_view.searchperson),
+    autopath(
+        person_details_views.NaturalPersonEditMailingsView.as_view(
+            model=models.NaturalPerson
+        )
+    ),
 ]
