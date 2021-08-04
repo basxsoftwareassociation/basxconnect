@@ -25,3 +25,25 @@ class NaturalPersonEditMailingsView(EditView):
     def get_layout(self):
         form_fields = [layout.form.FormField(field) for field in self.fields()]
         return hg.DIV(*form_fields)
+
+
+class LegalPersonEditMailingsView(EditView):
+    @staticmethod
+    def path():
+        return "basxconnect.core.views.person.person_modals_views.legalpersoneditmailingsview"
+
+    @staticmethod
+    def heading():
+        return "Mailings"
+
+    @staticmethod
+    def fields():
+        return [
+            "preferred_language",
+            "type",
+            "salutation_letter",
+        ]
+
+    def get_layout(self):
+        form_fields = [layout.form.FormField(field) for field in self.fields()]
+        return hg.DIV(*form_fields)

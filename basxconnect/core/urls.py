@@ -6,6 +6,7 @@ from basxconnect.core.views import settings_views
 from basxconnect.core.views.person import (
     person_browse_views,
     person_details_views,
+    person_modals_views,
     search_person_view,
 )
 
@@ -119,8 +120,13 @@ urlpatterns = [
     autopath(settings_views.relationshipssettings),
     autopath(search_person_view.searchperson),
     autopath(
-        person_details_views.NaturalPersonEditMailingsView.as_view(
+        person_modals_views.NaturalPersonEditMailingsView.as_view(
             model=models.NaturalPerson
+        )
+    ),
+    autopath(
+        person_modals_views.LegalPersonEditMailingsView.as_view(
+            model=models.LegalPerson
         )
     ),
 ]

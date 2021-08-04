@@ -3,6 +3,9 @@ from bread import layout
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.layouts import editperson
+from basxconnect.core.views.person.person_modals_views import (
+    LegalPersonEditMailingsView,
+)
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -29,16 +32,7 @@ def base_data_tab():
                             )
                         ),
                     ),
-                    editperson.tiling_col(
-                        R(C(hg.H4(_("Mailings")))),
-                        R(
-                            C(F("preferred_language"), width=4),
-                            C(F("type"), width=8),
-                        ),
-                        R(
-                            C(F("salutation_letter"), width=12),
-                        ),
-                    ),
+                    editperson.tile_with_edit_modal(LegalPersonEditMailingsView),
                 ),
                 editperson.contact_details(),
             ),
