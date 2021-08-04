@@ -20,28 +20,26 @@ def editnaturalperson_form(request):
 def base_data_tab():
     return layout.tabs.Tab(
         _("Base data"),
-        hg.BaseElement(
-            editperson.grid_inside_tab(
-                R(
-                    editperson.tiling_col(
-                        R(C(hg.H4(_("Name")))),
-                        R(
-                            C(F("salutation"), width=4),
-                            C(F("title"), width=4),
-                        ),
-                        R(
-                            C(F("first_name")),
-                            C(F("last_name")),
-                        ),
-                        R(
-                            C(F("name")),
-                        ),
-                        width=8,
+        editperson.grid_inside_tab(
+            R(
+                editperson.tiling_col(
+                    R(C(hg.H4(_("Name")))),
+                    R(
+                        C(F("salutation"), width=4),
+                        C(F("title"), width=4),
                     ),
-                    mailings(),
+                    R(
+                        C(F("first_name")),
+                        C(F("last_name")),
+                    ),
+                    R(
+                        C(F("name")),
+                    ),
+                    width=8,
                 ),
-                contact_details_naturalperson(),
+                mailings(),
             ),
+            contact_details_naturalperson(),
         ),
     )
 
