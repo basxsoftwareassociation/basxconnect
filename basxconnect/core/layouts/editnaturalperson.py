@@ -4,6 +4,9 @@ from bread.utils import reverse
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.layouts import editperson
+from basxconnect.core.views.person.person_modals_views import (
+    NaturalPersonEditMailingsView,
+)
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -43,48 +46,50 @@ def base_data_tab():
     )
 
 
-def display_field_value(field, value_getter=None):
-    value_getter = value_getter or (lambda c, e: getattr(c["object"], field))
-    label_getter = lambda c, e: (c["object"]._meta.get_field(field).verbose_name)
+def display_field_value(field):
     return R(
         C(
             hg.DIV(
                 hg.F(
-                    label_getter,
+                    lambda c, e: (c["object"]._meta.get_field(field).verbose_name),
                 ),
                 style="font-weight: bold;",
             ),
             width=6,
         ),
         C(
-            hg.F(value_getter),
+            hg.F(
+                (
+                    lambda c, e: getattr(c["object"], f"get_{field}_display")()
+                    if hasattr(c["object"], f"get_{field}_display")
+                    else getattr(c["object"], field)
+                )
+            ),
         ),
         style="padding-bottom: 24px;",
     )
 
 
 def mailings():
+    return tile_with_edit_modal(modal_view=NaturalPersonEditMailingsView)
+
+
+def tile_with_edit_modal(modal_view):
     modal = layout.modal.Modal.with_ajax_content(
-        heading="Edit Mailing",
+        heading=f"Edit {modal_view.heading()}",
         url=hg.F(
             lambda c, e: reverse(
-                "basxconnect.core.views.person.person_details_views.naturalpersoneditmailingsview",
+                modal_view.path(),
                 kwargs={"pk": c["object"].pk},
                 query={"asajax": True},
             )
         ),
         submitlabel="save",
     )
+    displayed_fields = [display_field_value(field) for field in modal_view.fields()]
     return editperson.tiling_col(
-        R(C(hg.H4(_("Mailings")))),
-        display_field_value(
-            "preferred_language",
-            (lambda c, e: c["object"].get_preferred_language_display()),
-        ),
-        display_field_value("type"),
-        display_field_value("salutation_letter"),
-        display_field_value("gender"),
-        display_field_value("form_of_address"),
+        R(C(hg.H4(_(modal_view.heading())))),
+        *displayed_fields,
         R(
             C(
                 layout.button.Button(
