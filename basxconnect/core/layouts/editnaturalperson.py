@@ -1,9 +1,9 @@
 import htmlgenerator as hg
 from bread import layout
-from bread.utils import reverse
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.layouts import editperson
+from basxconnect.core.layouts.editperson import tile_with_edit_modal
 from basxconnect.core.views.person.person_modals_views import (
     NaturalPersonEditMailingsView,
 )
@@ -46,60 +46,8 @@ def base_data_tab():
     )
 
 
-def display_field_value(field):
-    return R(
-        C(
-            hg.DIV(
-                hg.F(
-                    lambda c, e: (c["object"]._meta.get_field(field).verbose_name),
-                ),
-                style="font-weight: bold;",
-            ),
-            width=6,
-        ),
-        C(
-            hg.F(
-                (
-                    lambda c, e: getattr(c["object"], f"get_{field}_display")()
-                    if hasattr(c["object"], f"get_{field}_display")
-                    else getattr(c["object"], field)
-                )
-            ),
-        ),
-        style="padding-bottom: 24px;",
-    )
-
-
 def mailings():
     return tile_with_edit_modal(modal_view=NaturalPersonEditMailingsView)
-
-
-def tile_with_edit_modal(modal_view):
-    modal = layout.modal.Modal.with_ajax_content(
-        heading=f"Edit {modal_view.heading()}",
-        url=hg.F(
-            lambda c, e: reverse(
-                modal_view.path(),
-                kwargs={"pk": c["object"].pk},
-                query={"asajax": True},
-            )
-        ),
-        submitlabel="save",
-    )
-    displayed_fields = [display_field_value(field) for field in modal_view.fields()]
-    return editperson.tiling_col(
-        R(C(hg.H4(_(modal_view.heading())))),
-        *displayed_fields,
-        R(
-            C(
-                layout.button.Button(
-                    "Edit", buttontype="tertiary", icon="edit", **modal.openerattributes
-                ),
-                modal,
-            ),
-        ),
-        width=8,
-    )
 
 
 def contact_details_naturalperson():
