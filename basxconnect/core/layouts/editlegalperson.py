@@ -44,6 +44,9 @@ def mailings_tab():
     return layout.tabs.Tab(
         _("Mailings"),
         editperson.grid_inside_tab(
-            R(editperson.tile_with_edit_modal(modal_view=LegalPersonEditMailingsView))
+            R(
+                editperson.tile_with_edit_modal(modal_view=LegalPersonEditMailingsView),
+                editperson.tiling_col(),
+            )
         ),
     )
