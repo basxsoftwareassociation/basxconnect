@@ -10,7 +10,7 @@ F = layout.form.FormField
 
 
 def editpersonassociation_form(request):
-    return editperson.editperson_form(request, base_data_tab)
+    return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
 def base_data_tab():
@@ -33,4 +33,16 @@ def base_data_tab():
             ),
             editperson.contact_details(),
         ),
+    )
+
+
+def mailings_tab():
+    """
+    we assume person associations will have mailing-related data (like mailchimp subscription statuses) as well in the
+    future and therefore already add an empty tab in order to keep the different types of persons as similar to each
+    other as possible.
+    """
+    return layout.tabs.Tab(
+        _("Mailings"),
+        hg.BaseElement(),
     )

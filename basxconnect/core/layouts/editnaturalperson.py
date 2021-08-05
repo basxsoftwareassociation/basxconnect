@@ -3,7 +3,6 @@ from bread import layout
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.layouts import editperson
-from basxconnect.core.layouts.editperson import tile_with_edit_modal
 from basxconnect.core.views.person.person_modals_views import (
     NaturalPersonEditMailingsView,
 )
@@ -14,7 +13,7 @@ F = layout.form.FormField
 
 
 def editnaturalperson_form(request):
-    return editperson.editperson_form(request, base_data_tab)
+    return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
 def base_data_tab():
@@ -37,15 +36,20 @@ def base_data_tab():
                     ),
                     width=8,
                 ),
-                mailings(),
+                editperson.categories(),
             ),
             contact_details_naturalperson(),
         ),
     )
 
 
-def mailings():
-    return tile_with_edit_modal(modal_view=NaturalPersonEditMailingsView)
+def mailings_tab():
+    return layout.tabs.Tab(
+        _("Mailings"),
+        editperson.grid_inside_tab(
+            R(editperson.tile_with_edit_modal(modal_view=NaturalPersonEditMailingsView))
+        ),
+    )
 
 
 def contact_details_naturalperson():
@@ -59,7 +63,7 @@ def contact_details_naturalperson():
             editperson.urls(),
             personal(),
         ),
-        R(editperson.categories(), editperson.other()),
+        R(editperson.other(), editperson.tiling_col()),
     )
 
 

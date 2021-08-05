@@ -17,12 +17,12 @@ C = layout.grid.Col
 F = layout.form.FormField
 
 
-def editperson_form(request, base_data_tab):
+def editperson_form(request, base_data_tab, mailings_tab):
     return R(
         C(
             layout.grid.Grid(
                 layout.tabs.Tabs(
-                    *editperson_tabs(base_data_tab, request),
+                    *editperson_tabs(base_data_tab, mailings_tab, request),
                     tabpanel_attributes={
                         "_class": "tile-container",
                         "style": "padding: 0;",
@@ -38,8 +38,8 @@ def editperson_form(request, base_data_tab):
     )
 
 
-def editperson_tabs(base_data_tab, request):
-    return [base_data_tab(), relationshipstab(request)] + (
+def editperson_tabs(base_data_tab, mailing_tab, request):
+    return [base_data_tab(), relationshipstab(request), mailing_tab()] + (
         [
             contributions_tab.contributions_tab(request),
         ]
@@ -266,11 +266,7 @@ def contact_details():
         ),
         R(
             urls(),
-            categories(),
-        ),
-        R(
             other(),
-            tiling_col(),
         ),
     )
 
@@ -535,7 +531,10 @@ def tile_with_edit_modal(modal_view):
         R(
             C(
                 layout.button.Button(
-                    "Edit", buttontype="tertiary", icon="edit", **modal.openerattributes
+                    "Edit",
+                    buttontype="tertiary",
+                    icon="edit",
+                    **modal.openerattributes,
                 ),
                 modal,
             ),

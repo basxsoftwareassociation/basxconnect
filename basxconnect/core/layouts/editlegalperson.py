@@ -13,7 +13,7 @@ F = layout.form.FormField
 
 
 def editlegalperson_form(request):
-    return editperson.editperson_form(request, base_data_tab)
+    return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
 def base_data_tab():
@@ -32,9 +32,18 @@ def base_data_tab():
                             )
                         ),
                     ),
-                    editperson.tile_with_edit_modal(LegalPersonEditMailingsView),
+                    editperson.categories(),
                 ),
                 editperson.contact_details(),
             ),
+        ),
+    )
+
+
+def mailings_tab():
+    return layout.tabs.Tab(
+        _("Mailings"),
+        editperson.grid_inside_tab(
+            R(editperson.tile_with_edit_modal(modal_view=LegalPersonEditMailingsView))
         ),
     )
