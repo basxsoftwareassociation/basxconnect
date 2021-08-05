@@ -512,7 +512,7 @@ def grid_inside_tab(*elems, **attrs):
     return layout.grid.Grid(*elems, **attrs)
 
 
-def tile_with_edit_modal(modal_view):
+def tile_col_with_edit_modal(modal_view):
     modal = layout.modal.Modal.with_ajax_content(
         heading=f"Edit {modal_view.heading()}",
         url=hg.F(

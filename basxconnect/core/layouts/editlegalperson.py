@@ -45,7 +45,9 @@ def mailings_tab():
         _("Mailings"),
         editperson.grid_inside_tab(
             R(
-                editperson.tile_with_edit_modal(modal_view=LegalPersonEditMailingsView),
+                editperson.tile_col_with_edit_modal(
+                    modal_view=LegalPersonEditMailingsView
+                ),
                 editperson.tiling_col(),
             )
         ),
