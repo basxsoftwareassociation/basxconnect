@@ -525,22 +525,28 @@ def tile_col_with_edit_modal(modal_view):
         submitlabel="save",
     )
     displayed_fields = [display_field_value(field) for field in modal_view.fields()]
-    return tiling_col(
-        R(C(hg.H4(_(modal_view.heading())))),
-        *displayed_fields,
-        R(
-            C(
-                layout.button.Button(
-                    "Edit",
-                    buttontype="tertiary",
-                    icon="edit",
-                    **modal.openerattributes,
+    return tile_with_icon(
+        modal_view.icon(),
+        C(
+            R(C(hg.H4(_(modal_view.heading()), style="margin-top:0;"))),
+            *displayed_fields,
+            R(
+                C(
+                    layout.button.Button(
+                        "Edit",
+                        buttontype="tertiary",
+                        icon="edit",
+                        **modal.openerattributes,
+                    ),
+                    modal,
                 ),
-                modal,
             ),
         ),
-        width=8,
     )
+
+
+def tile_with_icon(icon, content):
+    return tiling_col(R(C(icon, width=2, _class="bx--offset-lg-2"), content))
 
 
 def display_field_value(field):
@@ -552,7 +558,7 @@ def display_field_value(field):
                 ),
                 style="font-weight: bold;",
             ),
-            width=6,
+            width=12,
         ),
         C(
             hg.F(
