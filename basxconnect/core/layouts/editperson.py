@@ -528,7 +528,14 @@ def tile_col_with_edit_modal(modal_view):
     return tile_with_icon(
         modal_view.icon(),
         C(
-            R(C(hg.H4(_(modal_view.heading()), style="margin-top:0;"))),
+            R(
+                C(
+                    hg.H4(
+                        _(modal_view.heading()),
+                        style="margin-top: 0; margin-bottom: 3rem;",
+                    )
+                )
+            ),
             *displayed_fields,
             R(
                 C(
@@ -540,6 +547,7 @@ def tile_col_with_edit_modal(modal_view):
                     ),
                     modal,
                 ),
+                style="margin-top: 1.5rem;",
             ),
         ),
     )
@@ -558,7 +566,7 @@ def display_field_value(field):
                 ),
                 style="font-weight: bold;",
             ),
-            width=12,
+            width=6,
         ),
         C(
             hg.F(
@@ -569,7 +577,7 @@ def display_field_value(field):
                 )
             ),
         ),
-        style="padding-bottom: 24px;",
+        style="padding-bottom: 1.5rem;",
     )
 
 
