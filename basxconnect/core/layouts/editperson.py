@@ -554,7 +554,7 @@ def tile_col_with_edit_modal(modal_view):
 
 
 def tile_with_icon(icon, content):
-    return tiling_col(R(C(icon, width=2, _class="bx--offset-lg-2"), content))
+    return tiling_col(R(C(icon, width=2), content))
 
 
 def display_field_value(field):
