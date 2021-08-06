@@ -1,5 +1,6 @@
 import collections
 
+import bread.layout
 import htmlgenerator as hg
 from bread import layout, menu
 from bread.layout.components.datatable import DataTableColumn
@@ -561,22 +562,12 @@ def display_field_value(field):
     return R(
         C(
             hg.DIV(
-                hg.F(
-                    lambda c, e: (c["object"]._meta.get_field(field).verbose_name),
-                ),
+                bread.layout.ObjectFieldLabel(field),
                 style="font-weight: bold;",
             ),
             width=6,
         ),
-        C(
-            hg.F(
-                (
-                    lambda c, e: getattr(c["object"], f"get_{field}_display")()
-                    if hasattr(c["object"], f"get_{field}_display")
-                    else getattr(c["object"], field)
-                )
-            ),
-        ),
+        C(bread.layout.ObjectFieldValue(field)),
         style="padding-bottom: 1.5rem;",
     )
 
