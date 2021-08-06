@@ -524,9 +524,7 @@ def tile_col_with_edit_modal(modal_view):
         ),
         submitlabel="save",
     )
-    displayed_fields = [
-        display_field_value(field) for field in modal_view.modal_fields()
-    ]
+    displayed_fields = [display_field_value(field) for field in modal_view.fields]
     return tile_with_icon(
         modal_view.icon(),
         C(
