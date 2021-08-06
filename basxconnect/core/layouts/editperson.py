@@ -17,12 +17,12 @@ C = layout.grid.Col
 F = layout.form.FormField
 
 
-def editperson_form(request, base_data_tab):
+def editperson_form(request, base_data_tab, mailings_tab):
     return R(
         C(
             layout.grid.Grid(
                 layout.tabs.Tabs(
-                    *editperson_tabs(base_data_tab, request),
+                    *editperson_tabs(base_data_tab, mailings_tab, request),
                     tabpanel_attributes={
                         "_class": "tile-container",
                         "style": "padding: 0;",
@@ -38,8 +38,8 @@ def editperson_form(request, base_data_tab):
     )
 
 
-def editperson_tabs(base_data_tab, request):
-    return [base_data_tab(), relationshipstab(request)] + (
+def editperson_tabs(base_data_tab, mailing_tab, request):
+    return [base_data_tab(), relationshipstab(request), mailing_tab()] + (
         [
             contributions_tab.contributions_tab(request),
         ]
@@ -266,11 +266,7 @@ def contact_details():
         ),
         R(
             urls(),
-            categories(),
-        ),
-        R(
             other(),
-            tiling_col(),
         ),
     )
 
@@ -516,7 +512,7 @@ def grid_inside_tab(*elems, **attrs):
     return layout.grid.Grid(*elems, **attrs)
 
 
-def tile_with_edit_modal(modal_view):
+def tile_col_with_edit_modal(modal_view):
     modal = layout.modal.Modal.with_ajax_content(
         heading=f"Edit {modal_view.heading()}",
         url=hg.F(
@@ -528,20 +524,37 @@ def tile_with_edit_modal(modal_view):
         ),
         submitlabel="save",
     )
-    displayed_fields = [display_field_value(field) for field in modal_view.fields()]
-    return tiling_col(
-        R(C(hg.H4(_(modal_view.heading())))),
-        *displayed_fields,
-        R(
-            C(
-                layout.button.Button(
-                    "Edit", buttontype="tertiary", icon="edit", **modal.openerattributes
+    displayed_fields = [display_field_value(field) for field in modal_view.fields]
+    return tile_with_icon(
+        modal_view.icon(),
+        C(
+            R(
+                C(
+                    hg.H4(
+                        _(modal_view.heading()),
+                        style="margin-top: 0; margin-bottom: 3rem;",
+                    )
+                )
+            ),
+            *displayed_fields,
+            R(
+                C(
+                    layout.button.Button(
+                        "Edit",
+                        buttontype="tertiary",
+                        icon="edit",
+                        **modal.openerattributes,
+                    ),
+                    modal,
                 ),
-                modal,
+                style="margin-top: 1.5rem;",
             ),
         ),
-        width=8,
     )
+
+
+def tile_with_icon(icon, content):
+    return tiling_col(R(C(icon, width=2), content))
 
 
 def display_field_value(field):
@@ -564,7 +577,7 @@ def display_field_value(field):
                 )
             ),
         ),
-        style="padding-bottom: 24px;",
+        style="padding-bottom: 1.5rem;",
     )
 
 

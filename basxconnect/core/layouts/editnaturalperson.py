@@ -3,7 +3,6 @@ from bread import layout
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.layouts import editperson
-from basxconnect.core.layouts.editperson import tile_with_edit_modal
 from basxconnect.core.views.person.person_modals_views import (
     NaturalPersonEditMailingsView,
 )
@@ -14,40 +13,48 @@ F = layout.form.FormField
 
 
 def editnaturalperson_form(request):
-    return editperson.editperson_form(request, base_data_tab)
+    return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
 def base_data_tab():
     return layout.tabs.Tab(
         _("Base data"),
-        hg.BaseElement(
-            editperson.grid_inside_tab(
-                R(
-                    editperson.tiling_col(
-                        R(C(hg.H4(_("Name")))),
-                        R(
-                            C(F("salutation"), width=4),
-                            C(F("title"), width=4),
-                        ),
-                        R(
-                            C(F("first_name")),
-                            C(F("last_name")),
-                        ),
-                        R(
-                            C(F("name")),
-                        ),
-                        width=8,
+        editperson.grid_inside_tab(
+            R(
+                editperson.tiling_col(
+                    R(C(hg.H4(_("Name")))),
+                    R(
+                        C(F("salutation"), width=4),
+                        C(F("title"), width=4),
                     ),
-                    mailings(),
+                    R(
+                        C(F("first_name")),
+                        C(F("last_name")),
+                    ),
+                    R(
+                        C(F("name")),
+                    ),
+                    width=8,
                 ),
-                contact_details_naturalperson(),
+                editperson.categories(),
             ),
+            contact_details_naturalperson(),
         ),
     )
 
 
-def mailings():
-    return tile_with_edit_modal(modal_view=NaturalPersonEditMailingsView)
+def mailings_tab():
+    return layout.tabs.Tab(
+        _("Mailings"),
+        editperson.grid_inside_tab(
+            R(
+                editperson.tile_col_with_edit_modal(
+                    modal_view=NaturalPersonEditMailingsView
+                ),
+                editperson.tiling_col(),
+            )
+        ),
+    )
 
 
 def contact_details_naturalperson():
@@ -61,7 +68,7 @@ def contact_details_naturalperson():
             editperson.urls(),
             personal(),
         ),
-        R(editperson.categories(), editperson.other()),
+        R(editperson.other(), editperson.tiling_col()),
     )
 
 
