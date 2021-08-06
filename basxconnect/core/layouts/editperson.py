@@ -3,7 +3,7 @@ import collections
 import htmlgenerator as hg
 from bread import layout, menu
 from bread.layout.components.datatable import DataTableColumn
-from bread.utils import reverse_model
+from bread.utils import reverse, reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
@@ -34,7 +34,6 @@ def editperson_form(request, base_data_tab):
                 ),
                 gutter=False,
             ),
-            _class="bx--no-gutter",
         ),
     )
 
@@ -515,6 +514,58 @@ def grid_inside_tab(*elems, **attrs):
     attrs = collections.defaultdict(str, attrs or {})
     attrs["style"] += " padding-left: 1rem; padding-right: 1rem"
     return layout.grid.Grid(*elems, **attrs)
+
+
+def tile_with_edit_modal(modal_view):
+    modal = layout.modal.Modal.with_ajax_content(
+        heading=f"Edit {modal_view.heading()}",
+        url=hg.F(
+            lambda c, e: reverse(
+                modal_view.path(),
+                kwargs={"pk": c["object"].pk},
+                query={"asajax": True},
+            )
+        ),
+        submitlabel="save",
+    )
+    displayed_fields = [display_field_value(field) for field in modal_view.fields()]
+    return tiling_col(
+        R(C(hg.H4(_(modal_view.heading())))),
+        *displayed_fields,
+        R(
+            C(
+                layout.button.Button(
+                    "Edit", buttontype="tertiary", icon="edit", **modal.openerattributes
+                ),
+                modal,
+            ),
+        ),
+        width=8,
+    )
+
+
+def display_field_value(field):
+    return R(
+        C(
+            hg.DIV(
+                hg.F(
+                    lambda c, e: (c["object"]._meta.get_field(field).verbose_name),
+                ),
+                style="font-weight: bold;",
+            ),
+            width=6,
+        ),
+        C(
+            hg.F(
+                (
+                    lambda c, e: getattr(c["object"], f"get_{field}_display")()
+                    if hasattr(c["object"], f"get_{field}_display")
+                    else getattr(c["object"], field)
+                )
+            ),
+        ),
+        style="padding-bottom: 24px;",
+    )
 
 
 def tiling_col(*elems, **attrs):
