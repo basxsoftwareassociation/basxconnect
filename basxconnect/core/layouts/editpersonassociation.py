@@ -44,5 +44,5 @@ def mailings_tab():
     """
     return layout.tabs.Tab(
         _("Mailings"),
-        hg.BaseElement(),
+        hg.DIV("", id="mailing-tab-content"),
     )

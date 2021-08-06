@@ -52,7 +52,8 @@ def mailings_tab():
                     modal_view=NaturalPersonEditMailingsView
                 ),
                 editperson.tiling_col(),
-            )
+            ),
+            id="mailing-tab-content",
         ),
     )
 
