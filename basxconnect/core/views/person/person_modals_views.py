@@ -14,7 +14,7 @@ class NaturalPersonEditMailingsView(EditView):
         return "Mailings"
 
     @staticmethod
-    def fields():
+    def modal_fields():
         return [
             "preferred_language",
             "type",
@@ -28,7 +28,7 @@ class NaturalPersonEditMailingsView(EditView):
         return Icon("settings--adjust")
 
     def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in self.fields()]
+        form_fields = [layout.form.FormField(field) for field in self.modal_fields()]
         return hg.DIV(*form_fields)
 
 
@@ -42,7 +42,7 @@ class LegalPersonEditMailingsView(EditView):
         return "Mailings"
 
     @staticmethod
-    def fields():
+    def modal_fields():
         return [
             "preferred_language",
             "type",
@@ -54,5 +54,5 @@ class LegalPersonEditMailingsView(EditView):
         return Icon("settings--adjust")
 
     def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in self.fields()]
+        form_fields = [layout.form.FormField(field) for field in self.modal_fields()]
         return hg.DIV(*form_fields)
