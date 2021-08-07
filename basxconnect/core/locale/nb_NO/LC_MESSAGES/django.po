@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-26 17:11+0700\n"
+"POT-Creation-Date: 2021-08-07 12:13+0200\n"
 "PO-Revision-Date: 2021-03-27 03:29+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -37,31 +37,32 @@ msgstr "Logo"
 msgid "Contributions"
 msgstr ""
 
-#: basxconnect/core/layouts/editlegalperson.py:18
-#: basxconnect/core/layouts/editnaturalperson.py:18
+#: basxconnect/core/layouts/editlegalperson.py:21
+#: basxconnect/core/layouts/editnaturalperson.py:21
 #: basxconnect/core/layouts/editpersonassociation.py:18
 msgid "Base data"
 msgstr "Grunndata"
 
-#: basxconnect/core/layouts/editlegalperson.py:23
-#: basxconnect/core/layouts/editnaturalperson.py:23
-#: basxconnect/core/models/persons.py:296 basxconnect/core/models/utils.py:12
+#: basxconnect/core/layouts/editlegalperson.py:26
+#: basxconnect/core/layouts/editnaturalperson.py:25
+#: basxconnect/core/models/persons.py:301 basxconnect/core/models/utils.py:12
 msgid "Name"
 msgstr "Navn"
 
-#: basxconnect/core/layouts/editlegalperson.py:33
-#: basxconnect/core/layouts/editnaturalperson.py:38
+#: basxconnect/core/layouts/editlegalperson.py:45
+#: basxconnect/core/layouts/editnaturalperson.py:48
+#: basxconnect/core/layouts/editpersonassociation.py:46
 msgid "Mailings"
 msgstr ""
 
-#: basxconnect/core/layouts/editnaturalperson.py:75
+#: basxconnect/core/layouts/editnaturalperson.py:78
 #, fuzzy
 #| msgid "Person"
 msgid "Personal"
 msgstr "Person"
 
 #: basxconnect/core/layouts/editperson.py:54
-#: basxconnect/core/layouts/editperson.py:492
+#: basxconnect/core/layouts/editperson.py:488
 #: basxconnect/core/views/person/person_browse_views.py:104
 msgid "Delete"
 msgstr "Slett"
@@ -88,7 +89,7 @@ msgid "Search person"
 msgstr "Søk"
 
 #: basxconnect/core/layouts/editperson.py:123
-#: basxconnect/core/models/persons.py:108
+#: basxconnect/core/models/persons.py:113
 #, fuzzy
 msgid "Main Type"
 msgstr "Hovedtype"
@@ -115,7 +116,7 @@ msgid "View"
 msgstr "Vis"
 
 #: basxconnect/core/layouts/editperson.py:181
-#: basxconnect/core/layouts/editperson.py:493
+#: basxconnect/core/layouts/editperson.py:489
 msgid "Edit"
 msgstr "Rediger"
 
@@ -130,7 +131,7 @@ msgid "Inactive"
 msgstr "Inaktiv"
 
 #: basxconnect/core/layouts/editperson.py:247
-#: basxconnect/core/models/persons.py:36
+#: basxconnect/core/models/persons.py:41
 #: basxconnect/core/views/person/person_browse_views.py:161
 #: basxconnect/core/views/person/person_details_views.py:98
 msgid "Active"
@@ -141,91 +142,91 @@ msgstr "Aktiv"
 msgid "Person status"
 msgstr "Status"
 
-#: basxconnect/core/layouts/editperson.py:281
+#: basxconnect/core/layouts/editperson.py:277
 msgid "Numbers"
 msgstr "Nummer"
 
-#: basxconnect/core/layouts/editperson.py:296
+#: basxconnect/core/layouts/editperson.py:292
 #, fuzzy
 #| msgid "Fax number"
 msgid "Add number"
 msgstr "Faks-nummer"
 
-#: basxconnect/core/layouts/editperson.py:303
+#: basxconnect/core/layouts/editperson.py:299
 #: basxconnect/core/models/addresses.py:41
 #: basxconnect/core/models/addresses.py:65
 #: basxconnect/core/views/person/person_browse_views.py:92
 msgid "Email"
 msgstr "E-post"
 
-#: basxconnect/core/layouts/editperson.py:325
+#: basxconnect/core/layouts/editperson.py:321
 #, fuzzy
 #| msgid "Email address"
 msgid "Add email address"
 msgstr "E-postadresse"
 
-#: basxconnect/core/layouts/editperson.py:332
-#: basxconnect/core/models/persons.py:52 basxconnect/core/models/utils.py:25
+#: basxconnect/core/layouts/editperson.py:328
+#: basxconnect/core/models/persons.py:57 basxconnect/core/models/utils.py:25
 #: basxconnect/core/views/person/person_browse_views.py:280
 msgid "Categories"
 msgstr "Kategorier"
 
-#: basxconnect/core/layouts/editperson.py:339
+#: basxconnect/core/layouts/editperson.py:335
 msgid "URLs"
 msgstr "Nettadresser"
 
-#: basxconnect/core/layouts/editperson.py:354
+#: basxconnect/core/layouts/editperson.py:350
 #, fuzzy
 #| msgid "Add %s"
 msgid "Add Url"
 msgstr "Legg til %s"
 
-#: basxconnect/core/layouts/editperson.py:361
+#: basxconnect/core/layouts/editperson.py:357
 msgid "Other"
 msgstr "Annet"
 
-#: basxconnect/core/layouts/editperson.py:368
+#: basxconnect/core/layouts/editperson.py:364
 #, fuzzy
 #| msgid "Address"
 msgid "Address(es)"
 msgstr "Adresse"
 
-#: basxconnect/core/layouts/editperson.py:399
+#: basxconnect/core/layouts/editperson.py:395
 #, fuzzy
 #| msgid "Address"
 msgid "Add address"
 msgstr "Adresse"
 
-#: basxconnect/core/layouts/editperson.py:407
+#: basxconnect/core/layouts/editperson.py:403
 msgid "Revisions"
 msgstr "Revisjoner"
 
-#: basxconnect/core/layouts/editperson.py:411
+#: basxconnect/core/layouts/editperson.py:407
 msgid "Date"
 msgstr "Dato"
 
-#: basxconnect/core/layouts/editperson.py:412
+#: basxconnect/core/layouts/editperson.py:408
 msgid "User"
 msgstr "Bruker"
 
-#: basxconnect/core/layouts/editperson.py:414
+#: basxconnect/core/layouts/editperson.py:410
 msgid "Change"
 msgstr "Endre"
 
-#: basxconnect/core/layouts/editperson.py:425
+#: basxconnect/core/layouts/editperson.py:421
 #: basxconnect/core/layouts/settings_layout.py:15
 #: basxconnect/core/models/relationships.py:55
 #: basxconnect/core/views/menu_views.py:46
 msgid "Relationships"
 msgstr "Relasjoner"
 
-#: basxconnect/core/layouts/editperson.py:459
+#: basxconnect/core/layouts/editperson.py:455
 #, fuzzy, python-format
 #| msgid "Relationship types"
 msgid "Relationships from %s to \"person B\""
 msgstr "Relasjonstyper"
 
-#: basxconnect/core/layouts/editperson.py:497
+#: basxconnect/core/layouts/editperson.py:493
 #, fuzzy, python-format
 #| msgid "Relationship types"
 msgid "Relationships from \"person A\" to %s"
@@ -237,7 +238,7 @@ msgid "General Information"
 msgstr "Generell info"
 
 #: basxconnect/core/layouts/settings_layout.py:48
-#: basxconnect/core/models/persons.py:183
+#: basxconnect/core/models/persons.py:188
 #: basxconnect/core/views/menu_views.py:14
 #: basxconnect/core/views/menu_views.py:19
 #: basxconnect/core/views/menu_views.py:37
@@ -249,12 +250,12 @@ msgid "Save"
 msgstr "Lagre"
 
 #: basxconnect/core/models/addresses.py:20
-#: basxconnect/core/models/persons.py:182
+#: basxconnect/core/models/persons.py:187
 msgid "Person"
 msgstr "Person"
 
 #: basxconnect/core/models/addresses.py:29
-#: basxconnect/core/models/persons.py:118
+#: basxconnect/core/models/persons.py:123
 #: basxconnect/core/views/person/person_browse_views.py:356
 msgid "Status"
 msgstr "Status"
@@ -264,8 +265,8 @@ msgstr "Status"
 #: basxconnect/core/models/addresses.py:104
 #: basxconnect/core/models/addresses.py:125
 #: basxconnect/core/models/addresses.py:150
-#: basxconnect/core/models/persons.py:283
-#: basxconnect/core/models/persons.py:307
+#: basxconnect/core/models/persons.py:288
+#: basxconnect/core/models/persons.py:312
 #: basxconnect/core/models/relationships.py:36
 #: basxconnect/core/wizards/add_person.py:225
 msgid "Type"
@@ -338,134 +339,134 @@ msgstr "Postadresse"
 msgid "Postal addresses"
 msgstr "Postadresser"
 
-#: basxconnect/core/models/persons.py:27
+#: basxconnect/core/models/persons.py:32
 msgid "Deleted"
 msgstr "Slettet"
 
-#: basxconnect/core/models/persons.py:29
+#: basxconnect/core/models/persons.py:34
 #, fuzzy
 msgid "Person number"
 msgstr "Personnummer"
 
-#: basxconnect/core/models/persons.py:35
+#: basxconnect/core/models/persons.py:40
 msgid "Display name"
 msgstr "Visningsnavn"
 
-#: basxconnect/core/models/persons.py:38
+#: basxconnect/core/models/persons.py:43
 msgid "Salutation Letter"
 msgstr ""
 
-#: basxconnect/core/models/persons.py:43
+#: basxconnect/core/models/persons.py:48
 msgid "Preferred Language"
 msgstr "Foretrukket språk"
 
-#: basxconnect/core/models/persons.py:61
+#: basxconnect/core/models/persons.py:66
 msgid "Primary postal address"
 msgstr "Hovedpostadresse"
 
-#: basxconnect/core/models/persons.py:74
+#: basxconnect/core/models/persons.py:79
 msgid "Primary email address"
 msgstr ""
 
-#: basxconnect/core/models/persons.py:81
+#: basxconnect/core/models/persons.py:86
 msgid "Remarks"
 msgstr "Bemerkninger"
 
-#: basxconnect/core/models/persons.py:98 basxconnect/core/models/utils.py:24
+#: basxconnect/core/models/persons.py:103 basxconnect/core/models/utils.py:24
 #: basxconnect/core/models/utils.py:30
 #: basxconnect/core/views/person/person_browse_views.py:78
 msgid "Category"
 msgstr "Kategori"
 
-#: basxconnect/core/models/persons.py:113
+#: basxconnect/core/models/persons.py:118
 msgid "active"
 msgstr "aktiv"
 
-#: basxconnect/core/models/persons.py:115
+#: basxconnect/core/models/persons.py:120
 msgid "inactive"
 msgstr "inaktiv"
 
-#: basxconnect/core/models/persons.py:187
+#: basxconnect/core/models/persons.py:192
 msgid "First Name"
 msgstr "Fornavn"
 
-#: basxconnect/core/models/persons.py:188
+#: basxconnect/core/models/persons.py:193
 msgid "Middle Name"
 msgstr "Mellomnavn"
 
-#: basxconnect/core/models/persons.py:189
+#: basxconnect/core/models/persons.py:194
 msgid "Last Name"
 msgstr "Etternavn"
 
-#: basxconnect/core/models/persons.py:198
+#: basxconnect/core/models/persons.py:203
 msgid "Title"
 msgstr "Tittel"
 
-#: basxconnect/core/models/persons.py:207
+#: basxconnect/core/models/persons.py:212
 msgid "Salutation"
 msgstr ""
 
-#: basxconnect/core/models/persons.py:217
+#: basxconnect/core/models/persons.py:222
 #, fuzzy
 msgid "Form of address"
 msgstr "Adressetype"
 
-#: basxconnect/core/models/persons.py:220
+#: basxconnect/core/models/persons.py:225
 msgid "Profession"
 msgstr "Yrke"
 
-#: basxconnect/core/models/persons.py:224
+#: basxconnect/core/models/persons.py:229
 msgid "Date of Birth"
 msgstr "Fødselsdato"
 
-#: basxconnect/core/models/persons.py:225
+#: basxconnect/core/models/persons.py:230
 msgid "Deceased"
 msgstr "Avdød"
 
-#: basxconnect/core/models/persons.py:226
+#: basxconnect/core/models/persons.py:231
 msgid "Deceased Date"
 msgstr ""
 
-#: basxconnect/core/models/persons.py:235
+#: basxconnect/core/models/persons.py:240
 msgid "Gender"
 msgstr "Kjønn"
 
-#: basxconnect/core/models/persons.py:244
+#: basxconnect/core/models/persons.py:249
 msgid "Person category"
 msgstr "Personkateogri"
 
-#: basxconnect/core/models/persons.py:257
+#: basxconnect/core/models/persons.py:262
 msgid "Age"
 msgstr ""
 
-#: basxconnect/core/models/persons.py:270
+#: basxconnect/core/models/persons.py:275
 #: basxconnect/core/views/person/person_browse_views.py:130
 msgid "Natural Person"
 msgstr ""
 
-#: basxconnect/core/models/persons.py:271
+#: basxconnect/core/models/persons.py:276
 msgid "Natural Persons"
 msgstr ""
 
-#: basxconnect/core/models/persons.py:275
+#: basxconnect/core/models/persons.py:280
 msgid "Addition name"
 msgstr ""
 
-#: basxconnect/core/models/persons.py:292
+#: basxconnect/core/models/persons.py:297
 #: basxconnect/core/views/person/person_browse_views.py:131
 msgid "Legal Person"
 msgstr ""
 
-#: basxconnect/core/models/persons.py:293
+#: basxconnect/core/models/persons.py:298
 msgid "Legal Persons"
 msgstr ""
 
-#: basxconnect/core/models/persons.py:316
+#: basxconnect/core/models/persons.py:321
 #: basxconnect/core/views/person/person_browse_views.py:133
 msgid "Person Association"
 msgstr ""
 
-#: basxconnect/core/models/persons.py:317
+#: basxconnect/core/models/persons.py:322
 msgid "Person Associations"
 msgstr ""
 
@@ -522,6 +523,8 @@ msgid "Terms"
 msgstr ""
 
 #: basxconnect/core/views/menu_views.py:15
+#: basxconnect/core/views/person/person_modals_views.py:23
+#: basxconnect/core/views/person/person_modals_views.py:51
 #: basxconnect/core/views/settings_views.py:41
 msgid "Settings"
 msgstr "Innstillinger"
@@ -559,6 +562,13 @@ msgstr ""
 #, python-format
 msgid "%s is %s"
 msgstr "%s er %s"
+
+#: basxconnect/core/views/person/person_modals_views.py:27
+#: basxconnect/core/views/person/person_modals_views.py:55
+#, fuzzy
+#| msgid "Edit"
+msgid "Edit mailing settings"
+msgstr "Rediger"
 
 #: basxconnect/core/views/person/search_person_view.py:55
 msgid "No results"
@@ -660,6 +670,11 @@ msgstr "Gjennomse og bekreft innskrevet info"
 #, python-format
 msgid "Add %s"
 msgstr "Legg til %s"
+
+#, fuzzy, python-format
+#~| msgid "Edit"
+#~ msgid "Edit %s"
+#~ msgstr "Rediger"
 
 #, fuzzy
 #~| msgid "Relationships"

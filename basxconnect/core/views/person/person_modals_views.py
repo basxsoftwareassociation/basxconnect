@@ -2,6 +2,7 @@
 from bread import layout
 from bread.layout.components.icon import Icon
 from bread.views import EditView
+from django.utils.translation import gettext_lazy as _
 
 
 class NaturalPersonEditMailingsView(EditView):
@@ -18,8 +19,12 @@ class NaturalPersonEditMailingsView(EditView):
         return "basxconnect.core.views.person.person_modals_views.naturalpersoneditmailingsview"
 
     @staticmethod
-    def heading():
-        return "Mailings"
+    def read_heading():
+        return _("Settings")
+
+    @staticmethod
+    def edit_heading():
+        return _("Edit mailing settings")
 
     @staticmethod
     def icon():
@@ -42,8 +47,12 @@ class LegalPersonEditMailingsView(EditView):
         return "basxconnect.core.views.person.person_modals_views.legalpersoneditmailingsview"
 
     @staticmethod
-    def heading():
-        return "Mailings"
+    def read_heading():
+        return _("Settings")
+
+    @staticmethod
+    def edit_heading():
+        return _("Edit mailing settings")
 
     @staticmethod
     def icon():
