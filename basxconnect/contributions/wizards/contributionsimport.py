@@ -169,7 +169,7 @@ class AssignmentForm(forms.Form):
         hg.DIV(
             hg.DIV(
                 hg.DIV(
-                    hg.F(lambda c, e: len(c["contributions"])),
+                    hg.F(lambda c: len(c["contributions"])),
                     " ",
                     _("contributions"),
                     _class="bx--batch-summary",
@@ -178,7 +178,7 @@ class AssignmentForm(forms.Form):
                     _("Sum"),
                     hg.SPAN("|", style="margin-left: 1rem; margin-right: 1rem"),
                     hg.F(
-                        lambda c, e: sum(
+                        lambda c: sum(
                             [
                                 convert_money(
                                     Money(contr.amount, contr.currency),
@@ -202,7 +202,7 @@ class AssignmentForm(forms.Form):
             _layout.notification.InlineNotification(
                 hg.BaseElement(
                     hg.F(
-                        lambda c, e: len(
+                        lambda c: len(
                             [c for c in c.get("contributions", ()) if not c.person]
                         )
                     ),

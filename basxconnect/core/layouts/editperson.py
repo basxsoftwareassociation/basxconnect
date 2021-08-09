@@ -56,7 +56,7 @@ def editperson_toolbar(request):
         icon="trash-can",
         notext=True,
         **layout.aslink_attributes(
-            hg.F(lambda c, e: layout.objectaction(c["object"], "delete"))
+            hg.F(lambda c: layout.objectaction(c["object"], "delete"))
         ),
     )
     restorebutton = layout.button.Button(
@@ -66,7 +66,7 @@ def editperson_toolbar(request):
         notext=True,
         **layout.aslink_attributes(
             hg.F(
-                lambda c, e: layout.objectaction(
+                lambda c: layout.objectaction(
                     c["object"], "delete", query={"restore": True}
                 )
             )
@@ -78,7 +78,7 @@ def editperson_toolbar(request):
         icon="copy",
         notext=True,
         **layout.aslink_attributes(
-            hg.F(lambda c, e: layout.objectaction(c["object"], "copy"))
+            hg.F(lambda c: layout.objectaction(c["object"], "copy"))
         ),
     )
 
@@ -87,7 +87,7 @@ def editperson_toolbar(request):
         buttontype="primary",
         icon="add",
         notext=True,
-        **layout.aslink_attributes(hg.F(lambda c, e: reverse_model(Person, "add"))),
+        **layout.aslink_attributes(hg.F(lambda c: reverse_model(Person, "add"))),
     )
     return R(
         C(
@@ -143,7 +143,7 @@ def editperson_head(request, isreadview):
                 buttontype="secondary",
                 **layout.aslink_attributes(
                     hg.F(
-                        lambda c, e: reverse_model(
+                        lambda c: reverse_model(
                             c["object"], "read", kwargs={"pk": c["object"].pk}
                         )
                     )
@@ -181,7 +181,7 @@ def editperson_head(request, isreadview):
                         _("Edit"),
                         layout.aslink_attributes(
                             hg.F(
-                                lambda c, e: reverse_model(
+                                lambda c: reverse_model(
                                     c["object"], "edit", kwargs={"pk": c["object"].pk}
                                 )
                             )
@@ -250,9 +250,9 @@ def active_toggle(isreadview):
     active_toggle.input.attributes["id"] = "person_active_toggle"
     active_toggle.input.attributes["hx_trigger"] = "change"
     active_toggle.input.attributes["hx_post"] = hg.F(
-        lambda c, e: reverse_lazy("core.person.togglestatus", args=[c["object"].pk])
+        lambda c: reverse_lazy("core.person.togglestatus", args=[c["object"].pk])
     )
-    active_toggle.input.attributes["checked"] = hg.F(lambda c, e: c["object"].active)
+    active_toggle.input.attributes["checked"] = hg.F(lambda c: c["object"].active)
     active_toggle.label.insert(0, _("Person status"))
     active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
     return hg.DIV(active_toggle)
@@ -299,7 +299,7 @@ def email():
         hg.H4(_("Email")),
         hg.If(
             hg.F(
-                lambda c, e: hasattr(c["object"], "core_email_list")
+                lambda c: hasattr(c["object"], "core_email_list")
                 and c["object"].core_email_list.count() > 1
             ),
             R(C(F("primary_email_address"), width=4)),
@@ -364,7 +364,7 @@ def addresses():
         hg.H4(_("Address(es)")),
         hg.If(
             hg.F(
-                lambda c, e: hasattr(c["object"], "core_postal_list")
+                lambda c: hasattr(c["object"], "core_postal_list")
                 and c["object"].core_postal_list.count() > 1
             ),
             R(C(F("primary_postal_address"), width=4)),
@@ -410,7 +410,7 @@ def revisionstab():
                         _("Change"), layout.FC("row.get_history_type_display")
                     ),
                 ],
-                row_iterator=hg.F(lambda c, e: c["object"].history.all()),
+                row_iterator=hg.F(lambda c: c["object"].history.all()),
             )
         ),
     )
@@ -452,7 +452,7 @@ def relationshipstab(request):
                 # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
                 # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
                 title=hg.F(
-                    lambda c, e: _('Relationships from %s to "person B"') % c["object"]
+                    lambda c: _('Relationships from %s to "person B"') % c["object"]
                 ),
             ),
             layout.form.FormsetField.as_datatable(
@@ -490,7 +490,7 @@ def relationshipstab(request):
                 ],
                 rowactions_dropdown=True,
                 title=hg.F(
-                    lambda c, e: _('Relationships from "person A" to %s') % c["object"]
+                    lambda c: _('Relationships from "person A" to %s') % c["object"]
                 ),
             ),
         ),
@@ -500,9 +500,9 @@ def relationshipstab(request):
 def row_action(object_action, icon, label):
     return menu.Action(
         js=hg.F(
-            lambda c, e: f'window.location = \'{layout.objectaction(c["row"], object_action)}?next=\' + window.location.pathname + window.location.search',
+            lambda c: f'window.location = \'{layout.objectaction(c["row"], object_action)}?next=\' + window.location.pathname + window.location.search',
         ),
-        icon=icon,
+        iconname=icon,
         label=label,
     )
 
@@ -517,7 +517,7 @@ def tile_col_with_edit_modal(modal_view):
     modal = layout.modal.Modal.with_ajax_content(
         heading=modal_view.edit_heading(),
         url=hg.F(
-            lambda c, e: reverse(
+            lambda c: reverse(
                 modal_view.path(),
                 kwargs={"pk": c["object"].pk},
                 query={"asajax": True},
