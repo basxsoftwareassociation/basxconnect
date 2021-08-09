@@ -49,7 +49,7 @@ urlpatterns = [
         copyview=breadviews.generate_copyview(
             models.NaturalPerson,
             attrs={
-                "personnumber": None,
+                "personnumber": models.random_personid,
                 "primary_postal_address": None,
                 "primary_email_address": None,
             },
