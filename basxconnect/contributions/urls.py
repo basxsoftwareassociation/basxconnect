@@ -1,12 +1,7 @@
 import htmlgenerator as hg
 from bread import layout, menu, views
-from bread.utils.urls import (
-    autopath,
-    default_model_paths,
-    model_urlname,
-    reverse,
-    reverse_model,
-)
+from bread.utils.links import Link, ModelHref
+from bread.utils.urls import autopath, default_model_paths, model_urlname, reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 
@@ -46,12 +41,12 @@ urlpatterns = [
     ),
 ]
 
-importgroup = menu.Group(_("Imports"), icon="document--import")
+importgroup = menu.Group(_("Imports"), iconname="document--import")
 
 menu.registeritem(
     menu.Item(
-        menu.Link(
-            reverse_model(models.ContributionImport, "browse"),
+        Link(
+            ModelHref(models.ContributionImport, "browse"),
             _("Contributions"),
         ),
         importgroup,

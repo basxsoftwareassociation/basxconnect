@@ -47,7 +47,7 @@ ADD_ADDRESS_LAYOUT = layout.grid.Grid(
 
 def generate_wizard_form(formlayout):
     # needs to be rendered in view of type NamedUrlSessionWizardView in order to work correctly
-    def go_back_url(context, element):
+    def go_back_url(context):
         url = reverse(
             context["request"].resolver_match.view_name,
             kwargs={"step": context["wizard"]["steps"].prev},
@@ -74,7 +74,7 @@ def generate_wizard_form(formlayout):
                 ),
                 hg.If(
                     hg.F(
-                        lambda c, e: c["wizard"]["steps"].last
+                        lambda c: c["wizard"]["steps"].last
                         == c["wizard"]["steps"].current
                     ),
                     layout.button.Button(

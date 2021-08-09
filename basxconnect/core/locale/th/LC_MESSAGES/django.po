@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-26 17:11+0700\n"
+"POT-Creation-Date: 2021-08-07 12:13+0200\n"
 "PO-Revision-Date: 2021-07-26 13:10+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
@@ -37,29 +37,30 @@ msgstr "โลโก้"
 msgid "Contributions"
 msgstr "เงินบริจาค"
 
-#: basxconnect/core/layouts/editlegalperson.py:18
-#: basxconnect/core/layouts/editnaturalperson.py:18
+#: basxconnect/core/layouts/editlegalperson.py:21
+#: basxconnect/core/layouts/editnaturalperson.py:21
 #: basxconnect/core/layouts/editpersonassociation.py:18
 msgid "Base data"
 msgstr "ฐานข้อมูล"
 
-#: basxconnect/core/layouts/editlegalperson.py:23
-#: basxconnect/core/layouts/editnaturalperson.py:23
-#: basxconnect/core/models/persons.py:296 basxconnect/core/models/utils.py:12
+#: basxconnect/core/layouts/editlegalperson.py:26
+#: basxconnect/core/layouts/editnaturalperson.py:25
+#: basxconnect/core/models/persons.py:301 basxconnect/core/models/utils.py:12
 msgid "Name"
 msgstr "ชื่อ"
 
-#: basxconnect/core/layouts/editlegalperson.py:33
-#: basxconnect/core/layouts/editnaturalperson.py:38
+#: basxconnect/core/layouts/editlegalperson.py:45
+#: basxconnect/core/layouts/editnaturalperson.py:48
+#: basxconnect/core/layouts/editpersonassociation.py:46
 msgid "Mailings"
 msgstr "การส่งจดหมาย"
 
-#: basxconnect/core/layouts/editnaturalperson.py:75
+#: basxconnect/core/layouts/editnaturalperson.py:78
 msgid "Personal"
 msgstr "ข้อมูลบุคคล"
 
 #: basxconnect/core/layouts/editperson.py:54
-#: basxconnect/core/layouts/editperson.py:492
+#: basxconnect/core/layouts/editperson.py:488
 #: basxconnect/core/views/person/person_browse_views.py:104
 msgid "Delete"
 msgstr "ลบ"
@@ -84,7 +85,7 @@ msgid "Search person"
 msgstr "ค้นหาบุคคล"
 
 #: basxconnect/core/layouts/editperson.py:123
-#: basxconnect/core/models/persons.py:108
+#: basxconnect/core/models/persons.py:113
 msgid "Main Type"
 msgstr "ประเภท"
 
@@ -110,7 +111,7 @@ msgid "View"
 msgstr "ดู"
 
 #: basxconnect/core/layouts/editperson.py:181
-#: basxconnect/core/layouts/editperson.py:493
+#: basxconnect/core/layouts/editperson.py:489
 msgid "Edit"
 msgstr "แก้ไข"
 
@@ -125,7 +126,7 @@ msgid "Inactive"
 msgstr "ไม่ใช้งาน"
 
 #: basxconnect/core/layouts/editperson.py:247
-#: basxconnect/core/models/persons.py:36
+#: basxconnect/core/models/persons.py:41
 #: basxconnect/core/views/person/person_browse_views.py:161
 #: basxconnect/core/views/person/person_details_views.py:98
 msgid "Active"
@@ -135,80 +136,80 @@ msgstr "ใช้งาน"
 msgid "Person status"
 msgstr "บุคคล"
 
-#: basxconnect/core/layouts/editperson.py:281
+#: basxconnect/core/layouts/editperson.py:277
 msgid "Numbers"
 msgstr "เบอร์โทรศัพท์"
 
-#: basxconnect/core/layouts/editperson.py:296
+#: basxconnect/core/layouts/editperson.py:292
 msgid "Add number"
 msgstr "ลำดับที่"
 
-#: basxconnect/core/layouts/editperson.py:303
+#: basxconnect/core/layouts/editperson.py:299
 #: basxconnect/core/models/addresses.py:41
 #: basxconnect/core/models/addresses.py:65
 #: basxconnect/core/views/person/person_browse_views.py:92
 msgid "Email"
 msgstr "อีเมล์"
 
-#: basxconnect/core/layouts/editperson.py:325
+#: basxconnect/core/layouts/editperson.py:321
 msgid "Add email address"
 msgstr "เพิ่มที่อยู่อีเมล์"
 
-#: basxconnect/core/layouts/editperson.py:332
-#: basxconnect/core/models/persons.py:52 basxconnect/core/models/utils.py:25
+#: basxconnect/core/layouts/editperson.py:328
+#: basxconnect/core/models/persons.py:57 basxconnect/core/models/utils.py:25
 #: basxconnect/core/views/person/person_browse_views.py:280
 msgid "Categories"
 msgstr "หมวดหมู่"
 
-#: basxconnect/core/layouts/editperson.py:339
+#: basxconnect/core/layouts/editperson.py:335
 msgid "URLs"
 msgstr "URLs"
 
-#: basxconnect/core/layouts/editperson.py:354
+#: basxconnect/core/layouts/editperson.py:350
 msgid "Add Url"
 msgstr "เพิ่ม Url"
 
-#: basxconnect/core/layouts/editperson.py:361
+#: basxconnect/core/layouts/editperson.py:357
 msgid "Other"
 msgstr "อื่นๆ"
 
-#: basxconnect/core/layouts/editperson.py:368
+#: basxconnect/core/layouts/editperson.py:364
 msgid "Address(es)"
 msgstr "ที่อยู่"
 
-#: basxconnect/core/layouts/editperson.py:399
+#: basxconnect/core/layouts/editperson.py:395
 msgid "Add address"
 msgstr "เพิ่มที่อยู่"
 
-#: basxconnect/core/layouts/editperson.py:407
+#: basxconnect/core/layouts/editperson.py:403
 msgid "Revisions"
 msgstr "การแก้ไข"
 
-#: basxconnect/core/layouts/editperson.py:411
+#: basxconnect/core/layouts/editperson.py:407
 msgid "Date"
 msgstr "วันที่"
 
-#: basxconnect/core/layouts/editperson.py:412
+#: basxconnect/core/layouts/editperson.py:408
 msgid "User"
 msgstr "ชื่อผู้ใช้งาน"
 
-#: basxconnect/core/layouts/editperson.py:414
+#: basxconnect/core/layouts/editperson.py:410
 msgid "Change"
 msgstr "เปลี่ยน"
 
-#: basxconnect/core/layouts/editperson.py:425
+#: basxconnect/core/layouts/editperson.py:421
 #: basxconnect/core/layouts/settings_layout.py:15
 #: basxconnect/core/models/relationships.py:55
 #: basxconnect/core/views/menu_views.py:46
 msgid "Relationships"
 msgstr "ความสัมพันธ์"
 
-#: basxconnect/core/layouts/editperson.py:459
+#: basxconnect/core/layouts/editperson.py:455
 #, python-format
 msgid "Relationships from %s to \"person B\""
 msgstr "ความสัมพันธ์ของ %sกับ \"person B\""
 
-#: basxconnect/core/layouts/editperson.py:497
+#: basxconnect/core/layouts/editperson.py:493
 #, python-format
 msgid "Relationships from \"person A\" to %s"
 msgstr "ความสัมพันธ์ของ\"person A\" กับ %s"
@@ -218,7 +219,7 @@ msgid "General Information"
 msgstr "ข้อมูลเบื้องต้น"
 
 #: basxconnect/core/layouts/settings_layout.py:48
-#: basxconnect/core/models/persons.py:183
+#: basxconnect/core/models/persons.py:188
 #: basxconnect/core/views/menu_views.py:14
 #: basxconnect/core/views/menu_views.py:19
 #: basxconnect/core/views/menu_views.py:37
@@ -230,12 +231,12 @@ msgid "Save"
 msgstr "บันทึก"
 
 #: basxconnect/core/models/addresses.py:20
-#: basxconnect/core/models/persons.py:182
+#: basxconnect/core/models/persons.py:187
 msgid "Person"
 msgstr "บุคคล"
 
 #: basxconnect/core/models/addresses.py:29
-#: basxconnect/core/models/persons.py:118
+#: basxconnect/core/models/persons.py:123
 #: basxconnect/core/views/person/person_browse_views.py:356
 msgid "Status"
 msgstr "สถานะภาพ"
@@ -245,8 +246,8 @@ msgstr "สถานะภาพ"
 #: basxconnect/core/models/addresses.py:104
 #: basxconnect/core/models/addresses.py:125
 #: basxconnect/core/models/addresses.py:150
-#: basxconnect/core/models/persons.py:283
-#: basxconnect/core/models/persons.py:307
+#: basxconnect/core/models/persons.py:288
+#: basxconnect/core/models/persons.py:312
 #: basxconnect/core/models/relationships.py:36
 #: basxconnect/core/wizards/add_person.py:225
 msgid "Type"
@@ -318,132 +319,132 @@ msgstr "ไปรษณีย์พื้นที่"
 msgid "Postal addresses"
 msgstr "ไปรษณีย์พื้นที่"
 
-#: basxconnect/core/models/persons.py:27
+#: basxconnect/core/models/persons.py:32
 msgid "Deleted"
 msgstr "ลบ"
 
-#: basxconnect/core/models/persons.py:29
+#: basxconnect/core/models/persons.py:34
 msgid "Person number"
 msgstr "เบอร์โทรศัพท์"
 
-#: basxconnect/core/models/persons.py:35
+#: basxconnect/core/models/persons.py:40
 msgid "Display name"
 msgstr "นามเรียกขาน"
 
-#: basxconnect/core/models/persons.py:38
+#: basxconnect/core/models/persons.py:43
 msgid "Salutation Letter"
 msgstr "คำขึ้นต้น จดหมาย"
 
-#: basxconnect/core/models/persons.py:43
+#: basxconnect/core/models/persons.py:48
 msgid "Preferred Language"
 msgstr "เลือกใช้ภาษา"
 
-#: basxconnect/core/models/persons.py:61
+#: basxconnect/core/models/persons.py:66
 msgid "Primary postal address"
 msgstr "ที่อยู่สำหรับติดต่อ"
 
-#: basxconnect/core/models/persons.py:74
+#: basxconnect/core/models/persons.py:79
 msgid "Primary email address"
 msgstr "อีเมล์สำหรับติดต่อ"
 
-#: basxconnect/core/models/persons.py:81
+#: basxconnect/core/models/persons.py:86
 msgid "Remarks"
 msgstr "หมายเหตุ"
 
-#: basxconnect/core/models/persons.py:98 basxconnect/core/models/utils.py:24
+#: basxconnect/core/models/persons.py:103 basxconnect/core/models/utils.py:24
 #: basxconnect/core/models/utils.py:30
 #: basxconnect/core/views/person/person_browse_views.py:78
 msgid "Category"
 msgstr "หมวดหมู่"
 
-#: basxconnect/core/models/persons.py:113
+#: basxconnect/core/models/persons.py:118
 msgid "active"
 msgstr "ใช้งาน"
 
-#: basxconnect/core/models/persons.py:115
+#: basxconnect/core/models/persons.py:120
 msgid "inactive"
 msgstr "ไม่ใช้งาน"
 
-#: basxconnect/core/models/persons.py:187
+#: basxconnect/core/models/persons.py:192
 msgid "First Name"
 msgstr "ชื่อ"
 
-#: basxconnect/core/models/persons.py:188
+#: basxconnect/core/models/persons.py:193
 msgid "Middle Name"
 msgstr "ชื่อกลาง"
 
-#: basxconnect/core/models/persons.py:189
+#: basxconnect/core/models/persons.py:194
 msgid "Last Name"
 msgstr "นามสกุล"
 
-#: basxconnect/core/models/persons.py:198
+#: basxconnect/core/models/persons.py:203
 msgid "Title"
 msgstr "เรื่อง"
 
-#: basxconnect/core/models/persons.py:207
+#: basxconnect/core/models/persons.py:212
 msgid "Salutation"
 msgstr "คำนำหน้านาม"
 
-#: basxconnect/core/models/persons.py:217
+#: basxconnect/core/models/persons.py:222
 msgid "Form of address"
 msgstr "ประเภทที่อยู่อาศัย"
 
-#: basxconnect/core/models/persons.py:220
+#: basxconnect/core/models/persons.py:225
 msgid "Profession"
 msgstr "อาชีพ"
 
-#: basxconnect/core/models/persons.py:224
+#: basxconnect/core/models/persons.py:229
 msgid "Date of Birth"
 msgstr "วันเดือนปีเกิด"
 
-#: basxconnect/core/models/persons.py:225
+#: basxconnect/core/models/persons.py:230
 msgid "Deceased"
 msgstr "เสียชีวิต"
 
-#: basxconnect/core/models/persons.py:226
+#: basxconnect/core/models/persons.py:231
 msgid "Deceased Date"
 msgstr "วันที่เสียชีวิต"
 
-#: basxconnect/core/models/persons.py:235
+#: basxconnect/core/models/persons.py:240
 msgid "Gender"
 msgstr "เพศ"
 
-#: basxconnect/core/models/persons.py:244
+#: basxconnect/core/models/persons.py:249
 msgid "Person category"
 msgstr "ประเภทบุคคล"
 
-#: basxconnect/core/models/persons.py:257
+#: basxconnect/core/models/persons.py:262
 msgid "Age"
 msgstr "อายุ"
 
-#: basxconnect/core/models/persons.py:270
+#: basxconnect/core/models/persons.py:275
 #: basxconnect/core/views/person/person_browse_views.py:130
 msgid "Natural Person"
 msgstr "บุคคลธรรมดา"
 
-#: basxconnect/core/models/persons.py:271
+#: basxconnect/core/models/persons.py:276
 msgid "Natural Persons"
 msgstr "บุคคลธรรมดา"
 
-#: basxconnect/core/models/persons.py:275
+#: basxconnect/core/models/persons.py:280
 msgid "Addition name"
 msgstr "ชื่อองค์กร"
 
-#: basxconnect/core/models/persons.py:292
+#: basxconnect/core/models/persons.py:297
 #: basxconnect/core/views/person/person_browse_views.py:131
 msgid "Legal Person"
 msgstr "นิติบุคคล"
 
-#: basxconnect/core/models/persons.py:293
+#: basxconnect/core/models/persons.py:298
 msgid "Legal Persons"
 msgstr "นิติบุคคล"
 
-#: basxconnect/core/models/persons.py:316
+#: basxconnect/core/models/persons.py:321
 #: basxconnect/core/views/person/person_browse_views.py:133
 msgid "Person Association"
 msgstr "กลุ่มบุคคล"
 
-#: basxconnect/core/models/persons.py:317
+#: basxconnect/core/models/persons.py:322
 msgid "Person Associations"
 msgstr "กลุ่มบุคคล"
 
@@ -500,6 +501,8 @@ msgid "Terms"
 msgstr "หมวดหมู่"
 
 #: basxconnect/core/views/menu_views.py:15
+#: basxconnect/core/views/person/person_modals_views.py:23
+#: basxconnect/core/views/person/person_modals_views.py:51
 #: basxconnect/core/views/settings_views.py:41
 msgid "Settings"
 msgstr "ตั้งค่า"
@@ -537,6 +540,13 @@ msgstr "เลือก"
 #, python-format
 msgid "%s is %s"
 msgstr "%s คือ %s"
+
+#: basxconnect/core/views/person/person_modals_views.py:27
+#: basxconnect/core/views/person/person_modals_views.py:55
+#, fuzzy
+#| msgid "Mailings"
+msgid "Edit mailing settings"
+msgstr "การส่งจดหมาย"
 
 #: basxconnect/core/views/person/search_person_view.py:55
 msgid "No results"
@@ -637,6 +647,11 @@ msgstr "ตรวจสอบและยืนยันข้อมูล"
 #, python-format
 msgid "Add %s"
 msgstr "เพิ่ม %s"
+
+#, fuzzy, python-format
+#~| msgid "Edit"
+#~ msgid "Edit %s"
+#~ msgstr "แก้ไข"
 
 #~ msgid "Include trash"
 #~ msgstr "รวมถึงสิ่งที่ไม่ต้องการ"

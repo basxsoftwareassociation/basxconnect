@@ -44,5 +44,11 @@ def mailings_tab():
     """
     return layout.tabs.Tab(
         _("Mailings"),
-        hg.BaseElement(),
+        editperson.grid_inside_tab(
+            R(
+                editperson.tiling_col(),
+                editperson.tiling_col(),
+            ),
+            id="mailing-tab-content",
+        ),
     )
