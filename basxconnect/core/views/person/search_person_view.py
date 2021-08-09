@@ -55,6 +55,9 @@ def _display_results(query_set, highlight, onclick):
         return _("No results")
 
     def _display_as_list_item(person):
+        if person is None:
+            # this happens if we have entries in the search-backend which have been deleted
+            return hg.BaseElement()
         return hg.LI(
             hg.SPAN(
                 mark_safe(highlight.highlight(person.personnumber)),
