@@ -1,10 +1,9 @@
 import htmlgenerator as hg
 from bread import layout as layout
 from bread.layout.components.datatable import DataTableColumn
-from bread.menu import Link
 from bread.utils import get_concrete_instance
 from bread.utils.urls import reverse
-from bread.views import BrowseView
+from bread.views import BrowseView, BulkAction
 from bread.views.browse import delete as breaddelete
 from bread.views.browse import export as breadexport
 from bread.views.browse import restore as breadrestore
@@ -27,7 +26,7 @@ def export(request, queryset):
         if form.cleaned_data.get("categories"):
             categories = set(form.cleaned_data.get("categories"))
 
-            def render_matching_categories(context, element):
+            def render_matching_categories(context):
                 return ", ".join(
                     str(i) for i in categories & set(context["row"].categories.all())
                 )
@@ -42,7 +41,7 @@ def export(request, queryset):
             columns.append("preferred_language")
 
     def get_from_concret_object(field):
-        return hg.F(lambda c, e: getattr(get_concrete_instance(c["row"]), field, ""))
+        return hg.F(lambda c: getattr(get_concrete_instance(c["row"]), field, ""))
 
     # insert last_name and first_name
     name_field = [getattr(i, "sortingname", i) for i in columns].index("name")
@@ -98,29 +97,27 @@ class PersonBrowseView(BrowseView):
         ),
     ]
     bulkactions = (
-        (
-            Link(
-                "delete",
-                label=_("Delete"),
-                icon="trash-can",
+        BulkAction(
+            "delete",
+            label=_("Delete"),
+            iconname="trash-can",
+            action=lambda request, qs: breaddelete(
+                request, qs, softdeletefield="deleted"
             ),
-            lambda request, qs: breaddelete(request, qs, softdeletefield="deleted"),
         ),
-        (
-            Link(
-                "restore",
-                label=_("Restore"),
-                icon="restart",
+        BulkAction(
+            "restore",
+            label=_("Restore"),
+            iconname="restart",
+            action=lambda request, qs: breadrestore(
+                request, qs, softdeletefield="deleted"
             ),
-            lambda request, qs: breadrestore(request, qs, softdeletefield="deleted"),
         ),
-        (
-            Link(
-                "excel",
-                label=_("Excel"),
-                icon="download",
-            ),
-            export,
+        BulkAction(
+            "excel",
+            label=_("Excel"),
+            iconname="download",
+            action=export,
         ),
     )
     searchurl = reverse("basxconnect.core.views.person.search_person_view.searchperson")

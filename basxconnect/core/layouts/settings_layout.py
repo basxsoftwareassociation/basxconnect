@@ -30,7 +30,7 @@ def relationshipssettings(request):
                     rowactions=[
                         menu.Action(
                             js=hg.F(
-                                lambda c, e: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
+                                lambda c: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
                             ),
                             icon="trash-can",
                         )
@@ -125,7 +125,7 @@ def generate_term_datatable(title, category_slug):
         rowactions=[
             menu.Action(
                 js=hg.F(
-                    lambda c, e: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
+                    lambda c: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
                 ),
                 icon="trash-can",
             )
