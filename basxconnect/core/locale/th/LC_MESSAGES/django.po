@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-07 12:13+0200\n"
-"PO-Revision-Date: 2021-07-26 13:10+0000\n"
+"PO-Revision-Date: 2021-08-10 02:30+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7.2-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:7
 #: basxconnect/core/views/menu_views.py:28
@@ -543,10 +543,8 @@ msgstr "%s คือ %s"
 
 #: basxconnect/core/views/person/person_modals_views.py:27
 #: basxconnect/core/views/person/person_modals_views.py:55
-#, fuzzy
-#| msgid "Mailings"
 msgid "Edit mailing settings"
-msgstr "การส่งจดหมาย"
+msgstr "แก้ไขการตั้งค่าการส่งจดหมาย"
 
 #: basxconnect/core/views/person/search_person_view.py:55
 msgid "No results"
