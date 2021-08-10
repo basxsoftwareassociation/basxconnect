@@ -32,7 +32,7 @@ def relationshipssettings(request):
                             js=hg.F(
                                 lambda c: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
                             ),
-                            icon="trash-can",
+                            iconname="trash-can",
                         )
                     ],
                     backurl=reverse(
@@ -127,7 +127,7 @@ def generate_term_datatable(title, category_slug):
                 js=hg.F(
                     lambda c: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
                 ),
-                icon="trash-can",
+                iconname="trash-can",
             )
         ],
         backurl=reverse("basxconnect.core.views.settings_views.personsettings"),
