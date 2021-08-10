@@ -155,7 +155,7 @@ class Person(models.Model):
         super().save(*args, **kwargs)
         if self.personnumber.startswith("__placeholder__"):
             self.personnumber = str(self.pk)
-            super().save(*args, **kwargs)
+            super().save(update_fields=["personnumber"])
 
         # this signal needs to be sent manually in order to trigger the search-index update
         # Django does only send a signal for the child-model but our search-index only observes
