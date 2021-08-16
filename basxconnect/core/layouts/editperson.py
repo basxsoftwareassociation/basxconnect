@@ -2,9 +2,10 @@ import collections
 
 import bread.layout
 import htmlgenerator as hg
-from bread import layout, menu
+from bread import layout
 from bread.layout.components.datatable import DataTableColumn
 from bread.utils import reverse, reverse_model
+from bread.utils.links import Link, ModelHref
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
@@ -498,10 +499,8 @@ def relationshipstab(request):
 
 
 def row_action(object_action, icon, label):
-    return menu.Action(
-        js=hg.F(
-            lambda c: f'window.location = \'{layout.objectaction(c["row"], object_action)}?next=\' + window.location.pathname + window.location.search',
-        ),
+    return Link(
+        href=ModelHref(Relationship, object_action, kwargs={"pk": hg.C("row.pk")}),
         iconname=icon,
         label=label,
     )

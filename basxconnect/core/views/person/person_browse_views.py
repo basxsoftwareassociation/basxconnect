@@ -2,6 +2,7 @@ import htmlgenerator as hg
 from bread import layout as layout
 from bread.layout.components.datatable import DataTableColumn
 from bread.utils import get_concrete_instance
+from bread.utils.links import Link
 from bread.utils.urls import reverse
 from bread.views import BrowseView, BulkAction
 from bread.views.browse import delete as breaddelete
@@ -367,11 +368,9 @@ class PersonBrowseView(BrowseView):
                         buttontype="ghost",
                         onclick="this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
                     ),
-                    layout.button.Button(
-                        _("Reset"),
+                    layout.button.Button.fromlink(
+                        Link(label=_("Reset"), href=self.request.path, iconname=None),
                         buttontype="secondary",
-                        islink=True,
-                        href=self.request.path,
                     ),
                     layout.button.Button(
                         pgettext_lazy("apply filter", "Filter"),

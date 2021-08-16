@@ -1,5 +1,6 @@
 import htmlgenerator as hg
-from bread import layout, menu
+from bread import layout
+from bread.utils.links import Link, ModelHref
 from bread.utils.urls import reverse, reverse_model
 from django.utils.translation import gettext_lazy as _
 
@@ -28,9 +29,10 @@ def relationshipssettings(request):
                         },
                     ),
                     rowactions=[
-                        menu.Action(
-                            js=hg.F(
-                                lambda c: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
+                        Link(
+                            label=_("Delete"),
+                            href=ModelHref(
+                                Term, "delete", kwargs={"pk": hg.C("row.pk")}
                             ),
                             iconname="trash-can",
                         )
@@ -123,10 +125,9 @@ def generate_term_datatable(title, category_slug):
         prevent_automatic_sortingnames=True,
         rowclickaction="edit",
         rowactions=[
-            menu.Action(
-                js=hg.F(
-                    lambda c: f'window.location = \'{layout.objectaction(c["row"], "delete")}?next=\' + window.location.pathname + window.location.search',
-                ),
+            Link(
+                label=_("Delete"),
+                href=ModelHref(Term, "delete", kwargs={"pk": hg.C("row.pk")}),
                 iconname="trash-can",
             )
         ],
