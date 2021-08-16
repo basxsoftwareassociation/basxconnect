@@ -523,7 +523,7 @@ def tile_col_with_edit_modal(modal_view):
                 query={"asajax": True},
             )
         ),
-        submitlabel="save",
+        submitlabel=_("Save"),
     )
     displayed_fields = [display_field_value(field) for field in modal_view.fields]
     return tile_with_icon(
