@@ -2,6 +2,7 @@ import htmlgenerator as hg
 from bread import layout as layout
 from bread.utils import reverse_model
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from haystack.query import SearchQuerySet
 from haystack.utils import Highlighter
@@ -16,6 +17,14 @@ F = layout.form.FormField
 ITEM_CLASS = "search_result_item"
 ITEM_LABEL_CLASS = "search_result_label"
 ITEM_VALUE_CLASS = "search_result_value"
+
+searchbar = layout.search.Search(
+    placeholder=_("Search person"),
+    backend=layout.search.SearchBackendConfig(
+        reverse_lazy("basxconnect.core.views.person.search_person_view.searchperson"),
+    ),
+    width="140%",
+)
 
 
 def searchperson(request):
