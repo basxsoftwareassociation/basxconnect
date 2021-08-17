@@ -1,9 +1,8 @@
 name: Bug Report
 description: File a bug report
-title: "[Bug]: "
+title: "[BUG]: <Title>"
 labels: [bug, triage]
 assignees:
-  - octocat
 body:
   - type: markdown
     attributes:
@@ -35,7 +34,7 @@ body:
         - 1.0.2 (Default)
         - 1.0.3 (Edge)
     validations:
-      required: true
+      required: false
   - type: dropdown
     id: browsers
     attributes:
@@ -52,11 +51,3 @@ body:
       label: Relevant log output
       description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render: shell
-  - type: checkboxes
-    id: terms
-    attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
-      options:
-        - label: I agree to follow this project's Code of Conduct
-          required: true
