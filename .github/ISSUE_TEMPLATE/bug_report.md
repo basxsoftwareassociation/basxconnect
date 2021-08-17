@@ -1,16 +1,16 @@
 ---
 name: Bug report
-about: Create a nug report to help us improve
-title: '[BUG]'
+about: Create a bug report to help us improve
+title: '[BUG]' 
 labels: 'bug'
 assignees: ''
 
 ---
 
-**Describe the bug**
+**Bug description**
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+**Steps to Reproduce**
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
