@@ -24,7 +24,6 @@ def personform_shortcut(request, formlayout, isreadview):
             editperson_toolbar(request),
             editperson_head(request, isreadview=isreadview),
             layout.form.Form(hg.C("form"), formlayout),
-            gutter=False,
         )
     )
 
