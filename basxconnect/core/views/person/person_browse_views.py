@@ -2,6 +2,7 @@ import htmlgenerator as hg
 from bread import layout as layout
 from bread.layout.components.datatable import DataTableColumn
 from bread.menu import Link
+from bread.utils import get_concrete_instance
 from bread.utils.urls import reverse, reverse_model
 from bread.views import BrowseView
 from django import forms
@@ -366,5 +367,27 @@ class PersonBrowseView(BrowseView):
                 )
             if form.cleaned_data.get("preferred_language"):
                 columns.append("preferred_language")
+
+        def get_from_concret_object(field):
+            return hg.F(
+                lambda c, e: getattr(get_concrete_instance(c["row"]), field, "")
+            )
+
+        # insert last_name and first_name
+        name_field = [getattr(i, "sortingname", i) for i in columns].index("name")
+        columns.insert(
+            name_field + 1,
+            DataTableColumn(
+                layout.fieldlabel(models.NaturalPerson, "last_name"),
+                get_from_concret_object("last_name"),
+            ),
+        )
+        columns.insert(
+            name_field + 1,
+            DataTableColumn(
+                layout.fieldlabel(models.NaturalPerson, "first_name"),
+                get_from_concret_object("first_name"),
+            ),
+        )
 
         return super().export(*args, columns=columns, **kwargs)
