@@ -12,4 +12,3 @@ def basxconnect_core(request):
         or "<Missing Owner>",
         "SEARCHBAR": searchbar,
     }
-
