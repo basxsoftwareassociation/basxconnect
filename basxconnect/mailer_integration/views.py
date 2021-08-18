@@ -4,7 +4,7 @@ from bread.layout.components.form import Form
 from bread.utils import aslayout
 from django import forms
 
-from basxconnect.mailer_integration import download
+from basxconnect.mailer_integration import download_data
 from basxconnect.mailer_integration.mailchimp import datasource
 
 
@@ -12,7 +12,9 @@ from basxconnect.mailer_integration.mailchimp import datasource
 def mailchimp_view(request):
     if request.method == "POST":
         try:
-            sync_result = download.download_persons(datasource.MailchimpDatasource())
+            sync_result = download_data.download_persons(
+                datasource.MailchimpDatasource()
+            )
             notification = bread.layout.components.notification.InlineNotification(
                 "Success",
                 f"Synchronized mailing preferences for {sync_result.total_synchronized_persons} Mailchimp "
