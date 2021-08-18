@@ -36,19 +36,23 @@ def base_data_tab():
     )
 
 
-def mailings_tab():
-    """
-    we assume person associations will have mailing-related data (like mailchimp subscription statuses) as well in the
-    future and therefore already add an empty tab in order to keep the different types of persons as similar to each
-    other as possible.
-    """
+def mailings_tab(request):
+
+    from django.apps import apps
+
+    if apps.is_installed("basxconnect.mailer_integration"):
+        from basxconnect.mailer_integration.layouts import mailer_integration_tile
+
+        mailer_tile = mailer_integration_tile(request)
+    else:
+        mailer_tile = editperson.tiling_col()
+
     return layout.tabs.Tab(
         _("Mailings"),
         editperson.grid_inside_tab(
             R(
-                editperson.tiling_col(),
+                mailer_tile,
                 editperson.tiling_col(),
             ),
-            id="mailing-tab-content",
         ),
     )

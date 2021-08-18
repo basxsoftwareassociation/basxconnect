@@ -41,7 +41,7 @@ def editperson_form(request, base_data_tab, mailings_tab):
 
 
 def editperson_tabs(base_data_tab, mailing_tab, request):
-    return [base_data_tab(), relationshipstab(request), mailing_tab()] + (
+    return [base_data_tab(), relationshipstab(request), mailing_tab(request)] + (
         [
             contributions_tab.contributions_tab(request),
         ]
