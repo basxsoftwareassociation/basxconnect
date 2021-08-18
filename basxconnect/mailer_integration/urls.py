@@ -1,7 +1,7 @@
-from bread.utils.urls import generate_path
+from bread.utils.urls import autopath
 
 import basxconnect.mailer_integration.views
 
 urlpatterns = [
-    generate_path(basxconnect.mailer_integration.views.mailchimp_view),
+    autopath(basxconnect.mailer_integration.views.mailchimp_view),
 ]
