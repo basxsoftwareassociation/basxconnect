@@ -1,7 +1,9 @@
 import bread.layout.components.notification
 import htmlgenerator as hg
+from bread import layout
 from bread.layout.components.form import Form
 from bread.utils import aslayout
+from bread.views import EditView
 from django import forms
 
 from basxconnect.mailer_integration import download_data
@@ -32,3 +34,14 @@ def mailchimp_view(request):
         hg.If(notification is not None, notification),
         submit_label="Synchronize with Mailchimp",
     )
+
+
+class EditMailingSubscriptionsView(EditView):
+    fields = [
+        "status",
+        "interests",
+    ]
+
+    def get_layout(self):
+        form_fields = [layout.form.FormField(field) for field in self.fields]
+        return hg.DIV(*form_fields)

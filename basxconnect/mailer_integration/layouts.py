@@ -1,7 +1,9 @@
 import bread
 import htmlgenerator as hg
-from bread.layout.components import icon, tag
+from bread import layout
+from bread.layout.components import tag
 from bread.layout.components.icon import Icon
+from bread.utils import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
@@ -51,6 +53,18 @@ def is_interested_indicator(is_subscribed):
 
 def _display_mailingpreferences(mailingpreferences):
 
+    modal = layout.modal.Modal.with_ajax_content(
+        heading=_("Edit Email Subscriptions"),
+        url=hg.F(
+            lambda c: reverse(
+                "basxconnect.mailer_integration.views.editmailingsubscriptionsview",
+                kwargs={"pk": c["object"].mailingpreferences.pk},
+                query={"asajax": True},
+            )
+        ),
+        submitlabel=_("Save"),
+    )
+
     interests = [
         R(
             C(hg.DIV(interest, style="font-weight: bold;"), width=6, breakpoint="lg"),
@@ -58,17 +72,13 @@ def _display_mailingpreferences(mailingpreferences):
                 is_interested_indicator(interest in mailingpreferences.interests.all()),
                 breakpoint="lg",
             ),
-            style="padding-top: 24px;",
+            style="padding-bottom: 24px;",
         )
         for interest in Interest.objects.all()
     ]
     return hg.BaseElement(
         R(
-            C(
-                hg.H4(
-                    _("Email Subscriptions"),
-                )
-            ),
+            C(hg.H4(_("Email Subscriptions"), style="margin-bottom: 3rem;")),
             C(
                 tag.Tag(
                     _(mailingpreferences.status),
@@ -78,4 +88,16 @@ def _display_mailingpreferences(mailingpreferences):
             ),
         ),
         *interests,
+        R(
+            C(
+                layout.button.Button(
+                    "Edit",
+                    buttontype="tertiary",
+                    icon="edit",
+                    **modal.openerattributes,
+                ),
+                modal,
+                style="margin-top: 1.5rem;",
+            )
+        ),
     )
