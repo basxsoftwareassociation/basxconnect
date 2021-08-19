@@ -2,7 +2,7 @@ import bread.layout.components.notification
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.form import Form
-from bread.utils import aslayout
+from bread.utils import aslayout, reverse_model
 from bread.views import EditView
 from django import forms
 
@@ -41,6 +41,11 @@ class EditMailingSubscriptionsView(EditView):
         "status",
         "interests",
     ]
+
+    def get_success_url(self):
+        return reverse_model(
+            self.object.person, "read", kwargs={"pk": self.object.person.pk}
+        )
 
     def get_layout(self):
         form_fields = [layout.form.FormField(field) for field in self.fields]
