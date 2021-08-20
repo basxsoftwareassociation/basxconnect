@@ -34,9 +34,11 @@ setup(
         "django-language-field",
         "chardet",
         "tablib",
-        "mailchimp_marketing",
     ],
-    extras_require={"testing": ["basx-bread[testing]"]},
+    extras_require={
+        "testing": ["basx-bread[testing]"],
+        "mailer-integration": ["mailchimp_marketing"],
+    },
     packages=find_packages(),
     zip_safe=False,
     include_package_data=True,
