@@ -38,7 +38,7 @@ class MailchimpPerson(MailerPerson):
         return f"{self.raw_person['merge_fields']['FNAME']} {self.raw_person['merge_fields']['LNAME']}"
 
     def email(self) -> str:
-        return self.raw_person["merge_fields"]["FNAME"]
+        return self.raw_person["email_address"]
 
     def interests(self) -> List[str]:
         interest_indicators = self.raw_person["interests"]
