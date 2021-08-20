@@ -22,7 +22,7 @@ def mailchimp_view(request):
                 f"Synchronized mailing preferences for {sync_result.total_synchronized_persons} Mailchimp "
                 f"contacts. {sync_result.new_persons} new persons were added to the BasxConnect database.",
             )
-        except Exception as e:
+        except Exception:
             notification = bread.layout.components.notification.InlineNotification(
                 "Error",
                 f"An error occured during synchronization. {traceback.format_exc()}",
