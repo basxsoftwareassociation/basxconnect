@@ -5,8 +5,6 @@ from django.conf import settings
 
 from basxconnect.mailer_integration.abstract import abstract_datasource
 from basxconnect.mailer_integration.abstract.abstract_mailer_person import MailerPerson
-from basxconnect.mailer_integration.abstract.abstract_person_reader import PersonReader
-from basxconnect.mailer_integration.mailchimp import person_reader
 from basxconnect.mailer_integration.mailchimp.mailchimp_person import MailchimpPerson
 
 URBANMOSAIC_ALL_MEMBERS_LIST_ID = "4606fb0179"
@@ -17,7 +15,6 @@ class MailchimpDatasource(abstract_datasource.Datasource):
     def __init__(self) -> None:
         self.client = mailchimp_marketing.Client()
         self.client.set_config({"api_key": settings.MAILCHIMP_API_KEY, "server": "us5"})
-        self._person_reader = person_reader.MailchimpPersonReader()
 
     def get_persons(self) -> List[MailerPerson]:
         segment = self.client.lists.get_segment_members_list(
@@ -35,9 +32,6 @@ class MailchimpDatasource(abstract_datasource.Datasource):
             # ],
         )
         return [MailchimpPerson(raw_person) for raw_person in segment["members"]]
-
-    def person_reader(self) -> PersonReader:
-        return self._person_reader
 
     def tag(self) -> str:
         return "Imported from Mailchimp"
