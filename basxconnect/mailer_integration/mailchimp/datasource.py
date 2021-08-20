@@ -18,7 +18,7 @@ class MailchimpDatasource(abstract_datasource.Datasource):
         self._person_reader = person_reader.MailchimpPersonReader()
 
     def get_persons(self) -> List[Any]:
-        swiss_segment = self.client.lists.get_segment_members_list(
+        segment = self.client.lists.get_segment_members_list(
             list_id=URBANMOSAIC_ALL_MEMBERS_LIST_ID,
             segment_id=SWISS_SEGMENT_ID,
             count=1000,
@@ -32,7 +32,7 @@ class MailchimpDatasource(abstract_datasource.Datasource):
             #     "merge_fields.LNAME",
             # ],
         )
-        return swiss_segment["members"]
+        return segment["members"]
 
     def person_reader(self) -> PersonReader:
         return self._person_reader
