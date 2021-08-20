@@ -1,3 +1,5 @@
+import traceback
+
 import bread.layout.components.notification
 import htmlgenerator as hg
 from bread.layout.components.form import Form
@@ -22,7 +24,9 @@ def mailchimp_view(request):
             )
         except Exception as e:
             notification = bread.layout.components.notification.InlineNotification(
-                "Error", "An error occured during synchronization.", kind="error"
+                "Error",
+                f"An error occured during synchronization. {traceback.format_exc()}",
+                kind="error",
             )
     else:
         notification = None
