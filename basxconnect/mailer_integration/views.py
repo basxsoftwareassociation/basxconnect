@@ -2,10 +2,15 @@ import traceback
 
 import bread.layout.components.notification
 import htmlgenerator as hg
+from bread import menu
 from bread.layout.components.form import Form
 from bread.utils import aslayout
+from bread.utils.links import Link
 from django import forms
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
+from basxconnect.core.views import menu_views
 from basxconnect.mailer_integration import download_data
 from basxconnect.mailer_integration.mailchimp import datasource
 
@@ -36,3 +41,14 @@ def mailchimp_view(request):
         hg.If(notification is not None, notification),
         submit_label="Synchronize with Mailchimp",
     )
+
+
+menu.registeritem(
+    menu.Item(
+        Link(
+            reverse_lazy("basxconnect.mailer_integration.views.mailchimp_view"),
+            _("Mailchimp"),
+        ),
+        menu_views.settingsgroup,
+    )
+)
