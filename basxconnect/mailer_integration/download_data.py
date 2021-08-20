@@ -48,20 +48,18 @@ def _is_new_person(
 
 def _get_or_create_tag(tag: str) -> models.Term:
     tags_category_id = models.Category.objects.get(slug="category").id
-    if not models.Term.objects.filter(term=tag, category_id=tags_category_id).exists():
-        models.Term(term=tag, category_id=tags_category_id).save()
-    return models.Term.objects.get(term=tag, category_id=tags_category_id)
+    return models.Term.objects.create(term=tag, category_id=tags_category_id)
 
 
 def _save_person(datasource_tag, raw_person, reader):
-    person = models.NaturalPerson(
+    person = models.NaturalPerson.objects.create(
         first_name=reader.first_name_of(raw_person),
         name=reader.display_name_of(raw_person),
         last_name=reader.last_name_of(raw_person),
     )
-    person.save()
-    email = models.Email(email=reader.email_of(raw_person), person=person)
-    email.save()
+    email = models.Email.objects.create(
+        email=reader.email_of(raw_person), person=person
+    )
     person.primary_email_address = email
     person.categories.add(datasource_tag)
     person.save()
@@ -69,25 +67,10 @@ def _save_person(datasource_tag, raw_person, reader):
 
 
 def _save_mailing_preferences(person, raw_person, reader):
-    try:
-        mailing_preferences = MailingPreferences.objects.get(person=person)
-    except MailingPreferences.DoesNotExist:
-        mailing_preferences = MailingPreferences(
-            person=person, status=reader.status_of(raw_person)
-        )
-        mailing_preferences.save()
+    mailing_preferences, _ = MailingPreferences.objects.get_or_create(person=person)
     mailing_preferences.status = reader.status_of(raw_person)
     mailing_preferences.interests.clear()
     for raw_interest in reader.interests_of(raw_person):
-        interest = _get_or_create_interest(raw_interest)
+        interest, _ = Interest.objects.get_or_create(name=raw_interest)
         mailing_preferences.interests.add(interest)
     mailing_preferences.save()
-
-
-def _get_or_create_interest(interest: str) -> models.Term:
-    try:
-        interest = Interest.objects.get(name=interest)
-    except Interest.DoesNotExist:
-        interest = Interest(name=interest)
-        interest.save()
-    return interest
