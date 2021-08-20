@@ -12,9 +12,6 @@ class SynchronizationResult(NamedTuple):
 
 
 def download_persons(datasource: Datasource) -> SynchronizationResult:
-    MailingPreferences.objects.all().delete()
-    Interest.objects.all().delete()
-
     raw_persons = datasource.get_persons()
     reader = datasource.person_reader()
     datasource_tag = _get_or_create_tag(datasource.tag())
