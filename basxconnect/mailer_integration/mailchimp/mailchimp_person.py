@@ -53,10 +53,13 @@ class MailchimpPerson(MailerPerson):
         return self.raw_person["status"]
 
     def country(self):
-        # using Switzerland as default country if the given string is not a valid country
-        return pycountry.countries.get(
-            name=self.raw_person["merge_fields"]["MMERGE11"], default="CH"
+        _country = pycountry.countries.get(
+            name=self.raw_person["merge_fields"]["MMERGE11"], default=None
         )
+        if _country:
+            return _country.alpha_2
+        else:
+            return "CH"
 
     def postcode(self):
         return self.raw_person["merge_fields"]["MMERGE10"]
