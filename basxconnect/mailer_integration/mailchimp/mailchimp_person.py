@@ -5,8 +5,6 @@ from basxconnect.mailer_integration.abstract.abstract_mailer_person import Maile
 
 logger = logging.getLogger(__name__)
 
-INTERESTS = {"a244484af6": "Newsletter", "d8723b3a79": "Prayer Bulletin"}
-
 
 class MailchimpPerson(MailerPerson):
     def __init__(self, raw_person: Any) -> None:
@@ -40,20 +38,14 @@ class MailchimpPerson(MailerPerson):
     def email(self) -> str:
         return self.raw_person["email_address"]
 
-    def interests(self) -> List[str]:
+    def interests_ids(self) -> List[str]:
         interest_indicators = self.raw_person["interests"]
         interests_ids = [
             interest_id
             for interest_id, interested in interest_indicators.items()
             if interested
         ]
-        interests = []
-        for _id in interests_ids:
-            if _id in INTERESTS:
-                interests.append(INTERESTS[_id])
-            else:
-                logger.error(f"Unknown interest id {_id}")
-        return interests
+        return interests_ids
 
     def status(self) -> str:
         return self.raw_person["status"]

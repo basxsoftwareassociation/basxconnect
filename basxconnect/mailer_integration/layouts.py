@@ -55,7 +55,9 @@ def _display_mailingpreferences(mailingpreferences):
         R(
             C(hg.DIV(interest, style="font-weight: bold;"), width=6, breakpoint="lg"),
             C(
-                is_interested_indicator(interest in mailingpreferences.interests.all()),
+                is_interested_indicator(
+                    interest in mailingpreferences.interests_ids.all()
+                ),
                 breakpoint="lg",
             ),
             style="padding-top: 24px;",

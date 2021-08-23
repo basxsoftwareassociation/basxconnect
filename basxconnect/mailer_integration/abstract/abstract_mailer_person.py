@@ -20,7 +20,7 @@ class MailerPerson(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def interests(self) -> typing.List[str]:
+    def interests_ids(self) -> typing.List[str]:
         pass
 
     @abc.abstractmethod

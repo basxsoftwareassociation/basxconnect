@@ -12,6 +12,10 @@ class SynchronizationResult(NamedTuple):
 
 
 def download_persons(datasource: Datasource) -> SynchronizationResult:
+    interests = datasource.get_interests()
+    for interest in interests:
+        Interest.objects.get_or_create(external_id=interest.id, name=interest.name)
+
     mailer_persons = datasource.get_persons()
     datasource_tag = _get_or_create_tag(datasource.tag())
     new_persons = 0
@@ -63,8 +67,8 @@ def _save_person(datasource_tag, mailer_person):
 def _save_mailing_preferences(person, mailer_person):
     mailing_preferences, _ = MailingPreferences.objects.get_or_create(person=person)
     mailing_preferences.status = mailer_person.status()
-    mailing_preferences.interests.clear()
-    for raw_interest in mailer_person.interests():
-        interest, _ = Interest.objects.get_or_create(name=raw_interest)
-        mailing_preferences.interests.add(interest)
+    mailing_preferences.interests_ids.clear()
+    for interest_id in mailer_person.interests_ids():
+        interest, _ = Interest.objects.get(external_id=interest_id)
+        mailing_preferences.interests_ids.add(interest)
     mailing_preferences.save()
