@@ -42,8 +42,8 @@ def _is_new_person(
 
 
 def _get_or_create_tag(tag: str) -> models.Term:
-    tags_category_id = models.Category.objects.get(slug="category").id
-    return models.Term.objects.create(term=tag, category_id=tags_category_id)
+    tags_category = models.Category.objects.get(slug="category")
+    return models.Term.objects.get_or_create(term=tag, category_id=tags_category)
 
 
 def _save_person(datasource_tag, mailer_person):
