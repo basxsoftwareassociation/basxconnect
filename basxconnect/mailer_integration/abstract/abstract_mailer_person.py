@@ -26,3 +26,15 @@ class MailerPerson(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def status(self) -> str:
         pass
+
+    def country(person):
+        pass
+
+    def postcode(person):
+        pass
+
+    def address(person):
+        pass
+
+    def city(person):
+        pass

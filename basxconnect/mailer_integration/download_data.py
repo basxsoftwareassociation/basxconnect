@@ -1,7 +1,9 @@
 from typing import NamedTuple
 
 from basxconnect.core import models
+from basxconnect.core.models import Postal
 from basxconnect.mailer_integration.abstract.abstract_datasource import Datasource
+from basxconnect.mailer_integration.abstract.abstract_mailer_person import MailerPerson
 from basxconnect.mailer_integration.models import Interest, MailingPreferences
 
 
@@ -54,6 +56,20 @@ def _save_person(datasource_tag, mailer_person):
     person.primary_email_address = email
     person.save()
     _save_mailing_preferences(email, mailer_person)
+    _save_postal_address(person, mailer_person)
+
+
+def _save_postal_address(person, mailer_person: MailerPerson):
+    address = Postal(
+        person=person,
+        country=mailer_person.country(),
+        address=mailer_person.address(),
+        postcode=mailer_person.postcode(),
+        city=mailer_person.city(),
+    )
+    address.save()
+    person.primary_postal_address = address
+    person.save()
 
 
 def _save_mailing_preferences(email, mailer_person):
