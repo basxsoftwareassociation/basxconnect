@@ -53,12 +53,8 @@ def is_interested_indicator(is_subscribed):
 
 def _display_all_mailingpreferences(email_addresses):
     return hg.BaseElement(
-        R(
-            C(
-                hg.H4(
-                    _("Email Subscriptions"),
-                )
-            ),
+        hg.H4(
+            _("Email Subscriptions"),
         ),
         *[_display_preferences_for_one_email(email) for email in email_addresses],
     )
