@@ -67,8 +67,8 @@ def _save_person(datasource_tag, mailer_person):
 def _save_mailing_preferences(person, mailer_person):
     mailing_preferences, _ = MailingPreferences.objects.get_or_create(person=person)
     mailing_preferences.status = mailer_person.status()
-    mailing_preferences.interests_ids.clear()
+    mailing_preferences.interests.clear()
     for interest_id in mailer_person.interests_ids():
-        interest, _ = Interest.objects.get(external_id=interest_id)
-        mailing_preferences.interests_ids.add(interest)
+        interest = Interest.objects.get(external_id=interest_id)
+        mailing_preferences.interests.add(interest)
     mailing_preferences.save()
