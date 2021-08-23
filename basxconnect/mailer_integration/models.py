@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from basxconnect.core.models import Person
+from basxconnect.core.models import Email
 
 
 class Interest(models.Model):
@@ -13,7 +13,7 @@ class Interest(models.Model):
 
 
 class MailingPreferences(models.Model):
-    person = models.OneToOneField(Person, on_delete=models.CASCADE)
+    email = models.OneToOneField(Email, on_delete=models.CASCADE)
     status = models.CharField(max_length=50)
 
     interests = models.ManyToManyField(Interest)

@@ -2,7 +2,6 @@ from typing import NamedTuple
 
 from basxconnect.core import models
 from basxconnect.mailer_integration.abstract.abstract_datasource import Datasource
-from basxconnect.mailer_integration.abstract.abstract_mailer_person import MailerPerson
 from basxconnect.mailer_integration.models import Interest, MailingPreferences
 
 
@@ -20,29 +19,21 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
     datasource_tag = _get_or_create_tag(datasource.tag())
     new_persons = 0
     for mailer_person in mailer_persons:
-        matching_persons = list(
-            models.Person.objects.filter(
-                primary_email_address__email=mailer_person.email(), deleted=False
+        matching_email_addresses = list(
+            models.Email.objects.filter(
+                email=mailer_person.email(),
             ).all()
         )
-        if len(matching_persons) == 0:
+        if len(matching_email_addresses) == 0:
             _save_person(datasource_tag, mailer_person)
             new_persons += 1
         else:
-            # if the downloaded email address already exists in our system, update the mailing preference of all persons
-            # that use this email address (as primary email address), without creating a new person in the database
-            for person in matching_persons:
-                _save_mailing_preferences(person, mailer_person)
+            # if the downloaded email address already exists in our system, update the mailing preference for this email
+            # address, without creating a new person in the database
+            for email in matching_email_addresses:
+                _save_mailing_preferences(email, mailer_person)
 
     return SynchronizationResult(new_persons, len(mailer_persons))
-
-
-def _is_new_person(
-    person: MailerPerson,
-) -> bool:
-    return not models.Person.objects.filter(
-        primary_email_address__email=person.email(), deleted=False
-    ).exists()
 
 
 def _get_or_create_tag(tag: str) -> models.Term:
@@ -57,15 +48,14 @@ def _save_person(datasource_tag, mailer_person):
         name=mailer_person.display_name(),
         last_name=mailer_person.last_name(),
     )
-    email = models.Email.objects.create(email=mailer_person.email(), person=person)
-    person.primary_email_address = email
     person.categories.add(datasource_tag)
     person.save()
-    _save_mailing_preferences(person, mailer_person)
+    email = models.Email.objects.create(email=mailer_person.email(), person=person)
+    _save_mailing_preferences(email, mailer_person)
 
 
-def _save_mailing_preferences(person, mailer_person):
-    mailing_preferences, _ = MailingPreferences.objects.get_or_create(person=person)
+def _save_mailing_preferences(email, mailer_person):
+    mailing_preferences, _ = MailingPreferences.objects.get_or_create(email=email)
     mailing_preferences.status = mailer_person.status()
     mailing_preferences.interests.clear()
     for interest_id in mailer_person.interests_ids():
