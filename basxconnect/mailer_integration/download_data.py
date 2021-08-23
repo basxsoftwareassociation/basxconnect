@@ -51,6 +51,8 @@ def _save_person(datasource_tag, mailer_person):
     person.categories.add(datasource_tag)
     person.save()
     email = models.Email.objects.create(email=mailer_person.email(), person=person)
+    person.primary_email_address = email
+    person.save()
     _save_mailing_preferences(email, mailer_person)
 
 
