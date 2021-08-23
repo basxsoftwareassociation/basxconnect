@@ -1,11 +1,12 @@
-from typing import Any, List
+from typing import List
 
 import mailchimp_marketing
 from django.conf import settings
 
 from basxconnect.mailer_integration.abstract import abstract_datasource
-from basxconnect.mailer_integration.abstract.abstract_person_reader import PersonReader
-from basxconnect.mailer_integration.mailchimp import person_reader
+from basxconnect.mailer_integration.abstract.abstract_datasource import MailingInterest
+from basxconnect.mailer_integration.abstract.abstract_mailer_person import MailerPerson
+from basxconnect.mailer_integration.mailchimp.mailchimp_person import MailchimpPerson
 
 
 class MailchimpDatasource(abstract_datasource.Datasource):
@@ -14,10 +15,9 @@ class MailchimpDatasource(abstract_datasource.Datasource):
         self.client.set_config(
             {"api_key": settings.MAILCHIMP_API_KEY, "server": settings.MAILCHIMP_SERVER}
         )
-        self._person_reader = person_reader.MailchimpPersonReader()
 
-    def get_persons(self) -> List[Any]:
-        swiss_segment = self.client.lists.get_segment_members_list(
+    def get_persons(self) -> List[MailerPerson]:
+        segment = self.client.lists.get_segment_members_list(
             list_id=settings.MAILCHIMP_LIST_ID,
             segment_id=settings.MAILCHIMP_SEGMENT_ID,
             count=1000,
@@ -31,7 +31,7 @@ class MailchimpDatasource(abstract_datasource.Datasource):
             #     "merge_fields.LNAME",
             # ],
         )
-        return swiss_segment["members"]
+        return [MailchimpPerson(raw_person) for raw_person in segment["members"]]
 
     def put_person(self, person):
         response = self.client.lists.set_list_member(
@@ -40,8 +40,14 @@ class MailchimpDatasource(abstract_datasource.Datasource):
             {"email_address": "Leone_Shields94@yahoo.com", "status_if_new": "pending"},
         )
 
-    def person_reader(self) -> PersonReader:
-        return self._person_reader
+    def get_interests(self):
+        return [
+            MailingInterest(interest["id"], interest["name"])
+            for interest in self.client.lists.list_interest_category_interests(
+                URBANMOSAIC_ALL_MEMBERS_LIST_ID,
+                settings.MAILCHIMP_INTERESTS_CATEGORY_ID,
+            )["interests"]
+        ]
 
     def tag(self) -> str:
         return "Imported from Mailchimp"

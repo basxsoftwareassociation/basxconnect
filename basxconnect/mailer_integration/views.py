@@ -1,11 +1,18 @@
+import traceback
+
 import bread.layout.components.notification
 import htmlgenerator as hg
 from bread import layout
+from bread import menu
 from bread.layout.components.form import Form
 from bread.utils import aslayout, reverse_model
 from bread.views import EditView
+from bread.utils.links import Link
 from django import forms
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
+from basxconnect.core.views import menu_views
 from basxconnect.mailer_integration import download_data
 from basxconnect.mailer_integration.mailchimp import datasource
 
@@ -22,9 +29,11 @@ def mailchimp_view(request):
                 f"Synchronized mailing preferences for {sync_result.total_synchronized_persons} Mailchimp "
                 f"contacts. {sync_result.new_persons} new persons were added to the BasxConnect database.",
             )
-        except Exception as e:
+        except Exception:
             notification = bread.layout.components.notification.InlineNotification(
-                "Error", "An error occured during synchronization.", kind="error"
+                "Error",
+                f"An error occured during synchronization. {traceback.format_exc()}",
+                kind="error",
             )
     else:
         notification = None
@@ -34,6 +43,17 @@ def mailchimp_view(request):
         hg.If(notification is not None, notification),
         submit_label="Synchronize with Mailchimp",
     )
+
+
+menu.registeritem(
+    menu.Item(
+        Link(
+            reverse_lazy("basxconnect.mailer_integration.views.mailchimp_view"),
+            _("Mailchimp"),
+        ),
+        menu_views.settingsgroup,
+    )
+)
 
 
 class EditMailingSubscriptionsView(EditView):

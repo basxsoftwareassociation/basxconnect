@@ -1,18 +1,21 @@
 import abc
-from typing import Any, List
+from typing import List, NamedTuple
 
-from basxconnect.mailer_integration.abstract.abstract_person_reader import PersonReader
+from basxconnect.mailer_integration.abstract.abstract_mailer_person import MailerPerson
+
+
+class MailingInterest(NamedTuple):
+    id: str
+    name: str
 
 
 class Datasource(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def get_persons(self) -> List[Any]:
+    def get_persons(self) -> List[MailerPerson]:
         pass
 
     @abc.abstractmethod
-    def person_reader(
-        self,
-    ) -> PersonReader:
+    def get_interests(self) -> List[MailingInterest]:
         pass
 
     @abc.abstractmethod
