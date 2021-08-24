@@ -43,11 +43,12 @@ def relationshipssettings(request):
                 ),
             )
         ),
+        gutter=False,
     )
 
 
 def personsettings(request):
-    ret = layout.grid.Grid(R(C(hg.H3(_("Persons")))))
+    ret = layout.grid.Grid(R(C(hg.H3(_("Persons")))), gutter=False)
     for category in Category.objects.all():
         ret.append(
             R(

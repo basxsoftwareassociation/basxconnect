@@ -21,9 +21,9 @@ F = layout.form.FormField
 def personform_shortcut(request, formlayout, isreadview):
     return hg.BaseElement(
         layout.grid.Grid(
-            editperson_toolbar(request),
             editperson_head(request, isreadview=isreadview),
             layout.form.Form(hg.C("form"), formlayout),
+            gutter=False,
         )
     )
 
