@@ -1,7 +1,7 @@
 import logging
 from typing import List
 
-import pycountry
+from django.conf import settings
 
 from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
 
@@ -24,25 +24,29 @@ def create_mailer_person_from_raw(person: str) -> MailerPerson:
 
 
 def city(raw_person):
-    return raw_person["merge_fields"].get("MMERGE8")
+    if not raw_person["merge_fields"]["ADDRESS"]:
+        return None
+    return raw_person["merge_fields"]["ADDRESS"]["city"]
 
 
 def address(raw_person):
-    return raw_person["merge_fields"].get("MMERGE7")
+    if not raw_person["merge_fields"]["ADDRESS"]:
+        return None
+    addr1 = raw_person["merge_fields"]["ADDRESS"]["addr1"]
+    addr2 = raw_person["merge_fields"]["ADDRESS"]["addr2"]
+    return addr1 + (f"\naddr2" if addr2 else "")
 
 
 def postcode(raw_person):
-    return raw_person["merge_fields"].get("MMERGE10")
+    if not raw_person["merge_fields"]["ADDRESS"]:
+        return None
+    return raw_person["merge_fields"]["ADDRESS"]["zip"]
 
 
 def country(raw_person):
-    _country = pycountry.countries.get(
-        name=raw_person["merge_fields"].get("MMERGE11", "CH"), default=None
-    )
-    if _country:
-        return _country.alpha_2
-    else:
-        return "CH"
+    if not raw_person["merge_fields"]["ADDRESS"]:
+        return getattr(settings, "MAILCHIMP_DEFAULT_COUNTRY", "CH")
+    return raw_person["merge_fields"]["ADDRESS"]["country"]
 
 
 def status(raw_person) -> str:
