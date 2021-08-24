@@ -54,17 +54,6 @@ def is_interested_indicator(is_subscribed):
 
 
 def _display_all_mailingpreferences(email_addresses):
-    modal = layout.modal.Modal.with_ajax_content(
-        heading=_("Edit Email Subscriptions"),
-        url=hg.F(
-            lambda c: reverse(
-                "basxconnect.mailer_integration.views.editmailingsubscriptionsview",
-                kwargs={"pk": c["object"].mailingpreferences.pk},
-                query={"asajax": True},
-            )
-        ),
-        submitlabel=_("Save"),
-    )
     return hg.BaseElement(
         hg.H4(
             _("Email Subscriptions"),
@@ -73,9 +62,17 @@ def _display_all_mailingpreferences(email_addresses):
     )
 
 
-
 def _display_preferences_for_one_email(email):
     mailingpreferences = email.mailingpreferences
+    modal = layout.modal.Modal.with_ajax_content(
+        heading=_("Edit Email Subscriptions"),
+        url=reverse(
+            "basxconnect.mailer_integration.views.editmailingsubscriptionsview",
+            kwargs={"pk": mailingpreferences.pk},
+            query={"asajax": True},
+        ),
+        submitlabel=_("Save"),
+    )
     interests = [
         R(
             C(hg.DIV(interest, style="font-weight: bold;"), width=6, breakpoint="lg"),
@@ -89,7 +86,6 @@ def _display_preferences_for_one_email(email):
     ]
     return hg.BaseElement(
         R(
-            C(hg.H4(_("Email Subscriptions"), style="margin-bottom: 3rem;")),
             C(
                 email.email,
                 tag.Tag(
@@ -99,7 +95,6 @@ def _display_preferences_for_one_email(email):
                 ),
             ),
         ),
-        R(),
         *interests,
         R(
             C(

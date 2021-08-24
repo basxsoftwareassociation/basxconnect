@@ -34,11 +34,13 @@ class MailchimpDatasource(abstract_datasource.Datasource):
         return [MailchimpPerson(raw_person) for raw_person in segment["members"]]
 
     def put_person(self, person):
-        response = self.client.lists.set_list_member(
-            settings.MAILCHIMP_LIST_ID,
-            "subscriber_hash",
-            {"email_address": "Leone_Shields94@yahoo.com", "status_if_new": "pending"},
-        )
+        # TODO
+        pass
+        # response = self.client.lists.set_list_member(
+        #     settings.MAILCHIMP_LIST_ID,
+        #     "subscriber_hash",
+        #     {"email_address": "Leone_Shields94@yahoo.com", "status_if_new": "pending"},
+        # )
 
     def get_interests(self):
         return [

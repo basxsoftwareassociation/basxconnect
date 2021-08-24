@@ -2,12 +2,11 @@ import traceback
 
 import bread.layout.components.notification
 import htmlgenerator as hg
-from bread import layout
-from bread import menu
+from bread import layout, menu
 from bread.layout.components.form import Form
 from bread.utils import aslayout, reverse_model
-from bread.views import EditView
 from bread.utils.links import Link
+from bread.views import EditView
 from django import forms
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -64,7 +63,7 @@ class EditMailingSubscriptionsView(EditView):
 
     def get_success_url(self):
         return reverse_model(
-            self.object.person, "read", kwargs={"pk": self.object.person.pk}
+            self.object.email.person, "read", kwargs={"pk": self.object.email.person.pk}
         )
 
     def get_layout(self):
