@@ -1,6 +1,6 @@
 import bread
 import htmlgenerator as hg
-from bread.layout.components import icon, tag
+from bread.layout.components import tag
 from bread.layout.components.icon import Icon
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
