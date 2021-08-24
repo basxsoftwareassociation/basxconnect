@@ -24,5 +24,5 @@ class MailingPreferences(models.Model):
         ],
     )
 
-    interests = models.ManyToManyField(Interest)
+    interests = models.ManyToManyField(Interest, blank=True)
     interests.verbose_name = _("Mailing Interests")
