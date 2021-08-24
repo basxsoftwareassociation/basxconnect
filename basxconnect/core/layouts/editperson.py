@@ -90,27 +90,14 @@ def editperson_toolbar(request):
         notext=True,
         **layout.aslink_attributes(hg.F(lambda c: reverse_model(Person, "add"))),
     )
-    return R(
-        C(
-            layout.search.Search(
-                placeholder=_("Search person"),
-                backend=layout.search.SearchBackendConfig(
-                    reverse_lazy(
-                        "basxconnect.core.views.person.search_person_view.searchperson"
-                    ),
-                ),
-            ),
-            width=2,
-            breakpoint="md",
-        ),
-        C(
-            hg.If(hg.C("object.deleted"), restorebutton, deletebutton),
-            copybutton,
-            layout.button.PrintPageButton(buttontype="ghost"),
-            add_person_button,
-        ),
+    return hg.SPAN(
+        hg.If(hg.C("object.deleted"), restorebutton, deletebutton),
+        copybutton,
+        layout.button.PrintPageButton(buttontype="ghost"),
+        add_person_button,
         _class="no-print",
-        style="margin-bottom: 1rem;",
+        style="margin-bottom: 1rem; margin-left: 1rem",
+        width=3,
     )
 
 
@@ -168,10 +155,13 @@ def editperson_head(request, isreadview):
         R(
             C(
                 hg.H3(
-                    hg.C("object"),
-                    style=hg.If(
-                        hg.C("object.deleted"), "text-decoration: line-through"
+                    hg.SPAN(
+                        hg.C("object"),
+                        style=hg.If(
+                            hg.C("object.deleted"), "text-decoration: line-through"
+                        ),
                     ),
+                    editperson_toolbar(request),
                 ),
                 width=12,
             ),

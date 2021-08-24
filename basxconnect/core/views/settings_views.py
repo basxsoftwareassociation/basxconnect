@@ -42,6 +42,7 @@ def generalsettings(request):
             R(C(hg.H4(_("General")))),
             R(C(hg.H5(_("Information about our organization")))),
             R(C(content)),
+            gutter=False,
         ),
         form=form,
     )

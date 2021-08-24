@@ -20,7 +20,7 @@ class MailchimpDatasource(abstract_datasource.Datasource):
         segment = self.client.lists.get_segment_members_list(
             list_id=settings.MAILCHIMP_LIST_ID,
             segment_id=settings.MAILCHIMP_SEGMENT_ID,
-            count=1000,
+            count=getattr(settings, "MAILCHIMP_MAX_SYNC_COUNT", 1000),
             include_cleaned=True,
             include_transactional=True,
             include_unsubscribed=True,
@@ -46,7 +46,7 @@ class MailchimpDatasource(abstract_datasource.Datasource):
         return [
             MailingInterest(interest["id"], interest["name"])
             for interest in self.client.lists.list_interest_category_interests(
-                URBANMOSAIC_ALL_MEMBERS_LIST_ID,
+                settings.MAILCHIMP_LIST_ID,
                 settings.MAILCHIMP_INTERESTS_CATEGORY_ID,
             )["interests"]
         ]

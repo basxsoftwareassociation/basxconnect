@@ -1,6 +1,8 @@
 import logging
 from typing import Any, List
 
+import pycountry
+
 from basxconnect.mailer_integration.abstract.abstract_mailer_person import MailerPerson
 
 logger = logging.getLogger(__name__)
@@ -49,3 +51,21 @@ class MailchimpPerson(MailerPerson):
 
     def status(self) -> str:
         return self.raw_person["status"]
+
+    def country(self):
+        _country = pycountry.countries.get(
+            name=self.raw_person["merge_fields"].get("MMERGE11", "CH"), default=None
+        )
+        if _country:
+            return _country.alpha_2
+        else:
+            return "CH"
+
+    def postcode(self):
+        return self.raw_person["merge_fields"].get("MMERGE10")
+
+    def address(self):
+        return self.raw_person["merge_fields"].get("MMERGE7")
+
+    def city(self):
+        return self.raw_person["merge_fields"].get("MMERGE8")
