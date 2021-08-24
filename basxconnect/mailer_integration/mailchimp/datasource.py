@@ -37,7 +37,7 @@ class MailchimpDatasource(abstract_datasource.Datasource):
         return [
             MailingInterest(interest["id"], interest["name"])
             for interest in self.client.lists.list_interest_category_interests(
-                settings.MAILCHIMP_SEGMENT_ID,
+                settings.MAILCHIMP_LIST_ID,
                 settings.MAILCHIMP_INTERESTS_CATEGORY_ID,
             )["interests"]
         ]
