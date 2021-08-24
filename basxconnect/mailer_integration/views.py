@@ -66,6 +66,11 @@ class EditMailingSubscriptionsView(EditView):
             self.object.email.person, "read", kwargs={"pk": self.object.email.person.pk}
         )
 
+    def post(self, request, *args, **kwargs):
+        result = super().post(request, *args, **kwargs)
+        datasource.MailchimpDatasource().put_person(self.object.email)
+        return result
+
     def get_layout(self):
         form_fields = [layout.form.FormField(field) for field in self.fields]
         return hg.DIV(*form_fields)
