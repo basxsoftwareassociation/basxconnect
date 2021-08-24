@@ -54,7 +54,7 @@ class MailchimpPerson(MailerPerson):
 
     def country(self):
         _country = pycountry.countries.get(
-            name=self.raw_person["merge_fields"]["MMERGE11"], default=None
+            name=self.raw_person["merge_fields"].get("MMERGE11", "CH"), default=None
         )
         if _country:
             return _country.alpha_2
@@ -62,10 +62,10 @@ class MailchimpPerson(MailerPerson):
             return "CH"
 
     def postcode(self):
-        return self.raw_person["merge_fields"]["MMERGE10"]
+        return self.raw_person["merge_fields"].get("MMERGE10")
 
     def address(self):
-        return self.raw_person["merge_fields"]["MMERGE7"]
+        return self.raw_person["merge_fields"].get("MMERGE7")
 
     def city(self):
-        return self.raw_person["merge_fields"]["MMERGE8"]
+        return self.raw_person["merge_fields"].get("MMERGE8")
