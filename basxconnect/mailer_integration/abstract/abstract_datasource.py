@@ -9,7 +9,7 @@ class MailerPerson(NamedTuple):
     email: str
     interests_ids: List[str]
     status: str
-    country: str
+    country: str  # in alpha_2 format (e.g. "CH", "DE", ...)
     postcode: str
     address: str
     city: str
