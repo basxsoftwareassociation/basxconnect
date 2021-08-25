@@ -23,12 +23,14 @@ def create_mailer_person_from_raw(person: str) -> MailerPerson:
     )
 
 
+# TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/141
 def city(raw_person):
     if not raw_person["merge_fields"]["ADDRESS"]:
         return None
     return raw_person["merge_fields"]["ADDRESS"]["city"]
 
 
+# TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/141
 def address(raw_person):
     if not raw_person["merge_fields"]["ADDRESS"]:
         return None
@@ -37,12 +39,14 @@ def address(raw_person):
     return addr1 + (f"\naddr2" if addr2 else "")
 
 
+# TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/141
 def postcode(raw_person):
     if not raw_person["merge_fields"]["ADDRESS"]:
         return None
     return raw_person["merge_fields"]["ADDRESS"]["zip"]
 
 
+# TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/141
 def country(raw_person):
     if not raw_person["merge_fields"]["ADDRESS"]:
         return getattr(settings, "MAILCHIMP_DEFAULT_COUNTRY", "CH")

@@ -68,6 +68,7 @@ class EditMailingSubscriptionsView(EditView):
 
     def post(self, request, *args, **kwargs):
         result = super().post(request, *args, **kwargs)
+        # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
         datasource.MailchimpDatasource().put_person(self.object.email)
         return result
 
