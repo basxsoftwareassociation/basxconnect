@@ -7,6 +7,7 @@ from bread.utils import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
+from basxconnect.core import models
 from basxconnect.core.layouts import editperson
 from basxconnect.core.models import Person
 from basxconnect.mailer_integration.models import Interest
@@ -16,18 +17,84 @@ C = bread.layout.grid.Col
 
 
 def mailer_integration_tile(request):
-
     person = get_object_or_404(Person, pk=request.resolver_match.kwargs["pk"])
+    addresses = person.core_email_list.all()
     return editperson.tile_with_icon(
         Icon("email--new"),
-        C(
-            _display_all_mailingpreferences(person.core_email_list.all())
-            if hasattr(person, "core_email_list")
-            and person.core_email_list.count() > 0
-            and hasattr(person.core_email_list.all()[0], "mailingpreferences")
-            else hg.DIV("Person has not been linked to a Mailchimp contact"),
-            style="padding-bottom: 1rem;",
+        hg.H4(
+            _("Email Subscriptions"),
         ),
+        *[_display_preferences(email) for email in addresses]
+        if hasattr(person, "core_email_list") and person.core_email_list.count() > 0
+        else C("Person has no email addresses"),
+    )
+
+
+def _display_preferences(email):
+    if not hasattr(email, "mailingpreferences"):
+        return _display_email_without_preferences(email)
+    mailingpreferences = email.mailingpreferences
+    modal = layout.modal.Modal.with_ajax_content(
+        heading=_("Edit Email Subscriptions"),
+        url=reverse(
+            "basxconnect.mailer_integration.views.editmailingpreferencesview",
+            kwargs={"pk": mailingpreferences.pk},
+            query={"asajax": True},
+        ),
+        submitlabel=_("Save"),
+    )
+    interests = [
+        R(
+            C(interest, width=6, breakpoint="lg"),
+            C(
+                is_interested_indicator(interest in mailingpreferences.interests.all()),
+                breakpoint="lg",
+            ),
+            style="padding-bottom: 24px;",
+        )
+        for interest in Interest.objects.all()
+    ]
+    return hg.BaseElement(
+        R(
+            C(
+                hg.SPAN(email.email, style="font-weight: bold;"),
+                tag.Tag(
+                    _(mailingpreferences.status),
+                    tag_color=map_tag_color(mailingpreferences.status),
+                    onclick="return false;",
+                    style="margin-left: 1rem;",
+                ),
+                style="margin-bottom: 1.5rem;",
+            ),
+        ),
+        *interests,
+        R(
+            C(
+                layout.button.Button(
+                    "Edit",
+                    buttontype="tertiary",
+                    icon="edit",
+                    **modal.openerattributes,
+                ),
+                modal,
+                style="margin-top: 1.5rem;margin-bottom: 3rem;",
+            )
+        ),
+    )
+
+
+def _display_email_without_preferences(email):
+    modal_add = modal_add_mailingpreferences(email)
+    return hg.BaseElement(
+        hg.DIV(email.email, style="font-weight: bold;"),
+        hg.DIV(f"no mailing preferences yet for {email.email}"),
+        layout.button.Button(
+            f"Add mailing preferences",
+            buttontype="ghost",
+            icon="add",
+            **modal_add.openerattributes,
+        ),
+        modal_add,
     )
 
 
@@ -53,59 +120,12 @@ def is_interested_indicator(is_subscribed):
     )
 
 
-def _display_all_mailingpreferences(email_addresses):
-    return hg.BaseElement(
-        hg.H4(
-            _("Email Subscriptions"),
-        ),
-        *[_display_preferences_for_one_email(email) for email in email_addresses],
-    )
-
-
-def _display_preferences_for_one_email(email):
-    mailingpreferences = email.mailingpreferences
-    modal = layout.modal.Modal.with_ajax_content(
-        heading=_("Edit Email Subscriptions"),
+def modal_add_mailingpreferences(email: models.Email):
+    return layout.modal.Modal.with_ajax_content(
+        heading=_("Add Mailing Preferences"),
         url=reverse(
-            "basxconnect.mailer_integration.views.editmailingsubscriptionsview",
-            kwargs={"pk": mailingpreferences.pk},
-            query={"asajax": True},
+            "basxconnect.mailer_integration.views.addmailingpreferencesview",
+            query={"asajax": True, "email": email.pk},
         ),
         submitlabel=_("Save"),
-    )
-    interests = [
-        R(
-            C(hg.DIV(interest, style="font-weight: bold;"), width=6, breakpoint="lg"),
-            C(
-                is_interested_indicator(interest in mailingpreferences.interests.all()),
-                breakpoint="lg",
-            ),
-            style="padding-bottom: 24px;",
-        )
-        for interest in Interest.objects.all()
-    ]
-    return hg.BaseElement(
-        R(
-            C(
-                email.email,
-                tag.Tag(
-                    _(mailingpreferences.status),
-                    tag_color=map_tag_color(mailingpreferences.status),
-                    onclick="return false;",
-                ),
-            ),
-        ),
-        *interests,
-        R(
-            C(
-                layout.button.Button(
-                    "Edit",
-                    buttontype="tertiary",
-                    icon="edit",
-                    **modal.openerattributes,
-                ),
-                modal,
-                style="margin-top: 1.5rem;",
-            )
-        ),
     )

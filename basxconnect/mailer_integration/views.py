@@ -6,7 +6,7 @@ from bread import layout, menu
 from bread.layout.components.form import Form
 from bread.utils import aslayout, reverse_model
 from bread.utils.links import Link
-from bread.views import EditView
+from bread.views import AddView, EditView
 from django import forms
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -55,7 +55,27 @@ menu.registeritem(
 )
 
 
-class EditMailingSubscriptionsView(EditView):
+class AddMailingPreferencesView(AddView):
+    def get_success_url(self):
+        return reverse_model(
+            self.object.email.person, "read", kwargs={"pk": self.object.email.person.pk}
+        )
+
+    def post(self, request, *args, **kwargs):
+        request["POST"]["email"] = request["GET"]["email"]
+        result = super().post(request, *args, **kwargs)
+        # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
+        datasource.MailchimpDatasource().put_person(self.object.email)
+        return result
+
+    def get_layout(self):
+        form_fields = [
+            layout.form.FormField(field) for field in ["status", "interests", "email"]
+        ]
+        return hg.DIV(*form_fields)
+
+
+class EditMailingPreferencesView(EditView):
     fields = [
         "status",
         "interests",
