@@ -14,7 +14,15 @@ class Interest(models.Model):
 
 class MailingPreferences(models.Model):
     email = models.OneToOneField(Email, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50)
+    status = models.CharField(
+        max_length=50,
+        choices=[
+            ("subscribed", "subscribed"),
+            ("unsubscribed", "unsubscribed"),
+            ("non-subscribed", "non-subscribed"),
+            ("cleaned", "cleaned"),
+        ],
+    )
 
-    interests = models.ManyToManyField(Interest)
+    interests = models.ManyToManyField(Interest, blank=True)
     interests.verbose_name = _("Mailing Interests")

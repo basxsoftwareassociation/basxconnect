@@ -1,7 +1,18 @@
 import abc
 from typing import List, NamedTuple
 
-from basxconnect.mailer_integration.abstract.abstract_mailer_person import MailerPerson
+
+class MailerPerson(NamedTuple):
+    first_name: str
+    last_name: str
+    display_name: str
+    email: str
+    interests_ids: List[str]
+    status: str
+    country: str
+    postcode: str
+    address: str
+    city: str
 
 
 class MailingInterest(NamedTuple):
