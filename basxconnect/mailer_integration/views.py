@@ -63,15 +63,6 @@ class AddMailingPreferencesView(AddView):
             self.object.email.person, "read", kwargs={"pk": self.object.email.person.pk}
         )
 
-    def post(self, request, *args, **kwargs):
-        # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
-        email = MailingPreferences.objects.create(
-            email_id=request.GET["email"],
-            status=request.POST["status"],
-        )
-        email.interests.add(request.POST["interests"])
-        datasource.MailchimpDatasource().post_person(MailerPerson.from_email(email))
-
     def get_layout(self):
         form_fields = [
             layout.form.FormField(field) for field in ["status", "interests"]
