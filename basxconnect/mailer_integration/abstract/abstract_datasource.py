@@ -2,6 +2,7 @@ import abc
 from typing import List, NamedTuple
 
 from basxconnect.core import models
+from basxconnect.mailer_integration.models import MailingPreferences
 
 
 class MailerPerson(NamedTuple):
@@ -17,17 +18,16 @@ class MailerPerson(NamedTuple):
     city: str = ""
 
     @staticmethod
-    def from_email(email: models.Email):
+    def from_mailing_preferences(preferences: MailingPreferences):
         return MailerPerson(
-            display_name=email.person.name,
-            first_name=getattr(email.person, "first_name", ""),
-            last_name=getattr(email.person, "last_name", ""),
-            email=email.email,
+            display_name=preferences.email.person.name,
+            first_name=getattr(preferences.email.person, "first_name", ""),
+            last_name=getattr(preferences.email.person, "last_name", ""),
+            email=preferences.email.email,
             interests_ids=[
-                interest.external_id
-                for interest in email.mailingpreferences.interests.all()
+                interest.external_id for interest in preferences.interests.all()
             ],
-            status=email.mailingpreferences.status,
+            status=preferences.status,
         )
 
 
