@@ -14,6 +14,8 @@ class SynchronizationResult(NamedTuple):
 
 
 def download_persons(datasource: Datasource) -> SynchronizationResult:
+    MailingPreferences.objects.all().delete()
+    Interest.objects.all().delete()
     interests = datasource.get_interests()
     for interest in interests:
         Interest.objects.get_or_create(external_id=interest.id, name=interest.name)

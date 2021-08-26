@@ -63,14 +63,12 @@ class AddMailingPreferencesView(AddView):
             self.object.email.person, "read", kwargs={"pk": self.object.email.person.pk}
         )
 
-    def get_layout(self):
-        form_fields = [
-            layout.form.FormField(field) for field in ["status", "interests"]
-        ]
-        return hg.DIV(
-            hg.INPUT(name="email", value=self.request.GET["email_id"]),
-            *form_fields,
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        datasource.MailchimpDatasource().post_person(
+            MailerPerson.from_email(self.object.email)
         )
+        return response
 
 
 class EditMailingPreferencesView(EditView):

@@ -20,6 +20,8 @@ class MailerPerson(NamedTuple):
     def from_email(email: models.Email):
         return MailerPerson(
             display_name=email.person.name,
+            first_name=getattr(email.person, "first_name", ""),
+            last_name=getattr(email.person, "last_name", ""),
             email=email.email,
             interests_ids=[
                 interest.external_id
