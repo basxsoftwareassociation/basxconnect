@@ -67,7 +67,10 @@ class AddMailingPreferencesView(AddView):
         form_fields = [
             layout.form.FormField(field) for field in ["status", "interests"]
         ]
-        return hg.DIV(*form_fields)
+        return hg.DIV(
+            hg.INPUT(name="email", value=self.request.GET["email_id"]),
+            *form_fields,
+        )
 
 
 class EditMailingPreferencesView(EditView):
