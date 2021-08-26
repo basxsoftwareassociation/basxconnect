@@ -13,7 +13,7 @@ class Interest(models.Model):
 
 
 class MailingPreferences(models.Model):
-    email = models.OneToOneField(Email, on_delete=models.CASCADE, blank=True)
+    email = models.OneToOneField(Email, on_delete=models.CASCADE)
     status = models.CharField(
         max_length=50,
         choices=[
