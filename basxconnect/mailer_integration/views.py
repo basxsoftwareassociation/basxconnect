@@ -13,7 +13,9 @@ from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.views import menu_views
 from basxconnect.mailer_integration import download_data
+from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
 from basxconnect.mailer_integration.mailchimp import datasource
+from basxconnect.mailer_integration.models import MailingPreferences
 
 
 @aslayout
@@ -62,15 +64,17 @@ class AddMailingPreferencesView(AddView):
         )
 
     def post(self, request, *args, **kwargs):
-        request["POST"]["email"] = request["GET"]["email"]
-        result = super().post(request, *args, **kwargs)
         # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
-        datasource.MailchimpDatasource().put_person(self.object.email)
-        return result
+        email = MailingPreferences.objects.create(
+            email_id=request.GET["email"],
+            status=request.POST["status"],
+        )
+        email.interests.add(request.POST["interests"])
+        datasource.MailchimpDatasource().post_person(MailerPerson.from_email(email))
 
     def get_layout(self):
         form_fields = [
-            layout.form.FormField(field) for field in ["status", "interests", "email"]
+            layout.form.FormField(field) for field in ["status", "interests"]
         ]
         return hg.DIV(*form_fields)
 
@@ -89,7 +93,9 @@ class EditMailingPreferencesView(EditView):
     def post(self, request, *args, **kwargs):
         result = super().post(request, *args, **kwargs)
         # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
-        datasource.MailchimpDatasource().put_person(self.object.email)
+        datasource.MailchimpDatasource().put_person(
+            MailerPerson.from_email(self.object.email)
+        )
         return result
 
     def get_layout(self):
