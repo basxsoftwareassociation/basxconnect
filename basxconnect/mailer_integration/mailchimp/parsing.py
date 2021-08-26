@@ -36,7 +36,7 @@ def address(raw_person):
         return None
     addr1 = raw_person["merge_fields"]["ADDRESS"]["addr1"]
     addr2 = raw_person["merge_fields"]["ADDRESS"]["addr2"]
-    return addr1 + (f"\naddr2" if addr2 else "")
+    return addr1 + ("\naddr2" if addr2 else "")
 
 
 # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/141

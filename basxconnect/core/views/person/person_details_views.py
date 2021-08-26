@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from basxconnect.core.layouts.editlegalperson import editlegalperson_form
 from basxconnect.core.layouts.editnaturalperson import editnaturalperson_form
-from basxconnect.core.layouts.editperson import editperson_head, editperson_toolbar
+from basxconnect.core.layouts.editperson import editperson_head
 from basxconnect.core.layouts.editpersonassociation import editpersonassociation_form
 
 from ... import models
