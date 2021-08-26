@@ -1,7 +1,6 @@
 import abc
 from typing import List, NamedTuple
 
-from basxconnect.core import models
 from basxconnect.mailer_integration.models import MailingPreferences
 
 
