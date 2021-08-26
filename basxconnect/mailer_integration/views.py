@@ -65,9 +65,8 @@ class AddMailingPreferencesView(AddView):
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
-        datasource.MailchimpDatasource().post_person(
-            MailerPerson.from_mailing_preferences(self.object)
-        )
+        mailer_person = MailerPerson.from_mailing_preferences(self.object)
+        datasource.MailchimpDatasource().post_person(mailer_person)
         return response
 
 

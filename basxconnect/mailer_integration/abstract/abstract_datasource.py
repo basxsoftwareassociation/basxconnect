@@ -18,10 +18,19 @@ class MailerPerson(NamedTuple):
 
     @staticmethod
     def from_mailing_preferences(preferences: MailingPreferences):
+        person = preferences.email.person
         return MailerPerson(
-            display_name=preferences.email.person.name,
-            first_name=getattr(preferences.email.person, "first_name", ""),
-            last_name=getattr(preferences.email.person, "last_name", ""),
+            display_name=person.name,
+            first_name=(
+                person.naturalperson.first_name
+                if hasattr(person, "naturalperson")
+                else ""
+            ),
+            last_name=(
+                person.naturalperson.last_name
+                if hasattr(person, "naturalperson")
+                else ""
+            ),
             email=preferences.email.email,
             interests_ids=[
                 interest.external_id for interest in preferences.interests.all()
