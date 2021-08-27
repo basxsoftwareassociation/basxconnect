@@ -37,7 +37,7 @@ setup(
     ],
     extras_require={
         "testing": ["basx-bread[testing]"],
-        "mailer_integration": ["mailchimp_marketing"],
+        "mailer-integration": ["mailchimp_marketing"],
     },
     packages=find_packages(),
     zip_safe=False,
