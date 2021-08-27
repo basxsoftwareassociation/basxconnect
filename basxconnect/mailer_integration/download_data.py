@@ -29,7 +29,10 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
                 email=mailer_person.email,
             ).all()
         )
-        if len(matching_email_addresses) == 0:
+        if len(matching_email_addresses) == 0 and mailer_person.status in [
+            "subscribed",
+            "unsubscribed",
+        ]:
             _save_person(datasource_tag, mailer_person)
             new_persons += 1
         else:
