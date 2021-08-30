@@ -54,10 +54,6 @@ class Datasource(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def post_person(self, person: MailerPerson):
-        pass
-
-    @abc.abstractmethod
     def get_interests(self) -> List[MailingInterest]:
         pass
 

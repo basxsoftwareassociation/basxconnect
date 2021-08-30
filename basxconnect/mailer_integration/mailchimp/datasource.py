@@ -52,22 +52,11 @@ class MailchimpDatasource(abstract_datasource.Datasource):
                 "status_if_new": person.status,
                 "status": person.status,
                 "interests": compute_interests_dict(person),
+                "merge_fields": {
+                    "FNAME": person.first_name or person.display_name,
+                    "LNAME": person.last_name,
+                },
             },
-        )
-
-    def post_person(self, person: MailerPerson):
-        data = {
-            "email_address": person.email,
-            "status": person.status,
-            "interests": compute_interests_dict(person),
-            "merge_fields": {
-                "FNAME": person.first_name or person.display_name,
-                "LNAME": person.last_name,
-            },
-        }
-        self.client.lists.add_list_member(
-            settings.MAILCHIMP_LIST_ID,
-            data,
         )
 
     def get_interests(self):
