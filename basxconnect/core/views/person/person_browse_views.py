@@ -17,6 +17,20 @@ from django.utils.translation import pgettext_lazy
 from basxconnect.core import models, settings
 
 
+def bulkdelete(request, qs):
+    breaddelete(request, qs, softdeletefield="deleted")
+    for person in qs:
+        person.active = False
+        person.save()
+
+
+def bulkrestore(request, qs):
+    breadrestore(request, qs, softdeletefield="deleted")
+    for person in qs:
+        person.active = True
+        person.save()
+
+
 def export(request, queryset):
     # Fields which are filtered should also be displayed in columns
     form = PersonBrowseView.FilterForm({"status": ["active"], **request.GET})
@@ -102,17 +116,13 @@ class PersonBrowseView(BrowseView):
             "delete",
             label=_("Delete"),
             iconname="trash-can",
-            action=lambda request, qs: breaddelete(
-                request, qs, softdeletefield="deleted"
-            ),
+            action=bulkdelete,
         ),
         BulkAction(
             "restore",
             label=_("Restore"),
             iconname="restart",
-            action=lambda request, qs: breadrestore(
-                request, qs, softdeletefield="deleted"
-            ),
+            action=bulkrestore,
         ),
         BulkAction(
             "excel",
