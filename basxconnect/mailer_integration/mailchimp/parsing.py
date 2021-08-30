@@ -26,14 +26,14 @@ def create_mailer_person_from_raw(person: str) -> MailerPerson:
 # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/141
 def city(raw_person):
     if not raw_person["merge_fields"]["ADDRESS"]:
-        return None
+        return ""
     return raw_person["merge_fields"]["ADDRESS"]["city"]
 
 
 # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/141
 def address(raw_person):
     if not raw_person["merge_fields"]["ADDRESS"]:
-        return None
+        return ""
     addr1 = raw_person["merge_fields"]["ADDRESS"]["addr1"]
     addr2 = raw_person["merge_fields"]["ADDRESS"]["addr2"]
     return addr1 + ("\naddr2" if addr2 else "")
@@ -42,7 +42,7 @@ def address(raw_person):
 # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/141
 def postcode(raw_person):
     if not raw_person["merge_fields"]["ADDRESS"]:
-        return None
+        return ""
     return raw_person["merge_fields"]["ADDRESS"]["zip"]
 
 

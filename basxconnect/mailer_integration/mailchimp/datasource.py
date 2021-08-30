@@ -43,22 +43,19 @@ class MailchimpDatasource(abstract_datasource.Datasource):
             for raw_person in segment["members"]
         ]
 
-    def put_person(self, email: Email):
-        email_hash = hashlib.md5(str(email.email).lower().encode()).hexdigest()
-        interests = dict(
-            [(interest.external_id, False) for interest in Interest.objects.all()]
-        )
-        for interest in email.mailingpreferences.interests.all():
-            interests[interest.external_id] = True
-
+    def put_person(self, person: MailerPerson):
         self.client.lists.set_list_member(
             settings.MAILCHIMP_LIST_ID,
-            email_hash,
+            compute_email_hash(person),
             {
-                "email_address": email.email,
-                "status_if_new": email.mailingpreferences.status,
-                "status": email.mailingpreferences.status,
-                "interests": interests,
+                "email_address": person.email,
+                "status_if_new": person.status,
+                "status": person.status,
+                "interests": compute_interests_dict(person),
+                "merge_fields": {
+                    "FNAME": person.first_name or person.display_name,
+                    "LNAME": person.last_name,
+                },
             },
         )
 
@@ -73,3 +70,16 @@ class MailchimpDatasource(abstract_datasource.Datasource):
 
     def tag(self) -> str:
         return "Imported from Mailchimp"
+
+
+def compute_interests_dict(person) -> dict:
+    interests = dict(
+        [(interest.external_id, False) for interest in Interest.objects.all()]
+    )
+    for interest_id in person.interests_ids:
+        interests[interest_id] = True
+    return interests
+
+
+def compute_email_hash(person):
+    return hashlib.md5(str(person.email).lower().encode()).hexdigest()

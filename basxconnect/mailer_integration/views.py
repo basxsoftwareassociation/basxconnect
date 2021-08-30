@@ -6,14 +6,16 @@ from bread import layout, menu
 from bread.layout.components.form import Form
 from bread.utils import aslayout, reverse_model
 from bread.utils.links import Link
-from bread.views import EditView
+from bread.views import AddView, EditView
 from django import forms
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.views import menu_views
 from basxconnect.mailer_integration import download_data
+from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
 from basxconnect.mailer_integration.mailchimp import datasource
+from basxconnect.mailer_integration.models import MailingPreferences
 
 
 @aslayout
@@ -55,11 +57,22 @@ menu.registeritem(
 )
 
 
-class EditMailingSubscriptionsView(EditView):
-    fields = [
-        "status",
-        "interests",
-    ]
+class AddMailingPreferencesView(AddView):
+    def get_success_url(self):
+        return reverse_model(
+            self.object.email.person, "read", kwargs={"pk": self.object.email.person.pk}
+        )
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        datasource.MailchimpDatasource().put_person(
+            MailerPerson.from_mailing_preferences(self.object)
+        )
+        return response
+
+
+class EditMailingPreferencesView(EditView):
+    fields = ["interests"]
 
     def get_success_url(self):
         return reverse_model(
@@ -69,7 +82,9 @@ class EditMailingSubscriptionsView(EditView):
     def post(self, request, *args, **kwargs):
         result = super().post(request, *args, **kwargs)
         # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
-        datasource.MailchimpDatasource().put_person(self.object.email)
+        datasource.MailchimpDatasource().put_person(
+            MailerPerson.from_mailing_preferences(self.object)
+        )
         return result
 
     def get_layout(self):
