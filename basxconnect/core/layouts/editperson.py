@@ -50,7 +50,7 @@ def editperson_tabs(base_data_tab, mailing_tab, request):
     )
 
 
-def editperson_toolbar(request):
+def editperson_toolbar(request, isreadview):
     deletebutton = layout.button.Button(
         _("Delete"),
         buttontype="ghost",
@@ -95,6 +95,20 @@ def editperson_toolbar(request):
         copybutton,
         layout.button.PrintPageButton(buttontype="ghost"),
         add_person_button,
+        *(
+            []
+            if isreadview
+            else [
+                layout.button.Button(
+                    _("Save changes"),
+                    id=hg.BaseElement("save-button-", hg.C("object.pk")),
+                    icon="save",
+                    buttontype="tertiary",
+                    onclick="document.querySelector('div.bx--content form[method=POST]').submit()",
+                    style="margin-left: 1rem;",
+                ),
+            ]
+        ),
         _class="no-print",
         style="margin-bottom: 1rem; margin-left: 1rem",
         width=3,
@@ -102,27 +116,6 @@ def editperson_toolbar(request):
 
 
 def editperson_head(request, isreadview):
-    personnumber = hg.DIV(
-        hg.LABEL(layout.fieldlabel(Person, "personnumber"), _class="bx--label"),
-        hg.DIV(hg.C("object.personnumber"), style="margin-top: 1rem"),
-        style="margin-left: 2rem",
-    )
-    personmaintype = hg.DIV(
-        hg.LABEL(_("Main Type"), _class="bx--label"),
-        hg.DIV(layout.ModelName("object"), style="margin-top: 1rem;"),
-        style="margin-left: 2rem",
-    )
-    created = hg.DIV(
-        hg.LABEL(_("Created"), _class="bx--label"),
-        hg.DIV(
-            hg.C("object.history.last.history_date.date"),
-            " / ",
-            hg.C("object.history.last.history_user"),
-            style="margin-top: 1rem",
-        ),
-        style="margin-left: 2rem",
-    )
-
     areyousure = layout.modal.Modal(
         _("Unsaved changes"),
         buttons=(
@@ -161,7 +154,7 @@ def editperson_head(request, isreadview):
                             hg.C("object.deleted"), "text-decoration: line-through"
                         ),
                     ),
-                    editperson_toolbar(request),
+                    editperson_toolbar(request, isreadview),
                 ),
                 width=12,
             ),
@@ -187,36 +180,6 @@ def editperson_head(request, isreadview):
                 width=4,
             ),
             style="padding-top: 1rem",
-        ),
-        R(
-            C(
-                hg.DIV(
-                    active_toggle(isreadview),
-                    personnumber,
-                    personmaintype,
-                    created,
-                    last_change(),
-                    style="display:flex;",
-                ),
-                width=9,
-            ),
-            *(
-                []
-                if isreadview
-                else [
-                    C(
-                        layout.button.Button(
-                            _("Save changes"),
-                            id=hg.BaseElement("save-button-", hg.C("object.pk")),
-                            icon="save",
-                            buttontype="tertiary",
-                            onclick="document.querySelector('div.bx--content form[method=POST]').submit()",
-                        ),
-                        width=4,
-                        _class="bx--offset-lg-3",
-                    )
-                ]
-            ),
         ),
     )
 
@@ -245,6 +208,20 @@ def active_toggle(isreadview):
     )
     active_toggle.input.attributes["checked"] = hg.F(lambda c: c["object"].active)
     active_toggle.label.insert(0, _("Person status"))
+    active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
+    return hg.DIV(active_toggle)
+
+
+def active_toggle_without_label():
+    active_toggle = layout.toggle.Toggle(
+        None, _("Inactive"), _("Active"), style="margin-top:-1rem; margin-bottom:0;"
+    )
+    active_toggle.input.attributes["id"] = "person_active_toggle2"
+    active_toggle.input.attributes["hx_trigger"] = "change"
+    active_toggle.input.attributes["hx_post"] = hg.F(
+        lambda c: reverse_lazy("core.person.togglestatus", args=[c["object"].pk])
+    )
+    active_toggle.input.attributes["checked"] = hg.F(lambda c: c["object"].active)
     active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
     return hg.DIV(active_toggle)
 
@@ -502,8 +479,40 @@ def grid_inside_tab(*elems, **attrs):
     return layout.grid.Grid(*elems, **attrs)
 
 
-def tile_col_with_edit_modal(modal_view):
-    modal = layout.modal.Modal.with_ajax_content(
+def tile_col_edit_modal_all_fields(modal_view):
+    displayed_fields = [display_field_value(field) for field in modal_view.fields]
+    return tile_col_edit_modal(modal_view, displayed_fields)
+
+
+def tile_col_edit_modal(modal_view, displayed_fields):
+    modal = create_modal(modal_view)
+    return tile_with_icon(
+        modal_view.icon(),
+        C(
+            tile_header(modal_view.read_heading()),
+            *displayed_fields,
+            open_modal_popup_button(modal),
+        ),
+    )
+
+
+def open_modal_popup_button(modal):
+    return R(
+        C(
+            layout.button.Button(
+                "Edit",
+                buttontype="tertiary",
+                icon="edit",
+                **modal.openerattributes,
+            ),
+            modal,
+        ),
+        style="margin-top: 1.5rem;",
+    )
+
+
+def create_modal(modal_view):
+    return layout.modal.Modal.with_ajax_content(
         heading=modal_view.edit_heading(),
         url=hg.F(
             lambda c: reverse(
@@ -514,32 +523,17 @@ def tile_col_with_edit_modal(modal_view):
         ),
         submitlabel=_("Save"),
     )
-    displayed_fields = [display_field_value(field) for field in modal_view.fields]
-    return tile_with_icon(
-        modal_view.icon(),
+
+
+def tile_header(header, **kwargs):
+    return R(
         C(
-            R(
-                C(
-                    hg.H4(
-                        modal_view.read_heading(),
-                        style="margin-top: 0; margin-bottom: 3rem;",
-                    )
-                )
+            hg.H4(
+                header,
+                style="margin-top: 0; margin-bottom: 3rem;",
             ),
-            *displayed_fields,
-            R(
-                C(
-                    layout.button.Button(
-                        "Edit",
-                        buttontype="tertiary",
-                        icon="edit",
-                        **modal.openerattributes,
-                    ),
-                    modal,
-                ),
-                style="margin-top: 1.5rem;",
-            ),
-        ),
+            **kwargs,
+        )
     )
 
 
@@ -561,6 +555,20 @@ def display_field_value(field):
     )
 
 
+def display_label_and_value(label, value):
+    return R(
+        C(
+            hg.DIV(
+                label,
+                style="font-weight: bold;",
+            ),
+            width=6,
+        ),
+        C(value),
+        style="padding-bottom: 1.5rem;",
+    )
+
+
 def tiling_col(*elems, **attrs):
     attrs = collections.defaultdict(str, attrs or {})
     attrs["_class"] += " tile tile-col theme-white"
@@ -570,3 +578,30 @@ def tiling_col(*elems, **attrs):
 def tiling_row(*elems, **attrs):
     attrs = collections.defaultdict(str, attrs or {})
     return R(C(*elems, **attrs), _class="tile theme-white")
+
+
+def person_metadata():
+    return tiling_col(
+        # we need this to take exactly as much space as a real header
+        tile_header("A", style="visibility: hidden;"),
+        display_field_value("personnumber"),
+        display_field_value("maintype"),
+        display_label_and_value(_("Status"), active_toggle_without_label()),
+        display_label_and_value(
+            _("Changed"),
+            hg.BaseElement(
+                hg.C("object.history.first.history_date.date"),
+                " / ",
+                hg.C("object.history.first.history_user"),
+            ),
+        ),
+        display_label_and_value(
+            _("Created"),
+            hg.BaseElement(
+                hg.C("object.history.last.history_date.date"),
+                " / ",
+                hg.C("object.history.last.history_user"),
+            ),
+        ),
+        style="border-left: none;",
+    )

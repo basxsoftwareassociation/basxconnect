@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from basxconnect.core.layouts import editperson
 from basxconnect.core.views.person.person_modals_views import (
     LegalPersonEditMailingsView,
+    LegalPersonEditPersonalDataView,
 )
 
 R = layout.grid.Row
@@ -22,19 +23,13 @@ def base_data_tab():
         hg.BaseElement(
             editperson.grid_inside_tab(
                 R(
-                    editperson.tiling_col(
-                        R(C(hg.H4(_("Name")))),
-                        R(
-                            C(
-                                R(C(F("name"))),
-                                R(C(F("name_addition"))),
-                                width=8,
-                            )
-                        ),
+                    editperson.tile_col_edit_modal_all_fields(
+                        LegalPersonEditPersonalDataView
                     ),
-                    editperson.categories(),
+                    editperson.person_metadata(),
                 ),
                 editperson.contact_details(),
+                R(editperson.categories()),
             ),
         ),
     )
@@ -54,7 +49,7 @@ def mailings_tab(request):
         _("Mailings"),
         editperson.grid_inside_tab(
             R(
-                editperson.tile_col_with_edit_modal(
+                editperson.tile_col_edit_modal_all_fields(
                     modal_view=LegalPersonEditMailingsView
                 ),
                 mailer_tile,

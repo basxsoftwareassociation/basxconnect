@@ -129,4 +129,19 @@ urlpatterns = [
             model=models.LegalPerson
         )
     ),
+    autopath(
+        person_modals_views.NaturalPersonEditPersonalDataView.as_view(
+            model=models.NaturalPerson
+        )
+    ),
+    autopath(
+        person_modals_views.LegalPersonEditPersonalDataView.as_view(
+            model=models.LegalPerson
+        )
+    ),
+    autopath(
+        person_modals_views.PersonAssociationEditPersonalDataView.as_view(
+            model=models.PersonAssociation
+        )
+    ),
 ]

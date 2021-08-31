@@ -1,10 +1,13 @@
 import htmlgenerator as hg
 from bread import layout
+from bread.layout import ObjectFieldValue
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.layouts import editperson
+from basxconnect.core.layouts.editperson import person_metadata
 from basxconnect.core.views.person.person_modals_views import (
     NaturalPersonEditMailingsView,
+    NaturalPersonEditPersonalDataView,
 )
 
 R = layout.grid.Row
@@ -17,29 +20,40 @@ def editnaturalperson_form(request):
 
 
 def base_data_tab():
+
     return layout.tabs.Tab(
         _("Base data"),
         editperson.grid_inside_tab(
             R(
-                editperson.tiling_col(
-                    R(C(hg.H4(_("Name")))),
-                    R(
-                        C(F("salutation"), width=4),
-                        C(F("title"), width=4),
-                    ),
-                    R(
-                        C(F("first_name")),
-                        C(F("last_name")),
-                    ),
-                    R(
-                        C(F("name")),
-                    ),
-                    width=8,
-                ),
-                editperson.categories(),
+                personal_data(),
+                person_metadata(),
             ),
             contact_details_naturalperson(),
         ),
+    )
+
+
+def personal_data():
+    displayed_fields = [
+        editperson.display_field_value(field)
+        for field in [
+            "salutation",
+            "title",
+            "name",
+            "first_name",
+            "last_name",
+            "date_of_birth",
+            "profession",
+        ]
+    ] + [
+        hg.If(ObjectFieldValue("deceased"), editperson.display_field_value("deceased")),
+        hg.If(
+            ObjectFieldValue("deceased"),
+            editperson.display_field_value("decease_date"),
+        ),
+    ]
+    return editperson.tile_col_edit_modal(
+        NaturalPersonEditPersonalDataView, displayed_fields
     )
 
 
@@ -57,7 +71,7 @@ def mailings_tab(request):
         _("Mailings"),
         editperson.grid_inside_tab(
             R(
-                editperson.tile_col_with_edit_modal(
+                editperson.tile_col_edit_modal_all_fields(
                     modal_view=NaturalPersonEditMailingsView
                 ),
                 mailer_tile,
@@ -73,28 +87,6 @@ def contact_details_naturalperson():
             editperson.numbers(),
             editperson.email(),
         ),
-        R(
-            editperson.urls(),
-            personal(),
-        ),
-        R(editperson.other(), editperson.tiling_col()),
-    )
-
-
-def personal():
-    return editperson.tiling_col(
-        hg.H4(_("Personal")),
-        R(C(F("profession"))),
-        R(
-            C(F("date_of_birth"), width=6),
-            C("", width=1),
-            C(
-                F(
-                    "deceased",
-                    elementattributes={"_class": "standalone"},
-                ),
-                width=3,
-            ),
-            C(F("decease_date"), width=6),
-        ),
+        R(editperson.urls(), editperson.categories()),
+        R(editperson.other(), C(width=8)),
     )
