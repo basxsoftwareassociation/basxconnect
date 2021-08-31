@@ -479,12 +479,12 @@ def grid_inside_tab(*elems, **attrs):
     return layout.grid.Grid(*elems, **attrs)
 
 
-def tile_col_edit_modal_all_fields(modal_view):
+def tile_col_edit_modal(modal_view):
     displayed_fields = [display_field_value(field) for field in modal_view.fields]
-    return tile_col_edit_modal(modal_view, displayed_fields)
+    return tile_col_edit_modal_selected_fields(modal_view, displayed_fields)
 
 
-def tile_col_edit_modal(modal_view, displayed_fields):
+def tile_col_edit_modal_selected_fields(modal_view, displayed_fields):
     modal = create_modal(modal_view)
     return tile_with_icon(
         modal_view.icon(),

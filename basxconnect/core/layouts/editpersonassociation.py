@@ -21,9 +21,7 @@ def base_data_tab():
         _("Base data"),
         editperson.grid_inside_tab(
             R(
-                editperson.tile_col_edit_modal_all_fields(
-                    PersonAssociationEditPersonalDataView
-                ),
+                editperson.tile_col_edit_modal(PersonAssociationEditPersonalDataView),
                 editperson.person_metadata(),
             ),
             editperson.contact_details(),

@@ -52,7 +52,7 @@ def personal_data():
             editperson.display_field_value("decease_date"),
         ),
     ]
-    return editperson.tile_col_edit_modal(
+    return editperson.tile_col_edit_modal_selected_fields(
         NaturalPersonEditPersonalDataView, displayed_fields
     )
 
@@ -71,7 +71,7 @@ def mailings_tab(request):
         _("Mailings"),
         editperson.grid_inside_tab(
             R(
-                editperson.tile_col_edit_modal_all_fields(
+                editperson.tile_col_edit_modal(
                     modal_view=NaturalPersonEditMailingsView
                 ),
                 mailer_tile,

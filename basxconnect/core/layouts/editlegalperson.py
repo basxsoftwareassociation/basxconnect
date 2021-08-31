@@ -23,9 +23,7 @@ def base_data_tab():
         hg.BaseElement(
             editperson.grid_inside_tab(
                 R(
-                    editperson.tile_col_edit_modal_all_fields(
-                        LegalPersonEditPersonalDataView
-                    ),
+                    editperson.tile_col_edit_modal(LegalPersonEditPersonalDataView),
                     editperson.person_metadata(),
                 ),
                 editperson.contact_details(),
@@ -49,9 +47,7 @@ def mailings_tab(request):
         _("Mailings"),
         editperson.grid_inside_tab(
             R(
-                editperson.tile_col_edit_modal_all_fields(
-                    modal_view=LegalPersonEditMailingsView
-                ),
+                editperson.tile_col_edit_modal(modal_view=LegalPersonEditMailingsView),
                 mailer_tile,
             ),
         ),
