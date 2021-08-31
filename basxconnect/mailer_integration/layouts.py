@@ -34,15 +34,7 @@ def _display_preferences(email):
     if not hasattr(email, "mailingpreferences"):
         return _display_email_without_preferences(email)
     mailingpreferences = email.mailingpreferences
-    modal = layout.modal.Modal.with_ajax_content(
-        heading=_("Edit Email Subscriptions"),
-        url=reverse(
-            "basxconnect.mailer_integration.views.editmailingpreferencesview",
-            kwargs={"pk": mailingpreferences.pk},
-            query={"asajax": True},
-        ),
-        submitlabel=_("Save"),
-    )
+    modal = modal_edit_mailingpreferences(mailingpreferences)
     interests = [
         R(
             C(interest, width=6, breakpoint="lg"),
@@ -120,8 +112,23 @@ def is_interested_indicator(is_subscribed):
     )
 
 
+def modal_edit_mailingpreferences(mailingpreferences):
+    modal = layout.modal.Modal.with_ajax_content(
+        heading=_("Edit Email Subscriptions"),
+        url=reverse(
+            "basxconnect.mailer_integration.views.editmailingpreferencesview",
+            kwargs={"pk": mailingpreferences.pk},
+            query={"asajax": True},
+        ),
+        submitlabel=_("Save"),
+    )
+    modal[0][1].attributes["style"] = "overflow: visible"
+    modal[0].attributes["style"] = "overflow: visible"
+    return modal
+
+
 def modal_add_mailingpreferences(email: models.Email):
-    return layout.modal.Modal.with_ajax_content(
+    ret = layout.modal.Modal.with_ajax_content(
         heading=_("Add Mailing Preferences"),
         url=reverse(
             "basxconnect.mailer_integration.views.addmailingpreferencesview",
@@ -129,3 +136,6 @@ def modal_add_mailingpreferences(email: models.Email):
         ),
         submitlabel=_("Save"),
     )
+    ret[0][1].attributes["style"] = "overflow: visible"
+    ret[0].attributes["style"] = "overflow: visible"
+    return ret
