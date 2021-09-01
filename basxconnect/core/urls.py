@@ -144,4 +144,8 @@ urlpatterns = [
             model=models.PersonAssociation
         )
     ),
+    autopath(person_modals_views.AddRelationshipTo.as_view(model=models.Relationship)),
+    autopath(
+        person_modals_views.AddRelationshipFrom.as_view(model=models.Relationship)
+    ),
 ]

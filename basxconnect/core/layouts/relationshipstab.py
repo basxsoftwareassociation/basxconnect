@@ -3,13 +3,22 @@ from typing import Callable
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.datatable import DataTableColumn
-from bread.utils import Link, ModelHref, reverse_model
+from bread.utils import Link, ModelHref, reverse, reverse_model
+from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.models import Person, Relationship
+from basxconnect.core.views.person.person_modals_views import (
+    AddRelationshipFrom,
+    AddRelationshipTo,
+)
+
+R = layout.grid.Row
+C = layout.grid.Col
 
 
 def relationshipstab(request):
+    person = get_object_or_404(Person, pk=request.resolver_match.kwargs["pk"])
     return layout.tabs.Tab(
         _("Relationships"),
         hg.BaseElement(
@@ -18,14 +27,6 @@ def relationshipstab(request):
                 hg.F(
                     lambda c: c["object"].relationships_to.all()
                     | c["object"].relationships_from.all()
-                ),
-                addurl=reverse_model(
-                    Relationship,
-                    "add",
-                    query={
-                        "person_a": request.resolver_match.kwargs["pk"],
-                        "person_a_nohide": True,
-                    },
                 ),
                 backurl=request.get_full_path(),
                 prevent_automatic_sortingnames=True,
@@ -50,8 +51,58 @@ def relationshipstab(request):
                 ],
                 rowactions_dropdown=True,
             ),
+            R(C(button_add_relationship_from(person)), style="margin-top: 1.5rem"),
+            R(C(button_add_relationship_to(person)), style="margin-top: 1.5rem"),
         ),
     )
+
+
+def button_add_relationship_from(person):
+    modal = modal_add_relationship_from(person)
+    return hg.BaseElement(
+        layout.button.Button(
+            _("Add relationship from person"),
+            buttontype="primary",
+            **modal.openerattributes,
+        ),
+        modal,
+    )
+
+
+def button_add_relationship_to(person):
+    modal = modal_add_relationship_to(person)
+    return hg.BaseElement(
+        layout.button.Button(
+            _("Add relationship to person"),
+            buttontype="primary",
+            **modal.openerattributes,
+        ),
+        modal,
+    )
+
+
+def modal_add_relationship_from(person):
+    ret = layout.modal.Modal.with_ajax_content(
+        heading=_("Add relationship from person"),
+        url=reverse(
+            AddRelationshipFrom.path(),
+            query={"asajax": True, "person_a": person.pk},
+        ),
+        submitlabel=_("Save"),
+    )
+    return ret
+
+
+def modal_add_relationship_to(person):
+    ret = layout.modal.Modal.with_ajax_content(
+        heading=_("Add relationship to person"),
+        url=reverse(
+            AddRelationshipTo.path(),
+            query={"asajax": True, "person_b": person.pk},
+        ),
+        submitlabel=_("Save"),
+    )
+    return ret
 
 
 def person_in_relationship(

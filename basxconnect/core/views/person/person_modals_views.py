@@ -1,7 +1,8 @@
 ﻿import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.icon import Icon
-from bread.views import EditView
+from bread.utils import reverse_model
+from bread.views import AddView, EditView
 from django.utils.translation import gettext_lazy as _
 
 
@@ -150,3 +151,33 @@ class LegalPersonEditMailingsView(EditView):
     def get_layout(self):
         form_fields = [layout.form.FormField(field) for field in self.fields]
         return hg.DIV(*form_fields)
+
+
+class AddRelationshipTo(AddView):
+    def get_success_url(self):
+        return reverse_model(
+            self.object.person_a, "read", kwargs={"pk": self.object.person_a.pk}
+        )
+
+    @staticmethod
+    def path():
+        return "basxconnect.core.views.person.person_modals_views.addrelationshipto"
+
+    @staticmethod
+    def edit_heading():
+        return _("Add Relationship to")
+
+
+class AddRelationshipFrom(AddView):
+    def get_success_url(self):
+        return reverse_model(
+            self.object.person_a, "read", kwargs={"pk": self.object.person_a.pk}
+        )
+
+    @staticmethod
+    def path():
+        return "basxconnect.core.views.person.person_modals_views.addrelationshipfrom"
+
+    @staticmethod
+    def edit_heading():
+        return _("Add Relationship from")
