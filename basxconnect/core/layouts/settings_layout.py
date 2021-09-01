@@ -1,7 +1,6 @@
 import htmlgenerator as hg
 from bread import layout
-from bread.utils.links import Link, ModelHref
-from bread.utils.urls import reverse, reverse_model
+from bread.utils import Link, ModelHref, pretty_modelname, reverse
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.models import Category, RelationshipType, Term
@@ -19,14 +18,20 @@ def relationshipssettings(request):
                 layout.datatable.DataTable.from_queryset(
                     RelationshipType.objects.all(),
                     columns=["name"],
-                    addurl=reverse_model(
-                        RelationshipType,
-                        "add",
-                        query={
-                            "next": reverse(
-                                "basxconnect.core.views.settings_views.relationshipssettings"
-                            )
-                        },
+                    primary_button=layout.button.Button.fromlink(
+                        Link(
+                            href=ModelHref(
+                                RelationshipType,
+                                "add",
+                                query={
+                                    "next": reverse(
+                                        "basxconnect.core.views.settings_views.relationshipssettings"
+                                    )
+                                },
+                            ),
+                            label=_("Add %s") % pretty_modelname(RelationshipType),
+                        ),
+                        icon=layout.icon.Icon("add", size=20),
                     ),
                     rowactions=[
                         Link(
@@ -115,13 +120,21 @@ def generate_term_datatable(title, category_slug):
         Term.objects.filter(category__slug=category_slug),
         columns=["term"],
         title=title,
-        addurl=reverse_model(
-            Term,
-            "add",
-            query={
-                "category": cat.id,
-                "next": reverse("basxconnect.core.views.settings_views.personsettings"),
-            },
+        primary_button=layout.button.Button.fromlink(
+            Link(
+                href=ModelHref(
+                    Term,
+                    "add",
+                    query={
+                        "category": cat.id,
+                        "next": reverse(
+                            "basxconnect.core.views.settings_views.personsettings"
+                        ),
+                    },
+                ),
+                label=_("Add %s") % pretty_modelname(Term),
+            ),
+            icon=layout.icon.Icon("add", size=20),
         ),
         prevent_automatic_sortingnames=True,
         rowclickaction="edit",
