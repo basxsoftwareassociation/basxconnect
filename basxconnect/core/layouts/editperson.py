@@ -1,4 +1,5 @@
 import collections
+from typing import Callable
 
 import bread.layout
 import htmlgenerator as hg
@@ -12,7 +13,6 @@ from django.utils.translation import gettext_lazy as _
 import basxconnect.core.settings
 from basxconnect.core.layouts import contributions_tab
 from basxconnect.core.models import Person, Relationship
-from basxconnect.core.views.person import search_person_view
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -388,66 +388,33 @@ def relationshipstab(request):
     return layout.tabs.Tab(
         _("Relationships"),
         hg.BaseElement(
-            layout.form.FormsetField.as_datatable(
-                "relationships_to",
-                [
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_a"),
-                        hg.C("object"),
-                    ),
-                    "type",
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_b"),
-                        F(
-                            "person_b",
-                            fieldtype=layout.search_select.SearchSelect,
-                            hidelabel=True,
-                            elementattributes={
-                                "backend": layout.search.SearchBackendConfig(
-                                    reverse_lazy(
-                                        "basxconnect.core.views.person.search_person_view.searchperson"
-                                    ),
-                                    result_selector=f".{search_person_view.ITEM_CLASS}",
-                                    result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
-                                    result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
-                                ),
-                            },
-                        ),
-                    ),
-                    "start_date",
-                    "end_date",
-                ],
-                # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
-                # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
-                title=hg.F(
-                    lambda c: _('Relationships from %s to "person B"') % c["object"]
+            layout.datatable.DataTable.from_model(
+                Relationship,
+                hg.F(
+                    lambda c: c["object"].relationships_to.all()
+                    | c["object"].relationships_from.all()
                 ),
-            ),
-            layout.form.FormsetField.as_datatable(
-                "relationships_from",
-                [
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_a"),
-                        F(
-                            "person_a",
-                            fieldtype=layout.search_select.SearchSelect,
-                            hidelabel=True,
-                            elementattributes={
-                                "backend": layout.search.SearchBackendConfig(
-                                    reverse_lazy(
-                                        "basxconnect.core.views.person.search_person_view.searchperson"
-                                    ),
-                                    result_selector=f".{search_person_view.ITEM_CLASS}",
-                                    result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
-                                    result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
-                                ),
-                            },
-                        ),
-                    ),
+                addurl=reverse_model(
+                    Relationship,
+                    "add",
+                    query={
+                        "person_a": request.resolver_match.kwargs["pk"],
+                        "person_a_nohide": True,
+                    },
+                ),
+                backurl=request.get_full_path(),
+                prevent_automatic_sortingnames=True,
+                columns=[
                     "type",
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_b"),
-                        hg.C("object"),
+                    person_in_relationship(
+                        "Person A",
+                        "person_a",
+                        lambda relationship: relationship.person_a,
+                    ),
+                    person_in_relationship(
+                        "Person B",
+                        "person_b",
+                        lambda relationship: relationship.person_b,
                     ),
                     "start_date",
                     "end_date",
@@ -457,12 +424,44 @@ def relationshipstab(request):
                     row_action("edit", "edit", _("Edit")),
                 ],
                 rowactions_dropdown=True,
-                title=hg.F(
-                    lambda c: _('Relationships from "person A" to %s') % c["object"]
-                ),
             ),
         ),
     )
+
+
+def person_in_relationship(
+    header: str,
+    field_name: str,
+    get_person: Callable[[Relationship], Person],
+) -> DataTableColumn:
+    return DataTableColumn(
+        header,
+        hg.SPAN(
+            person_name(field_name),
+            person_number_in_brackets(field_name),
+            **attributes_for_link_to_person(get_person),
+        ),
+    )
+
+
+def attributes_for_link_to_person(get_person: Callable[[Relationship], Person]):
+    return layout.aslink_attributes(
+        hg.F(
+            lambda c: reverse_model(
+                get_person(c["row"]),
+                "read",
+                kwargs={"pk": get_person(c["row"]).pk},
+            )
+        )
+    )
+
+
+def person_name(field):
+    return hg.C(f"row.{field}")
+
+
+def person_number_in_brackets(field):
+    return hg.SPAN(" [", hg.C(f"row.{field}.personnumber"), "]")
 
 
 def row_action(object_action, icon, label):
