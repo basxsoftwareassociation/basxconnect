@@ -1,5 +1,5 @@
 from bread import layout
-from bread.utils import reverse_model
+from bread.utils import Link, ModelHref, pretty_modelname
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
@@ -26,12 +26,12 @@ def contributions_tab(request):
                 "amount_formatted",
             ],
             title="",
-            addurl=reverse_model(
-                Contribution,
-                "add",
-                query={
-                    "person": person.id,
-                },
+            primary_button=layout.button.Button.fromlink(
+                Link(
+                    href=ModelHref(Contribution, "add", query={"person": person.id}),
+                    label=_("Add %s") % pretty_modelname(Contribution),
+                ),
+                icon=layout.icon.Icon("add", size=20),
             ),
             backurl=request.get_full_path(),
             prevent_automatic_sortingnames=True,
