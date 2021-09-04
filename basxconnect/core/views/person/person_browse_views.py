@@ -132,7 +132,7 @@ class PersonBrowseView(BrowseView):
         ),
     )
     searchurl = reverse("basxconnect.core.views.person.search_person_view.searchperson")
-    rowclickaction = "read"
+    rowclickaction = BrowseView.gen_rowclickaction("read")
 
     class FilterForm(forms.Form):
         naturalperson = forms.BooleanField(required=False, label=_("Natural Person"))
