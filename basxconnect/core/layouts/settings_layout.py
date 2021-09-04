@@ -1,6 +1,7 @@
 import htmlgenerator as hg
 from bread import layout
 from bread.utils import Link, ModelHref, pretty_modelname, reverse
+from bread.views import BrowseView
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.models import Category, RelationshipType, Term
@@ -137,7 +138,7 @@ def generate_term_datatable(title, category_slug):
             icon=layout.icon.Icon("add", size=20),
         ),
         prevent_automatic_sortingnames=True,
-        rowclickaction="edit",
+        rowclickaction=BrowseView.gen_rowclickaction("edit"),
         rowactions=[
             Link(
                 label=_("Delete"),
