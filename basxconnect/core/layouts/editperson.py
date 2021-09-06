@@ -4,15 +4,21 @@ import bread.layout
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.datatable import DataTableColumn
+from bread.layout.components.icon import Icon
 from bread.utils import reverse, reverse_model
 from bread.utils.links import Link, ModelHref
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 import basxconnect.core.settings
+from basxconnect.core import models
 from basxconnect.core.layouts import contributions_tab
 from basxconnect.core.models import Person, Relationship
 from basxconnect.core.views.person import search_person_view
+from basxconnect.core.views.person.person_modals_views import (
+    AddPostalAddressView,
+    EditPostalAddressView,
+)
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -41,7 +47,7 @@ def editperson_form(request, base_data_tab, mailings_tab):
 
 
 def editperson_tabs(base_data_tab, mailing_tab, request):
-    return [base_data_tab(), relationshipstab(request), mailing_tab(request)] + (
+    return [base_data_tab(), relationshipstab(), mailing_tab(request)] + (
         [
             contributions_tab.contributions_tab(request),
         ]
@@ -228,15 +234,15 @@ def active_toggle_without_label():
 
 def contact_details():
     return hg.BaseElement(
-        addresses(),
         R(
+            addresses(),
             numbers(),
-            email(),
         ),
         R(
+            email(),
             urls(),
-            other(),
         ),
+        R(other(), C(width=8)),
     )
 
 
@@ -327,42 +333,95 @@ def other():
     )
 
 
+def display_postal(postal: models.Postal):
+    modal = layout.modal.Modal.with_ajax_content(
+        heading=EditPostalAddressView.edit_heading(),
+        url=reverse(
+            EditPostalAddressView.path(),
+            kwargs={"pk": postal.pk},
+            query={"asajax": True},
+        ),
+        submitlabel=_("Save"),
+    )  # TODO supply the pk of the postal, not the one of the person
+    return R(
+        C(
+            hg.DIV(
+                postal.type,
+                style="font-weight: bold; margin-bottom: 1rem;",
+            ),
+            hg.DIV(postal.address, style="margin-bottom: 0.25rem;"),
+            hg.DIV(postal.postcode, " ", postal.city, style="margin-bottom: 0.25rem;"),
+            hg.DIV(postal.get_country_display()),
+            edit_postal_button(modal),
+        ),
+        style="margin-top: 1.5rem;",
+    )
+
+
+def edit_postal_button(modal):
+    return hg.DIV(
+        layout.button.Button(
+            "",
+            buttontype="ghost",
+            icon="edit",
+            **modal.openerattributes,
+        ),
+        modal,
+    )
+
+
 def addresses():
-    return tiling_row(
+    modal = modal_add_postal()
+    return tile_with_icon(
+        Icon("map"),
         hg.H4(_("Address(es)")),
         hg.If(
             hg.F(
                 lambda c: hasattr(c["object"], "core_postal_list")
                 and c["object"].core_postal_list.count() > 1
             ),
-            R(C(F("primary_postal_address"), width=4)),
-        ),
-        layout.form.FormsetField.as_plain(
-            "core_postal_list",
-            R(
-                C(F("type"), width=2),
-                C(
-                    F(
-                        "address",
-                        widgetattributes={"style": "height: 1rem"},
-                    ),
-                    width=4,
-                ),
-                C(F("postcode"), width=2),
-                C(F("city"), width=4),
-                C(F("country"), width=3),
-                C(
-                    layout.form.InlineDeleteButton(
-                        ".bx--row",
-                        icon="subtract--alt",
-                    ),
-                    style="margin-top: 1.5rem",
-                    width=1,
-                ),
+            hg.BaseElement(
+                R(C(F("primary_postal_address"), width=10)),
             ),
-            add_label=_("Add address"),
         ),
-        style="padding-bottom: 2rem",
+        R(
+            C(
+                hg.Iterator(
+                    hg.F(
+                        lambda c: getattr(c["object"], "core_postal_list").all()
+                        if hasattr(c["object"], "core_postal_list")
+                        else []
+                    ),
+                    "i",
+                    hg.F(lambda c: display_postal(c["i"])),
+                )
+            )
+        ),
+        R(
+            C(
+                layout.button.Button(
+                    "Add",
+                    buttontype="ghost",
+                    icon="Add",
+                    **modal.openerattributes,
+                ),
+                modal,
+            ),
+            style="margin-top: 1.5rem;",
+        ),
+    )
+
+
+def modal_add_postal():
+    return layout.modal.Modal.with_ajax_content(
+        heading=_("Add Address"),
+        url=hg.F(
+            lambda c: reverse(
+                AddPostalAddressView.path(),
+                query={"asajax": True, "person": c["object"].pk},
+            )
+        ),
+        submitlabel=_("Save"),
     )
 
 
@@ -384,7 +443,7 @@ def revisionstab():
     )
 
 
-def relationshipstab(request):
+def relationshipstab():
     return layout.tabs.Tab(
         _("Relationships"),
         hg.BaseElement(
@@ -488,7 +547,7 @@ def tile_col_edit_modal_selected_fields(modal_view, displayed_fields):
     modal = create_modal(modal_view)
     return tile_with_icon(
         modal_view.icon(),
-        C(
+        hg.BaseElement(
             tile_header(modal_view.read_heading()),
             *displayed_fields,
             open_modal_popup_button(modal),
