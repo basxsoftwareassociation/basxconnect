@@ -4,7 +4,6 @@ from typing import List
 import mailchimp_marketing
 from django.conf import settings
 
-from basxconnect.core.models import Email
 from basxconnect.mailer_integration.abstract import abstract_datasource
 from basxconnect.mailer_integration.abstract.abstract_datasource import (
     MailerPerson,
