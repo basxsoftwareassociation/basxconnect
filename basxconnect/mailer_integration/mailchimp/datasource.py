@@ -50,7 +50,9 @@ class MailchimpDatasource(abstract_datasource.Datasource):
             {
                 "email_address": person.email,
                 "status_if_new": person.status,
-                "status": person.status,
+                # for the moment we don't alter the mailchimp status in BasxConnect, because it is very
+                # critical in Mailchimp and we want to be cautious for now
+                # "status": person.status,
                 "interests": compute_interests_dict(person),
                 "merge_fields": {
                     "FNAME": person.first_name or person.display_name,
