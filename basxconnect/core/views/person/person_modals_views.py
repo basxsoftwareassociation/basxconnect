@@ -151,3 +151,35 @@ class LegalPersonEditMailingsView(EditView):
     def get_layout(self):
         form_fields = [layout.form.FormField(field) for field in self.fields]
         return hg.DIV(*form_fields)
+
+
+class EditPostalAddressView(EditView):
+    fields = ["type", "address", "postcode", "city", "country"]
+
+    def get_success_url(self):
+        return reverse_model(
+            self.object.person, "read", kwargs={"pk": self.object.person.pk}
+        )
+
+    def get_layout(self):
+        form_fields = [layout.form.FormField(field) for field in self.fields]
+        return hg.DIV(*form_fields)
+
+    @staticmethod
+    def path():
+        return "basxconnect.core.views.person.person_modals_views.editpostaladdressview"
+
+    @staticmethod
+    def edit_heading():
+        return _("Edit Postal Address")
+
+
+class AddPostalAddressView(AddView):
+    def get_success_url(self):
+        return reverse_model(
+            self.object.email.person, "read", kwargs={"pk": self.object.person.pk}
+        )
+
+    @staticmethod
+    def path():
+        return "basxconnect.core.views.person.person_modals_views.addpostaladdressview"
