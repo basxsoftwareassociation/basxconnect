@@ -177,7 +177,7 @@ class EditPostalAddressView(EditView):
 class AddPostalAddressView(AddView):
     def get_success_url(self):
         return reverse_model(
-            self.object.email.person, "read", kwargs={"pk": self.object.person.pk}
+            self.object.person, "read", kwargs={"pk": self.object.person.pk}
         )
 
     @staticmethod
