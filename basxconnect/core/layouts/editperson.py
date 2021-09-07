@@ -347,6 +347,9 @@ def display_postal(postal: models.Postal):
         C(
             hg.DIV(
                 postal.type,
+                " (" + _("primary") + ")"
+                if postal.person.primary_postal_address.pk == postal.pk
+                else "",
                 style="font-weight: bold; margin-bottom: 1rem;",
             ),
             hg.DIV(postal.address, style="margin-bottom: 0.25rem;"),
@@ -375,15 +378,6 @@ def addresses():
     return tile_with_icon(
         Icon("map"),
         hg.H4(_("Address(es)")),
-        hg.If(
-            hg.F(
-                lambda c: hasattr(c["object"], "core_postal_list")
-                and c["object"].core_postal_list.count() > 1
-            ),
-            hg.BaseElement(
-                R(C(F("primary_postal_address"), width=10)),
-            ),
-        ),
         R(
             C(
                 hg.Iterator(

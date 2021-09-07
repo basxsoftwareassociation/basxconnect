@@ -1,4 +1,5 @@
-﻿import htmlgenerator as hg
+﻿import django.forms
+import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.icon import Icon
 from bread.utils import reverse_model
@@ -161,8 +162,32 @@ class EditPostalAddressView(EditView):
             self.object.person, "read", kwargs={"pk": self.object.person.pk}
         )
 
+    def get_form(self, form_class=None):
+        ret = super().get_form(form_class)
+        ret.fields["is_primary"] = django.forms.BooleanField(
+            label=_("Use as primary postal address"), required=False
+        )
+        return ret
+
+    def post(self, request, *args, **kwargs):
+        ret = super().post(request, *args, **kwargs)
+        is_primary = request.POST.get("is_primary")
+        if is_primary == "on":
+            self.object.person.primary_postal_address = self.object
+            self.object.person.save()
+        return ret
+
     def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in self.fields]
+        form_fields = [layout.form.FormField(field) for field in [*self.fields]] + [
+            hg.If(
+                hg.F(
+                    lambda c: c["object"].person.primary_postal_address.pk
+                    != c["object"].pk
+                ),
+                layout.form.FormField("is_primary"),
+                "",
+            )
+        ]
         return hg.DIV(*form_fields)
 
     @staticmethod
