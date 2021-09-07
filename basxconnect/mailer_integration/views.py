@@ -15,7 +15,6 @@ from basxconnect.core.views import menu_views
 from basxconnect.mailer_integration import download_data
 from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
 from basxconnect.mailer_integration.mailchimp import datasource
-from basxconnect.mailer_integration.models import MailingPreferences
 
 
 @aslayout

@@ -79,9 +79,9 @@ def _display_email_without_preferences(email):
     modal_add = modal_add_mailingpreferences(email)
     return hg.BaseElement(
         hg.DIV(email.email, style="font-weight: bold;"),
-        hg.DIV(f"no mailing preferences yet for {email.email}"),
+        hg.DIV(_("no mailing preferences yet for "), email.email),
         layout.button.Button(
-            f"Add mailing preferences",
+            _("Add mailing preferences"),
             buttontype="ghost",
             icon="add",
             **modal_add.openerattributes,
