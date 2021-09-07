@@ -1,4 +1,6 @@
-from typing import NamedTuple
+from typing import List, NamedTuple
+
+import django_countries
 
 from basxconnect.core import models
 from basxconnect.mailer_integration.abstract.abstract_datasource import (
@@ -11,6 +13,7 @@ from basxconnect.mailer_integration.models import Interest, MailingPreferences
 class SynchronizationResult(NamedTuple):
     new_persons: int
     total_synchronized_persons: int
+    invalid_new_persons: List[str]
 
 
 def download_persons(datasource: Datasource) -> SynchronizationResult:
@@ -23,25 +26,35 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
     mailer_persons = datasource.get_persons()
     datasource_tag = _get_or_create_tag(datasource.tag())
     new_persons = 0
+    invalid_new_persons = []
     for mailer_person in mailer_persons:
         matching_email_addresses = list(
             models.Email.objects.filter(
                 email=mailer_person.email,
             ).all()
         )
-        if len(matching_email_addresses) == 0 and mailer_person.status in [
-            "subscribed",
-            "unsubscribed",
-        ]:
-            _save_person(datasource_tag, mailer_person)
-            new_persons += 1
+        if len(matching_email_addresses) == 0:
+            if not is_valid_new_person(mailer_person):
+                invalid_new_persons.append(mailer_person.email)
+            else:
+                _save_person(datasource_tag, mailer_person)
+                new_persons += 1
         else:
             # if the downloaded email address already exists in our system, update the mailing preference for this email
             # address, without creating a new person in the database
             for email in matching_email_addresses:
                 _save_mailing_preferences(email, mailer_person)
 
-    return SynchronizationResult(new_persons, len(mailer_persons))
+    return SynchronizationResult(new_persons, len(mailer_persons), invalid_new_persons)
+
+
+def is_valid_new_person(person: MailerPerson):
+    return django_countries.Countries().countries.get(
+        person.country
+    ) and person.status in [
+        "subscribed",
+        "unsubscribed",
+    ]
 
 
 def _get_or_create_tag(tag: str) -> models.Term:
