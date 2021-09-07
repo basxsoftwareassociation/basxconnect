@@ -144,4 +144,6 @@ urlpatterns = [
             model=models.PersonAssociation
         )
     ),
+    autopath(person_modals_views.EditPostalAddressView.as_view(model=models.Postal)),
+    autopath(person_modals_views.AddPostalAddressView.as_view(model=models.Postal)),
 ]
