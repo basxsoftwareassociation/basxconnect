@@ -355,14 +355,25 @@ def display_postal(postal: models.Postal):
             hg.DIV(postal.address, style="margin-bottom: 0.25rem;"),
             hg.DIV(postal.postcode, " ", postal.city, style="margin-bottom: 0.25rem;"),
             hg.DIV(postal.get_country_display()),
-            edit_postal_button(modal),
+            hg.DIV(
+                edit_postal_button(modal),
+                layout.button.Button(
+                    _("Delete"),
+                    buttontype="ghost",
+                    icon="trash-can",
+                    notext=True,
+                    **layout.aslink_attributes(
+                        hg.F(lambda c: layout.objectaction(c["i"], "delete"))
+                    ),
+                ),
+            ),
         ),
         style="margin-top: 1.5rem;",
     )
 
 
 def edit_postal_button(modal):
-    return hg.DIV(
+    return hg.SPAN(
         layout.button.Button(
             "",
             buttontype="ghost",
@@ -387,7 +398,9 @@ def addresses():
                         else []
                     ),
                     "i",
-                    hg.F(lambda c: display_postal(c["i"])),
+                    hg.BaseElement(
+                        hg.F(lambda c: display_postal(c["i"])),
+                    ),
                 )
             )
         ),
