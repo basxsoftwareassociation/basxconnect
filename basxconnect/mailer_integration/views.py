@@ -29,8 +29,13 @@ def mailchimp_view(request):
                 "Success",
                 f"Synchronized mailing preferences for {sync_result.total_synchronized_persons} Mailchimp "
                 f"contacts. {sync_result.new_persons} new persons were added to the BasxConnect database. "
-                f"The following mailchimp contacts are not yet in our database but were also not "
-                f"added because they were invalid: {', '.join(sync_result.invalid_new_persons)}",
+                + (
+                    "The following mailchimp contacts are not yet in our database but were also not "
+                    "added because they were invalid:"
+                    ", ".join(sync_result.invalid_new_persons)
+                    if len(sync_result.invalid_new_persons) > 0
+                    else ""
+                ),
             )
         except Exception:
             notification = bread.layout.components.notification.InlineNotification(
