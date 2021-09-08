@@ -363,15 +363,12 @@ def display_postal(postal: models.Postal):
                     buttontype="ghost",
                     icon="trash-can",
                     notext=True,
-                    hx_post=hg.F(
-                        lambda c: ModelHref(
-                            postal,
-                            "delete",
-                            query={
-                                "next": ModelHref(postal.person, "read").resolve(c),
-                                "asajax": True,
-                            },
-                        )
+                    hx_post=ModelHref(
+                        postal,
+                        "delete",
+                        query={
+                            "asajax": True,
+                        },
                     ),
                 ),
             ),
