@@ -342,13 +342,14 @@ def display_postal(postal: models.Postal):
             query={"asajax": True},
         ),
         submitlabel=_("Save"),
-    )  # TODO supply the pk of the postal, not the one of the person
+    )
     return R(
         C(
             hg.DIV(
                 postal.type,
                 " (" + _("primary") + ")"
-                if postal.person.primary_postal_address.pk == postal.pk
+                if postal.person.primary_postal_address
+                and postal.person.primary_postal_address.pk == postal.pk
                 else "",
                 style="font-weight: bold; margin-bottom: 1rem;",
             ),
@@ -362,8 +363,15 @@ def display_postal(postal: models.Postal):
                     buttontype="ghost",
                     icon="trash-can",
                     notext=True,
-                    **layout.aslink_attributes(
-                        hg.F(lambda c: layout.objectaction(c["i"], "delete"))
+                    hx_post=hg.F(
+                        lambda c: ModelHref(
+                            postal,
+                            "delete",
+                            query={
+                                "next": ModelHref(postal.person, "read").resolve(c),
+                                "asajax": True,
+                            },
+                        )
                     ),
                 ),
             ),
