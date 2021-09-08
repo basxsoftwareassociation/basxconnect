@@ -2,8 +2,7 @@
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.icon import Icon
-from bread.utils import reverse_model
-from bread.views import AddView, EditView
+from bread.views import EditView
 from django.utils.translation import gettext_lazy as _
 
 
@@ -157,11 +156,6 @@ class LegalPersonEditMailingsView(EditView):
 class EditPostalAddressView(EditView):
     fields = ["type", "address", "postcode", "city", "country"]
 
-    def get_success_url(self):
-        return reverse_model(
-            self.object.person, "read", kwargs={"pk": self.object.person.pk}
-        )
-
     def get_form(self, form_class=None):
         ret = super().get_form(form_class)
         ret.fields["is_primary"] = django.forms.BooleanField(
@@ -181,8 +175,8 @@ class EditPostalAddressView(EditView):
         form_fields = [layout.form.FormField(field) for field in [*self.fields]] + [
             hg.If(
                 hg.F(
-                    lambda c: c["object"].person.primary_postal_address.pk
-                    != c["object"].pk
+                    lambda c: c["object"].person.primary_postal_address
+                    and c["object"].person.primary_postal_address.pk != c["object"].pk
                 ),
                 layout.form.FormField("is_primary"),
                 "",
@@ -197,14 +191,3 @@ class EditPostalAddressView(EditView):
     @staticmethod
     def edit_heading():
         return _("Edit Postal Address")
-
-
-class AddPostalAddressView(AddView):
-    def get_success_url(self):
-        return reverse_model(
-            self.object.person, "read", kwargs={"pk": self.object.person.pk}
-        )
-
-    @staticmethod
-    def path():
-        return "basxconnect.core.views.person.person_modals_views.addpostaladdressview"

@@ -15,10 +15,7 @@ from basxconnect.core import models
 from basxconnect.core.layouts import contributions_tab
 from basxconnect.core.models import Person, Relationship
 from basxconnect.core.views.person import search_person_view
-from basxconnect.core.views.person.person_modals_views import (
-    AddPostalAddressView,
-    EditPostalAddressView,
-)
+from basxconnect.core.views.person.person_modals_views import EditPostalAddressView
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -428,8 +425,9 @@ def modal_add_postal():
     return layout.modal.Modal.with_ajax_content(
         heading=_("Add Address"),
         url=hg.F(
-            lambda c: reverse(
-                AddPostalAddressView.path(),
+            lambda c: ModelHref(
+                models.Postal,
+                "add",
                 query={"asajax": True, "person": c["object"].pk},
             )
         ),
