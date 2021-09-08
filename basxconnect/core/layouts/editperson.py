@@ -359,21 +359,7 @@ def display_postal(postal: models.Postal):
             hg.DIV(postal.get_country_display()),
             hg.DIV(
                 edit_postal_button(modal),
-                layout.button.Button(
-                    _("Delete"),
-                    buttontype="ghost",
-                    icon="trash-can",
-                    notext=True,
-                    hx_post=reverse(
-                        DeletePostalAddressView.path(),
-                        kwargs={
-                            "pk": postal.pk,
-                        },
-                        query={
-                            "asajax": True,
-                        },
-                    ),
-                ),
+                delete_postal_button(postal),
             ),
         ),
         style="margin-top: 1.5rem;",
@@ -389,6 +375,24 @@ def edit_postal_button(modal):
             **modal.openerattributes,
         ),
         modal,
+    )
+
+
+def delete_postal_button(postal):
+    return layout.button.Button(
+        _("Delete"),
+        buttontype="ghost",
+        icon="trash-can",
+        notext=True,
+        hx_post=reverse(
+            DeletePostalAddressView.path(),
+            kwargs={
+                "pk": postal.pk,
+            },
+            query={
+                "asajax": True,
+            },
+        ),
     )
 
 
