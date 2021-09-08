@@ -2,7 +2,8 @@
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.icon import Icon
-from bread.views import EditView
+from bread.views import AddView, DeleteView, EditView
+from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
 
@@ -168,7 +169,7 @@ class EditPostalAddressView(EditView):
         is_primary = request.POST.get("is_primary")
         if is_primary == "on":
             self.object.person.primary_postal_address = self.object
-            self.object.person.save()
+        self.object.person.save()
         return ret
 
     def get_layout(self):
@@ -191,3 +192,28 @@ class EditPostalAddressView(EditView):
     @staticmethod
     def edit_heading():
         return _("Edit Postal Address")
+
+
+class AddPostalAddressView(AddView):
+    @staticmethod
+    def path():
+        return "basxconnect.core.views.person.person_modals_views.addpostaladdressview"
+
+    def post(self, request, *args, **kwargs):
+        ret = super().post(request, *args, **kwargs)
+        self.object.person.save()
+        return ret
+
+
+class DeletePostalAddressView(DeleteView):
+    @staticmethod
+    def path():
+        return (
+            "basxconnect.core.views.person.person_modals_views.deletepostaladdressview"
+        )
+
+    def get(self, *args, **kwargs):
+        person = get_object_or_404(self.model, pk=self.kwargs.get("pk")).person
+        ret = super().get(*args, **kwargs)
+        person.save()
+        return ret

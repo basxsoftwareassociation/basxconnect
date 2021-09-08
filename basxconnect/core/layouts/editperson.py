@@ -15,7 +15,11 @@ from basxconnect.core import models
 from basxconnect.core.layouts import contributions_tab
 from basxconnect.core.models import Person, Relationship
 from basxconnect.core.views.person import search_person_view
-from basxconnect.core.views.person.person_modals_views import EditPostalAddressView
+from basxconnect.core.views.person.person_modals_views import (
+    AddPostalAddressView,
+    DeletePostalAddressView,
+    EditPostalAddressView,
+)
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -360,9 +364,11 @@ def display_postal(postal: models.Postal):
                     buttontype="ghost",
                     icon="trash-can",
                     notext=True,
-                    hx_post=ModelHref(
-                        postal,
-                        "delete",
+                    hx_post=reverse(
+                        DeletePostalAddressView.path(),
+                        kwargs={
+                            "pk": postal.pk,
+                        },
                         query={
                             "asajax": True,
                         },
@@ -425,9 +431,8 @@ def modal_add_postal():
     return layout.modal.Modal.with_ajax_content(
         heading=_("Add Address"),
         url=hg.F(
-            lambda c: ModelHref(
-                models.Postal,
-                "add",
+            lambda c: reverse(
+                AddPostalAddressView.path(),
                 query={"asajax": True, "person": c["object"].pk},
             )
         ),
