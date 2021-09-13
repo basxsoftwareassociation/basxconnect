@@ -13,8 +13,7 @@ import basxconnect.core.settings
 from basxconnect.core import models
 from basxconnect.core.layouts import contributions_tab
 from basxconnect.core.layouts.relationshipstab import relationshipstab
-from basxconnect.core.models import Person, Relationship
-from basxconnect.core.views.person import search_person_view
+from basxconnect.core.models import Person
 from basxconnect.core.views.person.person_modals_views import (
     AddPostalAddressView,
     EditPostalAddressView,
