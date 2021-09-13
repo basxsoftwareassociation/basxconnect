@@ -8,10 +8,6 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.models import Person, Relationship
-from basxconnect.core.views.person.person_modals_views import (
-    AddRelationshipFrom,
-    AddRelationshipTo,
-)
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -19,15 +15,16 @@ C = layout.grid.Col
 
 def relationshipstab(request):
     person = get_object_or_404(Person, pk=request.resolver_match.kwargs["pk"])
+    modal_from = modal_add_relationship_from(person)
+    modal_to = modal_add_relationship_to(person)
+    label = _("Edit")
+    label1 = _("Delete")
     return layout.tabs.Tab(
         _("Relationships"),
         hg.BaseElement(
             layout.datatable.DataTable.from_model(
                 Relationship,
-                hg.F(
-                    lambda c: c["object"].relationships_to.all()
-                    | c["object"].relationships_from.all()
-                ),
+                hg.F(lambda c: c["object"].relationships_from.all()),
                 backurl=request.get_full_path(),
                 prevent_automatic_sortingnames=True,
                 columns=[
@@ -46,47 +43,87 @@ def relationshipstab(request):
                     "end_date",
                 ],
                 rowactions=[
+                    Link(
+                        href="#",
+                        iconname="edit",
+                        label=label,
+                        attributes={
+                            "hx_get": ModelHref(
+                                Relationship,
+                                "edit",
+                                query={"asajax": True},
+                                kwargs={"pk": hg.C("row.pk")},
+                            ),
+                            "hx_target": modal_edit.openerattributes["hx_target"],
+                            "data_modal_target": modal_edit.openerattributes[
+                                "data_modal_target"
+                            ],
+                        },
+                    ),
+                    Link(
+                        href=ModelHref(
+                            Relationship, "delete", kwargs={"pk": hg.C("row.pk")}
+                        ),
+                        iconname="trash-can",
+                        label=label1,
+                    ),
+                ],
+                primary_button=button_add_relationship_to(modal_to),
+            ),
+            modal_to,
+            layout.datatable.DataTable.from_model(
+                Relationship,
+                hg.F(lambda c: c["object"].relationships_to.all()),
+                backurl=request.get_full_path(),
+                prevent_automatic_sortingnames=True,
+                columns=[
+                    "type",
+                    person_in_relationship(
+                        "Person A",
+                        "person_a",
+                        lambda relationship: relationship.person_a,
+                    ),
+                    person_in_relationship(
+                        "Person B",
+                        "person_b",
+                        lambda relationship: relationship.person_b,
+                    ),
+                    DataTableColumn("modal", modal_edit_relationship()),
+                    "start_date",
+                    "end_date",
+                ],
+                rowactions=[
                     row_action("delete", "trash-can", _("Delete")),
                     row_action("edit", "edit", _("Edit")),
                 ],
-                rowactions_dropdown=True,
+                primary_button=button_add_relationship_from(modal_from),
             ),
-            R(C(button_add_relationship_from(person)), style="margin-top: 1.5rem"),
-            R(C(button_add_relationship_to(person)), style="margin-top: 1.5rem"),
+            modal_from,
         ),
     )
 
 
-def button_add_relationship_from(person):
-    modal = modal_add_relationship_from(person)
-    return hg.BaseElement(
-        layout.button.Button(
-            _("Add relationship from person"),
-            buttontype="primary",
-            **modal.openerattributes,
-        ),
-        modal,
+def button_add_relationship_from(modal):
+    return layout.button.Button(
+        _("Add relationship from person"),
+        buttontype="primary",
+        **modal.openerattributes,
     )
 
 
-def button_add_relationship_to(person):
-    modal = modal_add_relationship_to(person)
-    return hg.BaseElement(
-        layout.button.Button(
-            _("Add relationship to person"),
-            buttontype="primary",
-            **modal.openerattributes,
-        ),
-        modal,
+def button_add_relationship_to(modal):
+    return layout.button.Button(
+        _("Add relationship to person"),
+        buttontype="primary",
+        **modal.openerattributes,
     )
 
 
 def modal_add_relationship_from(person):
     ret = layout.modal.Modal.with_ajax_content(
         heading=_("Add relationship from person"),
-        url=reverse(
-            AddRelationshipFrom.path(),
-            query={"asajax": True, "person_a": person.pk},
+        url=ModelHref(
+            Relationship, "add", query={"asajax": True, "person_a": person.pk}
         ),
         submitlabel=_("Save"),
     )
@@ -96,9 +133,19 @@ def modal_add_relationship_from(person):
 def modal_add_relationship_to(person):
     ret = layout.modal.Modal.with_ajax_content(
         heading=_("Add relationship to person"),
-        url=reverse(
-            AddRelationshipTo.path(),
-            query={"asajax": True, "person_b": person.pk},
+        url=ModelHref(
+            Relationship, "add", query={"asajax": True, "person_b": person.pk}
+        ),
+        submitlabel=_("Save"),
+    )
+    return ret
+
+
+def modal_edit_relationship():
+    ret = layout.modal.Modal.with_ajax_content(
+        heading=_("Edit relationship of person"),
+        url=ModelHref(
+            Relationship, "edit", query={"asajax": True}, kwargs={"pk": hg.C("row.pk")}
         ),
         submitlabel=_("Save"),
     )
