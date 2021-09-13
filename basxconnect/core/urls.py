@@ -111,6 +111,7 @@ urlpatterns = [
     *default_model_paths(models.RelationshipType),
     *default_model_paths(models.Term),
     *default_model_paths(models.Category),
+    *default_model_paths(models.Postal),
     autopath(settings_views.generalsettings),
     autopath(
         person_details_views.togglepersonstatus,

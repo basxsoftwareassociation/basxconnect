@@ -164,10 +164,10 @@ class EditPostalAddressView(EditView):
         )
         return ret
 
-    def post(self, request, *args, **kwargs):
-        ret = super().post(request, *args, **kwargs)
-        is_primary = request.POST.get("is_primary")
-        if is_primary == "on":
+    def form_valid(self, *args, **kwargs):
+        ret = super().form_valid(*args, **kwargs)
+        is_primary = "is_primary" in args[0].changed_data
+        if is_primary:
             self.object.person.primary_postal_address = self.object
         self.object.person.save()
         return ret
