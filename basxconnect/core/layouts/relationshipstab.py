@@ -3,7 +3,7 @@ from typing import Callable
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.datatable import DataTableColumn
-from bread.utils import Link, ModelHref, reverse, reverse_model
+from bread.utils import Link, ModelHref, reverse_model
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
@@ -47,26 +47,9 @@ def relationshipstab(request):
                         href="#",
                         iconname="edit",
                         label=label,
-                        attributes={
-                            "hx_get": ModelHref(
-                                Relationship,
-                                "edit",
-                                query={"asajax": True},
-                                kwargs={"pk": hg.C("row.pk")},
-                            ),
-                            "hx_target": modal_edit.openerattributes["hx_target"],
-                            "data_modal_target": modal_edit.openerattributes[
-                                "data_modal_target"
-                            ],
-                        },
+                        modal=generate_modal_edit_relationship,
                     ),
-                    Link(
-                        href=ModelHref(
-                            Relationship, "delete", kwargs={"pk": hg.C("row.pk")}
-                        ),
-                        iconname="trash-can",
-                        label=label1,
-                    ),
+                    row_action("delete", "trash-can", _("Delete")),
                 ],
                 primary_button=button_add_relationship_to(modal_to),
             ),
@@ -88,13 +71,17 @@ def relationshipstab(request):
                         "person_b",
                         lambda relationship: relationship.person_b,
                     ),
-                    DataTableColumn("modal", modal_edit_relationship()),
                     "start_date",
                     "end_date",
                 ],
                 rowactions=[
+                    Link(
+                        href="#",
+                        iconname="edit",
+                        label=label,
+                        modal=generate_modal_edit_relationship,
+                    ),
                     row_action("delete", "trash-can", _("Delete")),
-                    row_action("edit", "edit", _("Edit")),
                 ],
                 primary_button=button_add_relationship_from(modal_from),
             ),
@@ -141,7 +128,7 @@ def modal_add_relationship_to(person):
     return ret
 
 
-def modal_edit_relationship():
+def generate_modal_edit_relationship():
     ret = layout.modal.Modal.with_ajax_content(
         heading=_("Edit relationship of person"),
         url=ModelHref(
