@@ -121,31 +121,35 @@ urlpatterns = [
     autopath(settings_views.relationshipssettings),
     autopath(search_person_view.searchperson),
     autopath(
-        person_modals_views.NaturalPersonEditMailingsView.as_view(
-            model=models.NaturalPerson
-        )
+        person_modals_views.NaturalPersonEditMailingsView.as_view(),
+        urlname="person_modals_views.naturalpersoneditmailings",
     ),
     autopath(
-        person_modals_views.LegalPersonEditMailingsView.as_view(
-            model=models.LegalPerson
-        )
+        person_modals_views.LegalPersonEditMailingsView.as_view(),
+        urlname="person_modals_views.legalpersoneditmailings",
     ),
     autopath(
-        person_modals_views.NaturalPersonEditPersonalDataView.as_view(
-            model=models.NaturalPerson
-        )
+        person_modals_views.NaturalPersonEditPersonalDataView.as_view(),
+        urlname="person_modals_views.naturalpersoneditpersonaldataview",
     ),
     autopath(
-        person_modals_views.LegalPersonEditPersonalDataView.as_view(
-            model=models.LegalPerson
-        )
+        person_modals_views.LegalPersonEditPersonalDataView.as_view(),
+        urlname="person_modals_views.legalpersoneditpersonaldataview",
     ),
     autopath(
-        person_modals_views.PersonAssociationEditPersonalDataView.as_view(
-            model=models.PersonAssociation
-        )
+        person_modals_views.PersonAssociationEditPersonalDataView.as_view(),
+        urlname="person_modals_views.personassociationeditpersonaldata",
     ),
-    autopath(person_modals_views.EditPostalAddressView.as_view(model=models.Postal)),
-    autopath(person_modals_views.AddPostalAddressView.as_view(model=models.Postal)),
-    autopath(person_modals_views.DeletePostalAddressView.as_view(model=models.Postal)),
+    autopath(
+        person_modals_views.EditPostalAddressView.as_view(),
+        urlname="person_modals_views.editpostaladdress",
+    ),
+    autopath(
+        person_modals_views.AddPostalAddressView.as_view(),
+        urlname="person_modals_views.addpostaladdress",
+    ),
+    autopath(
+        person_modals_views.DeletePostalAddressView.as_view(),
+        urlname="person_modals_views.deletepostaladdress",
+    ),
 ]

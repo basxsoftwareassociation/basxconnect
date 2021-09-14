@@ -6,8 +6,11 @@ from bread.views import AddView, DeleteView, EditView
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
+from basxconnect.core import models
+
 
 class NaturalPersonEditMailingsView(EditView):
+    model = models.NaturalPerson
     fields = [
         "preferred_language",
         "type",
@@ -18,7 +21,7 @@ class NaturalPersonEditMailingsView(EditView):
 
     @staticmethod
     def path():
-        return "basxconnect.core.views.person.person_modals_views.naturalpersoneditmailingsview"
+        return "person_modals_views.naturalpersoneditmailingsview"
 
     @staticmethod
     def read_heading():
@@ -38,6 +41,7 @@ class NaturalPersonEditMailingsView(EditView):
 
 
 class NaturalPersonEditPersonalDataView(EditView):
+    model = models.NaturalPerson
     fields = [
         "salutation",
         "title",
@@ -52,7 +56,7 @@ class NaturalPersonEditPersonalDataView(EditView):
 
     @staticmethod
     def path():
-        return "basxconnect.core.views.person.person_modals_views.naturalpersoneditpersonaldataview"
+        return "person_modals_views.naturalpersoneditpersonaldataview"
 
     @staticmethod
     def read_heading():
@@ -72,6 +76,7 @@ class NaturalPersonEditPersonalDataView(EditView):
 
 
 class LegalPersonEditPersonalDataView(EditView):
+    model = models.LegalPerson
     fields = [
         "name",
         "name_addition",
@@ -79,7 +84,7 @@ class LegalPersonEditPersonalDataView(EditView):
 
     @staticmethod
     def path():
-        return "basxconnect.core.views.person.person_modals_views.legalpersoneditpersonaldataview"
+        return "person_modals_views.legalpersoneditpersonaldataview"
 
     @staticmethod
     def read_heading():
@@ -99,6 +104,7 @@ class LegalPersonEditPersonalDataView(EditView):
 
 
 class PersonAssociationEditPersonalDataView(EditView):
+    model = models.PersonAssociation
     fields = [
         "name",
         "preferred_language",
@@ -107,7 +113,7 @@ class PersonAssociationEditPersonalDataView(EditView):
 
     @staticmethod
     def path():
-        return "basxconnect.core.views.person.person_modals_views.legalpersoneditpersonaldataview"
+        return "person_modals_views.legalpersoneditpersonaldataview"
 
     @staticmethod
     def read_heading():
@@ -127,6 +133,7 @@ class PersonAssociationEditPersonalDataView(EditView):
 
 
 class LegalPersonEditMailingsView(EditView):
+    model = models.LegalPerson
     fields = [
         "preferred_language",
         "type",
@@ -135,7 +142,7 @@ class LegalPersonEditMailingsView(EditView):
 
     @staticmethod
     def path():
-        return "basxconnect.core.views.person.person_modals_views.legalpersoneditmailingsview"
+        return "person_modals_views.legalpersoneditmailingsview"
 
     @staticmethod
     def read_heading():
@@ -155,6 +162,7 @@ class LegalPersonEditMailingsView(EditView):
 
 
 class EditPostalAddressView(EditView):
+    model = models.Postal
     fields = ["type", "address", "postcode", "city", "country"]
 
     def form_valid(self, form, *args, **kwargs):
@@ -188,7 +196,7 @@ class EditPostalAddressView(EditView):
 
     @staticmethod
     def path():
-        return "basxconnect.core.views.person.person_modals_views.editpostaladdressview"
+        return "person_modals_views.editpostaladdressview"
 
     @staticmethod
     def edit_heading():
@@ -196,9 +204,11 @@ class EditPostalAddressView(EditView):
 
 
 class AddPostalAddressView(AddView):
+    model = models.Postal
+
     @staticmethod
     def path():
-        return "basxconnect.core.views.person.person_modals_views.addpostaladdressview"
+        return "person_modals_views.addpostaladdressview"
 
     def post(self, request, *args, **kwargs):
         ret = super().post(request, *args, **kwargs)
@@ -207,11 +217,11 @@ class AddPostalAddressView(AddView):
 
 
 class DeletePostalAddressView(DeleteView):
+    model = models.Postal
+
     @staticmethod
     def path():
-        return (
-            "basxconnect.core.views.person.person_modals_views.deletepostaladdressview"
-        )
+        return "person_modals_views.deletepostaladdressview"
 
     def get(self, *args, **kwargs):
         person = get_object_or_404(self.model, pk=self.kwargs.get("pk")).person
