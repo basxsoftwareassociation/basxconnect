@@ -157,20 +157,21 @@ class LegalPersonEditMailingsView(EditView):
 class EditPostalAddressView(EditView):
     fields = ["type", "address", "postcode", "city", "country"]
 
-    def get_form(self, form_class=None):
-        ret = super().get_form(form_class)
-        ret.fields["is_primary"] = django.forms.BooleanField(
-            label=_("Use as primary postal address"), required=False
-        )
-        return ret
-
-    def form_valid(self, *args, **kwargs):
-        ret = super().form_valid(*args, **kwargs)
-        is_primary = "is_primary" in args[0].changed_data
+    def form_valid(self, form, *args, **kwargs):
+        ret = super().form_valid(form, *args, **kwargs)
+        is_primary = form.cleaned_data["is_primary"]
         if is_primary:
             self.object.person.primary_postal_address = self.object
         self.object.person.save()
         return ret
+
+    def get_form_class(self, *args, **kwargs):
+        class EditPostalForm(super().get_form_class(*args, **kwargs)):
+            is_primary = django.forms.BooleanField(
+                label=_("Use as primary postal address"), required=False
+            )
+
+        return EditPostalForm
 
     def get_layout(self):
         form_fields = [layout.form.FormField(field) for field in [*self.fields]] + [
