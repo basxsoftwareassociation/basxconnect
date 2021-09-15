@@ -1,11 +1,12 @@
 import collections
+from typing import List
 
 import bread.layout
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.icon import Icon
-from bread.utils import reverse, reverse_model
+from bread.utils import pretty_modelname, reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
@@ -14,10 +15,6 @@ from basxconnect.core import models
 from basxconnect.core.layouts import contributions_tab
 from basxconnect.core.layouts.relationshipstab import relationshipstab
 from basxconnect.core.models import Person
-from basxconnect.core.views.person.person_modals_views import (
-    AddPostalAddressView,
-    EditPostalAddressView,
-)
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -332,33 +329,45 @@ def other():
     )
 
 
+def edit_heading(model: type):
+    return _("Edit %s") % pretty_modelname(model)
+
+
 def display_postal(postal: models.Postal):
     modal = layout.modal.Modal.with_ajax_content(
-        heading=EditPostalAddressView.edit_heading(),
-        url=reverse(
-            EditPostalAddressView.path(),
+        heading=edit_heading(models.Postal),
+        url=reverse_model(
+            models.Postal,
+            "ajax_edit",
             kwargs={"pk": postal.pk},
             query={"asajax": True},
         ),
         submitlabel=_("Save"),
-    )  # TODO supply the pk of the postal, not the one of the person
+    )
     return R(
         C(
             hg.DIV(
                 postal.type,
+                " (" + _("primary") + ")"
+                if postal.person.primary_postal_address
+                and postal.person.primary_postal_address.pk == postal.pk
+                else "",
                 style="font-weight: bold; margin-bottom: 1rem;",
             ),
             hg.DIV(postal.address, style="margin-bottom: 0.25rem;"),
             hg.DIV(postal.postcode, " ", postal.city, style="margin-bottom: 0.25rem;"),
             hg.DIV(postal.get_country_display()),
-            edit_postal_button(modal),
+            hg.DIV(
+                edit_postal_button(modal),
+                delete_postal_button(postal),
+            ),
         ),
         style="margin-top: 1.5rem;",
     )
 
 
 def edit_postal_button(modal):
-    return hg.DIV(
+    return hg.SPAN(
         layout.button.Button(
             "",
             buttontype="ghost",
@@ -369,20 +378,30 @@ def edit_postal_button(modal):
     )
 
 
+def delete_postal_button(postal):
+    return layout.button.Button(
+        _("Delete"),
+        buttontype="ghost",
+        icon="trash-can",
+        notext=True,
+        hx_post=reverse_model(
+            models.Postal,
+            "ajax_delete",
+            kwargs={
+                "pk": postal.pk,
+            },
+            query={
+                "asajax": True,
+            },
+        ),
+    )
+
+
 def addresses():
     modal = modal_add_postal()
     return tile_with_icon(
         Icon("map"),
         hg.H4(_("Address(es)")),
-        hg.If(
-            hg.F(
-                lambda c: hasattr(c["object"], "core_postal_list")
-                and c["object"].core_postal_list.count() > 1
-            ),
-            hg.BaseElement(
-                R(C(F("primary_postal_address"), width=10)),
-            ),
-        ),
         R(
             C(
                 hg.Iterator(
@@ -392,7 +411,9 @@ def addresses():
                         else []
                     ),
                     "i",
-                    hg.F(lambda c: display_postal(c["i"])),
+                    hg.BaseElement(
+                        hg.F(lambda c: display_postal(c["i"])),
+                    ),
                 )
             )
         ),
@@ -415,10 +436,11 @@ def modal_add_postal():
     return layout.modal.Modal.with_ajax_content(
         heading=_("Add Address"),
         url=hg.F(
-            lambda c: reverse(
-                AddPostalAddressView.path(),
+            lambda c: reverse_model(
+                models.Postal,
+                "ajax_add",
                 query={"asajax": True, "person": c["object"].pk},
-            )
+            ),
         ),
         submitlabel=_("Save"),
     )
@@ -448,17 +470,19 @@ def grid_inside_tab(*elems, **attrs):
     return layout.grid.Grid(*elems, **attrs)
 
 
-def tile_col_edit_modal(modal_view):
-    displayed_fields = [display_field_value(field) for field in modal_view.fields]
-    return tile_col_edit_modal_selected_fields(modal_view, displayed_fields)
+def tile_col_edit_modal(modal_view: type, icon: Icon, fields: List[str]):
+    displayed_fields = [display_field_value(field) for field in fields]
+    return tile_col_edit_modal_displayed_fields(modal_view, icon, displayed_fields)
 
 
-def tile_col_edit_modal_selected_fields(modal_view, displayed_fields):
-    modal = create_modal(modal_view)
+def tile_col_edit_modal_displayed_fields(
+    model: type, icon: Icon, displayed_fields: List
+):
+    modal = create_modal(model, "ajax_edit")
     return tile_with_icon(
-        modal_view.icon(),
+        icon,
         hg.BaseElement(
-            tile_header(modal_view.read_heading()),
+            tile_header(model),
             *displayed_fields,
             open_modal_popup_button(modal),
         ),
@@ -480,25 +504,26 @@ def open_modal_popup_button(modal):
     )
 
 
-def create_modal(modal_view):
+def create_modal(model: type, action: str):
     return layout.modal.Modal.with_ajax_content(
-        heading=modal_view.edit_heading(),
+        heading=edit_heading(model),
         url=hg.F(
-            lambda c: reverse(
-                modal_view.path(),
+            lambda c: reverse_model(
+                model,
+                action,
                 kwargs={"pk": c["object"].pk},
                 query={"asajax": True},
-            )
+            ),
         ),
         submitlabel=_("Save"),
     )
 
 
-def tile_header(header, **kwargs):
+def tile_header(model, **kwargs):
     return R(
         C(
             hg.H4(
-                header,
+                pretty_modelname(model),
                 style="margin-top: 0; margin-bottom: 3rem;",
             ),
             **kwargs,
@@ -552,7 +577,7 @@ def tiling_row(*elems, **attrs):
 def person_metadata():
     return tiling_col(
         # we need this to take exactly as much space as a real header
-        tile_header("A", style="visibility: hidden;"),
+        tile_header(models.NaturalPerson, style="visibility: hidden;"),
         display_field_value("personnumber"),
         display_field_value("maintype"),
         display_label_and_value(_("Status"), active_toggle_without_label()),
