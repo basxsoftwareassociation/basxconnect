@@ -3,7 +3,6 @@ from typing import Callable
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.datatable import DataTableColumn
-from bread.layout.components.modal import modal_with_trigger
 from bread.utils import Link, ModelHref, reverse_model
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
@@ -25,14 +24,14 @@ def relationshipstab(request):
                 request,
                 title=_("Relationships to person"),
                 queryset=hg.F(lambda c: c["object"].relationships_from.all()),
-                primary_button=button_add_relationship_to(person),
+                primary_button=button_add_relationship_to(modal_from),
             ),
             modal_to,
             relationships_datatable(
                 request,
                 title=_("Relationships from person"),
                 queryset=hg.F(lambda c: c["object"].relationships_to.all()),
-                primary_button=button_add_relationship_from(person),
+                primary_button=button_add_relationship_from(modal_from),
             ),
             modal_from,
         ),
@@ -62,38 +61,41 @@ def relationships_datatable(request, queryset, primary_button, title):
             "end_date",
         ],
         rowactions=[
-            rowaction_edit(),
-            row_action("delete", "trash-can", _("Delete")),
+            Link(
+                href=ModelHref(
+                    Relationship,
+                    "edit",
+                    kwargs={"pk": hg.C("row.pk")},
+                    query={"next": request.get_full_path()},
+                ),
+                iconname="edit",
+                label=_("Edit"),
+            ),
+            Link(
+                href=ModelHref(
+                    Relationship,
+                    "delete",
+                    kwargs={"pk": hg.C("row.pk")},
+                    query={"next": request.get_full_path()},
+                ),
+                iconname="trash-can",
+                label=_("Delete"),
+            ),
         ],
         primary_button=primary_button,
     )
 
 
-def rowaction_edit():
-    return Link(
-        href="#",
-        iconname="edit",
-        label=(_("Edit")),
-        modal=generate_modal_edit_relationship,
-    )
-
-
-def button_add_relationship_from(person):
-    modal = modal_add_relationship_from(person)
-    return modal_with_trigger(
-        modal,
-        layout.button.Button,
+def button_add_relationship_from(modal):
+    return layout.button.Button(
         _("Add relationship from person"),
         buttontype="primary",
         **modal.openerattributes,
     )
 
 
-def button_add_relationship_to(person):
-    modal = modal_add_relationship_to(person)
-    return modal_with_trigger(
-        modal,
-        layout.button.Button,
+def button_add_relationship_to(modal):
+    return layout.button.Button(
         _("Add relationship to person"),
         buttontype="primary",
         **modal.openerattributes,
@@ -116,17 +118,6 @@ def modal_add_relationship_to(person):
         heading=_("Add relationship to person"),
         url=ModelHref(
             Relationship, "add", query={"asajax": True, "person_b": person.pk}
-        ),
-        submitlabel=_("Save"),
-    )
-    return ret
-
-
-def generate_modal_edit_relationship():
-    ret = layout.modal.Modal.with_ajax_content(
-        heading=_("Edit relationship of person"),
-        url=ModelHref(
-            Relationship, "edit", query={"asajax": True}, kwargs={"pk": hg.C("row.pk")}
         ),
         submitlabel=_("Save"),
     )
@@ -166,11 +157,3 @@ def person_name(field):
 
 def person_number_in_brackets(field):
     return hg.SPAN(" [", hg.C(f"row.{field}.personnumber"), "]")
-
-
-def row_action(object_action, icon, label):
-    return Link(
-        href=ModelHref(Relationship, object_action, kwargs={"pk": hg.C("row.pk")}),
-        iconname=icon,
-        label=label,
-    )
