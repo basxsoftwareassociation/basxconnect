@@ -3,19 +3,18 @@ from typing import List
 
 import bread.layout
 import htmlgenerator as hg
+from basxconnect.core.layouts.relationshipstab import relationshipstab
 from bread import layout
 from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.icon import Icon
 from bread.utils import pretty_modelname, reverse_model
-from bread.utils.links import Link, ModelHref
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 import basxconnect.core.settings
 from basxconnect.core import models
 from basxconnect.core.layouts import contributions_tab
-from basxconnect.core.models import Person, Relationship
-from basxconnect.core.views.person import search_person_view
+from basxconnect.core.models import Person
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -44,7 +43,7 @@ def editperson_form(request, base_data_tab, mailings_tab):
 
 
 def editperson_tabs(base_data_tab, mailing_tab, request):
-    return [base_data_tab(), relationshipstab(), mailing_tab(request)] + (
+    return [base_data_tab(), relationshipstab(request), mailing_tab(request)] + (
         [
             contributions_tab.contributions_tab(request),
         ]
@@ -462,95 +461,6 @@ def revisionstab():
                 row_iterator=hg.F(lambda c: c["object"].history.all()),
             )
         ),
-    )
-
-
-def relationshipstab():
-    return layout.tabs.Tab(
-        _("Relationships"),
-        hg.BaseElement(
-            layout.form.FormsetField.as_datatable(
-                "relationships_to",
-                [
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_a"),
-                        hg.C("object"),
-                    ),
-                    "type",
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_b"),
-                        F(
-                            "person_b",
-                            fieldtype=layout.search_select.SearchSelect,
-                            hidelabel=True,
-                            elementattributes={
-                                "backend": layout.search.SearchBackendConfig(
-                                    reverse_lazy(
-                                        "basxconnect.core.views.person.search_person_view.searchperson"
-                                    ),
-                                    result_selector=f".{search_person_view.ITEM_CLASS}",
-                                    result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
-                                    result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
-                                ),
-                            },
-                        ),
-                    ),
-                    "start_date",
-                    "end_date",
-                ],
-                # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
-                # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
-                title=hg.F(
-                    lambda c: _('Relationships from %s to "person B"') % c["object"]
-                ),
-            ),
-            layout.form.FormsetField.as_datatable(
-                "relationships_from",
-                [
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_a"),
-                        F(
-                            "person_a",
-                            fieldtype=layout.search_select.SearchSelect,
-                            hidelabel=True,
-                            elementattributes={
-                                "backend": layout.search.SearchBackendConfig(
-                                    reverse_lazy(
-                                        "basxconnect.core.views.person.search_person_view.searchperson"
-                                    ),
-                                    result_selector=f".{search_person_view.ITEM_CLASS}",
-                                    result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
-                                    result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
-                                ),
-                            },
-                        ),
-                    ),
-                    "type",
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_b"),
-                        hg.C("object"),
-                    ),
-                    "start_date",
-                    "end_date",
-                ],
-                rowactions=[
-                    row_action("delete", "trash-can", _("Delete")),
-                    row_action("edit", "edit", _("Edit")),
-                ],
-                rowactions_dropdown=True,
-                title=hg.F(
-                    lambda c: _('Relationships from "person A" to %s') % c["object"]
-                ),
-            ),
-        ),
-    )
-
-
-def row_action(object_action, icon, label):
-    return Link(
-        href=ModelHref(Relationship, object_action, kwargs={"pk": hg.C("row.pk")}),
-        iconname=icon,
-        label=label,
     )
 
 
