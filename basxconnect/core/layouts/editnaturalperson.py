@@ -1,14 +1,12 @@
 import htmlgenerator as hg
 from bread import layout
 from bread.layout import ObjectFieldValue
+from bread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
+from basxconnect.core import models
 from basxconnect.core.layouts import editperson
 from basxconnect.core.layouts.editperson import person_metadata
-from basxconnect.core.views.person.person_modals_views import (
-    NaturalPersonEditMailingsView,
-    NaturalPersonEditPersonalDataView,
-)
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -52,8 +50,8 @@ def personal_data():
             editperson.display_field_value("decease_date"),
         ),
     ]
-    return editperson.tile_col_edit_modal_selected_fields(
-        NaturalPersonEditPersonalDataView, displayed_fields
+    return editperson.tile_col_edit_modal_displayed_fields(
+        models.NaturalPerson, Icon("user--profile"), displayed_fields
     )
 
 
@@ -72,7 +70,15 @@ def mailings_tab(request):
         editperson.grid_inside_tab(
             R(
                 editperson.tile_col_edit_modal(
-                    modal_view=NaturalPersonEditMailingsView
+                    models.NaturalPerson,
+                    Icon("settings--adjust"),
+                    [
+                        "preferred_language",
+                        "type",
+                        "salutation_letter",
+                        "gender",
+                        "form_of_address",
+                    ],
                 ),
                 mailer_tile,
             ),

@@ -1,12 +1,10 @@
 import htmlgenerator as hg
 from bread import layout
+from bread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
+from basxconnect.core import models
 from basxconnect.core.layouts import editperson
-from basxconnect.core.views.person.person_modals_views import (
-    LegalPersonEditMailingsView,
-    LegalPersonEditPersonalDataView,
-)
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -23,7 +21,14 @@ def base_data_tab():
         hg.BaseElement(
             editperson.grid_inside_tab(
                 R(
-                    editperson.tile_col_edit_modal(LegalPersonEditPersonalDataView),
+                    editperson.tile_col_edit_modal(
+                        models.LegalPerson,
+                        Icon("building"),
+                        [
+                            "name",
+                            "name_addition",
+                        ],
+                    ),
                     editperson.person_metadata(),
                 ),
                 editperson.contact_details(),
@@ -47,7 +52,15 @@ def mailings_tab(request):
         _("Mailings"),
         editperson.grid_inside_tab(
             R(
-                editperson.tile_col_edit_modal(modal_view=LegalPersonEditMailingsView),
+                editperson.tile_col_edit_modal(
+                    models.LegalPerson,
+                    Icon("settings--adjust"),
+                    [
+                        "preferred_language",
+                        "type",
+                        "salutation_letter",
+                    ],
+                ),
                 mailer_tile,
             ),
         ),

@@ -122,34 +122,34 @@ urlpatterns = [
     autopath(search_person_view.searchperson),
     autopath(
         person_modals_views.NaturalPersonEditMailingsView.as_view(),
-        urlname="person_modals_views.naturalpersoneditmailings",
+        urlname=model_urlname(models.NaturalPerson, "ajax_edit"),
     ),
     autopath(
         person_modals_views.LegalPersonEditMailingsView.as_view(),
-        urlname="person_modals_views.legalpersoneditmailings",
+        urlname=model_urlname(models.LegalPerson, "ajax_edit"),
     ),
     autopath(
         person_modals_views.NaturalPersonEditPersonalDataView.as_view(),
-        urlname="person_modals_views.naturalpersoneditpersonaldataview",
+        urlname=model_urlname(models.NaturalPerson, "ajax_edit"),
     ),
     autopath(
         person_modals_views.LegalPersonEditPersonalDataView.as_view(),
-        urlname="person_modals_views.legalpersoneditpersonaldataview",
+        urlname=model_urlname(models.LegalPerson, "ajax_edit"),
     ),
     autopath(
         person_modals_views.PersonAssociationEditPersonalDataView.as_view(),
-        urlname="person_modals_views.personassociationeditpersonaldata",
+        urlname=model_urlname(models.PersonAssociation, "ajax_edit"),
     ),
     autopath(
         person_modals_views.EditPostalAddressView.as_view(),
-        urlname="person_modals_views.editpostaladdress",
+        urlname=model_urlname(models.Postal, "ajax_edit"),
     ),
     autopath(
         person_modals_views.AddPostalAddressView.as_view(),
-        urlname="person_modals_views.addpostaladdress",
+        urlname=model_urlname(models.Postal, "ajax_add"),
     ),
     autopath(
         person_modals_views.DeletePostalAddressView.as_view(),
-        urlname="person_modals_views.deletepostaladdress",
+        urlname=model_urlname(models.Postal, "ajax_delete"),
     ),
 ]

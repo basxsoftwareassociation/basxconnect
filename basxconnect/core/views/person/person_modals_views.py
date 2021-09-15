@@ -54,22 +54,6 @@ class NaturalPersonEditPersonalDataView(EditView):
         "decease_date",
     ]
 
-    @staticmethod
-    def path():
-        return "person_modals_views.naturalpersoneditpersonaldataview"
-
-    @staticmethod
-    def read_heading():
-        return _("Personal Data")
-
-    @staticmethod
-    def edit_heading():
-        return _("Edit Personal Data")
-
-    @staticmethod
-    def icon():
-        return Icon("user--profile")
-
     def get_layout(self):
         form_fields = [layout.form.FormField(field) for field in self.fields]
         return hg.DIV(*form_fields)
@@ -81,22 +65,6 @@ class LegalPersonEditPersonalDataView(EditView):
         "name",
         "name_addition",
     ]
-
-    @staticmethod
-    def path():
-        return "person_modals_views.legalpersoneditpersonaldataview"
-
-    @staticmethod
-    def read_heading():
-        return _("Name")
-
-    @staticmethod
-    def edit_heading():
-        return _("Edit Name")
-
-    @staticmethod
-    def icon():
-        return Icon("building")
 
     def get_layout(self):
         form_fields = [layout.form.FormField(field) for field in self.fields]
@@ -110,10 +78,6 @@ class PersonAssociationEditPersonalDataView(EditView):
         "preferred_language",
         "salutation_letter",
     ]
-
-    @staticmethod
-    def path():
-        return "person_modals_views.legalpersoneditpersonaldataview"
 
     @staticmethod
     def read_heading():
@@ -139,22 +103,6 @@ class LegalPersonEditMailingsView(EditView):
         "type",
         "salutation_letter",
     ]
-
-    @staticmethod
-    def path():
-        return "person_modals_views.legalpersoneditmailingsview"
-
-    @staticmethod
-    def read_heading():
-        return _("Settings")
-
-    @staticmethod
-    def edit_heading():
-        return _("Edit mailing settings")
-
-    @staticmethod
-    def icon():
-        return Icon("settings--adjust")
 
     def get_layout(self):
         form_fields = [layout.form.FormField(field) for field in self.fields]
@@ -194,21 +142,9 @@ class EditPostalAddressView(EditView):
         ]
         return hg.DIV(*form_fields)
 
-    @staticmethod
-    def path():
-        return "person_modals_views.editpostaladdressview"
-
-    @staticmethod
-    def edit_heading():
-        return _("Edit Postal Address")
-
 
 class AddPostalAddressView(AddView):
     model = models.Postal
-
-    @staticmethod
-    def path():
-        return "person_modals_views.addpostaladdressview"
 
     def post(self, request, *args, **kwargs):
         ret = super().post(request, *args, **kwargs)
@@ -218,10 +154,6 @@ class AddPostalAddressView(AddView):
 
 class DeletePostalAddressView(DeleteView):
     model = models.Postal
-
-    @staticmethod
-    def path():
-        return "person_modals_views.deletepostaladdressview"
 
     def get(self, *args, **kwargs):
         person = get_object_or_404(self.model, pk=self.kwargs.get("pk")).person
