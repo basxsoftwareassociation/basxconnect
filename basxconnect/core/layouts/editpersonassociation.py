@@ -20,6 +20,7 @@ def base_data_tab():
         editperson.grid_inside_tab(
             R(
                 editperson.tile_col_edit_modal(
+                    _("Base Data"),
                     models.PersonAssociation,
                     Icon("building"),
                     [
@@ -28,7 +29,7 @@ def base_data_tab():
                         "salutation_letter",
                     ],
                 ),
-                editperson.person_metadata(),
+                editperson.person_metadata(models.LegalPerson),
             ),
             editperson.contact_details(),
         ),

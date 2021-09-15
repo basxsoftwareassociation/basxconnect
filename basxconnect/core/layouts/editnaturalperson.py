@@ -24,7 +24,7 @@ def base_data_tab():
         editperson.grid_inside_tab(
             R(
                 personal_data(),
-                person_metadata(),
+                person_metadata(models.NaturalPerson),
             ),
             contact_details_naturalperson(),
         ),
@@ -51,7 +51,10 @@ def personal_data():
         ),
     ]
     return editperson.tile_col_edit_modal_displayed_fields(
-        models.NaturalPerson, Icon("user--profile"), displayed_fields
+        _("Personal Data"),
+        models.NaturalPerson,
+        Icon("user--profile"),
+        displayed_fields,
     )
 
 
@@ -70,6 +73,7 @@ def mailings_tab(request):
         editperson.grid_inside_tab(
             R(
                 editperson.tile_col_edit_modal(
+                    _("Settings"),
                     models.NaturalPerson,
                     Icon("settings--adjust"),
                     [

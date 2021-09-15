@@ -4,11 +4,13 @@ from typing import List
 import bread.layout
 import htmlgenerator as hg
 from bread import layout
+from bread.layout import ObjectFieldLabel, ObjectFieldValue
 from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.icon import Icon
 from bread.utils import pretty_modelname, reverse_model
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from htmlgenerator import ContextValue
 
 import basxconnect.core.settings
 from basxconnect.core import models
@@ -470,19 +472,21 @@ def grid_inside_tab(*elems, **attrs):
     return layout.grid.Grid(*elems, **attrs)
 
 
-def tile_col_edit_modal(modal_view: type, icon: Icon, fields: List[str]):
+def tile_col_edit_modal(heading, modal_view: type, icon: Icon, fields: List[str]):
     displayed_fields = [display_field_value(field) for field in fields]
-    return tile_col_edit_modal_displayed_fields(modal_view, icon, displayed_fields)
+    return tile_col_edit_modal_displayed_fields(
+        heading, modal_view, icon, displayed_fields
+    )
 
 
 def tile_col_edit_modal_displayed_fields(
-    model: type, icon: Icon, displayed_fields: List
+    heading, model: type, icon: Icon, displayed_fields: List
 ):
-    modal = create_modal(model, "ajax_edit")
+    modal = create_modal(heading, model, "ajax_edit")
     return tile_with_icon(
         icon,
         hg.BaseElement(
-            tile_header(model),
+            hg.H4(heading),
             *displayed_fields,
             open_modal_popup_button(modal),
         ),
@@ -504,9 +508,9 @@ def open_modal_popup_button(modal):
     )
 
 
-def create_modal(model: type, action: str):
+def create_modal(heading, model: type, action: str):
     return layout.modal.Modal.with_ajax_content(
-        heading=edit_heading(model),
+        heading=heading,
         url=hg.F(
             lambda c: reverse_model(
                 model,
@@ -574,10 +578,10 @@ def tiling_row(*elems, **attrs):
     return R(C(*elems, **attrs), _class="tile theme-white")
 
 
-def person_metadata():
+def person_metadata(model):
     return tiling_col(
         # we need this to take exactly as much space as a real header
-        tile_header(models.NaturalPerson, style="visibility: hidden;"),
+        tile_header(model, style="visibility: hidden;"),
         display_field_value("personnumber"),
         display_field_value("maintype"),
         display_label_and_value(_("Status"), active_toggle_without_label()),
