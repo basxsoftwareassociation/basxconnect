@@ -3,7 +3,6 @@ from typing import List
 
 import bread.layout
 import htmlgenerator as hg
-from basxconnect.core.layouts.relationshipstab import relationshipstab
 from bread import layout
 from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.icon import Icon
@@ -14,6 +13,7 @@ from django.utils.translation import gettext_lazy as _
 import basxconnect.core.settings
 from basxconnect.core import models
 from basxconnect.core.layouts import contributions_tab
+from basxconnect.core.layouts.relationshipstab import relationshipstab
 from basxconnect.core.models import Person
 
 R = layout.grid.Row
