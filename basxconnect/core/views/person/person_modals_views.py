@@ -67,18 +67,6 @@ class PersonAssociationEditPersonalDataView(EditView):
         "salutation_letter",
     ]
 
-    @staticmethod
-    def read_heading():
-        return _("General Information")
-
-    @staticmethod
-    def edit_heading():
-        return _("Edit General Information")
-
-    @staticmethod
-    def icon():
-        return Icon("building")
-
 
 class LegalPersonEditMailingsView(EditView):
     model = models.LegalPerson
@@ -160,4 +148,25 @@ class PersonAssociationEditRemarksView(EditView):
     model = models.PersonAssociation
     fields = [
         "remarks",
+    ]
+
+
+class NaturalPersonEditCategoriesView(EditView):
+    model = models.NaturalPerson
+    fields = [
+        "categories",
+    ]
+
+
+class LegalPersonEditCategoriesView(EditView):
+    model = models.LegalPerson
+    fields = [
+        "categories",
+    ]
+
+
+class PersonAssociationEditCategoriesView(EditView):
+    model = models.PersonAssociation
+    fields = [
+        "categories",
     ]

@@ -167,4 +167,16 @@ urlpatterns = [
         person_modals_views.PersonAssociationEditRemarksView.as_view(),
         urlname=model_urlname(models.PersonAssociation, "ajax_edit_remarks"),
     ),
+    autopath(
+        person_modals_views.NaturalPersonEditCategoriesView.as_view(),
+        urlname=model_urlname(models.NaturalPerson, "ajax_edit_categories"),
+    ),
+    autopath(
+        person_modals_views.LegalPersonEditCategoriesView.as_view(),
+        urlname=model_urlname(models.LegalPerson, "ajax_edit_categories"),
+    ),
+    autopath(
+        person_modals_views.PersonAssociationEditCategoriesView.as_view(),
+        urlname=model_urlname(models.PersonAssociation, "ajax_edit_categories"),
+    ),
 ]

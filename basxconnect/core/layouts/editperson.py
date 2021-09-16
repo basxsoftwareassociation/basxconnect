@@ -8,6 +8,7 @@ from bread.layout import ObjectFieldLabel, ObjectFieldValue
 from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.icon import Icon
 from bread.layout.components.modal import modal_with_trigger
+from bread.layout.components.tag import Tag
 from bread.utils import (
     Link,
     ModelHref,
@@ -61,7 +62,7 @@ def editperson_tabs(base_data_tab, mailing_tab, request):
     )
 
 
-def editperson_toolbar(request, isreadview):
+def editperson_toolbar(request):
     deletebutton = layout.button.Button(
         _("Delete"),
         buttontype="ghost",
@@ -106,55 +107,13 @@ def editperson_toolbar(request, isreadview):
         copybutton,
         layout.button.PrintPageButton(buttontype="ghost"),
         add_person_button,
-        *(
-            []
-            if isreadview
-            else [
-                layout.button.Button(
-                    _("Save changes"),
-                    id=hg.BaseElement("save-button-", hg.C("object.pk")),
-                    icon="save",
-                    buttontype="tertiary",
-                    onclick="document.querySelector('div.bx--content form[method=POST]').submit()",
-                    style="margin-left: 1rem;",
-                ),
-            ]
-        ),
         _class="no-print",
         style="margin-bottom: 1rem; margin-left: 1rem",
         width=3,
     )
 
 
-def editperson_head(request, isreadview):
-    areyousure = layout.modal.Modal(
-        _("Unsaved changes"),
-        buttons=(
-            layout.button.Button(
-                _("Discard"),
-                buttontype="secondary",
-                **layout.aslink_attributes(
-                    hg.F(
-                        lambda c: reverse_model(
-                            c["object"], "read", kwargs={"pk": c["object"].pk}
-                        )
-                    )
-                ),
-            ),
-            layout.button.Button(
-                _("Save changes"),
-                buttontype="primary",
-                onclick="document.querySelector('div.bx--content form[method=POST]').submit()",
-            ),
-        ),
-    )
-
-    view_button_attrs = {}
-    if not isreadview:
-        view_button_attrs = {
-            **areyousure.openerattributes,
-        }
-
+def editperson_head(request):
     return hg.BaseElement(
         R(
             C(
@@ -165,30 +124,9 @@ def editperson_head(request, isreadview):
                             hg.C("object.deleted"), "text-decoration: line-through"
                         ),
                     ),
-                    editperson_toolbar(request, isreadview),
+                    editperson_toolbar(request),
                 ),
                 width=12,
-            ),
-            C(
-                layout.content_switcher.ContentSwitcher(
-                    (_("View"), view_button_attrs),
-                    (
-                        _("Edit"),
-                        layout.aslink_attributes(
-                            hg.F(
-                                lambda c: reverse_model(
-                                    c["object"], "edit", kwargs={"pk": c["object"].pk}
-                                )
-                            )
-                        ),
-                    ),
-                    selected=0 if isreadview else 1,
-                    onload=""
-                    if isreadview
-                    else "this.addEventListener('content-switcher-beingselected', (e) => e.preventDefault())",
-                ),
-                areyousure,
-                width=4,
             ),
             style="padding-top: 1rem",
         ),
@@ -206,21 +144,6 @@ def last_change():
         ),
         style=" margin-left: 2rem",
     )
-
-
-def active_toggle(isreadview):
-    active_toggle = layout.toggle.Toggle(None, _("Inactive"), _("Active"))
-    if isreadview:
-        active_toggle.input.attributes["onclick"] = "return false;"
-    active_toggle.input.attributes["id"] = "person_active_toggle"
-    active_toggle.input.attributes["hx_trigger"] = "change"
-    active_toggle.input.attributes["hx_post"] = hg.F(
-        lambda c: reverse_lazy("core.person.togglestatus", args=[c["object"].pk])
-    )
-    active_toggle.input.attributes["checked"] = hg.F(lambda c: c["object"].active)
-    active_toggle.label.insert(0, _("Person status"))
-    active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
-    return hg.DIV(active_toggle)
 
 
 def active_toggle_without_label():
@@ -318,7 +241,12 @@ def email(request):
 def categories():
     return tiling_col(
         hg.H4(_("Categories")),
-        layout.form.FormField("categories"),
+        hg.Iterator(hg.F(lambda c: c["object"].categories.all()), "i", Tag(hg.C("i"))),
+        open_modal_popup_button(
+            _("Edit Categories"),
+            hg.F(lambda c: get_concrete_instance(c["object"])),
+            "ajax_edit_categories",
+        ),
     )
 
 
@@ -525,7 +453,7 @@ def open_modal_popup_button(heading, model, action):
 
 
 def create_modal(heading, model: Union[type, Lazy], action: str):
-    return layout.modal.Modal.with_ajax_content(
+    modal = layout.modal.Modal.with_ajax_content(
         heading=heading,
         url=ModelHref(
             model,
@@ -535,6 +463,9 @@ def create_modal(heading, model: Union[type, Lazy], action: str):
         ),
         submitlabel=_("Save"),
     )
+    modal[0][1].attributes["style"] = "overflow: visible"
+    modal[0].attributes["style"] = "overflow: visible"
+    return modal
 
 
 def tile_header(model, **kwargs):
