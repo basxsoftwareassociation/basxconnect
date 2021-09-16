@@ -17,7 +17,7 @@ def editnaturalperson_form(request):
     return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
-def base_data_tab():
+def base_data_tab(request):
 
     return layout.tabs.Tab(
         _("Base data"),
@@ -26,7 +26,7 @@ def base_data_tab():
                 personal_data(),
                 person_metadata(models.NaturalPerson),
             ),
-            contact_details_naturalperson(),
+            contact_details_naturalperson(request),
         ),
     )
 
@@ -92,15 +92,15 @@ def mailings_tab(request):
     )
 
 
-def contact_details_naturalperson():
+def contact_details_naturalperson(request):
     return hg.BaseElement(
         R(
             editperson.addresses(),
-            editperson.numbers(),
+            editperson.numbers(request),
         ),
         R(
-            editperson.email(),
-            editperson.urls(),
+            editperson.email(request),
+            editperson.urls(request),
         ),
         R(
             editperson.categories(),

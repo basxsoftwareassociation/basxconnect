@@ -14,7 +14,7 @@ def editpersonassociation_form(request):
     return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
-def base_data_tab():
+def base_data_tab(request):
     return layout.tabs.Tab(
         _("Base data"),
         editperson.grid_inside_tab(
@@ -32,7 +32,7 @@ def base_data_tab():
                 ),
                 editperson.person_metadata(models.LegalPerson),
             ),
-            editperson.contact_details(),
+            editperson.contact_details(request),
         ),
     )
 

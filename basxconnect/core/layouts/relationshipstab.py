@@ -89,7 +89,6 @@ def relationships_datatable(request, queryset, primary_button, title):
 def button_add_relationship_from(modal):
     return layout.button.Button(
         _("Add relationship from person"),
-        buttontype="primary",
         **modal.openerattributes,
     )
 
@@ -97,7 +96,6 @@ def button_add_relationship_from(modal):
 def button_add_relationship_to(modal):
     return layout.button.Button(
         _("Add relationship to person"),
-        buttontype="primary",
         **modal.openerattributes,
     )
 

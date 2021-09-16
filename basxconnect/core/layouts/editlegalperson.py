@@ -15,7 +15,7 @@ def editlegalperson_form(request):
     return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
-def base_data_tab():
+def base_data_tab(request):
     return layout.tabs.Tab(
         _("Base data"),
         hg.BaseElement(
@@ -33,8 +33,8 @@ def base_data_tab():
                     ),
                     editperson.person_metadata(models.LegalPerson),
                 ),
-                editperson.contact_details(),
-                R(editperson.categories()),
+                editperson.contact_details(request),
+                R(editperson.categories(request)),
             ),
         ),
     )

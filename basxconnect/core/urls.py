@@ -112,6 +112,9 @@ urlpatterns = [
     *default_model_paths(models.Term),
     *default_model_paths(models.Category),
     *default_model_paths(models.Postal),
+    *default_model_paths(models.Phone),
+    *default_model_paths(models.Email),
+    *default_model_paths(models.Web),
     autopath(settings_views.generalsettings),
     autopath(
         person_details_views.togglepersonstatus,

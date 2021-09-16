@@ -9,10 +9,11 @@ from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.icon import Icon
 from bread.layout.components.modal import modal_with_trigger
 from bread.utils import (
+    Link,
     ModelHref,
+    get_concrete_instance,
     pretty_modelname,
     reverse_model,
-    get_concrete_instance,
 )
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -51,7 +52,7 @@ def editperson_form(request, base_data_tab, mailings_tab):
 
 
 def editperson_tabs(base_data_tab, mailing_tab, request):
-    return [base_data_tab(), relationshipstab(request), mailing_tab(request)] + (
+    return [base_data_tab(request), relationshipstab(request), mailing_tab(request)] + (
         [
             contributions_tab.contributions_tab(request),
         ]
@@ -236,68 +237,82 @@ def active_toggle_without_label():
     return hg.DIV(active_toggle)
 
 
-def contact_details():
+def contact_details(request):
     return hg.BaseElement(
         R(
             addresses(),
-            numbers(),
+            numbers(request),
         ),
         R(
-            email(),
-            urls(),
+            email(request),
+            urls(request),
         ),
         R(other(), C(width=8)),
     )
 
 
-def numbers():
-    return tiling_col(
-        hg.H4(_("Numbers")),
-        layout.form.FormsetField.as_plain(
-            "core_phone_list",
-            R(
-                C(F("type"), width=4),
-                C(F("number"), width=8),
-                C(
-                    layout.form.InlineDeleteButton(
-                        ".bx--row",
-                        icon="subtract--alt",
-                    ),
-                    style="margin-top: 1.5rem",
-                    width=2,
-                ),
-            ),
-            add_label=_("Add number"),
-        ),
+def numbers(request):
+    return tile_with_datatable(
+        models.Phone,
+        hg.F(lambda c: c["object"].core_phone_list.all()),
+        ["type", "number"],
+        request,
     )
 
 
-def email():
+def tile_with_datatable(model, queryset, fields, request):
+    modal = layout.modal.Modal.with_ajax_content(
+        _("Add"),
+        ModelHref(
+            model,
+            "add",
+            query=hg.F(lambda c: {"person": c["object"].pk, "asajax": True}),
+        ),
+        submitlabel=_("Save"),
+    )
     return tiling_col(
-        hg.H4(_("Email")),
-        hg.If(
-            hg.F(
-                lambda c: hasattr(c["object"], "core_email_list")
-                and c["object"].core_email_list.count() > 1
-            ),
-            R(C(F("primary_email_address"), width=4)),
-        ),
-        layout.form.FormsetField.as_plain(
-            "core_email_list",
-            R(
-                C(F("type"), width=4),
-                C(F("email"), width=8),
-                C(
-                    layout.form.InlineDeleteButton(
-                        ".bx--row",
-                        icon="subtract--alt",
+        layout.datatable.DataTable.from_model(
+            model,
+            queryset,
+            prevent_automatic_sortingnames=True,
+            columns=fields,
+            rowactions=[
+                Link(
+                    href=ModelHref(
+                        model,
+                        "edit",
+                        kwargs={"pk": hg.C("row.pk")},
+                        query={"next": request.get_full_path()},
                     ),
-                    style="margin-top: 1.5rem",
-                    width=2,
+                    iconname="edit",
+                    label=_("Edit"),
                 ),
+                Link(
+                    href=ModelHref(
+                        model,
+                        "delete",
+                        kwargs={"pk": hg.C("row.pk")},
+                        query={"next": request.get_full_path()},
+                    ),
+                    iconname="trash-can",
+                    label=_("Delete"),
+                ),
+            ],
+            primary_button=layout.button.Button(
+                _("Add"), buttontype="primary", **modal.openerattributes
             ),
-            add_label=_("Add email address"),
+            style="border-top: none;",
         ),
+        modal,
+    )
+
+
+def email(request):
+    return tile_with_datatable(
+        models.Email,
+        hg.F(lambda c: c["object"].core_email_list.all()),
+        ["type", "email"],
+        request,
     )
 
 
@@ -308,25 +323,12 @@ def categories():
     )
 
 
-def urls():
-    return tiling_col(
-        hg.H4(_("URLs")),
-        layout.form.FormsetField.as_plain(
-            "core_web_list",
-            R(
-                C(F("type"), width=4),
-                C(F("url"), width=8),
-                C(
-                    layout.form.InlineDeleteButton(
-                        ".bx--row",
-                        icon="subtract--alt",
-                    ),
-                    style="margin-top: 1.5rem",
-                    width=2,
-                ),
-            ),
-            add_label=_("Add Url"),
-        ),
+def urls(request):
+    return tile_with_datatable(
+        models.Web,
+        hg.F(lambda c: c["object"].core_web_list.all()),
+        ["type", "url"],
+        request,
     )
 
 
