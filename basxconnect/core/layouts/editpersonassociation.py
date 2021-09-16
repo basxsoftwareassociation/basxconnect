@@ -33,6 +33,7 @@ def base_data_tab(request):
                 editperson.person_metadata(models.LegalPerson),
             ),
             editperson.contact_details(request),
+            R(editperson.categories(), editperson.other()),
         ),
     )
 

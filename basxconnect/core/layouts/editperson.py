@@ -247,7 +247,6 @@ def contact_details(request):
             email(request),
             urls(request),
         ),
-        R(other(), C(width=8)),
     )
 
 
