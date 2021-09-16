@@ -53,6 +53,7 @@ def personal_data():
     return editperson.tile_col_edit_modal_displayed_fields(
         _("Personal Data"),
         models.NaturalPerson,
+        "ajax_edit_personal_data",
         Icon("user--profile"),
         displayed_fields,
     )
@@ -75,6 +76,7 @@ def mailings_tab(request):
                 editperson.tile_col_edit_modal(
                     _("Settings"),
                     models.NaturalPerson,
+                    "ajax_edit_mailings",
                     Icon("settings--adjust"),
                     [
                         "preferred_language",

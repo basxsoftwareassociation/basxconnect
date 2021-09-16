@@ -22,6 +22,7 @@ def base_data_tab():
                 editperson.tile_col_edit_modal(
                     _("Base Data"),
                     models.PersonAssociation,
+                    "ajax_edit",
                     Icon("building"),
                     [
                         "name",

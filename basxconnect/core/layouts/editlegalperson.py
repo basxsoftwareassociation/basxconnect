@@ -24,6 +24,7 @@ def base_data_tab():
                     editperson.tile_col_edit_modal(
                         _("Base Data"),
                         models.LegalPerson,
+                        "ajax_edit_personal_data",
                         Icon("building"),
                         [
                             "name",
@@ -56,6 +57,7 @@ def mailings_tab(request):
                 editperson.tile_col_edit_modal(
                     _("Settings"),
                     models.LegalPerson,
+                    "ajax_edit_mailings",
                     Icon("settings--adjust"),
                     [
                         "preferred_language",
