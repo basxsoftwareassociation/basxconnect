@@ -17,16 +17,16 @@ def editnaturalperson_form(request):
     return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
-def base_data_tab():
+def base_data_tab(request):
 
     return layout.tabs.Tab(
         _("Base data"),
         editperson.grid_inside_tab(
             R(
                 personal_data(),
-                person_metadata(),
+                person_metadata(models.NaturalPerson),
             ),
-            contact_details_naturalperson(),
+            contact_details_naturalperson(request),
         ),
     )
 
@@ -51,7 +51,11 @@ def personal_data():
         ),
     ]
     return editperson.tile_col_edit_modal_displayed_fields(
-        models.NaturalPerson, Icon("user--profile"), displayed_fields
+        _("Personal Data"),
+        models.NaturalPerson,
+        "ajax_edit_personal_data",
+        Icon("user--profile"),
+        displayed_fields,
     )
 
 
@@ -70,7 +74,9 @@ def mailings_tab(request):
         editperson.grid_inside_tab(
             R(
                 editperson.tile_col_edit_modal(
+                    _("Settings"),
                     models.NaturalPerson,
+                    "ajax_edit_mailings",
                     Icon("settings--adjust"),
                     [
                         "preferred_language",
@@ -86,15 +92,15 @@ def mailings_tab(request):
     )
 
 
-def contact_details_naturalperson():
+def contact_details_naturalperson(request):
     return hg.BaseElement(
         R(
             editperson.addresses(),
-            editperson.numbers(),
+            editperson.numbers(request),
         ),
         R(
-            editperson.email(),
-            editperson.urls(),
+            editperson.email(request),
+            editperson.urls(request),
         ),
         R(
             editperson.categories(),

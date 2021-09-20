@@ -14,13 +14,15 @@ def editpersonassociation_form(request):
     return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
-def base_data_tab():
+def base_data_tab(request):
     return layout.tabs.Tab(
         _("Base data"),
         editperson.grid_inside_tab(
             R(
                 editperson.tile_col_edit_modal(
+                    _("Base Data"),
                     models.PersonAssociation,
+                    "ajax_edit",
                     Icon("building"),
                     [
                         "name",
@@ -28,9 +30,10 @@ def base_data_tab():
                         "salutation_letter",
                     ],
                 ),
-                editperson.person_metadata(),
+                editperson.person_metadata(models.LegalPerson),
             ),
-            editperson.contact_details(),
+            editperson.contact_details(request),
+            R(editperson.categories(), editperson.other()),
         ),
     )
 

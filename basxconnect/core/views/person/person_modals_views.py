@@ -35,10 +35,6 @@ class NaturalPersonEditMailingsView(EditView):
     def icon():
         return Icon("settings--adjust")
 
-    def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in self.fields]
-        return hg.DIV(*form_fields)
-
 
 class NaturalPersonEditPersonalDataView(EditView):
     model = models.NaturalPerson
@@ -54,10 +50,6 @@ class NaturalPersonEditPersonalDataView(EditView):
         "decease_date",
     ]
 
-    def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in self.fields]
-        return hg.DIV(*form_fields)
-
 
 class LegalPersonEditPersonalDataView(EditView):
     model = models.LegalPerson
@@ -65,10 +57,6 @@ class LegalPersonEditPersonalDataView(EditView):
         "name",
         "name_addition",
     ]
-
-    def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in self.fields]
-        return hg.DIV(*form_fields)
 
 
 class PersonAssociationEditPersonalDataView(EditView):
@@ -79,22 +67,6 @@ class PersonAssociationEditPersonalDataView(EditView):
         "salutation_letter",
     ]
 
-    @staticmethod
-    def read_heading():
-        return _("General Information")
-
-    @staticmethod
-    def edit_heading():
-        return _("Edit General Information")
-
-    @staticmethod
-    def icon():
-        return Icon("building")
-
-    def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in self.fields]
-        return hg.DIV(*form_fields)
-
 
 class LegalPersonEditMailingsView(EditView):
     model = models.LegalPerson
@@ -103,10 +75,6 @@ class LegalPersonEditMailingsView(EditView):
         "type",
         "salutation_letter",
     ]
-
-    def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in self.fields]
-        return hg.DIV(*form_fields)
 
 
 class EditPostalAddressView(EditView):
@@ -160,3 +128,45 @@ class DeletePostalAddressView(DeleteView):
         ret = super().get(*args, **kwargs)
         person.save()
         return ret
+
+
+class NaturalPersonEditRemarksView(EditView):
+    model = models.NaturalPerson
+    fields = [
+        "remarks",
+    ]
+
+
+class LegalPersonEditRemarksView(EditView):
+    model = models.LegalPerson
+    fields = [
+        "remarks",
+    ]
+
+
+class PersonAssociationEditRemarksView(EditView):
+    model = models.PersonAssociation
+    fields = [
+        "remarks",
+    ]
+
+
+class NaturalPersonEditCategoriesView(EditView):
+    model = models.NaturalPerson
+    fields = [
+        "categories",
+    ]
+
+
+class LegalPersonEditCategoriesView(EditView):
+    model = models.LegalPerson
+    fields = [
+        "categories",
+    ]
+
+
+class PersonAssociationEditCategoriesView(EditView):
+    model = models.PersonAssociation
+    fields = [
+        "categories",
+    ]

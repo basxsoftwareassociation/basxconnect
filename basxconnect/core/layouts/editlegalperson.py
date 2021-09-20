@@ -15,24 +15,26 @@ def editlegalperson_form(request):
     return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
-def base_data_tab():
+def base_data_tab(request):
     return layout.tabs.Tab(
         _("Base data"),
         hg.BaseElement(
             editperson.grid_inside_tab(
                 R(
                     editperson.tile_col_edit_modal(
+                        _("Base Data"),
                         models.LegalPerson,
+                        "ajax_edit_personal_data",
                         Icon("building"),
                         [
                             "name",
                             "name_addition",
                         ],
                     ),
-                    editperson.person_metadata(),
+                    editperson.person_metadata(models.LegalPerson),
                 ),
-                editperson.contact_details(),
-                R(editperson.categories()),
+                editperson.contact_details(request),
+                R(editperson.categories(), editperson.other()),
             ),
         ),
     )
@@ -53,7 +55,9 @@ def mailings_tab(request):
         editperson.grid_inside_tab(
             R(
                 editperson.tile_col_edit_modal(
+                    _("Settings"),
                     models.LegalPerson,
+                    "ajax_edit_mailings",
                     Icon("settings--adjust"),
                     [
                         "preferred_language",
