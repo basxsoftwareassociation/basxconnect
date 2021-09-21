@@ -72,11 +72,9 @@ class PersonAssociationEditView(EditView):
 
 class PersonAssociationReadView(ReadView):
     def get_layout(self):
-        return layoutasreadonly(
-            personform_shortcut(
-                self.request,
-                editpersonassociation_form(self.request),
-            )
+        return personform_shortcut(
+            self.request,
+            editpersonassociation_form(self.request),
         )
 
 
