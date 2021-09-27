@@ -298,9 +298,6 @@ class LegalPerson(Person):
         verbose_name_plural = _("Legal Persons")
 
 
-LegalPerson._meta.get_field("name").verbose_name = _("Name")
-
-
 class PersonAssociation(Person):
     type = models.ForeignKey(
         Term,
