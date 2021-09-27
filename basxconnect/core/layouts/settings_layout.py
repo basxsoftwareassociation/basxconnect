@@ -36,12 +36,21 @@ def relationshipssettings(request):
                     ),
                     rowactions=[
                         Link(
+                            label=_("Edit"),
+                            href=ModelHref(
+                                RelationshipType, "edit", kwargs={"pk": hg.C("row.pk")}
+                            ),
+                            iconname="edit",
+                        ),
+                        Link(
                             label=_("Delete"),
                             href=ModelHref(
-                                Term, "delete", kwargs={"pk": hg.C("row.pk")}
+                                RelationshipType,
+                                "delete",
+                                kwargs={"pk": hg.C("row.pk")},
                             ),
                             iconname="trash-can",
-                        )
+                        ),
                     ],
                     backurl=reverse(
                         "basxconnect.core.views.settings_views.relationshipssettings"
