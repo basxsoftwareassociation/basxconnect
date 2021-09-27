@@ -1,8 +1,6 @@
 import htmlgenerator as hg
 from bread.layout import button
 from django.db import models
-from django.template.defaultfilters import linebreaksbr
-from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
@@ -85,7 +83,7 @@ class Web(Address):
     type.verbose_name = _("Type")
 
     def __str__(self):
-        return format_html('<a href="{}">{}</a>', self.url, self.url)
+        return self.url
 
     class Meta:
         verbose_name = _("Web address")
@@ -156,7 +154,7 @@ class Postal(Address):
         else:
             ret.append(self.city)
         ret.append(self.country.name)
-        return linebreaksbr(" \n".join(ret))
+        return ", ".join(ret)
 
     class Meta:
         verbose_name = _("Postal address")
