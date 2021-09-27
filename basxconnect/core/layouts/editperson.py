@@ -20,7 +20,6 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from htmlgenerator import Lazy
 
-import basxconnect.core.settings
 from basxconnect.core import models
 from basxconnect.core.layouts import contributions_tab
 from basxconnect.core.layouts.relationshipstab import relationshipstab
@@ -53,11 +52,14 @@ def editperson_form(request, base_data_tab, mailings_tab):
 
 
 def editperson_tabs(base_data_tab, mailing_tab, request):
+
+    from django.apps import apps
+
     return [base_data_tab(request), relationshipstab(request), mailing_tab(request)] + (
         [
             contributions_tab.contributions_tab(request),
         ]
-        if basxconnect.core.settings.ENABLE_CONTRIBUTIONS
+        if apps.is_installed("basxconnect.mailer_integration")
         else []
     )
 
