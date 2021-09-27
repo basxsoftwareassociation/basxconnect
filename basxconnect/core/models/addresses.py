@@ -65,7 +65,7 @@ class Email(Address):
     asbutton.verbose_name = _("Email")
 
     def __str__(self):
-        return format_html('<a href="mailto:{}">{}</a>', self.email, self.email)
+        return self.email
 
     class Meta:
         verbose_name = _("Email address")
