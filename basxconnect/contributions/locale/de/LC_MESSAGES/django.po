@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-07 12:13+0200\n"
+"POT-Creation-Date: 2021-09-27 17:59+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:55
+#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:50
 msgid "Contributions"
 msgstr "Zuwendungen"
 
@@ -33,7 +33,7 @@ msgstr "Bevorzute Währung"
 msgid "Date"
 msgstr "Datum"
 
-#: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:29
+#: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:24
 msgid "Importfile"
 msgstr "Importdatei"
 
@@ -96,11 +96,11 @@ msgstr "Währung"
 msgid "Contribution"
 msgstr "Zuwendung"
 
-#: basxconnect/contributions/urls.py:26
+#: basxconnect/contributions/urls.py:21
 msgid "Import date"
 msgstr "Importdatum"
 
-#: basxconnect/contributions/urls.py:49
+#: basxconnect/contributions/urls.py:44
 msgid "Imports"
 msgstr "Importe"
 

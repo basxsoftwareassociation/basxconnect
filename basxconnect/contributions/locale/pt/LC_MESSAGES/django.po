@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-07 12:13+0200\n"
+"POT-Creation-Date: 2021-09-27 17:59+0700\n"
 "PO-Revision-Date: 2021-05-08 22:32+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/basxconnect/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.7-dev\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:55
+#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:50
 msgid "Contributions"
 msgstr "Contribuições"
 
@@ -34,7 +34,7 @@ msgstr "Moeda de preferência"
 msgid "Date"
 msgstr "Data"
 
-#: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:29
+#: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:24
 msgid "Importfile"
 msgstr "Importar ficheiro"
 
@@ -97,11 +97,11 @@ msgstr "Moeda"
 msgid "Contribution"
 msgstr "Contribuição"
 
-#: basxconnect/contributions/urls.py:26
+#: basxconnect/contributions/urls.py:21
 msgid "Import date"
 msgstr "Data de Importação"
 
-#: basxconnect/contributions/urls.py:49
+#: basxconnect/contributions/urls.py:44
 msgid "Imports"
 msgstr "Importações"
 

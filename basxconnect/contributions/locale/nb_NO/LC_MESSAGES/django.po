@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-26 17:11+0700\n"
+"POT-Creation-Date: 2021-09-27 17:59+0700\n"
 "PO-Revision-Date: 2021-07-29 21:32+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.7.2-dev\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:55
+#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:50
 msgid "Contributions"
 msgstr "Bidragsytere"
 
@@ -34,7 +34,7 @@ msgstr "Foretrukket valuta"
 msgid "Date"
 msgstr "Dato"
 
-#: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:29
+#: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:24
 #, fuzzy
 msgid "Importfile"
 msgstr "Importfil"
@@ -98,11 +98,11 @@ msgstr "Valuta"
 msgid "Contribution"
 msgstr "Bidrag"
 
-#: basxconnect/contributions/urls.py:26
+#: basxconnect/contributions/urls.py:21
 msgid "Import date"
 msgstr "Importdato"
 
-#: basxconnect/contributions/urls.py:49
+#: basxconnect/contributions/urls.py:44
 msgid "Imports"
 msgstr "Importer"
 
