@@ -59,7 +59,7 @@ def is_valid_new_person(person: MailerPerson):
 
 def _get_or_create_tag(tag: str) -> models.Term:
     tags_category = models.Category.objects.get(slug="category")
-    tag, _ = models.Term.objects.get_or_create(term=tag, category_id=tags_category)
+    tag, _ = models.Term.objects.get_or_create(term=tag, category=tags_category)
     return tag
 
 

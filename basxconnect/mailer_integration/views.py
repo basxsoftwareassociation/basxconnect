@@ -31,7 +31,7 @@ def mailchimp_view(request):
                 + (
                     "The following mailchimp contacts are not yet in our database but were also not "
                     "added because they were invalid:"
-                    ", ".join(sync_result.invalid_new_persons)
+                    + (", ".join(sync_result.invalid_new_persons))
                     if len(sync_result.invalid_new_persons) > 0
                     else ""
                 ),

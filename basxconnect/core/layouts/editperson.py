@@ -1,24 +1,30 @@
 import collections
+from typing import List, Union
 
 import bread.layout
 import htmlgenerator as hg
 from bread import layout
+from bread.layout import ObjectFieldLabel, ObjectFieldValue
 from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.icon import Icon
-from bread.utils import reverse, reverse_model
-from bread.utils.links import Link, ModelHref
+from bread.layout.components.modal import modal_with_trigger
+from bread.layout.components.tag import Tag
+from bread.utils import (
+    Link,
+    ModelHref,
+    get_concrete_instance,
+    pretty_modelname,
+    reverse_model,
+)
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from htmlgenerator import Lazy
 
 import basxconnect.core.settings
 from basxconnect.core import models
 from basxconnect.core.layouts import contributions_tab
-from basxconnect.core.models import Person, Relationship
-from basxconnect.core.views.person import search_person_view
-from basxconnect.core.views.person.person_modals_views import (
-    AddPostalAddressView,
-    EditPostalAddressView,
-)
+from basxconnect.core.layouts.relationshipstab import relationshipstab
+from basxconnect.core.models import Person
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -47,7 +53,7 @@ def editperson_form(request, base_data_tab, mailings_tab):
 
 
 def editperson_tabs(base_data_tab, mailing_tab, request):
-    return [base_data_tab(), relationshipstab(), mailing_tab(request)] + (
+    return [base_data_tab(request), relationshipstab(request), mailing_tab(request)] + (
         [
             contributions_tab.contributions_tab(request),
         ]
@@ -56,7 +62,7 @@ def editperson_tabs(base_data_tab, mailing_tab, request):
     )
 
 
-def editperson_toolbar(request, isreadview):
+def editperson_toolbar(request):
     deletebutton = layout.button.Button(
         _("Delete"),
         buttontype="ghost",
@@ -101,55 +107,13 @@ def editperson_toolbar(request, isreadview):
         copybutton,
         layout.button.PrintPageButton(buttontype="ghost"),
         add_person_button,
-        *(
-            []
-            if isreadview
-            else [
-                layout.button.Button(
-                    _("Save changes"),
-                    id=hg.BaseElement("save-button-", hg.C("object.pk")),
-                    icon="save",
-                    buttontype="tertiary",
-                    onclick="document.querySelector('div.bx--content form[method=POST]').submit()",
-                    style="margin-left: 1rem;",
-                ),
-            ]
-        ),
         _class="no-print",
         style="margin-bottom: 1rem; margin-left: 1rem",
         width=3,
     )
 
 
-def editperson_head(request, isreadview):
-    areyousure = layout.modal.Modal(
-        _("Unsaved changes"),
-        buttons=(
-            layout.button.Button(
-                _("Discard"),
-                buttontype="secondary",
-                **layout.aslink_attributes(
-                    hg.F(
-                        lambda c: reverse_model(
-                            c["object"], "read", kwargs={"pk": c["object"].pk}
-                        )
-                    )
-                ),
-            ),
-            layout.button.Button(
-                _("Save changes"),
-                buttontype="primary",
-                onclick="document.querySelector('div.bx--content form[method=POST]').submit()",
-            ),
-        ),
-    )
-
-    view_button_attrs = {}
-    if not isreadview:
-        view_button_attrs = {
-            **areyousure.openerattributes,
-        }
-
+def editperson_head(request):
     return hg.BaseElement(
         R(
             C(
@@ -160,30 +124,9 @@ def editperson_head(request, isreadview):
                             hg.C("object.deleted"), "text-decoration: line-through"
                         ),
                     ),
-                    editperson_toolbar(request, isreadview),
+                    editperson_toolbar(request),
                 ),
                 width=12,
-            ),
-            C(
-                layout.content_switcher.ContentSwitcher(
-                    (_("View"), view_button_attrs),
-                    (
-                        _("Edit"),
-                        layout.aslink_attributes(
-                            hg.F(
-                                lambda c: reverse_model(
-                                    c["object"], "edit", kwargs={"pk": c["object"].pk}
-                                )
-                            )
-                        ),
-                    ),
-                    selected=0 if isreadview else 1,
-                    onload=""
-                    if isreadview
-                    else "this.addEventListener('content-switcher-beingselected', (e) => e.preventDefault())",
-                ),
-                areyousure,
-                width=4,
             ),
             style="padding-top: 1rem",
         ),
@@ -203,21 +146,6 @@ def last_change():
     )
 
 
-def active_toggle(isreadview):
-    active_toggle = layout.toggle.Toggle(None, _("Inactive"), _("Active"))
-    if isreadview:
-        active_toggle.input.attributes["onclick"] = "return false;"
-    active_toggle.input.attributes["id"] = "person_active_toggle"
-    active_toggle.input.attributes["hx_trigger"] = "change"
-    active_toggle.input.attributes["hx_post"] = hg.F(
-        lambda c: reverse_lazy("core.person.togglestatus", args=[c["object"].pk])
-    )
-    active_toggle.input.attributes["checked"] = hg.F(lambda c: c["object"].active)
-    active_toggle.label.insert(0, _("Person status"))
-    active_toggle.label.attributes["_for"] = active_toggle.input.attributes["id"]
-    return hg.DIV(active_toggle)
-
-
 def active_toggle_without_label():
     active_toggle = layout.toggle.Toggle(
         None, _("Inactive"), _("Active"), style="margin-top:-1rem; margin-bottom:0;"
@@ -232,134 +160,159 @@ def active_toggle_without_label():
     return hg.DIV(active_toggle)
 
 
-def contact_details():
+def contact_details(request):
     return hg.BaseElement(
         R(
             addresses(),
-            numbers(),
+            numbers(request),
         ),
         R(
-            email(),
-            urls(),
-        ),
-        R(other(), C(width=8)),
-    )
-
-
-def numbers():
-    return tiling_col(
-        hg.H4(_("Numbers")),
-        layout.form.FormsetField.as_plain(
-            "core_phone_list",
-            R(
-                C(F("type"), width=4),
-                C(F("number"), width=8),
-                C(
-                    layout.form.InlineDeleteButton(
-                        ".bx--row",
-                        icon="subtract--alt",
-                    ),
-                    style="margin-top: 1.5rem",
-                    width=2,
-                ),
-            ),
-            add_label=_("Add number"),
+            email(request),
+            urls(request),
         ),
     )
 
 
-def email():
+def numbers(request):
+    return tile_with_datatable(
+        models.Phone,
+        hg.F(lambda c: c["object"].core_phone_list.all()),
+        ["type", "number"],
+        request,
+    )
+
+
+def tile_with_datatable(model, queryset, fields, request):
+    modal = layout.modal.Modal.with_ajax_content(
+        _("Add"),
+        ModelHref(
+            model,
+            "add",
+            query=hg.F(lambda c: {"person": c["object"].pk, "asajax": True}),
+        ),
+        submitlabel=_("Save"),
+    )
     return tiling_col(
-        hg.H4(_("Email")),
-        hg.If(
-            hg.F(
-                lambda c: hasattr(c["object"], "core_email_list")
-                and c["object"].core_email_list.count() > 1
-            ),
-            R(C(F("primary_email_address"), width=4)),
-        ),
-        layout.form.FormsetField.as_plain(
-            "core_email_list",
-            R(
-                C(F("type"), width=4),
-                C(F("email"), width=8),
-                C(
-                    layout.form.InlineDeleteButton(
-                        ".bx--row",
-                        icon="subtract--alt",
+        layout.datatable.DataTable.from_model(
+            model,
+            queryset,
+            prevent_automatic_sortingnames=True,
+            columns=fields,
+            rowactions=[
+                Link(
+                    href=ModelHref(
+                        model,
+                        "edit",
+                        kwargs={"pk": hg.C("row.pk")},
+                        query={"next": request.get_full_path()},
                     ),
-                    style="margin-top: 1.5rem",
-                    width=2,
+                    iconname="edit",
+                    label=_("Edit"),
                 ),
+                Link(
+                    href=ModelHref(
+                        model,
+                        "delete",
+                        kwargs={"pk": hg.C("row.pk")},
+                        query={"next": request.get_full_path()},
+                    ),
+                    iconname="trash-can",
+                    label=_("Delete"),
+                ),
+            ],
+            primary_button=layout.button.Button(
+                _("Add"), buttontype="primary", **modal.openerattributes
             ),
-            add_label=_("Add email address"),
+            style="border-top: none;",
         ),
+        modal,
+    )
+
+
+def email(request):
+    return tile_with_datatable(
+        models.Email,
+        hg.F(lambda c: c["object"].core_email_list.all()),
+        ["type", "email"],
+        request,
     )
 
 
 def categories():
     return tiling_col(
         hg.H4(_("Categories")),
-        layout.form.FormField("categories"),
+        hg.Iterator(hg.F(lambda c: c["object"].categories.all()), "i", Tag(hg.C("i"))),
+        open_modal_popup_button(
+            _("Edit Categories"),
+            hg.F(lambda c: get_concrete_instance(c["object"])),
+            "ajax_edit_categories",
+        ),
     )
 
 
-def urls():
-    return tiling_col(
-        hg.H4(_("URLs")),
-        layout.form.FormsetField.as_plain(
-            "core_web_list",
-            R(
-                C(F("type"), width=4),
-                C(F("url"), width=8),
-                C(
-                    layout.form.InlineDeleteButton(
-                        ".bx--row",
-                        icon="subtract--alt",
-                    ),
-                    style="margin-top: 1.5rem",
-                    width=2,
-                ),
-            ),
-            add_label=_("Add Url"),
-        ),
+def urls(request):
+    return tile_with_datatable(
+        models.Web,
+        hg.F(lambda c: c["object"].core_web_list.all()),
+        ["type", "url"],
+        request,
     )
 
 
 def other():
     return tiling_col(
         hg.H4(_("Other")),
-        F("remarks"),
+        hg.DIV(
+            ObjectFieldLabel("remarks"), style="font-weight:bold; margin-bottom: 1rem;"
+        ),
+        ObjectFieldValue("remarks"),
+        open_modal_popup_button(
+            "Remarks",
+            hg.F(lambda c: get_concrete_instance(c["object"])),
+            "ajax_edit_remarks",
+        ),
     )
+
+
+def edit_heading(model: type):
+    return _("Edit %s") % pretty_modelname(model)
 
 
 def display_postal(postal: models.Postal):
     modal = layout.modal.Modal.with_ajax_content(
-        heading=EditPostalAddressView.edit_heading(),
-        url=reverse(
-            EditPostalAddressView.path(),
+        heading=edit_heading(models.Postal),
+        url=reverse_model(
+            models.Postal,
+            "ajax_edit",
             kwargs={"pk": postal.pk},
             query={"asajax": True},
         ),
         submitlabel=_("Save"),
-    )  # TODO supply the pk of the postal, not the one of the person
+    )
     return R(
         C(
             hg.DIV(
                 postal.type,
+                " (" + _("primary") + ")"
+                if postal.person.primary_postal_address
+                and postal.person.primary_postal_address.pk == postal.pk
+                else "",
                 style="font-weight: bold; margin-bottom: 1rem;",
             ),
             hg.DIV(postal.address, style="margin-bottom: 0.25rem;"),
             hg.DIV(postal.postcode, " ", postal.city, style="margin-bottom: 0.25rem;"),
             hg.DIV(postal.get_country_display()),
-            edit_postal_button(modal),
+            hg.DIV(
+                edit_postal_button(modal),
+                delete_postal_button(postal),
+            ),
         ),
         style="margin-top: 1.5rem;",
     )
 
 
 def edit_postal_button(modal):
-    return hg.DIV(
+    return hg.SPAN(
         layout.button.Button(
             "",
             buttontype="ghost",
@@ -370,20 +323,30 @@ def edit_postal_button(modal):
     )
 
 
+def delete_postal_button(postal):
+    return layout.button.Button(
+        _("Delete"),
+        buttontype="ghost",
+        icon="trash-can",
+        notext=True,
+        hx_post=reverse_model(
+            models.Postal,
+            "ajax_delete",
+            kwargs={
+                "pk": postal.pk,
+            },
+            query={
+                "asajax": True,
+            },
+        ),
+    )
+
+
 def addresses():
     modal = modal_add_postal()
     return tile_with_icon(
         Icon("map"),
         hg.H4(_("Address(es)")),
-        hg.If(
-            hg.F(
-                lambda c: hasattr(c["object"], "core_postal_list")
-                and c["object"].core_postal_list.count() > 1
-            ),
-            hg.BaseElement(
-                R(C(F("primary_postal_address"), width=10)),
-            ),
-        ),
         R(
             C(
                 hg.Iterator(
@@ -393,7 +356,9 @@ def addresses():
                         else []
                     ),
                     "i",
-                    hg.F(lambda c: display_postal(c["i"])),
+                    hg.BaseElement(
+                        hg.F(lambda c: display_postal(c["i"])),
+                    ),
                 )
             )
         ),
@@ -416,10 +381,11 @@ def modal_add_postal():
     return layout.modal.Modal.with_ajax_content(
         heading=_("Add Address"),
         url=hg.F(
-            lambda c: reverse(
-                AddPostalAddressView.path(),
+            lambda c: reverse_model(
+                models.Postal,
+                "ajax_add",
                 query={"asajax": True, "person": c["object"].pk},
-            )
+            ),
         ),
         submitlabel=_("Save"),
     )
@@ -443,152 +409,70 @@ def revisionstab():
     )
 
 
-def relationshipstab():
-    return layout.tabs.Tab(
-        _("Relationships"),
-        hg.BaseElement(
-            layout.form.FormsetField.as_datatable(
-                "relationships_to",
-                [
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_a"),
-                        hg.C("object"),
-                    ),
-                    "type",
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_b"),
-                        F(
-                            "person_b",
-                            fieldtype=layout.search_select.SearchSelect,
-                            hidelabel=True,
-                            elementattributes={
-                                "backend": layout.search.SearchBackendConfig(
-                                    reverse_lazy(
-                                        "basxconnect.core.views.person.search_person_view.searchperson"
-                                    ),
-                                    result_selector=f".{search_person_view.ITEM_CLASS}",
-                                    result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
-                                    result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
-                                ),
-                            },
-                        ),
-                    ),
-                    "start_date",
-                    "end_date",
-                ],
-                # String-formatting with lazy values does not yet work in htmlgenerator but would be nice to have
-                # see https://github.com/basxsoftwareassociation/htmlgenerator/issues/6
-                title=hg.F(
-                    lambda c: _('Relationships from %s to "person B"') % c["object"]
-                ),
-            ),
-            layout.form.FormsetField.as_datatable(
-                "relationships_from",
-                [
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_a"),
-                        F(
-                            "person_a",
-                            fieldtype=layout.search_select.SearchSelect,
-                            hidelabel=True,
-                            elementattributes={
-                                "backend": layout.search.SearchBackendConfig(
-                                    reverse_lazy(
-                                        "basxconnect.core.views.person.search_person_view.searchperson"
-                                    ),
-                                    result_selector=f".{search_person_view.ITEM_CLASS}",
-                                    result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
-                                    result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
-                                ),
-                            },
-                        ),
-                    ),
-                    "type",
-                    layout.datatable.DataTableColumn(
-                        layout.fieldlabel(Relationship, "person_b"),
-                        hg.C("object"),
-                    ),
-                    "start_date",
-                    "end_date",
-                ],
-                rowactions=[
-                    row_action("delete", "trash-can", _("Delete")),
-                    row_action("edit", "edit", _("Edit")),
-                ],
-                rowactions_dropdown=True,
-                title=hg.F(
-                    lambda c: _('Relationships from "person A" to %s') % c["object"]
-                ),
-            ),
-        ),
-    )
-
-
-def row_action(object_action, icon, label):
-    return Link(
-        href=ModelHref(Relationship, object_action, kwargs={"pk": hg.C("row.pk")}),
-        iconname=icon,
-        label=label,
-    )
-
-
 def grid_inside_tab(*elems, **attrs):
     attrs = collections.defaultdict(str, attrs or {})
     attrs["style"] += " padding-left: 1rem; padding-right: 1rem"
     return layout.grid.Grid(*elems, **attrs)
 
 
-def tile_col_edit_modal(modal_view):
-    displayed_fields = [display_field_value(field) for field in modal_view.fields]
-    return tile_col_edit_modal_selected_fields(modal_view, displayed_fields)
+def tile_col_edit_modal(
+    heading, modal_view: type, action: str, icon: Icon, fields: List[str]
+):
+    displayed_fields = [display_field_value(field) for field in fields]
+    return tile_col_edit_modal_displayed_fields(
+        heading, modal_view, action, icon, displayed_fields
+    )
 
 
-def tile_col_edit_modal_selected_fields(modal_view, displayed_fields):
-    modal = create_modal(modal_view)
+def tile_col_edit_modal_displayed_fields(
+    heading, model: type, action: str, icon: Icon, displayed_fields: List
+):
     return tile_with_icon(
-        modal_view.icon(),
+        icon,
         hg.BaseElement(
-            tile_header(modal_view.read_heading()),
+            hg.H4(heading),
             *displayed_fields,
-            open_modal_popup_button(modal),
+            open_modal_popup_button(heading, model, action),
         ),
     )
 
 
-def open_modal_popup_button(modal):
+def open_modal_popup_button(heading, model, action):
     return R(
         C(
-            layout.button.Button(
+            modal_with_trigger(
+                create_modal(heading, model, action),
+                layout.button.Button,
                 "Edit",
                 buttontype="tertiary",
                 icon="edit",
-                **modal.openerattributes,
             ),
-            modal,
-        ),
-        style="margin-top: 1.5rem;",
+            style="margin-top: 1.5rem;",
+        )
     )
 
 
-def create_modal(modal_view):
-    return layout.modal.Modal.with_ajax_content(
-        heading=modal_view.edit_heading(),
-        url=hg.F(
-            lambda c: reverse(
-                modal_view.path(),
-                kwargs={"pk": c["object"].pk},
-                query={"asajax": True},
-            )
+def create_modal(heading, model: Union[type, Lazy], action: str):
+    modal = layout.modal.Modal.with_ajax_content(
+        heading=heading,
+        url=ModelHref(
+            model,
+            action,
+            kwargs={"pk": hg.F(lambda c: c["object"].pk)},
+            query={"asajax": True},
         ),
         submitlabel=_("Save"),
     )
+    modal[0][1].attributes["style"] = "overflow: visible"
+    modal[0].attributes["style"] = "overflow: visible"
+    return modal
 
 
-def tile_header(header, **kwargs):
+def tile_header(model, **kwargs):
     return R(
         C(
             hg.H4(
-                header,
+                pretty_modelname(model),
                 style="margin-top: 0; margin-bottom: 3rem;",
             ),
             **kwargs,
@@ -639,10 +523,10 @@ def tiling_row(*elems, **attrs):
     return R(C(*elems, **attrs), _class="tile theme-white")
 
 
-def person_metadata():
+def person_metadata(model):
     return tiling_col(
         # we need this to take exactly as much space as a real header
-        tile_header("A", style="visibility: hidden;"),
+        tile_header(model, style="visibility: hidden;"),
         display_field_value("personnumber"),
         display_field_value("maintype"),
         display_label_and_value(_("Status"), active_toggle_without_label()),

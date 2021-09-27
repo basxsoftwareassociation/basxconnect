@@ -1,10 +1,9 @@
 from bread import layout
+from bread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
+from basxconnect.core import models
 from basxconnect.core.layouts import editperson
-from basxconnect.core.views.person.person_modals_views import (
-    PersonAssociationEditPersonalDataView,
-)
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -15,15 +14,26 @@ def editpersonassociation_form(request):
     return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
-def base_data_tab():
+def base_data_tab(request):
     return layout.tabs.Tab(
         _("Base data"),
         editperson.grid_inside_tab(
             R(
-                editperson.tile_col_edit_modal(PersonAssociationEditPersonalDataView),
-                editperson.person_metadata(),
+                editperson.tile_col_edit_modal(
+                    _("Base Data"),
+                    models.PersonAssociation,
+                    "ajax_edit",
+                    Icon("building"),
+                    [
+                        "name",
+                        "preferred_language",
+                        "salutation_letter",
+                    ],
+                ),
+                editperson.person_metadata(models.LegalPerson),
             ),
-            editperson.contact_details(),
+            editperson.contact_details(request),
+            R(editperson.categories(), editperson.other()),
         ),
     )
 

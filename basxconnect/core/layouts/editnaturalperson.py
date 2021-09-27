@@ -1,14 +1,12 @@
 import htmlgenerator as hg
 from bread import layout
 from bread.layout import ObjectFieldValue
+from bread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
+from basxconnect.core import models
 from basxconnect.core.layouts import editperson
 from basxconnect.core.layouts.editperson import person_metadata
-from basxconnect.core.views.person.person_modals_views import (
-    NaturalPersonEditMailingsView,
-    NaturalPersonEditPersonalDataView,
-)
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -19,16 +17,16 @@ def editnaturalperson_form(request):
     return editperson.editperson_form(request, base_data_tab, mailings_tab)
 
 
-def base_data_tab():
+def base_data_tab(request):
 
     return layout.tabs.Tab(
         _("Base data"),
         editperson.grid_inside_tab(
             R(
                 personal_data(),
-                person_metadata(),
+                person_metadata(models.NaturalPerson),
             ),
-            contact_details_naturalperson(),
+            contact_details_naturalperson(request),
         ),
     )
 
@@ -52,8 +50,12 @@ def personal_data():
             editperson.display_field_value("decease_date"),
         ),
     ]
-    return editperson.tile_col_edit_modal_selected_fields(
-        NaturalPersonEditPersonalDataView, displayed_fields
+    return editperson.tile_col_edit_modal_displayed_fields(
+        _("Personal Data"),
+        models.NaturalPerson,
+        "ajax_edit_personal_data",
+        Icon("user--profile"),
+        displayed_fields,
     )
 
 
@@ -72,7 +74,17 @@ def mailings_tab(request):
         editperson.grid_inside_tab(
             R(
                 editperson.tile_col_edit_modal(
-                    modal_view=NaturalPersonEditMailingsView
+                    _("Settings"),
+                    models.NaturalPerson,
+                    "ajax_edit_mailings",
+                    Icon("settings--adjust"),
+                    [
+                        "preferred_language",
+                        "type",
+                        "salutation_letter",
+                        "gender",
+                        "form_of_address",
+                    ],
                 ),
                 mailer_tile,
             ),
@@ -80,15 +92,15 @@ def mailings_tab(request):
     )
 
 
-def contact_details_naturalperson():
+def contact_details_naturalperson(request):
     return hg.BaseElement(
         R(
             editperson.addresses(),
-            editperson.numbers(),
+            editperson.numbers(request),
         ),
         R(
-            editperson.email(),
-            editperson.urls(),
+            editperson.email(request),
+            editperson.urls(request),
         ),
         R(
             editperson.categories(),

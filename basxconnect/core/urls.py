@@ -111,6 +111,10 @@ urlpatterns = [
     *default_model_paths(models.RelationshipType),
     *default_model_paths(models.Term),
     *default_model_paths(models.Category),
+    *default_model_paths(models.Postal),
+    *default_model_paths(models.Phone),
+    *default_model_paths(models.Email),
+    *default_model_paths(models.Web),
     autopath(settings_views.generalsettings),
     autopath(
         person_details_views.togglepersonstatus,
@@ -120,30 +124,59 @@ urlpatterns = [
     autopath(settings_views.relationshipssettings),
     autopath(search_person_view.searchperson),
     autopath(
-        person_modals_views.NaturalPersonEditMailingsView.as_view(
-            model=models.NaturalPerson
-        )
+        person_modals_views.NaturalPersonEditMailingsView.as_view(),
+        urlname=model_urlname(models.NaturalPerson, "ajax_edit_mailings"),
     ),
     autopath(
-        person_modals_views.LegalPersonEditMailingsView.as_view(
-            model=models.LegalPerson
-        )
+        person_modals_views.LegalPersonEditMailingsView.as_view(),
+        urlname=model_urlname(models.LegalPerson, "ajax_edit_mailings"),
     ),
     autopath(
-        person_modals_views.NaturalPersonEditPersonalDataView.as_view(
-            model=models.NaturalPerson
-        )
+        person_modals_views.NaturalPersonEditPersonalDataView.as_view(),
+        urlname=model_urlname(models.NaturalPerson, "ajax_edit_personal_data"),
     ),
     autopath(
-        person_modals_views.LegalPersonEditPersonalDataView.as_view(
-            model=models.LegalPerson
-        )
+        person_modals_views.LegalPersonEditPersonalDataView.as_view(),
+        urlname=model_urlname(models.LegalPerson, "ajax_edit_personal_data"),
     ),
     autopath(
-        person_modals_views.PersonAssociationEditPersonalDataView.as_view(
-            model=models.PersonAssociation
-        )
+        person_modals_views.PersonAssociationEditPersonalDataView.as_view(),
+        urlname=model_urlname(models.PersonAssociation, "ajax_edit"),
     ),
-    autopath(person_modals_views.EditPostalAddressView.as_view(model=models.Postal)),
-    autopath(person_modals_views.AddPostalAddressView.as_view(model=models.Postal)),
+    autopath(
+        person_modals_views.EditPostalAddressView.as_view(),
+        urlname=model_urlname(models.Postal, "ajax_edit"),
+    ),
+    autopath(
+        person_modals_views.AddPostalAddressView.as_view(),
+        urlname=model_urlname(models.Postal, "ajax_add"),
+    ),
+    autopath(
+        person_modals_views.DeletePostalAddressView.as_view(),
+        urlname=model_urlname(models.Postal, "ajax_delete"),
+    ),
+    autopath(
+        person_modals_views.NaturalPersonEditRemarksView.as_view(),
+        urlname=model_urlname(models.NaturalPerson, "ajax_edit_remarks"),
+    ),
+    autopath(
+        person_modals_views.LegalPersonEditRemarksView.as_view(),
+        urlname=model_urlname(models.LegalPerson, "ajax_edit_remarks"),
+    ),
+    autopath(
+        person_modals_views.PersonAssociationEditRemarksView.as_view(),
+        urlname=model_urlname(models.PersonAssociation, "ajax_edit_remarks"),
+    ),
+    autopath(
+        person_modals_views.NaturalPersonEditCategoriesView.as_view(),
+        urlname=model_urlname(models.NaturalPerson, "ajax_edit_categories"),
+    ),
+    autopath(
+        person_modals_views.LegalPersonEditCategoriesView.as_view(),
+        urlname=model_urlname(models.LegalPerson, "ajax_edit_categories"),
+    ),
+    autopath(
+        person_modals_views.PersonAssociationEditCategoriesView.as_view(),
+        urlname=model_urlname(models.PersonAssociation, "ajax_edit_categories"),
+    ),
 ]

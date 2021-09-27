@@ -18,10 +18,10 @@ C = layout.grid.Col
 F = layout.form.FormField
 
 
-def personform_shortcut(request, formlayout, isreadview):
+def personform_shortcut(request, formlayout):
     return hg.BaseElement(
         layout.grid.Grid(
-            editperson_head(request, isreadview=isreadview),
+            editperson_head(request),
             layout.form.Form(hg.C("form"), formlayout),
             gutter=False,
         )
@@ -33,18 +33,14 @@ class NaturalPersonEditView(EditView):
         return personform_shortcut(
             self.request,
             editnaturalperson_form(self.request),
-            isreadview=False,
         )
 
 
 class NaturalPersonReadView(ReadView):
     def get_layout(self):
-        return layoutasreadonly(
-            personform_shortcut(
-                self.request,
-                editnaturalperson_form(self.request),
-                isreadview=True,
-            )
+        return personform_shortcut(
+            self.request,
+            editnaturalperson_form(self.request),
         )
 
 
@@ -53,7 +49,6 @@ class LegalPersonEditView(EditView):
         return personform_shortcut(
             self.request,
             editlegalperson_form(self.request),
-            isreadview=False,
         )
 
 
@@ -63,7 +58,6 @@ class LegalPersonReadView(ReadView):
             personform_shortcut(
                 self.request,
                 editlegalperson_form(self.request),
-                isreadview=True,
             )
         )
 
@@ -73,18 +67,14 @@ class PersonAssociationEditView(EditView):
         return personform_shortcut(
             self.request,
             editpersonassociation_form(self.request),
-            isreadview=False,
         )
 
 
 class PersonAssociationReadView(ReadView):
     def get_layout(self):
-        return layoutasreadonly(
-            personform_shortcut(
-                self.request,
-                editpersonassociation_form(self.request),
-                isreadview=True,
-            )
+        return personform_shortcut(
+            self.request,
+            editpersonassociation_form(self.request),
         )
 
 
