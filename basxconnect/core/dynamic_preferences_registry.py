@@ -2,7 +2,11 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from dynamic_preferences.preferences import Section
 from dynamic_preferences.registries import global_preferences_registry
-from dynamic_preferences.types import FilePreference, LongStringPreference
+from dynamic_preferences.types import (
+    FilePreference,
+    LongStringPreference,
+    StringPreference,
+)
 
 general = Section("general", _("General"))
 
@@ -26,3 +30,11 @@ class Logo(FilePreference):
     field_kwargs = {
         "required": False,
     }
+
+
+@global_preferences_registry.register
+class OrganizationName(StringPreference):
+    section = general
+    name = "organizationname"
+    default = "<Your Organization>"
+    verbose_name = _("Organization Name")

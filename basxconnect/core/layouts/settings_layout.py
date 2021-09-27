@@ -1,10 +1,9 @@
 import htmlgenerator as hg
+from basxconnect.core.models import Category, RelationshipType, Term
 from bread import layout
 from bread.utils import Link, ModelHref, pretty_modelname, reverse
 from bread.views import BrowseView
 from django.utils.translation import gettext_lazy as _
-
-from basxconnect.core.models import Category, RelationshipType, Term
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -72,41 +71,6 @@ def personsettings(request):
             )
         )
     return ret
-
-
-def generalsettings(request):
-    return hg.BaseElement(
-        R(C(F("name"))),
-        R(C(F("name_addition"))),
-        layout.form.FormsetField.as_plain(
-            "core_postal_list",
-            hg.BaseElement(
-                R(C(F("address"))),
-                R(
-                    C(F("postcode"), breakpoint="sm", width=1),
-                    C(F("city"), breakpoint="sm", width=3),
-                ),
-                R(C(F("country"))),
-            ),
-            can_delete=False,
-            max_num=1,
-            extra=1,
-        ),
-        R(
-            C(single_item_fieldset("core_phone_list", "number")),
-            C(
-                single_item_fieldset(
-                    "core_email_list",
-                    "email",
-                )
-            ),
-        ),
-        R(
-            C(single_item_fieldset("core_web_list", "url")),
-            C(),
-        ),
-        R(C(layout.helpers.SubmitButton(_("Save")))),
-    )
 
 
 def single_item_fieldset(related_field, fieldname, queryset=None):
