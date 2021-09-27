@@ -1,6 +1,7 @@
-from basxconnect.core.views.person.search_person_view import searchbar
 from django.utils.html import mark_safe
 from dynamic_preferences.registries import global_preferences_registry
+
+from basxconnect.core.views.person.search_person_view import searchbar
 
 
 def basxconnect_core(request):

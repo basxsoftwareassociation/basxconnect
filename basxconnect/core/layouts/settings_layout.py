@@ -1,9 +1,10 @@
 import htmlgenerator as hg
-from basxconnect.core.models import Category, RelationshipType, Term
 from bread import layout
 from bread.utils import Link, ModelHref, pretty_modelname, reverse
 from bread.views import BrowseView
 from django.utils.translation import gettext_lazy as _
+
+from basxconnect.core.models import Category, RelationshipType, Term
 
 R = layout.grid.Row
 C = layout.grid.Col
