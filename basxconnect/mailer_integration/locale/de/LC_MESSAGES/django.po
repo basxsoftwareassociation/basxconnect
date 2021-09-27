@@ -23,7 +23,7 @@ msgstr "Email Abonnemente"
 
 #: basxconnect/mailer_integration/layouts.py:82
 msgid "no mailing preferences yet for "
-msgstr "Keine Mailing Präferenzen"
+msgstr "Noch keine Mailing Präferenzen für"
 
 #: basxconnect/mailer_integration/layouts.py:84
 msgid "Add mailing preferences"
