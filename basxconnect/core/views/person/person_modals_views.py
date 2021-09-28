@@ -1,4 +1,4 @@
-﻿import django.forms
+import django.forms
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.icon import Icon
@@ -42,6 +42,7 @@ class NaturalPersonEditPersonalDataView(EditView):
         "salutation",
         "title",
         "name",
+        "autogenerate_displayname",
         "first_name",
         "last_name",
         "date_of_birth",
@@ -49,6 +50,44 @@ class NaturalPersonEditPersonalDataView(EditView):
         "deceased",
         "decease_date",
     ]
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        # only set the disabled attribute on the widget, otherwise we cannot change it on the client side in the future
+        if self.object.autogenerate_displayname:
+            form.fields["name"].widget.attrs["disabled"] = True
+        form.fields["autogenerate_displayname"].widget.attrs[
+            "onchange"
+        ] = "if(this.checked) { $('input[name=name]').setAttribute('disabled', '') } else { $('input[name=name]').removeAttribute('disabled') }"
+        return form
+
+    def get_layout(self):
+        R = layout.grid.Row
+        C = layout.grid.Col
+        F = layout.form.FormField
+        return layout.grid.Grid(
+            R(C(F("salutation"))),
+            R(C(F("title"))),
+            R(
+                C(
+                    F("name"),
+                    width=10,
+                    breakpoint="lg",
+                ),
+                C(
+                    F("autogenerate_displayname"),
+                    width=6,
+                    breakpoint="lg",
+                    style="align-self: flex-end;",
+                ),
+            ),
+            R(C(F("first_name"))),
+            R(C(F("last_name"))),
+            R(C(F("date_of_birth"))),
+            R(C(F("profession"))),
+            R(C(F("deceased"))),
+            R(C(F("decease_date"))),
+        )
 
 
 class LegalPersonEditPersonalDataView(EditView):

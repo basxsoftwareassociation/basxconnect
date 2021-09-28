@@ -192,6 +192,9 @@ class NaturalPerson(Person):
     first_name = models.CharField(_("First Name"), max_length=255, blank=True)
     middle_name = models.CharField(_("Middle Name"), max_length=255, blank=True)
     last_name = models.CharField(_("Last Name"), max_length=255, blank=True)
+    autogenerate_displayname = models.BooleanField(
+        _("Autogenerate Display Name"), default=True
+    )
     title = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,
@@ -262,7 +265,7 @@ class NaturalPerson(Person):
     age.verbose_name = _("Age")
 
     def save(self, *args, **kwargs):
-        if not self.name:
+        if self.autogenerate_displayname:
             self.name = self.first_name + " " + self.last_name
         if self.decease_date:
             self.deceased = True
