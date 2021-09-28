@@ -51,10 +51,13 @@ class Person(models.Model):
         lambda field, request, instance: settings.PREFERRED_LANGUAGES
     )
 
-    categories = models.ManyToManyField(
-        Term, blank=True, limit_choices_to={"category__slug": "category"}
+    tags = models.ManyToManyField(
+        Term,
+        blank=True,
+        limit_choices_to={"vocabulary__slug": "tag"},
+        # db_table="core_person_categories",
     )
-    categories.verbose_name = _("Categories")
+    tags.verbose_name = _("Tags")
 
     primary_postal_address = models.ForeignKey(
         "core.Postal",
@@ -200,7 +203,7 @@ class NaturalPerson(Person):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        limit_choices_to={"category__slug": "title"},
+        limit_choices_to={"vocabulary__slug": "title"},
         related_name="title_persons",
     )
     title.verbose_name = _("Title")
@@ -209,7 +212,7 @@ class NaturalPerson(Person):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        limit_choices_to={"category__slug": "salutation"},
+        limit_choices_to={"vocabulary__slug": "salutation"},
         related_name="+",
     )
     salutation.verbose_name = _("Salutation")
@@ -219,7 +222,7 @@ class NaturalPerson(Person):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        limit_choices_to={"category__slug": "form_of_address"},
+        limit_choices_to={"vocabulary__slug": "form_of_address"},
         related_name="+",
     )
     form_of_address.verbose_name = _("Form of address")
@@ -237,7 +240,7 @@ class NaturalPerson(Person):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        limit_choices_to={"category__slug": "gender"},
+        limit_choices_to={"vocabulary__slug": "gender"},
         related_name="gender_persons",
     )
     gender.verbose_name = _("Gender")
@@ -247,7 +250,7 @@ class NaturalPerson(Person):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        limit_choices_to={"category__slug": "naturaltype"},
+        limit_choices_to={"vocabulary__slug": "naturaltype"},
     )
     type.verbose_name = _("Person Type")
 
@@ -286,7 +289,7 @@ class LegalPerson(Person):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        limit_choices_to={"category__slug": "legaltype"},
+        limit_choices_to={"vocabulary__slug": "legaltype"},
     )
     type.verbose_name = _("Type")
 
@@ -307,7 +310,7 @@ class PersonAssociation(Person):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        limit_choices_to={"category__slug": "associationtype"},
+        limit_choices_to={"vocabulary__slug": "associationtype"},
     )
     type.verbose_name = _("Type")
 

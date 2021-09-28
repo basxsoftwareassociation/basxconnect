@@ -37,19 +37,17 @@ def export(request, queryset):
     columns = list(PersonBrowseView.columns)
     if form.is_valid():
 
-        # only the categories selected in the filter should be visible in the export
-        if form.cleaned_data.get("categories"):
-            categories = set(form.cleaned_data.get("categories"))
+        # only the tags selected in the filter should be visible in the export
+        if form.cleaned_data.get("tags"):
+            tags = set(form.cleaned_data.get("tags"))
 
-            def render_matching_categories(context):
-                return ", ".join(
-                    str(i) for i in categories & set(context["row"].categories.all())
-                )
+            def render_matching_tags(context):
+                return ", ".join(str(i) for i in tags & set(context["row"].tags.all()))
 
             columns.append(
                 DataTableColumn(
-                    layout.fieldlabel(models.Person, "categories"),
-                    hg.F(render_matching_categories),
+                    layout.fieldlabel(models.Person, "tags"),
+                    hg.F(render_matching_tags),
                 )
             )
         if form.cleaned_data.get("preferred_language"):
@@ -89,7 +87,7 @@ class PersonBrowseView(BrowseView):
             "personnumber__int",
         ),
         "status",
-        DataTableColumn(_("Category"), hg.C("row._type"), "_type"),
+        DataTableColumn(_("Person Category"), hg.C("row._type"), "_type"),
         DataTableColumn(
             layout.fieldlabel(models.Person, "name"),
             hg.DIV(
@@ -111,11 +109,9 @@ class PersonBrowseView(BrowseView):
             False,
         ),
         DataTableColumn(
-            layout.ObjectFieldLabel("categories", models.Person),
+            layout.ObjectFieldLabel("tags", models.Person),
             hg.UL(
-                hg.Iterator(
-                    hg.C("row.categories.all"), "tag", layout.tag.Tag(hg.C("tag"))
-                )
+                hg.Iterator(hg.C("row.tags.all"), "tag", layout.tag.Tag(hg.C("tag")))
             ),
         ),
     ]
@@ -151,22 +147,22 @@ class PersonBrowseView(BrowseView):
             required=False, label=_("Person Association")
         )
         naturalperson_subtypes = forms.ModelMultipleChoiceField(
-            queryset=models.Term.objects.filter(category__slug="naturaltype"),
+            queryset=models.Term.objects.filter(vocabulary__slug="naturaltype"),
             widget=forms.CheckboxSelectMultiple,
             required=False,
         )
         legalperson_subtypes = forms.ModelMultipleChoiceField(
-            queryset=models.Term.objects.filter(category__slug="legaltype"),
+            queryset=models.Term.objects.filter(vocabulary__slug="legaltype"),
             widget=forms.CheckboxSelectMultiple,
             required=False,
         )
         personassociation_subtypes = forms.ModelMultipleChoiceField(
-            queryset=models.Term.objects.filter(category__slug="associationtype"),
+            queryset=models.Term.objects.filter(vocabulary__slug="associationtype"),
             widget=forms.CheckboxSelectMultiple,
             required=False,
         )
-        categories = forms.ModelMultipleChoiceField(
-            queryset=models.Term.objects.filter(category__slug="category"),
+        tags = forms.ModelMultipleChoiceField(
+            queryset=models.Term.objects.filter(vocabulary__slug="tag"),
             widget=forms.CheckboxSelectMultiple,
             required=False,
         )
@@ -224,7 +220,7 @@ class PersonBrowseView(BrowseView):
             counter += form.cleaned_data["naturalperson_subtypes"].count()
             counter += form.cleaned_data["legalperson_subtypes"].count()
             counter += form.cleaned_data["personassociation_subtypes"].count()
-            counter += form.cleaned_data["categories"].count()
+            counter += form.cleaned_data["tags"].count()
             counter += len(form.cleaned_data["preferred_language"])
             counter += len(form.cleaned_data["status"])
             counter += 1 if form.cleaned_data["trash"] else 0
@@ -276,8 +272,8 @@ class PersonBrowseView(BrowseView):
                     else:
                         q |= Q(_type__in=form.cleaned_data[f"{i}_subtypes"])
                 ret = ret.filter(q)
-            if form.cleaned_data.get("categories"):
-                ret = ret.filter(categories__in=form.cleaned_data["categories"])
+            if form.cleaned_data.get("tags"):
+                ret = ret.filter(tags__in=form.cleaned_data["tags"])
             if form.cleaned_data.get("preferred_language"):
                 ret = ret.filter(
                     preferred_language__in=form.cleaned_data["preferred_language"]
@@ -295,7 +291,7 @@ class PersonBrowseView(BrowseView):
                 self._filterform(),
                 hg.DIV(
                     hg.DIV(
-                        hg.DIV(layout.helpers.Label(_("Categories"))),
+                        hg.DIV(layout.helpers.Label(_("Tags"))),
                         hg.DIV(
                             hg.DIV(
                                 hg.DIV(
@@ -357,7 +353,7 @@ class PersonBrowseView(BrowseView):
                     hg.DIV(
                         hg.DIV(layout.helpers.Label(_("Tags"))),
                         hg.DIV(
-                            layout.form.FormField("categories"),
+                            layout.form.FormField("tags"),
                             style="margin-right: 16px",
                         ),
                         style="border-right: #ccc solid 1px; margin: 0 16px 0 0; overflow-y: scroll",

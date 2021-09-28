@@ -4,7 +4,7 @@
          "name" : "Geschlecht",
          "slug" : "gender"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 1
    },
    {
@@ -12,7 +12,7 @@
          "name" : "Titel",
          "slug" : "title"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 2
    },
    {
@@ -20,7 +20,7 @@
          "name" : "Anrede",
          "slug" : "salutation"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 3
    },
    {
@@ -28,7 +28,7 @@
          "name" : "Addresstyp",
          "slug" : "addresstype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 4
    },
    {
@@ -36,15 +36,15 @@
          "name" : "Telefontyp",
          "slug" : "phonetype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 5
    },
    {
       "fields" : {
-         "name" : "Kategorie",
-         "slug" : "category"
+         "name" : "Tag",
+         "slug" : "tag"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 6
    },
    {
@@ -52,7 +52,7 @@
          "name" : "URL Typ",
          "slug" : "urltype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 7
    },
    {
@@ -60,7 +60,7 @@
          "name" : "Anredeform",
          "slug" : "form_of_address"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 8
    },
    {
@@ -68,7 +68,7 @@
          "name" : "Juristische Form",
          "slug" : "legaltype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 9
    },
    {
@@ -76,7 +76,7 @@
          "name" : "Personenkategorie",
          "slug" : "naturaltype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 10
    },
    {
@@ -84,7 +84,7 @@
          "name" : "Personenverbindungstyp",
          "slug" : "associationtype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 11
    },
    {
@@ -92,12 +92,20 @@
          "name" : "Email Typ",
          "slug" : "emailtype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 12
    },
    {
       "fields" : {
-         "category" : 1,
+         "name" : "Adress Status",
+         "slug" : "addressstatus"
+      },
+      "model" : "core.vocabulary",
+      "pk" : 13
+   },
+   {
+      "fields" : {
+         "vocabulary" : 1,
          "term" : "Unbekannt"
       },
       "model" : "core.term",
@@ -105,7 +113,7 @@
    },
    {
       "fields" : {
-         "category" : 1,
+         "vocabulary" : 1,
          "term" : "Männlich"
       },
       "model" : "core.term",
@@ -113,7 +121,7 @@
    },
    {
       "fields" : {
-         "category" : 1,
+         "vocabulary" : 1,
          "term" : "Weiblich"
       },
       "model" : "core.term",
@@ -121,7 +129,7 @@
    },
    {
       "fields" : {
-         "category" : 3,
+         "vocabulary" : 3,
          "term" : "Herr"
       },
       "model" : "core.term",
@@ -129,7 +137,7 @@
    },
    {
       "fields" : {
-         "category" : 3,
+         "vocabulary" : 3,
          "term" : "Frau"
       },
       "model" : "core.term",
@@ -137,7 +145,7 @@
    },
    {
       "fields" : {
-         "category" : 8,
+         "vocabulary" : 8,
          "term" : "Du"
       },
       "model" : "core.term",
@@ -145,7 +153,7 @@
    },
    {
       "fields" : {
-         "category" : 8,
+         "vocabulary" : 8,
          "term" : "Sie"
       },
       "model" : "core.term",
@@ -153,7 +161,7 @@
    },
    {
       "fields" : {
-         "category" : 8,
+         "vocabulary" : 8,
          "term" : "Ihr"
       },
       "model" : "core.term",
@@ -161,7 +169,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Kirche"
       },
       "model" : "core.term",
@@ -169,7 +177,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Stiftung"
       },
       "model" : "core.term",
@@ -177,7 +185,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Kanton/Bundesland"
       },
       "model" : "core.term",
@@ -185,7 +193,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Stadt/Gemeinde"
       },
       "model" : "core.term",
@@ -193,7 +201,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Firma"
       },
       "model" : "core.term",
@@ -201,7 +209,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Partner"
       },
       "model" : "core.term",
@@ -209,7 +217,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Behörde"
       },
       "model" : "core.term",
@@ -217,7 +225,7 @@
    },
    {
       "fields" : {
-         "category" : 4,
+         "vocabulary" : 4,
          "term" : "Domizil"
       },
       "model" : "core.term",
@@ -225,7 +233,7 @@
    },
    {
       "fields" : {
-         "category" : 5,
+         "vocabulary" : 5,
          "term" : "Privat"
       },
       "model" : "core.term",
@@ -233,7 +241,7 @@
    },
    {
       "fields" : {
-         "category" : 10,
+         "vocabulary" : 10,
          "term" : "Mitglied"
       },
       "model" : "core.term",
@@ -241,7 +249,7 @@
    },
    {
       "fields" : {
-         "category" : 4,
+         "vocabulary" : 4,
          "term" : "Geschäftlich"
       },
       "model" : "core.term",
@@ -249,7 +257,7 @@
    },
    {
       "fields" : {
-         "category" : 10,
+         "vocabulary" : 10,
          "term" : "Interessent"
       },
       "model" : "core.term",
@@ -257,7 +265,7 @@
    },
    {
       "fields" : {
-         "category" : 10,
+         "vocabulary" : 10,
          "term" : "Spender"
       },
       "model" : "core.term",
@@ -265,7 +273,7 @@
    },
    {
       "fields" : {
-         "category" : 5,
+         "vocabulary" : 5,
          "term" : "Mobiltelefon"
       },
       "model" : "core.term",
@@ -273,7 +281,7 @@
    },
    {
       "fields" : {
-         "category" : 2,
+         "vocabulary" : 2,
          "term" : "Dr."
       },
       "model" : "core.term",
@@ -281,7 +289,7 @@
    },
    {
       "fields" : {
-         "category" : 5,
+         "vocabulary" : 5,
          "term" : "Telefax"
       },
       "model" : "core.term",
@@ -289,7 +297,7 @@
    },
    {
       "fields" : {
-         "category" : 5,
+         "vocabulary" : 5,
          "term" : "Geschäftlich"
       },
       "model" : "core.term",
@@ -297,7 +305,7 @@
    },
    {
       "fields" : {
-         "category" : 4,
+         "vocabulary" : 4,
          "term" : "Privat"
       },
       "model" : "core.term",
@@ -305,7 +313,7 @@
    },
    {
       "fields" : {
-         "category" : 5,
+         "vocabulary" : 5,
          "term" : "Direktwahl"
       },
       "model" : "core.term",
@@ -313,7 +321,7 @@
    },
    {
       "fields" : {
-         "category" : 2,
+         "vocabulary" : 2,
          "term" : "Dr. med."
       },
       "model" : "core.term",
@@ -321,7 +329,7 @@
    },
    {
       "fields" : {
-         "category" : 7,
+         "vocabulary" : 7,
          "term" : "Internet"
       },
       "model" : "core.term",
@@ -329,7 +337,7 @@
    },
    {
       "fields" : {
-         "category" : 4,
+         "vocabulary" : 4,
          "term" : "Postfach"
       },
       "model" : "core.term",

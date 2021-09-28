@@ -240,14 +240,14 @@ def email(request):
     )
 
 
-def categories():
+def tags():
     return tiling_col(
-        hg.H4(_("Categories")),
-        hg.Iterator(hg.F(lambda c: c["object"].categories.all()), "i", Tag(hg.C("i"))),
+        hg.H4(_("Tags")),
+        hg.Iterator(hg.F(lambda c: c["object"].tags.all()), "i", Tag(hg.C("i"))),
         open_modal_popup_button(
-            _("Edit Categories"),
+            _("Edit Tags"),
             hg.F(lambda c: get_concrete_instance(c["object"])),
-            "ajax_edit_categories",
+            "ajax_edit_tags",
         ),
     )
 

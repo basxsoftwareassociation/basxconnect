@@ -103,7 +103,7 @@ def contact_details_naturalperson(request):
             editperson.urls(request),
         ),
         R(
-            editperson.categories(),
+            editperson.tags(),
             editperson.other(),
         ),
     )

@@ -4,7 +4,7 @@
          "name" : "Gender",
          "slug" : "gender"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 1
    },
    {
@@ -12,7 +12,7 @@
          "name" : "Title",
          "slug" : "title"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 2
    },
    {
@@ -20,7 +20,7 @@
          "name" : "Salutation",
          "slug" : "salutation"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 3
    },
    {
@@ -28,7 +28,7 @@
          "name" : "Address type",
          "slug" : "addresstype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 4
    },
    {
@@ -36,15 +36,15 @@
          "name" : "Telefon type",
          "slug" : "phonetype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 5
    },
    {
       "fields" : {
-         "name" : "Category",
-         "slug" : "category"
+         "name" : "Tag",
+         "slug" : "tag"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 6
    },
    {
@@ -52,7 +52,7 @@
          "name" : "URL type",
          "slug" : "urltype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 7
    },
    {
@@ -60,7 +60,7 @@
          "name" : "Form of address",
          "slug" : "form_of_address"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 8
    },
    {
@@ -68,7 +68,7 @@
          "name" : "Legal person type",
          "slug" : "legaltype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 9
    },
    {
@@ -76,7 +76,7 @@
          "name" : "Natural person type",
          "slug" : "naturaltype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 10
    },
    {
@@ -84,7 +84,7 @@
          "name" : "Personassociation type",
          "slug" : "associationtype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 11
    },
    {
@@ -92,12 +92,12 @@
          "name" : "Email Type",
          "slug" : "emailtype"
       },
-      "model" : "core.category",
+      "model" : "core.vocabulary",
       "pk" : 12
    },
    {
       "fields" : {
-         "category" : 1,
+         "vocabulary" : 1,
          "term" : "Unknown"
       },
       "model" : "core.term",
@@ -105,7 +105,7 @@
    },
    {
       "fields" : {
-         "category" : 1,
+         "vocabulary" : 1,
          "term" : "Male"
       },
       "model" : "core.term",
@@ -113,7 +113,7 @@
    },
    {
       "fields" : {
-         "category" : 1,
+         "vocabulary" : 1,
          "term" : "Female"
       },
       "model" : "core.term",
@@ -121,7 +121,7 @@
    },
    {
       "fields" : {
-         "category" : 3,
+         "vocabulary" : 3,
          "term" : "Mr."
       },
       "model" : "core.term",
@@ -129,7 +129,7 @@
    },
    {
       "fields" : {
-         "category" : 3,
+         "vocabulary" : 3,
          "term" : "Ms."
       },
       "model" : "core.term",
@@ -137,7 +137,7 @@
    },
    {
       "fields" : {
-         "category" : 8,
+         "vocabulary" : 8,
          "term" : "You"
       },
       "model" : "core.term",
@@ -145,7 +145,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Church"
       },
       "model" : "core.term",
@@ -153,7 +153,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Foundation"
       },
       "model" : "core.term",
@@ -161,7 +161,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Province/State"
       },
       "model" : "core.term",
@@ -169,7 +169,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "City"
       },
       "model" : "core.term",
@@ -177,7 +177,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Company"
       },
       "model" : "core.term",
@@ -185,7 +185,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Partner"
       },
       "model" : "core.term",
@@ -193,7 +193,7 @@
    },
    {
       "fields" : {
-         "category" : 9,
+         "vocabulary" : 9,
          "term" : "Official"
       },
       "model" : "core.term",
@@ -201,7 +201,7 @@
    },
    {
       "fields" : {
-         "category" : 4,
+         "vocabulary" : 4,
          "term" : "Domicil"
       },
       "model" : "core.term",
@@ -209,7 +209,7 @@
    },
    {
       "fields" : {
-         "category" : 5,
+         "vocabulary" : 5,
          "term" : "Private"
       },
       "model" : "core.term",
@@ -217,7 +217,7 @@
    },
    {
       "fields" : {
-         "category" : 10,
+         "vocabulary" : 10,
          "term" : "Member"
       },
       "model" : "core.term",
@@ -225,7 +225,7 @@
    },
    {
       "fields" : {
-         "category" : 4,
+         "vocabulary" : 4,
          "term" : "Business"
       },
       "model" : "core.term",
@@ -233,7 +233,7 @@
    },
    {
       "fields" : {
-         "category" : 10,
+         "vocabulary" : 10,
          "term" : "Interested"
       },
       "model" : "core.term",
@@ -241,7 +241,7 @@
    },
    {
       "fields" : {
-         "category" : 10,
+         "vocabulary" : 10,
          "term" : "Donor"
       },
       "model" : "core.term",
@@ -249,7 +249,7 @@
    },
    {
       "fields" : {
-         "category" : 5,
+         "vocabulary" : 5,
          "term" : "Mobile"
       },
       "model" : "core.term",
@@ -257,7 +257,7 @@
    },
    {
       "fields" : {
-         "category" : 2,
+         "vocabulary" : 2,
          "term" : "Dr."
       },
       "model" : "core.term",
@@ -265,7 +265,7 @@
    },
    {
       "fields" : {
-         "category" : 5,
+         "vocabulary" : 5,
          "term" : "Telefax"
       },
       "model" : "core.term",
@@ -273,7 +273,7 @@
    },
    {
       "fields" : {
-         "category" : 5,
+         "vocabulary" : 5,
          "term" : "Business"
       },
       "model" : "core.term",
@@ -281,7 +281,7 @@
    },
    {
       "fields" : {
-         "category" : 4,
+         "vocabulary" : 4,
          "term" : "Private"
       },
       "model" : "core.term",
@@ -289,7 +289,7 @@
    },
    {
       "fields" : {
-         "category" : 5,
+         "vocabulary" : 5,
          "term" : "Direct"
       },
       "model" : "core.term",
@@ -297,7 +297,7 @@
    },
    {
       "fields" : {
-         "category" : 2,
+         "vocabulary" : 2,
          "term" : "Dr. med."
       },
       "model" : "core.term",
@@ -305,7 +305,7 @@
    },
    {
       "fields" : {
-         "category" : 7,
+         "vocabulary" : 7,
          "term" : "Internet"
       },
       "model" : "core.term",
@@ -313,7 +313,7 @@
    },
    {
       "fields" : {
-         "category" : 4,
+         "vocabulary" : 4,
          "term" : "Postbox"
       },
       "model" : "core.term",

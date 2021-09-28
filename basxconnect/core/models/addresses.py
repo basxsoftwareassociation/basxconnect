@@ -22,7 +22,7 @@ class Address(models.Model):
         null=True,
         blank=True,
         related_name="status_%(app_label)s_%(class)s_list",
-        limit_choices_to={"category__slug": "addressstatus"},
+        limit_choices_to={"vocabulary__slug": "addressstatus"},
     )
     status.verbose_name = _("Status")
 
@@ -43,7 +43,7 @@ class Email(Address):
         null=True,
         blank=True,
         related_name="type_%(app_label)s_%(class)s_list",
-        limit_choices_to={"category__slug": "emailtype"},
+        limit_choices_to={"vocabulary__slug": "emailtype"},
     )
     type.verbose_name = _("Type")
 
@@ -78,7 +78,7 @@ class Web(Address):
         null=True,
         blank=True,
         related_name="type_%(app_label)s_%(class)s_list",
-        limit_choices_to={"category__slug": "urltype"},
+        limit_choices_to={"vocabulary__slug": "urltype"},
     )
     type.verbose_name = _("Type")
 
@@ -97,7 +97,7 @@ class Phone(Address):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        limit_choices_to={"category__slug": "phonetype"},
+        limit_choices_to={"vocabulary__slug": "phonetype"},
     )
     type.verbose_name = _("Type")
 
@@ -118,7 +118,7 @@ class Fax(Address):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        limit_choices_to={"category__slug": "phonetype"},
+        limit_choices_to={"vocabulary__slug": "phonetype"},
     )
     type.verbose_name = _("Type")
 
@@ -143,7 +143,7 @@ class Postal(Address):
         null=True,
         blank=True,
         related_name="type_%(app_label)s_%(class)s_list",
-        limit_choices_to={"category__slug": "addresstype"},
+        limit_choices_to={"vocabulary__slug": "addresstype"},
     )
     type.verbose_name = _("Type")
 

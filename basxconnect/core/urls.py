@@ -168,15 +168,15 @@ urlpatterns = [
         urlname=model_urlname(models.PersonAssociation, "ajax_edit_remarks"),
     ),
     autopath(
-        person_modals_views.NaturalPersonEditCategoriesView.as_view(),
-        urlname=model_urlname(models.NaturalPerson, "ajax_edit_categories"),
+        person_modals_views.NaturalPersonEditTagsView.as_view(),
+        urlname=model_urlname(models.NaturalPerson, "ajax_edit_tags"),
     ),
     autopath(
-        person_modals_views.LegalPersonEditCategoriesView.as_view(),
-        urlname=model_urlname(models.LegalPerson, "ajax_edit_categories"),
+        person_modals_views.LegalPersonEditTagsView.as_view(),
+        urlname=model_urlname(models.LegalPerson, "ajax_edit_tags"),
     ),
     autopath(
-        person_modals_views.PersonAssociationEditCategoriesView.as_view(),
-        urlname=model_urlname(models.PersonAssociation, "ajax_edit_categories"),
+        person_modals_views.PersonAssociationEditTagsView.as_view(),
+        urlname=model_urlname(models.PersonAssociation, "ajax_edit_tags"),
     ),
 ]

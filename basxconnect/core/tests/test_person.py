@@ -9,7 +9,7 @@ class VocabularyTest(generic_bread_testcase(models.Vocabulary)):
 
 
 class TermTest(
-    generic_bread_testcase(models.Term, category=from_model(models.Vocabulary))
+    generic_bread_testcase(models.Term, vocabulary=from_model(models.Vocabulary))
 ):
     pass
 

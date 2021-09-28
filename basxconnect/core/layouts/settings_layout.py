@@ -64,10 +64,10 @@ def relationshipssettings(request):
 
 def personsettings(request):
     ret = layout.grid.Grid(R(C(hg.H3(_("Persons")))), gutter=False)
-    for category in Vocabulary.objects.all():
+    for vocabulary in Vocabulary.objects.all():
         ret.append(
             R(
-                C(generate_term_datatable(category.name, category.slug)),
+                C(generate_term_datatable(vocabulary.name, vocabulary.slug)),
                 style="margin-bottom: 2rem",
             )
         )
@@ -86,13 +86,13 @@ def single_item_fieldset(related_field, fieldname, queryset=None):
     )
 
 
-def generate_term_datatable(title, category_slug):
+def generate_term_datatable(title, vocabulary_slug):
     """Helper function to display a table for all terms of a certain term, currently always returns to the personsettings view"""
     # TODO: make the backurl dynamic to return to current view (needs correct handling in the DataTable code)
 
-    cat = Vocabulary.objects.filter(slug=category_slug).first() or ""
+    cat = Vocabulary.objects.filter(slug=vocabulary_slug).first() or ""
     return layout.datatable.DataTable.from_queryset(
-        Term.objects.filter(category__slug=category_slug),
+        Term.objects.filter(vocabulary__slug=vocabulary_slug),
         columns=["term"],
         title=title,
         primary_button=layout.button.Button.fromlink(
@@ -101,7 +101,7 @@ def generate_term_datatable(title, category_slug):
                     Term,
                     "add",
                     query={
-                        "category": cat.id,
+                        "vocabulary": cat.id,
                         "next": reverse(
                             "basxconnect.core.views.settings_views.personsettings"
                         ),

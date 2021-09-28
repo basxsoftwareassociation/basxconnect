@@ -162,12 +162,12 @@ class ChooseSubType(forms.Form):
 
     def __init__(self, persontype, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        subtype_category = ChooseSubType.ALLOWED_SUBTYPE_CATEGORY.get(persontype)
-        if subtype_category is None:
+        subtype_vocabulary = ChooseSubType.ALLOWED_SUBTYPE_CATEGORY.get(persontype)
+        if subtype_vocabulary is None:
             self.fields = {}
         else:
             self.fields["subtype"].queryset = Term.objects.filter(
-                category__slug=subtype_category
+                vocabulary__slug=subtype_vocabulary
             )
 
     title = _("Choose person type")

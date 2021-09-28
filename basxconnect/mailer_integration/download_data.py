@@ -58,8 +58,8 @@ def is_valid_new_person(person: MailerPerson):
 
 
 def _get_or_create_tag(tag: str) -> models.Term:
-    tags_category = models.Vocabulary.objects.get(slug="category")
-    tag, _ = models.Term.objects.get_or_create(term=tag, category=tags_category)
+    tags_vocabulary = models.Vocabulary.objects.get(slug="tag")
+    tag, _ = models.Term.objects.get_or_create(term=tag, vocabulary=tags_vocabulary)
     return tag
 
 
@@ -69,7 +69,7 @@ def _save_person(datasource_tag: models.Term, mailer_person: MailerPerson):
         name=mailer_person.display_name,
         last_name=mailer_person.last_name,
     )
-    person.categories.add(datasource_tag)
+    person.tags.add(datasource_tag)
     person.save()
     email = models.Email.objects.create(email=mailer_person.email, person=person)
     person.primary_email_address = email

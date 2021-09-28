@@ -26,8 +26,8 @@ class Vocabulary(models.Model):
 
 
 class Term(models.Model):
-    category = models.ForeignKey(Vocabulary, null=False, on_delete=models.CASCADE)
-    category.verbose_name = _("Vocabulary")
+    vocabulary = models.ForeignKey(Vocabulary, null=False, on_delete=models.CASCADE)
+    vocabulary.verbose_name = _("Vocabulary")
     term = models.CharField(_("Term"), max_length=255)
 
     def __str__(self):

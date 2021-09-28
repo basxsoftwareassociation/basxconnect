@@ -191,22 +191,22 @@ class PersonAssociationEditRemarksView(EditView):
     ]
 
 
-class NaturalPersonEditCategoriesView(EditView):
+class NaturalPersonEditTagsView(EditView):
     model = models.NaturalPerson
     fields = [
-        "categories",
+        "tags",
     ]
 
 
-class LegalPersonEditCategoriesView(EditView):
+class LegalPersonEditTagsView(EditView):
     model = models.LegalPerson
     fields = [
-        "categories",
+        "tags",
     ]
 
 
-class PersonAssociationEditCategoriesView(EditView):
+class PersonAssociationEditTagsView(EditView):
     model = models.PersonAssociation
     fields = [
-        "categories",
+        "tags",
     ]
