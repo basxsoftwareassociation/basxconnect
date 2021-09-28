@@ -1,6 +1,7 @@
 from typing import List, NamedTuple
 
 import django_countries
+
 from basxconnect.core import models
 from basxconnect.mailer_integration.abstract.abstract_datasource import (
     Datasource,

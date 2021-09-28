@@ -6,16 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0012_auto_20210928_1158'),
+        ("core", "0012_auto_20210928_1158"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='Category',
-            new_name='Vocabulary',
+            old_name="Category",
+            new_name="Vocabulary",
         ),
         migrations.AlterModelOptions(
-            name='vocabulary',
-            options={'ordering': ['name'], 'verbose_name': 'Vocabulary', 'verbose_name_plural': 'Vocabularies'},
+            name="vocabulary",
+            options={
+                "ordering": ["name"],
+                "verbose_name": "Vocabulary",
+                "verbose_name_plural": "Vocabularies",
+            },
         ),
     ]
