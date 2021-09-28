@@ -11,6 +11,7 @@ checks:
 	flake8 basxconnect
 
 raise_and_release_minor_version:
+	git push
 	NEWVERSION=$$(                              \
 	   echo -n '__version__ = ' &&              \
 	   cat basxconnect/__init__.py |            \

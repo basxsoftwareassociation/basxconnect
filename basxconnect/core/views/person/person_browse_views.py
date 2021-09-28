@@ -110,6 +110,14 @@ class PersonBrowseView(BrowseView):
             "primary_email_address__email",
             False,
         ),
+        DataTableColumn(
+            layout.ObjectFieldLabel("categories", models.Person),
+            hg.UL(
+                hg.Iterator(
+                    hg.C("row.categories.all"), "tag", layout.tag.Tag(hg.C("tag"))
+                )
+            ),
+        ),
     ]
     bulkactions = (
         BulkAction(
