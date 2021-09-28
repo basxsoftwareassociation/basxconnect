@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-27 17:59+0700\n"
-"PO-Revision-Date: 2021-08-10 02:30+0000\n"
+"PO-Revision-Date: 2021-09-28 04:01+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.8-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: basxconnect/core/dynamic_preferences_registry.py:11
 #: basxconnect/core/views/menu_views.py:29
@@ -39,7 +39,6 @@ msgid "Logo"
 msgstr "โลโก้"
 
 #: basxconnect/core/dynamic_preferences_registry.py:40
-#, fuzzy
 msgid "Organization Name"
 msgstr "ชื่อองค์กร"
 
@@ -66,7 +65,6 @@ msgstr "ฐานข้อมูล"
 
 #: basxconnect/core/layouts/editlegalperson.py:25
 #: basxconnect/core/layouts/editpersonassociation.py:23
-#, fuzzy
 msgid "Base Data"
 msgstr "ฐานข้อมูล"
 
@@ -92,7 +90,6 @@ msgid "Settings"
 msgstr "ตั้งค่า"
 
 #: basxconnect/core/layouts/editnaturalperson.py:54
-#, fuzzy
 msgid "Personal Data"
 msgstr "ข้อมูลบุคคล"
 
@@ -154,9 +151,8 @@ msgstr "ใช้งาน"
 
 #: basxconnect/core/layouts/editperson.py:189
 #: basxconnect/core/layouts/editperson.py:226
-#, fuzzy
 msgid "Add"
-msgstr "เพิ่ม %s"
+msgstr "เพิ่ม"
 
 #: basxconnect/core/layouts/editperson.py:195
 #: basxconnect/core/layouts/editperson.py:292
@@ -185,9 +181,8 @@ msgid "Categories"
 msgstr "หมวดหมู่"
 
 #: basxconnect/core/layouts/editperson.py:248
-#, fuzzy
 msgid "Edit Categories"
-msgstr "หมวดหมู่"
+msgstr "แก้ไขหมวดหมู่"
 
 #: basxconnect/core/layouts/editperson.py:266
 #: basxconnect/core/layouts/editperson.py:357
@@ -195,13 +190,13 @@ msgid "Other"
 msgstr "อื่นๆ"
 
 #: basxconnect/core/layouts/editperson.py:280
-#, fuzzy, python-format
+#, python-format
 msgid "Edit %s"
-msgstr "แก้ไข"
+msgstr "แก้ไข %s"
 
 #: basxconnect/core/layouts/editperson.py:298
 msgid "primary"
-msgstr ""
+msgstr "ข้อมูลหลัก"
 
 #: basxconnect/core/layouts/editperson.py:351
 #: basxconnect/core/layouts/editperson.py:364
@@ -209,7 +204,6 @@ msgid "Address(es)"
 msgstr "ที่อยู่"
 
 #: basxconnect/core/layouts/editperson.py:384
-#, fuzzy
 msgid "Add Address"
 msgstr "เพิ่มที่อยู่"
 
@@ -258,26 +252,22 @@ msgid "Relationships"
 msgstr "ความสัมพันธ์"
 
 #: basxconnect/core/layouts/relationshipstab.py:25
-#, fuzzy
 msgid "Relationships to person"
-msgstr "ประเภทความสัมพันธ์"
+msgstr "สถานะความสัมพันธ์ที่เกี่ยวข้องเป็น"
 
 #: basxconnect/core/layouts/relationshipstab.py:32
-#, fuzzy
 msgid "Relationships from person"
-msgstr "ความสัมพันธ์"
+msgstr "สถานะความสัมพันธ์เกี่ยวข้องจากบุคคล"
 
 #: basxconnect/core/layouts/relationshipstab.py:91
 #: basxconnect/core/layouts/relationshipstab.py:105
-#, fuzzy
 msgid "Add relationship from person"
-msgstr "ความสัมพันธ์ของ %sกับ \"person B\""
+msgstr "เพิ่มสถานะความสัมพันธ์จากบุคคลอื่นกับตนเอง"
 
 #: basxconnect/core/layouts/relationshipstab.py:98
 #: basxconnect/core/layouts/relationshipstab.py:116
-#, fuzzy
 msgid "Add relationship to person"
-msgstr "ประเภทความสัมพันธ์"
+msgstr "เพิ่มสถานะความสัมพันธ์ของตนเองกับบุคคลอื่น"
 
 #: basxconnect/core/layouts/settings_layout.py:66
 #: basxconnect/core/models/persons.py:188
@@ -355,7 +345,7 @@ msgstr "เว็บไซต์"
 #: basxconnect/core/models/addresses.py:96
 #: basxconnect/core/models/addresses.py:117
 msgid "Number"
-msgstr "เบอร์โทรศัพท์"
+msgstr "ลำดับที่"
 
 #: basxconnect/core/models/addresses.py:110
 #: basxconnect/core/models/addresses.py:112
@@ -414,7 +404,7 @@ msgstr "ลบ"
 
 #: basxconnect/core/models/persons.py:34
 msgid "Person number"
-msgstr "เบอร์โทรศัพท์"
+msgstr "ลำดับที่"
 
 #: basxconnect/core/models/persons.py:40
 msgid "Display name"
