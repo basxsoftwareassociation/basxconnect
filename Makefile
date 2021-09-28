@@ -9,3 +9,13 @@ locale:
 checks:
 	black --check basxconnect
 	flake8 basxconnect
+
+raise_and_release_minor_version:
+	NEWVERSION=$$(                              \
+	   echo -n '__version__ = ' &&              \
+	   cat basxconnect/__init__.py |            \
+	   cut -d = -f 2 |                          \
+	   python3 -c 'i = input().strip().strip("\""); print("\"" + ".".join(i.split(".")[:-1] + [str(int(i.split(".")[-1]) + 1) + "\""]))' \
+    ) &&                                        \
+	echo $$NEWVERSION > basxconnect/__init__.py
+	git commit -m 'bump version' basxconnect/__init__.py && git push && git push --tags
