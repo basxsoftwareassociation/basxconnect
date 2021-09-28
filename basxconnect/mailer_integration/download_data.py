@@ -1,7 +1,6 @@
 from typing import List, NamedTuple
 
 import django_countries
-
 from basxconnect.core import models
 from basxconnect.mailer_integration.abstract.abstract_datasource import (
     Datasource,
@@ -58,7 +57,7 @@ def is_valid_new_person(person: MailerPerson):
 
 
 def _get_or_create_tag(tag: str) -> models.Term:
-    tags_category = models.Category.objects.get(slug="category")
+    tags_category = models.Vocabulary.objects.get(slug="category")
     tag, _ = models.Term.objects.get_or_create(term=tag, category=tags_category)
     return tag
 

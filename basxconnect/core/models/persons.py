@@ -100,7 +100,7 @@ class Person(models.Model):
     _type = models.ForeignKey(
         Term, on_delete=models.SET_NULL, null=True, blank=True, related_name="+"
     )
-    _type.verbose_name = _("Category")
+    _type.verbose_name = _("Person Category")
 
     objects = PersonManager()
 
@@ -249,7 +249,7 @@ class NaturalPerson(Person):
         blank=True,
         limit_choices_to={"category__slug": "naturaltype"},
     )
-    type.verbose_name = _("Person category")
+    type.verbose_name = _("Person Type")
 
     def age(self):
         if not self.date_of_birth:

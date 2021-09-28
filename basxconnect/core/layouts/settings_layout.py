@@ -1,10 +1,9 @@
 import htmlgenerator as hg
+from basxconnect.core.models import RelationshipType, Term, Vocabulary
 from bread import layout
 from bread.utils import Link, ModelHref, pretty_modelname, reverse
 from bread.views import BrowseView
 from django.utils.translation import gettext_lazy as _
-
-from basxconnect.core.models import Category, RelationshipType, Term
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -64,7 +63,7 @@ def relationshipssettings(request):
 
 def personsettings(request):
     ret = layout.grid.Grid(R(C(hg.H3(_("Persons")))), gutter=False)
-    for category in Category.objects.all():
+    for category in Vocabulary.objects.all():
         ret.append(
             R(
                 C(generate_term_datatable(category.name, category.slug)),
@@ -90,7 +89,7 @@ def generate_term_datatable(title, category_slug):
     """Helper function to display a table for all terms of a certain term, currently always returns to the personsettings view"""
     # TODO: make the backurl dynamic to return to current view (needs correct handling in the DataTable code)
 
-    cat = Category.objects.filter(slug=category_slug).first() or ""
+    cat = Vocabulary.objects.filter(slug=category_slug).first() or ""
     return layout.datatable.DataTable.from_queryset(
         Term.objects.filter(category__slug=category_slug),
         columns=["term"],

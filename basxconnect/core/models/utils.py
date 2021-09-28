@@ -8,7 +8,7 @@ from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 
-class Category(models.Model):
+class Vocabulary(models.Model):
     name = models.CharField(_("Name"), max_length=255, unique=True)
     slug = models.SlugField(
         _("Slug"),
@@ -21,13 +21,13 @@ class Category(models.Model):
 
     class Meta:
         ordering = ["name"]
-        verbose_name = _("Category")
-        verbose_name_plural = _("Categories")
+        verbose_name = _("Vocabulary")
+        verbose_name_plural = _("Vocabularies")
 
 
 class Term(models.Model):
-    category = models.ForeignKey(Category, null=False, on_delete=models.CASCADE)
-    category.verbose_name = _("Category")
+    category = models.ForeignKey(Vocabulary, null=False, on_delete=models.CASCADE)
+    category.verbose_name = _("Vocabulary")
     term = models.CharField(_("Term"), max_length=255)
 
     def __str__(self):
