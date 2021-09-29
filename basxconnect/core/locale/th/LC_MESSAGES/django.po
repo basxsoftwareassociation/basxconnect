@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-28 18:13+0700\n"
-"PO-Revision-Date: 2021-09-28 04:01+0000\n"
+"PO-Revision-Date: 2021-09-30 02:37+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -148,10 +148,8 @@ msgid "Tags"
 msgstr "แท็ก"
 
 #: basxconnect/core/layouts/editperson.py:248
-#, fuzzy
-#| msgid "Edit %s"
 msgid "Edit Tags"
-msgstr "แก้ไข %s"
+msgstr "แก้ไขแท็ก"
 
 #: basxconnect/core/layouts/editperson.py:266
 msgid "Other"
@@ -235,14 +233,10 @@ msgid "Persons"
 msgstr "บุคคล"
 
 #: basxconnect/core/migrations/0015_rename_category_to_tag.py:13
-#, fuzzy
-#| msgid "Tags"
 msgid "Tag"
 msgstr "แท็ก"
 
 #: basxconnect/core/migrations/0015_rename_category_to_tag.py:21
-#, fuzzy
-#| msgid "Categories"
 msgid "Category"
 msgstr "หมวดหมู่"
 
@@ -398,7 +392,7 @@ msgstr "นามสกุล"
 
 #: basxconnect/core/models/persons.py:199
 msgid "Autogenerate Display Name"
-msgstr ""
+msgstr "สร้างชื่อที่แสดงโดยอัตโนมัติ"
 
 #: basxconnect/core/models/persons.py:209
 msgid "Title"
@@ -433,10 +427,8 @@ msgid "Gender"
 msgstr "เพศ"
 
 #: basxconnect/core/models/persons.py:255
-#, fuzzy
-#| msgid "Person A"
 msgid "Person Type"
-msgstr "บุคคล A"
+msgstr "ประเภทของบุคคล"
 
 #: basxconnect/core/models/persons.py:268
 msgid "Age"
@@ -523,11 +515,11 @@ msgstr "Slug คือสิ่งที่ทำให้การค้นห�
 
 #: basxconnect/core/models/utils.py:24 basxconnect/core/models/utils.py:30
 msgid "Vocabulary"
-msgstr ""
+msgstr "คำศัพท์"
 
 #: basxconnect/core/models/utils.py:25
 msgid "Vocabularies"
-msgstr ""
+msgstr "คำศัพท์"
 
 #: basxconnect/core/models/utils.py:31 basxconnect/core/models/utils.py:38
 msgid "Term"
@@ -572,9 +564,8 @@ msgid "Edit mailing settings"
 msgstr "แก้ไขการตั้งค่าการส่งจดหมาย"
 
 #: basxconnect/core/views/person/person_modals_views.py:134
-#, fuzzy
 msgid "Use as primary postal address"
-msgstr "ที่อยู่สำหรับติดต่อ"
+msgstr "ใช้เป็นที่อยู่หลักสำหรับติดต่อ"
 
 #: basxconnect/core/views/person/search_person_view.py:22
 #: basxconnect/core/wizards/add_person.py:116
