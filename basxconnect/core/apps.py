@@ -6,7 +6,12 @@ class CoreConfig(AppConfig):
     name = "basxconnect.core"
 
     def ready(self):
+        import sys
+
         from .models import Vocabulary
+
+        if "migrate" in sys.argv:
+            return
 
         pre_installed_vocabulary = {
             "tag": _("Tags"),
