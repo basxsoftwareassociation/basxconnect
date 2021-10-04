@@ -5,6 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.html import mark_safe
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 
@@ -29,6 +30,12 @@ class Term(models.Model):
     vocabulary = models.ForeignKey(Vocabulary, null=False, on_delete=models.CASCADE)
     vocabulary.verbose_name = _("Vocabulary")
     term = models.CharField(_("Term"), max_length=255)
+    slug = models.CharField(_("Slug"), max_length=255, unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.slug)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.term

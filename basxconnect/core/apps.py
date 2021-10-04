@@ -10,7 +10,7 @@ class CoreConfig(AppConfig):
 
         from .models import Vocabulary
 
-        if "migrate" in sys.argv:
+        if "migrate" in sys.argv or "makemigrations" in sys.argv:
             return
 
         pre_installed_vocabulary = {
