@@ -633,12 +633,12 @@ msgstr "%s ist %s"
 
 #: basxconnect/core/views/person/person_details_views.py:107
 msgid "Delete linked mailer contact as well"
-msgstr ""
+msgstr "Verknüpfter Mailer Kontakt auch löschen"
 
 #: basxconnect/core/views/person/person_details_views.py:144
 #, python-format
 msgid "Delete email %s"
-msgstr ""
+msgstr "Email %s löschen"
 
 #: basxconnect/core/views/person/person_details_views.py:151
 msgid "Confirm"
@@ -736,7 +736,7 @@ msgstr "Informationen"
 
 #: basxconnect/core/wizards/add_person.py:228
 msgid "Confirmation"
-msgstr "Bestätigung"
+msgstr "Bestätigen"
 
 #: basxconnect/core/wizards/add_person.py:252
 msgid "Add new person"
@@ -746,8 +746,3 @@ msgstr "Neue Person hinzufügen"
 msgid "Review and confirm the entered information"
 msgstr "Überprüfen und bestätigen Sie die eingetragenen Informationen"
 
-#~ msgid "Categories"
-#~ msgstr "Kategorien"
-
-#~ msgid "Edit Categories"
-#~ msgstr "Kategorien bearbeiten"
