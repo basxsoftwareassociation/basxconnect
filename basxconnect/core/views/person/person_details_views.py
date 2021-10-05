@@ -140,12 +140,15 @@ def confirm_delete_email(request, pk: int):
             menu.main,
             Form.wrap_with_form(
                 form,
-                hg.If(
-                    enable_delete_mailer_contact_checkbox,
-                    bread.layout.form.FormField("delete_mailer_contact"),
-                    hg.BaseElement(),
+                hg.BaseElement(
+                    hg.H3(_("Delete email %s") % email.email),
+                    hg.If(
+                        enable_delete_mailer_contact_checkbox,
+                        bread.layout.form.FormField("delete_mailer_contact"),
+                        hg.BaseElement(),
+                    ),
                 ),
-                submit_label=_("Löschen"),
+                submit_label=_("Confirm"),
             ),
         ),
     )
