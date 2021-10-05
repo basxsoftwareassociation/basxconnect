@@ -1,11 +1,23 @@
+import logging
+
+import bread
+import django
 import htmlgenerator as hg
 from bread import layout as layout
+from bread import menu
+from bread.layout.components.form import Form
+from bread.utils import reverse_model
 from bread.views import EditView, ReadView, layoutasreadonly
-from django.http import HttpResponse
+from django.apps import apps
+from django.conf import settings
+from django.forms import forms
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
+import basxconnect.mailer_integration.settings
 from basxconnect.core.layouts.editlegalperson import editlegalperson_form
 from basxconnect.core.layouts.editnaturalperson import editnaturalperson_form
 from basxconnect.core.layouts.editperson import editperson_head
@@ -86,4 +98,54 @@ def togglepersonstatus(request, pk: int):
         person.save()
     return HttpResponse(
         _("%s is %s") % (person, _("Active") if person.active else _("Inactive"))
+    )
+
+
+def confirm_delete_email(request, pk: int):
+    class ConfirmDeleteEmailForm(forms.Form):
+        delete_mailer_contact = django.forms.BooleanField(
+            label=_("Delete linked mailer contact as well"),
+            required=False,
+        )
+
+    email = models.Email.objects.get(id=pk)
+    enable_delete_mailer_contact_checkbox = apps.is_installed(
+        "basxconnect.mailer_integration"
+    )
+
+    if request.method == "POST":
+        form = ConfirmDeleteEmailForm(request.POST)
+        if form.is_valid():
+            person = email.person
+            if enable_delete_mailer_contact_checkbox and form.cleaned_data.get(
+                "delete_mailer_contact"
+            ):
+                try:
+                    basxconnect.mailer_integration.settings.MAILER.delete_person(
+                        email.email
+                    )
+                except Exception:
+                    logging.error("tried to delete person from mailchimp but failed")
+
+            email.delete()
+            return HttpResponseRedirect(
+                reverse_model(person, "read", kwargs={"pk": person.pk})
+            )
+    else:
+        form = ConfirmDeleteEmailForm()
+
+    return layout.render(
+        request,
+        import_string(settings.DEFAULT_PAGE_LAYOUT)(
+            menu.main,
+            Form.wrap_with_form(
+                form,
+                hg.If(
+                    enable_delete_mailer_contact_checkbox,
+                    bread.layout.form.FormField("delete_mailer_contact"),
+                    hg.BaseElement(),
+                ),
+                submit_label=_("Löschen"),
+            ),
+        ),
     )

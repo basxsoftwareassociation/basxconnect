@@ -42,23 +42,30 @@ class MailchimpDatasource(abstract_datasource.Datasource):
             for raw_person in segment["members"]
         ]
 
-    def put_person(self, person: MailerPerson):
+    def delete_person(self, email: str):
+        result = self.client.lists.delete_list_member(
+            settings.MAILCHIMP_LIST_ID, compute_email_hash(email)
+        )
+        print(result)
+
+    def put_person(self, person: MailerPerson, **kwargs):
         self.client.lists.set_list_member(
             settings.MAILCHIMP_LIST_ID,
-            compute_email_hash(person),
+            compute_email_hash(person.email),
             {
                 "email_address": person.email,
                 "status_if_new": person.status,
-                # for the moment we don't alter the mailchimp status in BasxConnect, because it is very
-                # critical in Mailchimp and we want to be cautious for now
-                # "status": person.status,
                 "interests": compute_interests_dict(person),
                 "merge_fields": {
                     "FNAME": person.first_name or person.display_name,
                     "LNAME": person.last_name,
                 },
+                **kwargs,
             },
         )
+
+    def add_person(self, person: MailerPerson):
+        self.put_person(person, status=person.status)
 
     def get_interests(self):
         return [
@@ -82,5 +89,5 @@ def compute_interests_dict(person) -> dict:
     return interests
 
 
-def compute_email_hash(person):
-    return hashlib.md5(str(person.email).lower().encode()).hexdigest()
+def compute_email_hash(email):
+    return hashlib.md5(str(email).lower().encode()).hexdigest()

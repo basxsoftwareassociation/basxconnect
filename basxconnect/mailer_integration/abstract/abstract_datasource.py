@@ -50,7 +50,11 @@ class Datasource(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def put_person(self, person: MailerPerson):
+    def put_person(self, person: MailerPerson, **kwargs):
+        pass
+
+    @abc.abstractmethod
+    def add_person(self, person: MailerPerson):
         pass
 
     @abc.abstractmethod
