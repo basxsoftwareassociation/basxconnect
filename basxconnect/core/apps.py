@@ -7,8 +7,6 @@ class CoreConfig(AppConfig):
     name = "basxconnect.core"
 
     def ready(self):
-        import sys
-
         from .models import Vocabulary
 
         pre_installed_vocabulary = {
