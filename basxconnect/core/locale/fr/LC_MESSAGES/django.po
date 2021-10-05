@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-28 18:13+0700\n"
+"POT-Creation-Date: 2021-10-05 09:08+0200\n"
 "PO-Revision-Date: 2021-06-23 11:33+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/basxconnect/"
@@ -18,6 +18,85 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 4.7.1-dev\n"
+
+#: basxconnect/core/apps.py:13 basxconnect/core/layouts/editperson.py:245
+#: basxconnect/core/models/persons.py:60
+#: basxconnect/core/views/person/person_browse_views.py:294
+#: basxconnect/core/views/person/person_browse_views.py:354
+msgid "Tags"
+msgstr "Étiquettes"
+
+#: basxconnect/core/apps.py:14
+#, fuzzy
+#| msgid "Title"
+msgid "Titles"
+msgstr "Titre"
+
+#: basxconnect/core/apps.py:15
+#, fuzzy
+#| msgid "Salutation"
+msgid "Salutations"
+msgstr "Salutation"
+
+#: basxconnect/core/apps.py:16
+#, fuzzy
+#| msgid "Form of address"
+msgid "Forms Of Address"
+msgstr "Formulaire d'adresse"
+
+#: basxconnect/core/apps.py:17
+#, fuzzy
+#| msgid "Gender"
+msgid "Genders"
+msgstr "Genre"
+
+#: basxconnect/core/apps.py:18
+#, fuzzy
+#| msgid "Natural Persons"
+msgid "Natural Person Types"
+msgstr "Personnes morales"
+
+#: basxconnect/core/apps.py:19
+#, fuzzy
+#| msgid "Legal Persons"
+msgid "Legal Person Types"
+msgstr "Personnes morales"
+
+#: basxconnect/core/apps.py:20
+#, fuzzy
+#| msgid "Person A"
+msgid "Association Person Types"
+msgstr "Personne A"
+
+#: basxconnect/core/apps.py:21
+#, fuzzy
+#| msgid "Address(es)"
+msgid "Address statuses"
+msgstr "Adresse(s)"
+
+#: basxconnect/core/apps.py:22
+#, fuzzy
+#| msgid "Main Type"
+msgid "Email Types"
+msgstr "Type principal"
+
+#: basxconnect/core/apps.py:23
+#, fuzzy
+#| msgid "Type"
+msgid "URL Types"
+msgstr "Type"
+
+#: basxconnect/core/apps.py:24
+#, fuzzy
+#| msgid "Person A"
+msgid "Phone Types"
+msgstr "Personne A"
+
+#: basxconnect/core/apps.py:25
+#, fuzzy
+#| msgid "Address(es)"
+msgid "Address Types"
+msgstr "Adresse(s)"
 
 #: basxconnect/core/dynamic_preferences_registry.py:11
 #: basxconnect/core/views/menu_views.py:29
@@ -115,14 +194,14 @@ msgstr "Modifié le"
 
 #: basxconnect/core/layouts/editperson.py:153
 #: basxconnect/core/views/person/person_browse_views.py:175
-#: basxconnect/core/views/person/person_details_views.py:88
+#: basxconnect/core/views/person/person_details_views.py:100
 msgid "Inactive"
 msgstr "Inactif"
 
 #: basxconnect/core/layouts/editperson.py:153
 #: basxconnect/core/models/persons.py:41
 #: basxconnect/core/views/person/person_browse_views.py:175
-#: basxconnect/core/views/person/person_details_views.py:88
+#: basxconnect/core/views/person/person_details_views.py:100
 msgid "Active"
 msgstr "Actif"
 
@@ -147,13 +226,6 @@ msgstr "Enregistrer"
 #: basxconnect/core/layouts/settings_layout.py:39
 msgid "Edit"
 msgstr "Modifier"
-
-#: basxconnect/core/layouts/editperson.py:245
-#: basxconnect/core/models/persons.py:60
-#: basxconnect/core/views/person/person_browse_views.py:294
-#: basxconnect/core/views/person/person_browse_views.py:354
-msgid "Tags"
-msgstr "Étiquettes"
 
 #: basxconnect/core/layouts/editperson.py:248
 #, fuzzy
@@ -528,31 +600,31 @@ msgstr "Se termine le"
 msgid "Relationship"
 msgstr "Relation"
 
-#: basxconnect/core/models/utils.py:12
+#: basxconnect/core/models/utils.py:13
 msgid "Name"
 msgstr "Nom"
 
-#: basxconnect/core/models/utils.py:14
+#: basxconnect/core/models/utils.py:15 basxconnect/core/models/utils.py:33
 msgid "Slug"
 msgstr "Slug"
 
-#: basxconnect/core/models/utils.py:16
+#: basxconnect/core/models/utils.py:17
 msgid "slug is human-readable, to make referencing easier"
 msgstr "Le slug est lisible par les hommes, pour faciliter le référencement"
 
-#: basxconnect/core/models/utils.py:24 basxconnect/core/models/utils.py:30
+#: basxconnect/core/models/utils.py:25 basxconnect/core/models/utils.py:31
 msgid "Vocabulary"
 msgstr ""
 
-#: basxconnect/core/models/utils.py:25
+#: basxconnect/core/models/utils.py:26
 msgid "Vocabularies"
 msgstr ""
 
-#: basxconnect/core/models/utils.py:31 basxconnect/core/models/utils.py:38
+#: basxconnect/core/models/utils.py:32 basxconnect/core/models/utils.py:45
 msgid "Term"
 msgstr "Terme"
 
-#: basxconnect/core/models/utils.py:39
+#: basxconnect/core/models/utils.py:46
 msgid "Terms"
 msgstr "Termes"
 
@@ -581,10 +653,25 @@ msgctxt "apply filter"
 msgid "Filter"
 msgstr "Filtrer"
 
-#: basxconnect/core/views/person/person_details_views.py:88
+#: basxconnect/core/views/person/person_details_views.py:100
 #, python-format
 msgid "%s is %s"
 msgstr "%s est %s"
+
+#: basxconnect/core/views/person/person_details_views.py:107
+msgid "Delete linked mailer contact as well"
+msgstr ""
+
+#: basxconnect/core/views/person/person_details_views.py:144
+#, python-format
+msgid "Delete email %s"
+msgstr ""
+
+#: basxconnect/core/views/person/person_details_views.py:151
+#, fuzzy
+#| msgid "Confirmation"
+msgid "Confirm"
+msgstr "Confirmation"
 
 #: basxconnect/core/views/person/person_modals_views.py:32
 #, fuzzy
