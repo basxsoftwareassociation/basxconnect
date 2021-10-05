@@ -34,6 +34,7 @@ setup(
         "django-language-field",
         "chardet",
         "tablib",
+        "dateparser",
     ],
     extras_require={"testing": ["bread[testing]"]},
     packages=find_packages(),
