@@ -642,7 +642,7 @@ msgstr "Email %s löschen"
 
 #: basxconnect/core/views/person/person_details_views.py:151
 msgid "Confirm"
-msgstr "Bestätigung"
+msgstr "Bestätigen"
 
 #: basxconnect/core/views/person/person_modals_views.py:32
 msgid "Edit mailing settings"
