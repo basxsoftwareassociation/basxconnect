@@ -1,3 +1,4 @@
+from django import db
 from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
@@ -9,9 +10,6 @@ class CoreConfig(AppConfig):
         import sys
 
         from .models import Vocabulary
-
-        if "migrate" in sys.argv or "makemigrations" in sys.argv:
-            return
 
         pre_installed_vocabulary = {
             "tag": _("Tags"),
@@ -28,5 +26,8 @@ class CoreConfig(AppConfig):
             "phonetype": _("Phone Types"),
             "addresstype": _("Address Types"),
         }
-        for slug, name in pre_installed_vocabulary.items():
-            Vocabulary.objects.get_or_create(slug=slug, defaults={"name": name})
+        try:
+            for slug, name in pre_installed_vocabulary.items():
+                Vocabulary.objects.get_or_create(slug=slug, defaults={"name": name})
+        except db.utils.OperationalError:
+            pass
