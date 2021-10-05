@@ -146,6 +146,8 @@ class Postal(Address):
         limit_choices_to={"vocabulary__slug": "addresstype"},
     )
     type.verbose_name = _("Type")
+    valid_from = models.DateField(_("Valid from"), blank=True, null=True)
+    valid_to = models.DateField(_("Valid to"), blank=True, null=True)
 
     def __str__(self):
         ret = [self.address]
