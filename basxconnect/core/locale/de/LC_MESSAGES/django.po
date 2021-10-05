@@ -27,76 +27,52 @@ msgid "Tags"
 msgstr "Tags"
 
 #: basxconnect/core/apps.py:14
-#, fuzzy
-#| msgid "Title"
 msgid "Titles"
 msgstr "Titel"
 
 #: basxconnect/core/apps.py:15
-#, fuzzy
-#| msgid "Salutation"
 msgid "Salutations"
-msgstr "Anrede"
+msgstr "Anreden"
 
 #: basxconnect/core/apps.py:16
-#, fuzzy
-#| msgid "Form of address"
 msgid "Forms Of Address"
 msgstr "Anredeform"
 
 #: basxconnect/core/apps.py:17
-#, fuzzy
-#| msgid "Gender"
 msgid "Genders"
-msgstr "Geschlecht"
+msgstr "Geschlechter"
 
 #: basxconnect/core/apps.py:18
-#, fuzzy
-#| msgid "Natural Persons"
 msgid "Natural Person Types"
-msgstr "Natürliche Personen"
+msgstr "Natürliche Personen Typen"
 
 #: basxconnect/core/apps.py:19
-#, fuzzy
-#| msgid "Legal Persons"
 msgid "Legal Person Types"
-msgstr "Juristische Personen"
+msgstr "Juristische Personen Typen"
 
 #: basxconnect/core/apps.py:20
-#, fuzzy
-#| msgid "Person Type"
 msgid "Association Person Types"
-msgstr "Personentyp"
+msgstr "Personenverbindungen Typen"
 
 #: basxconnect/core/apps.py:21
-#, fuzzy
-#| msgid "Address(es)"
 msgid "Address statuses"
-msgstr "Adresse(n)"
+msgstr "Adressen Stati"
 
 #: basxconnect/core/apps.py:22
-#, fuzzy
-#| msgid "Main Type"
 msgid "Email Types"
-msgstr "Personen-Typ"
+msgstr "Email Typen"
 
 #: basxconnect/core/apps.py:23
-#, fuzzy
-#| msgid "Type"
 msgid "URL Types"
-msgstr "Typ"
+msgstr "URL Typen"
 
 #: basxconnect/core/apps.py:24
-#, fuzzy
-#| msgid "Person Type"
 msgid "Phone Types"
-msgstr "Personentyp"
+msgstr "Telefon Typen"
 
 #: basxconnect/core/apps.py:25
-#, fuzzy
-#| msgid "Address(es)"
 msgid "Address Types"
-msgstr "Adresse(n)"
+msgstr "Adressen Typen"
 
 #: basxconnect/core/dynamic_preferences_registry.py:11
 #: basxconnect/core/views/menu_views.py:29
