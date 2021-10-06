@@ -326,7 +326,6 @@ def display_postal(postal: models.Postal, request):
             ),
             hg.DIV(
                 edit_postal_button(modal),
-                delete_postal_button(postal),
             ),
         ),
         **(
