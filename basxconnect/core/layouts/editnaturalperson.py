@@ -95,7 +95,7 @@ def mailings_tab(request):
 def contact_details_naturalperson(request):
     return hg.BaseElement(
         R(
-            editperson.addresses(),
+            editperson.addresses(request),
             editperson.numbers(request),
         ),
         R(
