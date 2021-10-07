@@ -226,11 +226,11 @@ msgstr "Adresse(n)"
 
 #: basxconnect/core/layouts/editperson.py:392
 msgid "Hide inactive postals"
-msgstr ""
+msgstr "Inaktive Adressen verbergen"
 
 #: basxconnect/core/layouts/editperson.py:400
 msgid "Show inactive postals"
-msgstr ""
+msgstr "Inaktive Adressen anzeigen"
 
 #: basxconnect/core/layouts/editperson.py:445
 msgid "Add Address"
