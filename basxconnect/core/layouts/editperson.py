@@ -2,7 +2,6 @@ import collections
 from typing import List, Union
 
 import bread.layout
-import dateutil.utils
 import htmlgenerator as hg
 from bread import layout
 from bread.layout import ObjectFieldLabel, ObjectFieldValue
@@ -18,6 +17,7 @@ from bread.utils import (
     reverse_model,
 )
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from htmlgenerator import Lazy, mark_safe
 
@@ -166,7 +166,7 @@ def active_toggle_without_label():
 def contact_details(request):
     return hg.BaseElement(
         R(
-            addresses(request),
+            addresses(),
             numbers(request),
         ),
         R(
@@ -281,7 +281,7 @@ def edit_heading(model: type):
     return _("Edit %s") % pretty_modelname(model)
 
 
-def display_postal(postal: models.Postal, request):
+def display_postal(postal: models.Postal):
     modal = layout.modal.Modal.with_ajax_content(
         heading=edit_heading(models.Postal),
         url=reverse_model(
@@ -316,10 +316,10 @@ def display_postal(postal: models.Postal, request):
                 hg.BaseElement(),
             ),
             hg.If(
-                postal.valid_to,
+                postal.valid_until,
                 hg.DIV(
                     hg.SPAN(_("Valid until: "), style="font-weight: bold;"),
-                    postal.valid_to,
+                    postal.valid_until,
                     style="display: inline-block; margin-top: 1rem;",
                 ),
                 hg.BaseElement(),
@@ -330,7 +330,7 @@ def display_postal(postal: models.Postal, request):
         ),
         **(
             {"_class": "inactive_postal", "style": "display: none; margin-top: 1.5rem;"}
-            if postal.valid_to and postal.valid_to < dateutil.utils.today().date()
+            if postal.valid_until and postal.valid_until < timezone.now().date()
             else {"style": "margin-top: 1.5rem;"}
         ),
     )
@@ -367,7 +367,7 @@ def delete_postal_button(postal):
     )
 
 
-def addresses(request):
+def addresses():
     return tile_with_icon(
         Icon("map"),
         hg.H4(_("Address(es)")),
@@ -381,7 +381,7 @@ def addresses(request):
                     ),
                     "i",
                     hg.BaseElement(
-                        hg.F(lambda c: display_postal(c["i"], request)),
+                        hg.F(lambda c: display_postal(c["i"])),
                     ),
                 )
             )

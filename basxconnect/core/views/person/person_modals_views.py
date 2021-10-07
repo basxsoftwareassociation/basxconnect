@@ -129,7 +129,7 @@ class EditPostalAddressView(EditView):
         "city",
         "country",
         "valid_from",
-        "valid_to",
+        "valid_until",
     ]
 
     def form_valid(self, form, *args, **kwargs):
