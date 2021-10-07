@@ -17,7 +17,6 @@ from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
-import basxconnect.mailer_integration.settings
 from basxconnect.core.layouts.editlegalperson import editlegalperson_form
 from basxconnect.core.layouts.editnaturalperson import editnaturalperson_form
 from basxconnect.core.layouts.editperson import editperson_head
@@ -121,6 +120,8 @@ def confirm_delete_email(request, pk: int):
                 "delete_mailer_contact"
             ):
                 try:
+                    import basxconnect.mailer_integration.settings
+
                     basxconnect.mailer_integration.settings.MAILER.delete_person(
                         email.email
                     )
