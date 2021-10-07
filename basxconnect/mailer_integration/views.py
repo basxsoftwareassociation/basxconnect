@@ -12,7 +12,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.views import menu_views
-from basxconnect.mailer_integration import download_data
+from basxconnect.mailer_integration import download_data, settings
 from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
 from basxconnect.mailer_integration.mailchimp import datasource
 
@@ -21,9 +21,7 @@ from basxconnect.mailer_integration.mailchimp import datasource
 def mailchimp_view(request):
     if request.method == "POST":
         try:
-            sync_result = download_data.download_persons(
-                datasource.MailchimpDatasource()
-            )
+            sync_result = download_data.download_persons(settings.MAILER)
             notification = bread.layout.components.notification.InlineNotification(
                 "Success",
                 f"Synchronized mailing preferences for {sync_result.total_synchronized_persons} Mailchimp "
@@ -71,9 +69,7 @@ class AddMailingPreferencesView(AddView):
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
-        datasource.MailchimpDatasource().put_person(
-            MailerPerson.from_mailing_preferences(self.object)
-        )
+        settings.MAILER.add_person(MailerPerson.from_mailing_preferences(self.object))
         return response
 
 

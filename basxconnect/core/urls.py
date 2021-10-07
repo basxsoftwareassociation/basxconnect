@@ -179,4 +179,8 @@ urlpatterns = [
         person_modals_views.PersonAssociationEditTagsView.as_view(),
         urlname=model_urlname(models.PersonAssociation, "ajax_edit_tags"),
     ),
+    autopath(
+        person_details_views.confirm_delete_email,
+        urlname=model_urlname(models.Email, "confirm_delete"),
+    ),
 ]
