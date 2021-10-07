@@ -387,11 +387,11 @@ msgstr "Ort"
 
 #: basxconnect/core/models/addresses.py:149
 msgid "Valid from"
-msgstr ""
+msgstr "Gültig von"
 
 #: basxconnect/core/models/addresses.py:150
 msgid "Valid until"
-msgstr ""
+msgstr "Gültig bis"
 
 #: basxconnect/core/models/addresses.py:162
 msgid "Postal address"
