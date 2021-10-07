@@ -160,7 +160,7 @@ msgstr "Person hinzufügen"
 #: basxconnect/core/layouts/editperson.py:141
 #: basxconnect/core/layouts/editperson.py:597
 msgid "Changed"
-msgstr "zuletzt geändert"
+msgstr "Zuletzt geändert"
 
 #: basxconnect/core/layouts/editperson.py:154
 #: basxconnect/core/views/person/person_browse_views.py:175
