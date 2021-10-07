@@ -128,6 +128,8 @@ def confirm_delete_email(request, pk: int):
                     logging.error("tried to delete person from mailchimp but failed")
 
             email.delete()
+            person.refresh_from_db()
+            person.save()
             return HttpResponseRedirect(
                 reverse_model(person, "read", kwargs={"pk": person.pk})
             )
