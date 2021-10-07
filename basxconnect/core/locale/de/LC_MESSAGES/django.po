@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-05 09:08+0200\n"
+"POT-Creation-Date: 2021-10-07 10:40+0200\n"
 "PO-Revision-Date: 2021-04-08 02:26+0000\n"
 "Last-Translator: Frederik Bugglin <bugglin@basx.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/basxconnect/"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.6-dev\n"
 
-#: basxconnect/core/apps.py:13 basxconnect/core/layouts/editperson.py:245
+#: basxconnect/core/apps.py:13 basxconnect/core/layouts/editperson.py:246
 #: basxconnect/core/models/persons.py:60
 #: basxconnect/core/views/person/person_browse_views.py:294
 #: basxconnect/core/views/person/person_browse_views.py:354
@@ -124,7 +124,7 @@ msgstr "Versand"
 #: basxconnect/core/layouts/editlegalperson.py:58
 #: basxconnect/core/layouts/editnaturalperson.py:77
 #: basxconnect/core/views/menu_views.py:16
-#: basxconnect/core/views/person/person_modals_views.py:28
+#: basxconnect/core/views/person/person_modals_views.py:32
 #: basxconnect/core/views/settings_views.py:30
 msgid "Settings"
 msgstr "Einstellungen"
@@ -133,9 +133,9 @@ msgstr "Einstellungen"
 msgid "Personal Data"
 msgstr "Persönliche Daten"
 
-#: basxconnect/core/layouts/editperson.py:69
-#: basxconnect/core/layouts/editperson.py:222
-#: basxconnect/core/layouts/editperson.py:330
+#: basxconnect/core/layouts/editperson.py:70
+#: basxconnect/core/layouts/editperson.py:223
+#: basxconnect/core/layouts/editperson.py:353
 #: basxconnect/core/layouts/relationshipstab.py:82
 #: basxconnect/core/layouts/settings_layout.py:46
 #: basxconnect/core/layouts/settings_layout.py:118
@@ -143,107 +143,123 @@ msgstr "Persönliche Daten"
 msgid "Delete"
 msgstr "Löschen"
 
-#: basxconnect/core/layouts/editperson.py:78
+#: basxconnect/core/layouts/editperson.py:79
 #: basxconnect/core/views/person/person_browse_views.py:127
 msgid "Restore"
 msgstr "Wiederherstellen"
 
-#: basxconnect/core/layouts/editperson.py:91
+#: basxconnect/core/layouts/editperson.py:92
 msgid "Copy"
 msgstr "Kopieren"
 
-#: basxconnect/core/layouts/editperson.py:101
+#: basxconnect/core/layouts/editperson.py:102
 #: basxconnect/core/wizards/add_person.py:181
 msgid "Add person"
 msgstr "Person hinzufügen"
 
-#: basxconnect/core/layouts/editperson.py:140
-#: basxconnect/core/layouts/editperson.py:536
+#: basxconnect/core/layouts/editperson.py:141
+#: basxconnect/core/layouts/editperson.py:597
 msgid "Changed"
 msgstr "zuletzt geändert"
 
-#: basxconnect/core/layouts/editperson.py:153
+#: basxconnect/core/layouts/editperson.py:154
 #: basxconnect/core/views/person/person_browse_views.py:175
-#: basxconnect/core/views/person/person_details_views.py:100
+#: basxconnect/core/views/person/person_details_views.py:99
 msgid "Inactive"
 msgstr "Inaktiv"
 
-#: basxconnect/core/layouts/editperson.py:153
+#: basxconnect/core/layouts/editperson.py:154
 #: basxconnect/core/models/persons.py:41
 #: basxconnect/core/views/person/person_browse_views.py:175
-#: basxconnect/core/views/person/person_details_views.py:100
+#: basxconnect/core/views/person/person_details_views.py:99
 msgid "Active"
 msgstr "Aktiv"
 
-#: basxconnect/core/layouts/editperson.py:189
-#: basxconnect/core/layouts/editperson.py:226
+#: basxconnect/core/layouts/editperson.py:190
+#: basxconnect/core/layouts/editperson.py:227
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: basxconnect/core/layouts/editperson.py:195
-#: basxconnect/core/layouts/editperson.py:292
-#: basxconnect/core/layouts/editperson.py:392
-#: basxconnect/core/layouts/editperson.py:466
+#: basxconnect/core/layouts/editperson.py:196
+#: basxconnect/core/layouts/editperson.py:293
+#: basxconnect/core/layouts/editperson.py:453
+#: basxconnect/core/layouts/editperson.py:527
 #: basxconnect/core/layouts/relationshipstab.py:109
 #: basxconnect/core/layouts/relationshipstab.py:120
 msgid "Save"
 msgstr "Speichern"
 
-#: basxconnect/core/layouts/editperson.py:212
+#: basxconnect/core/layouts/editperson.py:213
 #: basxconnect/core/layouts/relationshipstab.py:72
 #: basxconnect/core/layouts/settings_layout.py:39
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: basxconnect/core/layouts/editperson.py:248
+#: basxconnect/core/layouts/editperson.py:249
 msgid "Edit Tags"
 msgstr "Tags bearbeiten"
 
-#: basxconnect/core/layouts/editperson.py:266
+#: basxconnect/core/layouts/editperson.py:267
 msgid "Other"
 msgstr "Sonstiges"
 
-#: basxconnect/core/layouts/editperson.py:280
+#: basxconnect/core/layouts/editperson.py:281
 #, python-format
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: basxconnect/core/layouts/editperson.py:298
+#: basxconnect/core/layouts/editperson.py:299
 msgid "primary"
 msgstr "Primär"
 
-#: basxconnect/core/layouts/editperson.py:351
+#: basxconnect/core/layouts/editperson.py:311
+msgid "Valid from: "
+msgstr ""
+
+#: basxconnect/core/layouts/editperson.py:321
+msgid "Valid until: "
+msgstr ""
+
+#: basxconnect/core/layouts/editperson.py:373
 msgid "Address(es)"
 msgstr "Adresse(n)"
 
-#: basxconnect/core/layouts/editperson.py:384
+#: basxconnect/core/layouts/editperson.py:392
+msgid "Hide inactive postals"
+msgstr ""
+
+#: basxconnect/core/layouts/editperson.py:400
+msgid "Show inactive postals"
+msgstr ""
+
+#: basxconnect/core/layouts/editperson.py:445
 msgid "Add Address"
 msgstr "Adresse hinzufügen"
 
-#: basxconnect/core/layouts/editperson.py:398
+#: basxconnect/core/layouts/editperson.py:459
 msgid "Revisions"
 msgstr "Revisionen"
 
-#: basxconnect/core/layouts/editperson.py:402
+#: basxconnect/core/layouts/editperson.py:463
 msgid "Date"
 msgstr "Datum"
 
-#: basxconnect/core/layouts/editperson.py:403
+#: basxconnect/core/layouts/editperson.py:464
 msgid "User"
 msgstr "Benutzer"
 
-#: basxconnect/core/layouts/editperson.py:405
+#: basxconnect/core/layouts/editperson.py:466
 msgid "Change"
 msgstr "Änderung"
 
-#: basxconnect/core/layouts/editperson.py:534
+#: basxconnect/core/layouts/editperson.py:595
 #: basxconnect/core/models/addresses.py:27
 #: basxconnect/core/models/persons.py:126
 #: basxconnect/core/views/person/person_browse_views.py:370
 msgid "Status"
 msgstr "Status"
 
-#: basxconnect/core/layouts/editperson.py:544
+#: basxconnect/core/layouts/editperson.py:605
 msgid "Created"
 msgstr "Erstellt"
 
@@ -369,11 +385,19 @@ msgstr "PLZ"
 msgid "City"
 msgstr "Ort"
 
-#: basxconnect/core/models/addresses.py:160
+#: basxconnect/core/models/addresses.py:149
+msgid "Valid from"
+msgstr ""
+
+#: basxconnect/core/models/addresses.py:150
+msgid "Valid until"
+msgstr ""
+
+#: basxconnect/core/models/addresses.py:162
 msgid "Postal address"
 msgstr "Anschrift"
 
-#: basxconnect/core/models/addresses.py:161
+#: basxconnect/core/models/addresses.py:163
 msgid "Postal addresses"
 msgstr "Anschriften"
 
@@ -602,29 +626,29 @@ msgctxt "apply filter"
 msgid "Filter"
 msgstr "Anwenden"
 
-#: basxconnect/core/views/person/person_details_views.py:100
+#: basxconnect/core/views/person/person_details_views.py:99
 #, python-format
 msgid "%s is %s"
 msgstr "%s ist %s"
 
-#: basxconnect/core/views/person/person_details_views.py:107
+#: basxconnect/core/views/person/person_details_views.py:106
 msgid "Delete linked mailer contact as well"
 msgstr "Verknüpfter Mailer Kontakt auch löschen"
 
-#: basxconnect/core/views/person/person_details_views.py:144
+#: basxconnect/core/views/person/person_details_views.py:147
 #, python-format
 msgid "Delete email %s"
 msgstr "Email %s löschen"
 
-#: basxconnect/core/views/person/person_details_views.py:151
+#: basxconnect/core/views/person/person_details_views.py:154
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: basxconnect/core/views/person/person_modals_views.py:32
+#: basxconnect/core/views/person/person_modals_views.py:36
 msgid "Edit mailing settings"
 msgstr "Versand-Einstellungen bearbeiten"
 
-#: basxconnect/core/views/person/person_modals_views.py:134
+#: basxconnect/core/views/person/person_modals_views.py:146
 msgid "Use as primary postal address"
 msgstr "Als primäre Postadresse verwenden"
 
@@ -721,4 +745,3 @@ msgstr "Neue Person hinzufügen"
 #: basxconnect/core/wizards/add_person.py:295
 msgid "Review and confirm the entered information"
 msgstr "Überprüfen und bestätigen Sie die eingetragenen Informationen"
-
