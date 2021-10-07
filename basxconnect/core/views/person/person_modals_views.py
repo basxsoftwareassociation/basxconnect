@@ -1,13 +1,8 @@
-from datetime import timedelta
-
-import dateutil.utils
 import django.forms
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.icon import Icon
-from bread.views import AddView, DeleteView, EditView
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from bread.views import AddView, EditView
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core import models
