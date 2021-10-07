@@ -152,10 +152,6 @@ urlpatterns = [
         urlname=model_urlname(models.Postal, "ajax_add"),
     ),
     autopath(
-        person_modals_views.DeletePostalAddressView.as_view(),
-        urlname=model_urlname(models.Postal, "ajax_delete"),
-    ),
-    autopath(
         person_modals_views.NaturalPersonEditRemarksView.as_view(),
         urlname=model_urlname(models.NaturalPerson, "ajax_edit_remarks"),
     ),
