@@ -171,17 +171,6 @@ class AddPostalAddressView(AddView):
         return ret
 
 
-class DeletePostalAddressView(DeleteView):
-    model = models.Postal
-
-    def get(self, *args, **kwargs):
-        person = get_object_or_404(self.model, pk=self.kwargs.get("pk")).person
-        ret = super().get(*args, **kwargs)
-        person.refresh_from_db()
-        person.save()
-        return ret
-
-
 class NaturalPersonEditRemarksView(EditView):
     model = models.NaturalPerson
     fields = [
