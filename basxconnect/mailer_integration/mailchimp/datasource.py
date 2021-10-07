@@ -43,10 +43,9 @@ class MailchimpDatasource(abstract_datasource.Datasource):
         ]
 
     def delete_person(self, email: str):
-        result = self.client.lists.delete_list_member(
+        self.client.lists.delete_list_member(
             settings.MAILCHIMP_LIST_ID, compute_email_hash(email)
         )
-        print(result)
 
     def put_person(self, person: MailerPerson, **kwargs):
         self.client.lists.set_list_member(
