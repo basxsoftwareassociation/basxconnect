@@ -1,5 +1,6 @@
 import htmlgenerator as hg
 from bread import layout
+from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.icon import Icon
 from bread.layout.components.modal import modal_with_trigger
 from bread.utils import Link, ModelHref, pretty_modelname, reverse_model
@@ -90,7 +91,20 @@ def email(request):
     return tile_with_datatable(
         models.Email,
         hg.F(lambda c: c["object"].core_email_list.all()),
-        ["type", "email"],
+        [
+            DataTableColumn(
+                _("Type"),
+                hg.SPAN(
+                    hg.C(f"row.{type}"),
+                    hg.F(
+                        lambda c: " (" + _("primary") + ")"
+                        if c["row"] == c["row"].person.primary_email_address
+                        else ""
+                    ),
+                ),
+            ),
+            "email",
+        ],
         request,
     )
 

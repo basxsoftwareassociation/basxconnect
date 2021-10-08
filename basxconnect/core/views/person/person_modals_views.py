@@ -166,6 +166,52 @@ class AddPostalAddressView(AddView):
         return ret
 
 
+class EditEmailAddressView(EditView):
+    model = models.Email
+    fields = ["type", "email"]
+
+    def form_valid(self, form, *args, **kwargs):
+        ret = super().form_valid(form, *args, **kwargs)
+        is_primary = form.cleaned_data["is_primary"]
+        if is_primary:
+            self.object.person.primary_postal_address = self.object
+        self.object.person.save()
+        return ret
+
+    def get_form_class(self, *args, **kwargs):
+        class EditEmailForm(super().get_form_class(*args, **kwargs)):
+            is_primary = django.forms.BooleanField(
+                label=_("Use as primary email address"), required=False
+            )
+
+        return EditEmailForm
+
+    def get_layout(self):
+        form_fields = [layout.form.FormField(field) for field in [*self.fields]] + [
+            hg.If(
+                hg.F(
+                    lambda c: c["object"].person.primary_email_address
+                    and c["object"].person.primary_email_address.pk != c["object"].pk
+                ),
+                layout.form.FormField("is_primary"),
+                "",
+            )
+        ]
+        return hg.BaseElement(
+            hg.H3(_("Edit Email")),
+            layout.form.Form.wrap_with_form(hg.C("form"), hg.DIV(*form_fields)),
+        )
+
+
+class AddEmailAddressView(AddView):
+    model = models.Email
+
+    def post(self, request, *args, **kwargs):
+        ret = super().post(request, *args, **kwargs)
+        self.object.person.save()
+        return ret
+
+
 class NaturalPersonEditRemarksView(EditView):
     model = models.NaturalPerson
     fields = [
