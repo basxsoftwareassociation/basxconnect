@@ -45,20 +45,6 @@ def person_metadata(model):
     )
 
 
-def display_label_and_value(label, value):
-    return R(
-        C(
-            hg.DIV(
-                label,
-                style="font-weight: bold;",
-            ),
-            width=6,
-        ),
-        C(value),
-        style="padding-bottom: 1.5rem;",
-    )
-
-
 def active_toggle():
     toggle = layout.toggle.Toggle(
         None, _("Inactive"), _("Active"), style="margin-top:-1rem; margin-bottom:0;"
@@ -176,15 +162,19 @@ def tile_with_icon(icon, *content):
 
 
 def display_field_value(field):
+    return display_label_and_value(ObjectFieldLabel(field), ObjectFieldValue(field))
+
+
+def display_label_and_value(label, value):
     return R(
         C(
             hg.DIV(
-                bread.layout.ObjectFieldLabel(field),
+                label,
                 style="font-weight: bold;",
             ),
             width=6,
         ),
-        C(bread.layout.ObjectFieldValue(field)),
+        C(value),
         style="padding-bottom: 1.5rem;",
     )
 
