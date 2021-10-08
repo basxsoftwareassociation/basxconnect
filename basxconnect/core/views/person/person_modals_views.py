@@ -174,7 +174,7 @@ class EditEmailAddressView(EditView):
         ret = super().form_valid(form, *args, **kwargs)
         is_primary = form.cleaned_data["is_primary"]
         if is_primary:
-            self.object.person.primary_postal_address = self.object
+            self.object.person.primary_email_address = self.object
         self.object.person.save()
         return ret
 
