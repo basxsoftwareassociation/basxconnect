@@ -1,8 +1,12 @@
+from datetime import timedelta
+
+import dateutil.utils
 import django.forms
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.icon import Icon
 from bread.views import AddView, DeleteView, EditView
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
@@ -118,7 +122,15 @@ class LegalPersonEditMailingsView(EditView):
 
 class EditPostalAddressView(EditView):
     model = models.Postal
-    fields = ["type", "address", "postcode", "city", "country"]
+    fields = [
+        "type",
+        "address",
+        "postcode",
+        "city",
+        "country",
+        "valid_from",
+        "valid_until",
+    ]
 
     def form_valid(self, form, *args, **kwargs):
         ret = super().form_valid(form, *args, **kwargs)
@@ -156,17 +168,6 @@ class AddPostalAddressView(AddView):
     def post(self, request, *args, **kwargs):
         ret = super().post(request, *args, **kwargs)
         self.object.person.save()
-        return ret
-
-
-class DeletePostalAddressView(DeleteView):
-    model = models.Postal
-
-    def get(self, *args, **kwargs):
-        person = get_object_or_404(self.model, pk=self.kwargs.get("pk")).person
-        ret = super().get(*args, **kwargs)
-        person.refresh_from_db()
-        person.save()
         return ret
 
 

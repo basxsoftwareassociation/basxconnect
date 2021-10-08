@@ -17,8 +17,9 @@ from bread.utils import (
     reverse_model,
 )
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from htmlgenerator import Lazy
+from htmlgenerator import Lazy, mark_safe
 
 from basxconnect.core import models
 from basxconnect.core.layouts import contributions_tab
@@ -304,12 +305,34 @@ def display_postal(postal: models.Postal):
             hg.DIV(postal.address, style="margin-bottom: 0.25rem;"),
             hg.DIV(postal.postcode, " ", postal.city, style="margin-bottom: 0.25rem;"),
             hg.DIV(postal.get_country_display()),
+            hg.If(
+                postal.valid_from,
+                hg.DIV(
+                    hg.SPAN(_("Valid from: "), style="font-weight: bold;"),
+                    postal.valid_from,
+                    " ",
+                    style="display: inline-block; margin-top: 1rem; margin-right: 1rem;",
+                ),
+                hg.BaseElement(),
+            ),
+            hg.If(
+                postal.valid_until,
+                hg.DIV(
+                    hg.SPAN(_("Valid until: "), style="font-weight: bold;"),
+                    postal.valid_until,
+                    style="display: inline-block; margin-top: 1rem;",
+                ),
+                hg.BaseElement(),
+            ),
             hg.DIV(
                 edit_postal_button(modal),
-                delete_postal_button(postal),
             ),
         ),
-        style="margin-top: 1.5rem;",
+        **(
+            {"_class": "inactive_postal", "style": "display: none; margin-top: 1.5rem;"}
+            if postal.valid_until and postal.valid_until < timezone.now().date()
+            else {"style": "margin-top: 1.5rem;"}
+        ),
     )
 
 
@@ -345,7 +368,6 @@ def delete_postal_button(postal):
 
 
 def addresses():
-    modal = modal_add_postal()
     return tile_with_icon(
         Icon("map"),
         hg.H4(_("Address(es)")),
@@ -367,14 +389,53 @@ def addresses():
         R(
             C(
                 layout.button.Button(
+                    _("Hide inactive postals"),
+                    onclick="hideInactivePostals();",
+                    id="hideInactivePostalsButton",
+                    style="display: none;",
+                    icon="view--off",
+                    buttontype="ghost",
+                ),
+                layout.button.Button(
+                    _("Show inactive postals"),
+                    onclick="showInactivePostals();",
+                    id="showInactivePostalsButton",
+                    icon="view",
+                    buttontype="ghost",
+                ),
+            ),
+            style="margin-top: 1.5rem;",
+        ),
+        R(
+            C(
+                modal_with_trigger(
+                    modal_add_postal(),
+                    layout.button.Button,
                     "Add",
                     buttontype="ghost",
                     icon="Add",
-                    **modal.openerattributes,
                 ),
-                modal,
             ),
-            style="margin-top: 1.5rem;",
+        ),
+        hg.SCRIPT(
+            mark_safe(
+                """
+                function hideInactivePostals() {
+                    for(i of $$('.inactive_postal')) {
+                        $(i)._.style({display: "none"});
+                    }
+                    $$('#hideInactivePostalsButton')._.style({display: "none"})
+                    $$('#showInactivePostalsButton')._.style({display: "block"})
+                }
+                function showInactivePostals() {
+                    for(i of $$('.inactive_postal')) {
+                        $(i)._.style({display: "block"});
+                    }
+                    $$('#hideInactivePostalsButton')._.style({display: "block"})
+                    $$('#showInactivePostalsButton')._.style({display: "none"})
+                }
+                """
+            )
         ),
     )
 
