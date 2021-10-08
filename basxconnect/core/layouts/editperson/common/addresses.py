@@ -39,7 +39,7 @@ def numbers(request):
     )
 
 
-def tile_with_datatable(model, queryset, fields, request):
+def tile_with_datatable(model, queryset, columns, request):
     modal = layout.modal.Modal.with_ajax_content(
         _("Add"),
         ModelHref(
@@ -54,7 +54,7 @@ def tile_with_datatable(model, queryset, fields, request):
             model,
             queryset,
             prevent_automatic_sortingnames=True,
-            columns=fields,
+            columns=columns,
             rowactions=[
                 Link(
                     href=ModelHref(
