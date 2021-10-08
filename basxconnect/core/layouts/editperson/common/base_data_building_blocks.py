@@ -1,7 +1,6 @@
 import collections
 from typing import List, Union
 
-import bread.layout
 import htmlgenerator as hg
 from bread import layout
 from bread.layout import ObjectFieldLabel, ObjectFieldValue
