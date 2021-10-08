@@ -9,11 +9,12 @@ from htmlgenerator import mark_safe
 
 from basxconnect.core import models
 from basxconnect.core.layouts.editperson.common.base_data_building_blocks import (
-    C,
-    R,
     tile_with_icon,
     tiling_col,
 )
+
+R = layout.grid.Row
+C = layout.grid.Col
 
 
 def addresses(request):
