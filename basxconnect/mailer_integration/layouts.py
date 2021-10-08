@@ -8,7 +8,9 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core import models
-from basxconnect.core.layouts import editperson
+from basxconnect.core.layouts.editperson.common.base_data_building_blocks import (
+    tile_with_icon,
+)
 from basxconnect.core.models import Person
 from basxconnect.mailer_integration.models import Interest
 
@@ -19,7 +21,7 @@ C = bread.layout.grid.Col
 def mailer_integration_tile(request):
     person = get_object_or_404(Person, pk=request.resolver_match.kwargs["pk"])
     addresses = person.core_email_list.all()
-    return editperson.tile_with_icon(
+    return tile_with_icon(
         Icon("email--new"),
         hg.H4(
             _("Email Subscriptions"),
