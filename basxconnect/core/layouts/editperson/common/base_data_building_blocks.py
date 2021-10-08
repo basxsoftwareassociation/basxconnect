@@ -139,8 +139,6 @@ def create_modal(heading, model: Union[type, Lazy], action: str):
         ),
         submitlabel=_("Save"),
     )
-    modal[0][1].attributes["style"] = "overflow: visible"
-    modal[0].attributes["style"] = "overflow: visible"
     return modal
 
 
