@@ -28,11 +28,11 @@ msgstr "Person hat keine Email Adressen"
 
 #: basxconnect/mailer_integration/layouts.py:84
 msgid "no mailing preferences yet for "
-msgstr "Noch keine Mailing Präferenzen für "
+msgstr "Noch keine Mailing Einstellungen für "
 
 #: basxconnect/mailer_integration/layouts.py:86
 msgid "Add mailing preferences"
-msgstr "Mailing Präferenz hinzufügen"
+msgstr "Mailing Einstellungen hinzufügen"
 
 #: basxconnect/mailer_integration/layouts.py:103
 msgid "active"
