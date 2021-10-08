@@ -1,6 +1,5 @@
 import htmlgenerator as hg
 from bread import layout
-from bread.layout import ObjectFieldValue
 from bread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
@@ -46,11 +45,11 @@ def personal_data():
         ]
     ] + [
         hg.If(
-            ObjectFieldValue("deceased"),
+            hg.C("object.deceased"),
             base_data_building_blocks.display_field_value("deceased"),
         ),
         hg.If(
-            ObjectFieldValue("deceased"),
+            hg.C("object.deceased"),
             base_data_building_blocks.display_field_value("decease_date"),
         ),
     ]
