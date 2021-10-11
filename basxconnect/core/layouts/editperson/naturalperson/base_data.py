@@ -1,5 +1,6 @@
 import htmlgenerator as hg
 from bread import layout
+from bread.layout import ObjectFieldLabel
 from bread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
@@ -9,6 +10,7 @@ from basxconnect.core.layouts.editperson.common import (
     base_data_building_blocks,
 )
 from basxconnect.core.layouts.editperson.common.base_data_building_blocks import (
+    display_label_and_value,
     person_metadata,
 )
 
@@ -33,7 +35,7 @@ def base_data_tab(request):
 
 def personal_data():
     displayed_fields = [
-        base_data_building_blocks.display_field_value(field)
+        base_data_building_blocks.display_field_label_and_value(field)
         for field in [
             "salutation",
             "title",
@@ -46,11 +48,14 @@ def personal_data():
     ] + [
         hg.If(
             hg.C("object.deceased"),
-            base_data_building_blocks.display_field_value("deceased"),
+            display_label_and_value(
+                ObjectFieldLabel("deceased"),
+                hg.If(hg.C("object.deceased"), _("Yes"), _("No")),
+            ),
         ),
         hg.If(
             hg.C("object.deceased"),
-            base_data_building_blocks.display_field_value("decease_date"),
+            base_data_building_blocks.display_field_label_and_value("decease_date"),
         ),
     ]
     return base_data_building_blocks.tile_col_edit_modal_displayed_fields(

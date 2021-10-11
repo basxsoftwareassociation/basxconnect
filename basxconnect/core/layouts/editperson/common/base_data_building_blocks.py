@@ -21,8 +21,8 @@ def person_metadata(model):
     return tiling_col(
         # we need this to take exactly as much space as a real header
         tile_header(model, style="visibility: hidden;"),
-        display_field_value("personnumber"),
-        display_field_value("maintype"),
+        display_field_label_and_value("personnumber"),
+        display_field_label_and_value("maintype"),
         display_label_and_value(_("Status"), active_toggle()),
         display_label_and_value(
             _("Changed"),
@@ -94,7 +94,7 @@ def grid_inside_tab(*elems, **attrs):
 def tile_col_edit_modal(
     heading, modal_view: type, action: str, icon: Icon, fields: List[str]
 ):
-    displayed_fields = [display_field_value(field) for field in fields]
+    displayed_fields = [display_field_label_and_value(field) for field in fields]
     return tile_col_edit_modal_displayed_fields(
         heading, modal_view, action, icon, displayed_fields
     )
@@ -158,7 +158,7 @@ def tile_with_icon(icon, *content):
     return tiling_col(R(C(icon, width=2), C(*content)))
 
 
-def display_field_value(field):
+def display_field_label_and_value(field):
     return display_label_and_value(ObjectFieldLabel(field), ObjectFieldValue(field))
 
 
