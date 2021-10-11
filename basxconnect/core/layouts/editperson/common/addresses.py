@@ -1,5 +1,6 @@
 import htmlgenerator as hg
 from bread import layout
+from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.icon import Icon
 from bread.layout.components.modal import modal_with_trigger
 from bread.utils import Link, ModelHref, pretty_modelname, reverse_model
@@ -39,7 +40,7 @@ def numbers(request):
     )
 
 
-def tile_with_datatable(model, queryset, fields, request):
+def tile_with_datatable(model, queryset, columns, request):
     modal = layout.modal.Modal.with_ajax_content(
         _("Add"),
         ModelHref(
@@ -54,7 +55,7 @@ def tile_with_datatable(model, queryset, fields, request):
             model,
             queryset,
             prevent_automatic_sortingnames=True,
-            columns=fields,
+            columns=columns,
             rowactions=[
                 Link(
                     href=ModelHref(
@@ -90,7 +91,22 @@ def email(request):
     return tile_with_datatable(
         models.Email,
         hg.F(lambda c: c["object"].core_email_list.all()),
-        ["type", "email"],
+        [
+            DataTableColumn(
+                layout.fieldlabel(models.Email, "type"),
+                hg.SPAN(
+                    hg.C(f"row.type"),
+                    hg.If(
+                        hg.F(
+                            lambda c: c["row"] == c["row"].person.primary_email_address
+                        ),
+                        f" ({_('primary')})",
+                        "",
+                    ),
+                ),
+            ),
+            "email",
+        ],
         request,
     )
 

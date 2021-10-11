@@ -28,7 +28,7 @@ def mailer_integration_tile(request):
         ),
         *[_display_preferences(email) for email in addresses]
         if hasattr(person, "core_email_list") and person.core_email_list.count() > 0
-        else C("Person has no email addresses"),
+        else C(_("Person has no email addresses")),
     )
 
 

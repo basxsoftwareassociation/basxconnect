@@ -113,7 +113,11 @@ urlpatterns = [
     *default_model_paths(models.Vocabulary),
     *default_model_paths(models.Postal),
     *default_model_paths(models.Phone),
-    *default_model_paths(models.Email),
+    *default_model_paths(
+        models.Email,
+        addview=person_modals_views.AddEmailAddressView,
+        editview=person_modals_views.EditEmailAddressView,
+    ),
     *default_model_paths(models.Web),
     autopath(settings_views.generalsettings),
     autopath(
