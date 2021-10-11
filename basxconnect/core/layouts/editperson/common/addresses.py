@@ -95,11 +95,13 @@ def email(request):
             DataTableColumn(
                 _("Type"),
                 hg.SPAN(
-                    hg.C(f"row.{type}"),
-                    hg.F(
-                        lambda c: " (" + _("primary") + ")"
-                        if c["row"] == c["row"].person.primary_email_address
-                        else ""
+                    hg.C(f"row.type"),
+                    hg.If(
+                        hg.F(
+                            lambda c: c["row"] == c["row"].person.primary_email_address
+                        ),
+                        f" ({_('primary')})",
+                        "",
                     ),
                 ),
             ),
