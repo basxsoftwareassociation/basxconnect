@@ -3,6 +3,7 @@ import logging
 import bread
 import django
 import htmlgenerator as hg
+from bread import layout
 from bread import layout as layout
 from bread import menu
 from bread.layout.components.form import Form
@@ -17,28 +18,15 @@ from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
-from basxconnect.core.layouts.editperson.editperson_forms import (
-    editlegalperson_form,
-    editnaturalperson_form,
-    editpersonassociation_form,
-)
-
 from ... import models
+from ...layouts.editperson import legalperson, naturalperson, personassociation
+from ...layouts.editperson.common import contributions_tab
 from ...layouts.editperson.common.head import editperson_head
+from ...layouts.editperson.common.relationships_tab import relationshipstab
 
 R = layout.grid.Row
 C = layout.grid.Col
 F = layout.form.FormField
-
-
-def personform_shortcut(request, formlayout):
-    return hg.BaseElement(
-        layout.grid.Grid(
-            editperson_head(request),
-            layout.form.Form(hg.C("form"), formlayout),
-            gutter=False,
-        )
-    )
 
 
 class NaturalPersonEditView(EditView):
@@ -89,6 +77,74 @@ class PersonAssociationReadView(ReadView):
             self.request,
             editpersonassociation_form(self.request),
         )
+
+
+def personform_shortcut(request, formlayout):
+    return hg.BaseElement(
+        layout.grid.Grid(
+            editperson_head(request),
+            layout.form.Form(hg.C("form"), formlayout),
+            gutter=False,
+        )
+    )
+
+
+def editnaturalperson_form(request):
+    return editperson_form(
+        request,
+        naturalperson.base_data_tab,
+        naturalperson.mailings_tab,
+    )
+
+
+def editpersonassociation_form(request):
+    return editperson_form(
+        request,
+        personassociation.base_data_tab,
+        personassociation.mailings_tab,
+    )
+
+
+def editlegalperson_form(request):
+    return editperson_form(
+        request,
+        legalperson.base_data_tab,
+        legalperson.mailings_tab,
+    )
+
+
+def editperson_form(request, base_data_tab, mailings_tab):
+    return R(
+        C(
+            layout.grid.Grid(
+                layout.tabs.Tabs(
+                    *editperson_tabs(base_data_tab, mailings_tab, request),
+                    tabpanel_attributes={
+                        "_class": "tile-container",
+                        "style": "padding: 0;",
+                    },
+                    labelcontainer_attributes={
+                        "_class": "tabs-lg",
+                        "style": "background-color: white;",
+                    },
+                ),
+                gutter=False,
+            ),
+        ),
+    )
+
+
+def editperson_tabs(base_data_tab, mailing_tab, request):
+
+    from django.apps import apps
+
+    return [base_data_tab(request), relationshipstab(request), mailing_tab(request)] + (
+        [
+            contributions_tab.contributions_tab(request),
+        ]
+        if apps.is_installed("basxconnect.mailer_integration")
+        else []
+    )
 
 
 @csrf_exempt
