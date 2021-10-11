@@ -93,7 +93,7 @@ def email(request):
         hg.F(lambda c: c["object"].core_email_list.all()),
         [
             DataTableColumn(
-                _("Type"),
+                layout.fieldlabel(models.Email, "type"),
                 hg.SPAN(
                     hg.C(f"row.type"),
                     hg.If(
