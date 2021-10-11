@@ -17,12 +17,14 @@ from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
-from basxconnect.core.layouts.editlegalperson import editlegalperson_form
-from basxconnect.core.layouts.editnaturalperson import editnaturalperson_form
-from basxconnect.core.layouts.editperson import editperson_head
-from basxconnect.core.layouts.editpersonassociation import editpersonassociation_form
+from basxconnect.core.layouts.editperson.editperson_forms import (
+    editlegalperson_form,
+    editnaturalperson_form,
+    editpersonassociation_form,
+)
 
 from ... import models
+from ...layouts.editperson.common.head import editperson_head
 
 R = layout.grid.Row
 C = layout.grid.Col
