@@ -1,13 +1,16 @@
 import htmlgenerator as hg
 from bread import layout
-from bread.layout import ObjectFieldValue
+from bread.layout import ObjectFieldLabel
 from bread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
-import basxconnect.core
-import basxconnect.core.layouts.editperson.common.addresses
 from basxconnect.core import models
+from basxconnect.core.layouts.editperson.common import (
+    addresses,
+    base_data_building_blocks,
+)
 from basxconnect.core.layouts.editperson.common.base_data_building_blocks import (
+    display_label_and_value,
     person_metadata,
 )
 
@@ -20,7 +23,7 @@ def base_data_tab(request):
 
     return layout.tabs.Tab(
         _("Base data"),
-        basxconnect.core.layouts.editperson.common.base_data_building_blocks.grid_inside_tab(
+        base_data_building_blocks.grid_inside_tab(
             R(
                 personal_data(),
                 person_metadata(models.NaturalPerson),
@@ -32,9 +35,7 @@ def base_data_tab(request):
 
 def personal_data():
     displayed_fields = [
-        basxconnect.core.layouts.editperson.common.base_data_building_blocks.display_field_value(
-            field
-        )
+        base_data_building_blocks.display_field_label_and_value(field)
         for field in [
             "salutation",
             "title",
@@ -46,19 +47,18 @@ def personal_data():
         ]
     ] + [
         hg.If(
-            ObjectFieldValue("deceased"),
-            basxconnect.core.layouts.editperson.common.base_data_building_blocks.display_field_value(
-                "deceased"
+            hg.C("object.deceased"),
+            display_label_and_value(
+                ObjectFieldLabel("deceased"),
+                hg.If(hg.C("object.deceased"), _("Yes"), _("No")),
             ),
         ),
         hg.If(
-            ObjectFieldValue("deceased"),
-            basxconnect.core.layouts.editperson.common.base_data_building_blocks.display_field_value(
-                "decease_date"
-            ),
+            hg.C("object.deceased"),
+            base_data_building_blocks.display_field_label_and_value("decease_date"),
         ),
     ]
-    return basxconnect.core.layouts.editperson.common.base_data_building_blocks.tile_col_edit_modal_displayed_fields(
+    return base_data_building_blocks.tile_col_edit_modal_displayed_fields(
         _("Personal Data"),
         models.NaturalPerson,
         "ajax_edit_personal_data",
@@ -70,15 +70,15 @@ def personal_data():
 def contact_details_naturalperson(request):
     return hg.BaseElement(
         R(
-            basxconnect.core.layouts.editperson.common.addresses.postals(),
-            basxconnect.core.layouts.editperson.common.addresses.numbers(request),
+            addresses.postals(),
+            addresses.numbers(request),
         ),
         R(
-            basxconnect.core.layouts.editperson.common.addresses.email(request),
-            basxconnect.core.layouts.editperson.common.addresses.urls(request),
+            addresses.email(request),
+            addresses.urls(request),
         ),
         R(
-            basxconnect.core.layouts.editperson.common.base_data_building_blocks.tags(),
-            basxconnect.core.layouts.editperson.common.base_data_building_blocks.other(),
+            base_data_building_blocks.tags(),
+            base_data_building_blocks.other(),
         ),
     )

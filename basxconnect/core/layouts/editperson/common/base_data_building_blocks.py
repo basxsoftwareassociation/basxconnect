@@ -1,7 +1,6 @@
 import collections
 from typing import List, Union
 
-import bread.layout
 import htmlgenerator as hg
 from bread import layout
 from bread.layout import ObjectFieldLabel, ObjectFieldValue
@@ -22,8 +21,8 @@ def person_metadata(model):
     return tiling_col(
         # we need this to take exactly as much space as a real header
         tile_header(model, style="visibility: hidden;"),
-        display_field_value("personnumber"),
-        display_field_value("maintype"),
+        display_field_label_and_value("personnumber"),
+        display_field_label_and_value("maintype"),
         display_label_and_value(_("Status"), active_toggle()),
         display_label_and_value(
             _("Changed"),
@@ -42,20 +41,6 @@ def person_metadata(model):
             ),
         ),
         style="border-left: none;",
-    )
-
-
-def display_label_and_value(label, value):
-    return R(
-        C(
-            hg.DIV(
-                label,
-                style="font-weight: bold;",
-            ),
-            width=6,
-        ),
-        C(value),
-        style="padding-bottom: 1.5rem;",
     )
 
 
@@ -109,7 +94,7 @@ def grid_inside_tab(*elems, **attrs):
 def tile_col_edit_modal(
     heading, modal_view: type, action: str, icon: Icon, fields: List[str]
 ):
-    displayed_fields = [display_field_value(field) for field in fields]
+    displayed_fields = [display_field_label_and_value(field) for field in fields]
     return tile_col_edit_modal_displayed_fields(
         heading, modal_view, action, icon, displayed_fields
     )
@@ -154,8 +139,6 @@ def create_modal(heading, model: Union[type, Lazy], action: str):
         ),
         submitlabel=_("Save"),
     )
-    modal[0][1].attributes["style"] = "overflow: visible"
-    modal[0].attributes["style"] = "overflow: visible"
     return modal
 
 
@@ -175,16 +158,20 @@ def tile_with_icon(icon, *content):
     return tiling_col(R(C(icon, width=2), C(*content)))
 
 
-def display_field_value(field):
+def display_field_label_and_value(field):
+    return display_label_and_value(ObjectFieldLabel(field), ObjectFieldValue(field))
+
+
+def display_label_and_value(label, value):
     return R(
         C(
             hg.DIV(
-                bread.layout.ObjectFieldLabel(field),
+                label,
                 style="font-weight: bold;",
             ),
             width=6,
         ),
-        C(bread.layout.ObjectFieldValue(field)),
+        C(value),
         style="padding-bottom: 1.5rem;",
     )
 
