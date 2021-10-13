@@ -113,11 +113,6 @@ urlpatterns = [
     *default_model_paths(models.Vocabulary),
     *default_model_paths(models.Postal),
     *default_model_paths(models.Phone),
-    *default_model_paths(
-        models.Email,
-        addview=person_modals_views.AddEmailAddressView,
-        editview=person_modals_views.EditEmailAddressView,
-    ),
     *default_model_paths(models.Web),
     autopath(settings_views.generalsettings),
     autopath(
@@ -181,6 +176,14 @@ urlpatterns = [
     ),
     autopath(
         person_details_views.confirm_delete_email,
-        urlname=model_urlname(models.Email, "confirm_delete"),
+        urlname=model_urlname(models.Email, "delete"),
+    ),
+    autopath(
+        person_modals_views.AddEmailAddressView.as_view(),
+        urlname=model_urlname(models.Email, "add"),
+    ),
+    autopath(
+        person_modals_views.EditEmailAddressView.as_view(),
+        urlname=model_urlname(models.Email, "edit"),
     ),
 ]

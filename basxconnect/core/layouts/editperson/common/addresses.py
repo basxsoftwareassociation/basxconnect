@@ -70,7 +70,7 @@ def tile_with_datatable(model, queryset, columns, request):
                 Link(
                     href=ModelHref(
                         model,
-                        "confirm_delete",
+                        "delete",
                         kwargs={"pk": hg.C("row.pk")},
                         query={"next": request.get_full_path()},
                     ),
