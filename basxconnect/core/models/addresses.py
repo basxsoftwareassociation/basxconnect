@@ -1,10 +1,14 @@
+from datetime import timedelta
+
 import htmlgenerator as hg
 from bread.layout import button
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
+from .. import celery_tasks
 from .persons import Person
 from .utils import Term
 
@@ -157,6 +161,15 @@ class Postal(Address):
             ret.append(self.city)
         ret.append(self.country.name)
         return ", ".join(ret)
+
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+        super().save(force_insert, force_update, using, update_fields)
+        if self.valid_until and self.valid_until >= timezone.now().date():
+            celery_tasks.save_person.apply_async(
+                (self.person.pk,), eta=self.valid_until + timedelta(days=1)
+            )
 
     class Meta:
         verbose_name = _("Postal address")

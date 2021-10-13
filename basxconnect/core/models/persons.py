@@ -5,6 +5,7 @@ from bread import layout
 from bread.utils import get_concrete_instance, pretty_modelname
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from languages.fields import LanguageField
 from simple_history.models import HistoricalRecords
@@ -140,10 +141,16 @@ class Person(models.Model):
             self._maintype = "person"
         if hasattr(self, "core_postal_list"):
             if (
-                self.core_postal_list.all().count() == 1
+                self.core_postal_list.filter(
+                    valid_until__gte=timezone.now().date()
+                ).count()
+                == 1
                 or self.primary_postal_address is None
+                or self.primary_postal_address.valid_until < timezone.now().date()
             ):
-                self.primary_postal_address = self.core_postal_list.first()
+                self.primary_postal_address = self.core_postal_list.filter(
+                    valid_until__gte=timezone.now().date()
+                ).first()
         else:
             self.primary_postal_address = None
         if hasattr(self, "core_email_list"):
