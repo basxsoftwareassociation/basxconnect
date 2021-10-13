@@ -6,8 +6,7 @@ from bread import layout
 from bread.layout import ObjectFieldLabel, ObjectFieldValue
 from bread.layout.components.icon import Icon
 from bread.layout.components.modal import modal_with_trigger
-from bread.layout.components.tag import Tag
-from bread.utils import ModelHref, get_concrete_instance, pretty_modelname
+from bread.utils import ModelHref, pretty_modelname
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from htmlgenerator import Lazy
@@ -56,33 +55,6 @@ def active_toggle():
     toggle.input.attributes["checked"] = hg.F(lambda c: c["object"].active)
     toggle.label.attributes["_for"] = toggle.input.attributes["id"]
     return hg.DIV(toggle)
-
-
-def tags():
-    return tiling_col(
-        hg.H4(_("Tags")),
-        hg.Iterator(hg.F(lambda c: c["object"].tags.all()), "i", Tag(hg.C("i"))),
-        open_modal_popup_button(
-            _("Edit Tags"),
-            hg.F(lambda c: get_concrete_instance(c["object"])),
-            "ajax_edit_tags",
-        ),
-    )
-
-
-def other():
-    return tiling_col(
-        hg.H4(_("Other")),
-        hg.DIV(
-            ObjectFieldLabel("remarks"), style="font-weight:bold; margin-bottom: 1rem;"
-        ),
-        ObjectFieldValue("remarks"),
-        open_modal_popup_button(
-            "Remarks",
-            hg.F(lambda c: get_concrete_instance(c["object"])),
-            "ajax_edit_remarks",
-        ),
-    )
 
 
 def grid_inside_tab(*elems, **attrs):

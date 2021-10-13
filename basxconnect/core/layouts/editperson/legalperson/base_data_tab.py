@@ -4,12 +4,10 @@ from bread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core import models
-from basxconnect.core.layouts.editperson.common.addresses import addresses
-from basxconnect.core.layouts.editperson.common.base_data_building_blocks import (
+from basxconnect.core.layouts.editperson.common.base_data import common_tiles, tags
+from basxconnect.core.layouts.editperson.common.utils import (
     grid_inside_tab,
-    other,
     person_metadata,
-    tags,
     tile_col_edit_modal,
 )
 
@@ -36,11 +34,7 @@ def base_data_tab(request):
                     ),
                     person_metadata(models.LegalPerson),
                 ),
-                addresses(request),
-                R(
-                    tags(),
-                    other(),
-                ),
+                common_tiles(request),
             ),
         ),
     )

@@ -3,7 +3,7 @@ from bread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core import models
-from basxconnect.core.layouts.editperson.common.base_data_building_blocks import (
+from basxconnect.core.layouts.editperson.common.utils import (
     grid_inside_tab,
     tile_col_edit_modal,
     tiling_col,

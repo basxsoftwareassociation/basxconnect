@@ -2,6 +2,7 @@ from typing import List, NamedTuple
 
 import django_countries
 
+import basxconnect.core.layouts.editperson.common.base_data
 from basxconnect.core import models
 from basxconnect.mailer_integration.abstract.abstract_datasource import (
     Datasource,
@@ -69,7 +70,7 @@ def _save_person(datasource_tag: models.Term, mailer_person: MailerPerson):
         name=mailer_person.display_name,
         last_name=mailer_person.last_name,
     )
-    person.tags.add(datasource_tag)
+    basxconnect.core.layouts.editperson.common.base_data.tags.add(datasource_tag)
     person.save()
     email = models.Email.objects.create(email=mailer_person.email, person=person)
     person.primary_email_address = email
