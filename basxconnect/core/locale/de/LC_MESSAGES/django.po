@@ -148,11 +148,11 @@ msgstr "%s bearbeiten"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:152
 msgid "Valid from: "
-msgstr ""
+msgstr "Gültig von"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:162
 msgid "Valid until: "
-msgstr ""
+msgstr "Gültig bis"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:214
 msgid "Address(es)"
