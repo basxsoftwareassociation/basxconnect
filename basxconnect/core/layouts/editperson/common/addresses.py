@@ -1,3 +1,4 @@
+import django.db.models
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.datatable import DataTableColumn
@@ -135,6 +136,7 @@ def display_postal(postal: models.Postal):
         ),
         submitlabel=_("Save"),
     )
+    is_inactive = postal.valid_until and postal.valid_until < timezone.now().date()
     return R(
         C(
             hg.DIV(
@@ -172,8 +174,11 @@ def display_postal(postal: models.Postal):
             ),
         ),
         **(
-            {"_class": "inactive_postal", "style": "display: none; margin-top: 1.5rem;"}
-            if postal.valid_until and postal.valid_until < timezone.now().date()
+            {
+                "_class": "inactive_postal",
+                "style": "display: none; margin-top: 1.5rem; color: #a8a8a8;",
+            }
+            if is_inactive
             else {"style": "margin-top: 1.5rem;"}
         ),
     )
@@ -218,7 +223,11 @@ def postals():
             C(
                 hg.Iterator(
                     hg.F(
-                        lambda c: getattr(c["object"], "core_postal_list").all()
+                        lambda c: getattr(c["object"], "core_postal_list")
+                        .order_by(
+                            django.db.models.F("valid_until").desc(nulls_first=True)
+                        )
+                        .all()
                         if hasattr(c["object"], "core_postal_list")
                         else []
                     ),
