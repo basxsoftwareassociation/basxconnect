@@ -27,7 +27,7 @@ def person_metadata(model):
         display_label_and_value(
             _("Changed"),
             hg.BaseElement(
-                hg.C("object.history.first.history_date.date"),
+                ObjectFieldValue("history.first.history_date.date"),
                 " / ",
                 hg.C("object.history.first.history_user"),
             ),
@@ -35,7 +35,7 @@ def person_metadata(model):
         display_label_and_value(
             _("Created"),
             hg.BaseElement(
-                hg.C("object.history.last.history_date.date"),
+                ObjectFieldValue("history.last.history_date.date"),
                 " / ",
                 hg.C("object.history.last.history_user"),
             ),

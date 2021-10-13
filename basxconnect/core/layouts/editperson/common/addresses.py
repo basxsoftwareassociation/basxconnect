@@ -5,7 +5,9 @@ from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.icon import Icon
 from bread.layout.components.modal import modal_with_trigger
 from bread.utils import Link, ModelHref, pretty_modelname, reverse_model
+from django.conf import settings
 from django.utils import timezone
+from django.utils.formats import localize
 from django.utils.translation import gettext_lazy as _
 from htmlgenerator import mark_safe
 
@@ -154,7 +156,7 @@ def display_postal(postal: models.Postal):
                 postal.valid_from,
                 hg.DIV(
                     hg.SPAN(_("Valid from: "), style="font-weight: bold;"),
-                    postal.valid_from,
+                    localize(postal.valid_from, use_l10n=settings.USE_L10N),
                     " ",
                     style="display: inline-block; margin-top: 1rem; margin-right: 1rem;",
                 ),
@@ -164,7 +166,7 @@ def display_postal(postal: models.Postal):
                 postal.valid_until,
                 hg.DIV(
                     hg.SPAN(_("Valid until: "), style="font-weight: bold;"),
-                    postal.valid_until,
+                    localize(postal.valid_until, use_l10n=settings.USE_L10N),
                     style="display: inline-block; margin-top: 1rem;",
                 ),
                 hg.BaseElement(),
