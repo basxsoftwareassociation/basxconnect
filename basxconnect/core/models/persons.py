@@ -146,7 +146,9 @@ class Person(models.Model):
                 if postal.valid_until is None
                 or postal.valid_until >= timezone.now().date()
             ]
-            if (
+            if len(active_postals) == 0:
+                self.primary_postal_address = None
+            elif (
                 len(active_postals) == 1
                 or self.primary_postal_address is None
                 or (
