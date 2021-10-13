@@ -171,6 +171,10 @@ class Postal(Address):
                 (self.person.pk,), eta=self.valid_until + timedelta(days=1)
             )
 
+        # TODO why is this not necessary?
+        # elif self.valid_until and self.valid_until < timezone.now().date():
+        #     self.person.save()
+
     class Meta:
         verbose_name = _("Postal address")
         verbose_name_plural = _("Postal addresses")

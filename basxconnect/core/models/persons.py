@@ -140,17 +140,21 @@ class Person(models.Model):
         if not self._maintype:
             self._maintype = "person"
         if hasattr(self, "core_postal_list"):
+            active_postals = [
+                postal
+                for postal in self.core_postal_list.all()
+                if postal.valid_until is None
+                or postal.valid_until >= timezone.now().date()
+            ]
             if (
-                self.core_postal_list.filter(
-                    valid_until__gte=timezone.now().date()
-                ).count()
-                == 1
+                len(active_postals) == 1
                 or self.primary_postal_address is None
-                or self.primary_postal_address.valid_until < timezone.now().date()
+                or (
+                    self.primary_postal_address.valid_until
+                    and self.primary_postal_address.valid_until < timezone.now().date()
+                )
             ):
-                self.primary_postal_address = self.core_postal_list.filter(
-                    valid_until__gte=timezone.now().date()
-                ).first()
+                self.primary_postal_address = active_postals[0]
         else:
             self.primary_postal_address = None
         if hasattr(self, "core_email_list"):
