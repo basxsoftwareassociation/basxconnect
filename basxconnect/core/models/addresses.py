@@ -67,7 +67,7 @@ class Email(Address):
     asbutton.verbose_name = _("Email")
 
     def __str__(self):
-        return self.email
+        return str(self.email)
 
     class Meta:
         verbose_name = _("Email address")
@@ -87,7 +87,7 @@ class Web(Address):
     type.verbose_name = _("Type")
 
     def __str__(self):
-        return self.url
+        return str(self.url)
 
     class Meta:
         verbose_name = _("Web address")
@@ -108,7 +108,7 @@ class Phone(Address):
     def __str__(self):
         if self.type:
             return f"{self.number} ({self.type})"
-        return self.number
+        return str(self.number)
 
     class Meta:
         verbose_name = _("Phone number")
@@ -129,7 +129,7 @@ class Fax(Address):
     def __str__(self):
         if self.type:
             return f"{self.number} ({self.type})"
-        return self.number
+        return str(self.number)
 
     class Meta:
         verbose_name = _("Fax number")

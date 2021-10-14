@@ -3,9 +3,7 @@ import logging
 import bread
 import django
 import htmlgenerator as hg
-from bread import layout
-from bread import layout as layout
-from bread import menu
+from bread import layout, menu
 from bread.layout.components.form import Form
 from bread.utils import reverse_model
 from bread.views import EditView, ReadView, layoutasreadonly

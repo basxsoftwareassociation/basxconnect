@@ -98,7 +98,7 @@ def email(request):
             DataTableColumn(
                 layout.fieldlabel(models.Email, "type"),
                 hg.SPAN(
-                    hg.C(f"row.type"),
+                    hg.C("row.type"),
                     hg.If(
                         hg.F(
                             lambda c: c["row"] == c["row"].person.primary_email_address
