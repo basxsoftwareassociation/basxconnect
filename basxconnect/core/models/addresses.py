@@ -20,15 +20,6 @@ class Address(models.Model):
         related_name="%(app_label)s_%(class)s_list",
     )
     person.verbose_name = _("Person")
-    status = models.ForeignKey(
-        Term,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="status_%(app_label)s_%(class)s_list",
-        limit_choices_to={"vocabulary__slug": "addressstatus"},
-    )
-    status.verbose_name = _("Status")
 
     @classmethod
     def get_contact_related_fieldnames(cls):

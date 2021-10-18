@@ -143,7 +143,7 @@ def display_postal(postal: models.Postal):
         C(
             hg.DIV(
                 postal.type,
-                " (" + _("primary") + ")"
+                f" ({_('primary')})"
                 if postal.person.primary_postal_address
                 and postal.person.primary_postal_address.pk == postal.pk
                 else "",
