@@ -188,10 +188,11 @@ class PersonBrowseView(BrowseView):
                 == "bx--toolbar-content"
             )
         )[0]
+        nfilters = self._checkbox_count()
         toolbar.insert(
             -2,
             hg.DIV(
-                hg.SPAN(self._checkbox_count(), id=self.checkboxcounterid),
+                hg.SPAN(nfilters, id=self.checkboxcounterid),
                 layout.icon.Icon(
                     "close",
                     focusable="false",
@@ -201,7 +202,8 @@ class PersonBrowseView(BrowseView):
                 ),
                 role="button",
                 _class="bx--list-box__selection bx--list-box__selection--multi bx--tag--filter",
-                style="margin: auto 0.5rem;",
+                style="margin: auto 0.5rem;"
+                + (" display: none;" if nfilters == 0 else ""),
                 tabindex="0",
                 title=("Reset"),
             ),
@@ -223,7 +225,9 @@ class PersonBrowseView(BrowseView):
             counter += form.cleaned_data["personassociation_subtypes"].count()
             counter += form.cleaned_data["tags"].count()
             counter += len(form.cleaned_data["preferred_language"])
-            counter += len(form.cleaned_data["status"])
+            counter += (
+                1 if "inactive" in form.cleaned_data["status"] else 0
+            )  # don't count the "active" checkbox, it is a permanent default
             counter += 1 if form.cleaned_data["trash"] else 0
         return counter
 
@@ -416,12 +420,15 @@ class PersonBrowseView(BrowseView):
                     function updateCheckboxCounter(group) {
                         var items = $$('input[type=checkbox]', group);
                         var count = 0;
-                        for(item of items)
-                            count += item.getAttribute('aria-checked') == 'true' ? 1 : 0
+                        for(item of items) {
+                            if(!(item.name === 'status' && item.value === 'active'))
+                                count += item.getAttribute('aria-checked') == 'true' ? 1 : 0
+                        }
                         $('#%s').innerHTML = count;
+                        $('#%s').closest('div[role=button]').style.display = count === 0 ? "none" : "flex";
                     }
                     """
-                    % (self.checkboxcounterid,)
+                    % (self.checkboxcounterid, self.checkboxcounterid)
                 )
             ),
             style="background-color: #fff",
