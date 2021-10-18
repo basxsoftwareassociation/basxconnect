@@ -12,6 +12,7 @@ checks:
 
 raise_and_release_minor_version:
 	git push
+	git pull
 	NEWVERSION=$$(                              \
 	   echo -n '__version__ = ' &&              \
 	   cat basxconnect/__init__.py |            \
