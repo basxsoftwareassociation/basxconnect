@@ -104,7 +104,7 @@ class Person(models.Model):
     _type = models.ForeignKey(
         Term, on_delete=models.SET_NULL, null=True, blank=True, related_name="+"
     )
-    _type.verbose_name = _("Person Category")
+    _type.verbose_name = _("Person Type")
 
     objects = PersonManager()
 

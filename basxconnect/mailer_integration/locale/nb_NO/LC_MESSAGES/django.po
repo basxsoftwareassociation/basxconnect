@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-28 18:13+0700\n"
+"POT-Creation-Date: 2021-10-18 16:14+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,36 +17,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: basxconnect/mailer_integration/layouts.py:25
+#: basxconnect/mailer_integration/layouts.py:27
 msgid "Email Subscriptions"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:82
-msgid "no mailing preferences yet for "
+#: basxconnect/mailer_integration/layouts.py:31
+msgid "Person has no email addresses"
 msgstr ""
 
 #: basxconnect/mailer_integration/layouts.py:84
+msgid "no mailing preferences yet for "
+msgstr ""
+
+#: basxconnect/mailer_integration/layouts.py:86
 msgid "Add mailing preferences"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:101
+#: basxconnect/mailer_integration/layouts.py:103
 msgid "active"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:104
+#: basxconnect/mailer_integration/layouts.py:106
 msgid "inactive"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:117
+#: basxconnect/mailer_integration/layouts.py:119
 msgid "Edit Email Subscriptions"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:123
-#: basxconnect/mailer_integration/layouts.py:137
+#: basxconnect/mailer_integration/layouts.py:125
+#: basxconnect/mailer_integration/layouts.py:139
 msgid "Save"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:132
+#: basxconnect/mailer_integration/layouts.py:134
 msgid "Add Mailing Preferences"
 msgstr ""
 
@@ -54,6 +58,6 @@ msgstr ""
 msgid "Mailing Interests"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:59
+#: basxconnect/mailer_integration/views.py:57
 msgid "Mailchimp"
 msgstr ""

@@ -87,7 +87,9 @@ class PersonBrowseView(BrowseView):
             "personnumber__int",
         ),
         "status",
-        DataTableColumn(_("Person Category"), hg.C("row._type"), "_type"),
+        DataTableColumn(
+            layout.fieldlabel(models.Person, "_type"), hg.C("row._type"), "_type"
+        ),
         DataTableColumn(
             layout.fieldlabel(models.Person, "name"),
             hg.DIV(
