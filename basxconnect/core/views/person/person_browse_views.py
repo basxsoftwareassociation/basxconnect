@@ -139,6 +139,7 @@ class PersonBrowseView(BrowseView):
         url=reverse("basxconnect.core.views.person.search_person_view.searchperson")
     )
     rowclickaction = BrowseView.gen_rowclickaction("read")
+    viewstate_sessionkey = "personbrowseview"
 
     class FilterForm(forms.Form):
         naturalperson = forms.BooleanField(required=False, label=_("Natural Person"))
@@ -196,7 +197,7 @@ class PersonBrowseView(BrowseView):
                     focusable="false",
                     size=15,
                     role="img",
-                    onclick=f"document.location = '{self.request.path}'",
+                    onclick=f"document.location = '{self.request.path}?reset=1'",
                 ),
                 role="button",
                 _class="bx--list-box__selection bx--list-box__selection--multi bx--tag--filter",
@@ -385,7 +386,11 @@ class PersonBrowseView(BrowseView):
                         onclick="this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
                     ),
                     layout.button.Button.fromlink(
-                        Link(label=_("Reset"), href=self.request.path, iconname=None),
+                        Link(
+                            label=_("Reset"),
+                            href=self.request.path + "?reset=1",
+                            iconname=None,
+                        ),
                         buttontype="secondary",
                     ),
                     layout.button.Button(
