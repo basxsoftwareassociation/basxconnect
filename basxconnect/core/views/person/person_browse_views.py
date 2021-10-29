@@ -14,6 +14,7 @@ from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 
+import basxconnect.core.layouts.editperson.common.base_data
 from basxconnect.core import models, settings
 
 
@@ -42,7 +43,13 @@ def export(request, queryset):
             tags = set(form.cleaned_data.get("tags"))
 
             def render_matching_tags(context):
-                return ", ".join(str(i) for i in tags & set(context["row"].tags.all()))
+                return ", ".join(
+                    str(i)
+                    for i in tags
+                    & set(
+                        basxconnect.core.layouts.editperson.common.base_data.tags.all()
+                    )
+                )
 
             columns.append(
                 DataTableColumn(
