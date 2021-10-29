@@ -8,9 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core import models
-from basxconnect.core.layouts.editperson.common.base_data_building_blocks import (
-    tile_with_icon,
-)
+from basxconnect.core.layouts.editperson.common.utils import tile_with_icon
 from basxconnect.core.models import Person
 from basxconnect.mailer_integration.models import Interest
 

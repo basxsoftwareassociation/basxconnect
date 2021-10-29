@@ -1,10 +1,7 @@
 from bread import layout
 from django.utils.translation import gettext_lazy as _
 
-from basxconnect.core.layouts.editperson.common.base_data_building_blocks import (
-    grid_inside_tab,
-    tiling_col,
-)
+from basxconnect.core.layouts.editperson.common.utils import grid_inside_tab, tiling_col
 
 R = layout.grid.Row
 

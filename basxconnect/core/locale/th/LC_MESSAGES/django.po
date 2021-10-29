@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-18 16:14+0700\n"
-"PO-Revision-Date: 2021-09-30 02:37+0000\n"
+"PO-Revision-Date: 2021-10-20 02:32+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -28,74 +28,50 @@ msgid "Tags"
 msgstr "แท็ก"
 
 #: basxconnect/core/apps.py:14
-#, fuzzy
-#| msgid "Title"
 msgid "Titles"
-msgstr "เรื่อง"
+msgstr "หัวเรื่อง"
 
 #: basxconnect/core/apps.py:15
-#, fuzzy
-#| msgid "Salutation"
 msgid "Salutations"
 msgstr "คำนำหน้านาม"
 
 #: basxconnect/core/apps.py:16
-#, fuzzy
-#| msgid "Form of address"
 msgid "Forms Of Address"
 msgstr "ประเภทที่อยู่อาศัย"
 
 #: basxconnect/core/apps.py:17
-#, fuzzy
-#| msgid "Gender"
 msgid "Genders"
 msgstr "เพศ"
 
 #: basxconnect/core/apps.py:18
-#, fuzzy
-#| msgid "Natural Persons"
 msgid "Natural Person Types"
 msgstr "บุคคลธรรมดา"
 
 #: basxconnect/core/apps.py:19
-#, fuzzy
-#| msgid "Legal Persons"
 msgid "Legal Person Types"
 msgstr "นิติบุคคล"
 
 #: basxconnect/core/apps.py:20
-#, fuzzy
-#| msgid "Person Type"
 msgid "Association Person Types"
-msgstr "ประเภทของบุคคล"
+msgstr "กลุ่มบุคคล สมาคม"
 
 #: basxconnect/core/apps.py:21
-#, fuzzy
-#| msgid "Address types"
 msgid "Address statuses"
 msgstr "ประเภทที่อยู่"
 
 #: basxconnect/core/apps.py:22
-#, fuzzy
-#| msgid "Legal Types"
 msgid "Email Types"
-msgstr "นิติบุคคล"
+msgstr "อีเมล์"
 
 #: basxconnect/core/apps.py:23
-#, fuzzy
-#| msgid "Legal Types"
 msgid "URL Types"
-msgstr "นิติบุคคล"
+msgstr "ประเภทของ URL"
 
 #: basxconnect/core/apps.py:24
-#, fuzzy
-#| msgid "Phone types"
 msgid "Phone Types"
 msgstr "ประเภทโทรศัพท์"
 
 #: basxconnect/core/apps.py:25
-#, fuzzy
-#| msgid "Address types"
 msgid "Address Types"
 msgstr "ประเภทที่อยู่"
 
@@ -158,11 +134,11 @@ msgstr "ข้อมูลหลัก"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:158
 msgid "Valid from: "
-msgstr ""
+msgstr "ใช้ได้ตั้งแต่: "
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:168
 msgid "Valid until: "
-msgstr ""
+msgstr "ใช้ได้จนถึง: "
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:223
 msgid "Address(es)"
@@ -170,11 +146,9 @@ msgstr "ที่อยู่"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:246
 msgid "Hide inactive postals"
-msgstr ""
+msgstr "ซ่อนช่องทางการติดต่อที่ไม่ได้ใช้งาน"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:254
-#, fuzzy
-#| msgid "Show inactive"
 msgid "Show inactive postals"
 msgstr "แสดงว่าไม่ใช้งาน"
 
@@ -296,11 +270,11 @@ msgstr "ตั้งค่า"
 
 #: basxconnect/core/layouts/editperson/naturalperson/base_data.py:53
 msgid "Yes"
-msgstr ""
+msgstr "ใช่"
 
 #: basxconnect/core/layouts/editperson/naturalperson/base_data.py:53
 msgid "No"
-msgstr ""
+msgstr "ไม่ใช่"
 
 #: basxconnect/core/layouts/editperson/naturalperson/base_data.py:62
 msgid "Personal Data"
@@ -405,11 +379,11 @@ msgstr "จังหวัด"
 
 #: basxconnect/core/models/addresses.py:153
 msgid "Valid from"
-msgstr ""
+msgstr "ใช้ได้ตั้งแต่"
 
 #: basxconnect/core/models/addresses.py:154
 msgid "Valid until"
-msgstr ""
+msgstr "ใช้ได้จนถึง"
 
 #: basxconnect/core/models/addresses.py:179
 msgid "Postal address"
@@ -647,16 +621,14 @@ msgstr "%s คือ %s"
 
 #: basxconnect/core/views/person/person_details_views.py:162
 msgid "Delete linked mailer contact as well"
-msgstr ""
+msgstr "ลบรายชื่ออีเมลที่เชื่อมโยงด้วย"
 
 #: basxconnect/core/views/person/person_details_views.py:203
 #, python-format
 msgid "Delete email %s"
-msgstr ""
+msgstr "ลบอีเมล์%s"
 
 #: basxconnect/core/views/person/person_details_views.py:210
-#, fuzzy
-#| msgid "Confirmation"
 msgid "Confirm"
 msgstr "ยืนยัน"
 
@@ -669,16 +641,12 @@ msgid "Use as primary postal address"
 msgstr "ใช้เป็นที่อยู่หลักสำหรับติดต่อ"
 
 #: basxconnect/core/views/person/person_modals_views.py:184
-#, fuzzy
-#| msgid "Use as primary postal address"
 msgid "Use as primary email address"
 msgstr "ใช้เป็นที่อยู่หลักสำหรับติดต่อ"
 
 #: basxconnect/core/views/person/person_modals_views.py:201
-#, fuzzy
-#| msgid "Email"
 msgid "Edit Email"
-msgstr "อีเมล์"
+msgstr "แก้ไขอีเมล์"
 
 #: basxconnect/core/views/person/search_person_view.py:22
 #: basxconnect/core/wizards/add_person.py:116

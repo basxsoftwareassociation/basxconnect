@@ -58,6 +58,7 @@ class Contribution(models.Model):
     _import = models.ForeignKey(
         ContributionImport,
         null=True,
+        blank=True,
         on_delete=models.CASCADE,
         related_name="contributions",
     )

@@ -4,12 +4,10 @@ from bread.layout import ObjectFieldLabel
 from bread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
+import basxconnect.core.layouts.editperson.common.base_data
 from basxconnect.core import models
-from basxconnect.core.layouts.editperson.common import (
-    addresses,
-    base_data_building_blocks,
-)
-from basxconnect.core.layouts.editperson.common.base_data_building_blocks import (
+from basxconnect.core.layouts.editperson.common import addresses, base_data, utils
+from basxconnect.core.layouts.editperson.common.utils import (
     display_label_and_value,
     person_metadata,
 )
@@ -23,19 +21,19 @@ def base_data_tab(request):
 
     return layout.tabs.Tab(
         _("Base data"),
-        base_data_building_blocks.grid_inside_tab(
+        utils.grid_inside_tab(
             R(
                 personal_data(),
                 person_metadata(models.NaturalPerson),
             ),
-            contact_details_naturalperson(request),
+            base_data.common_tiles(request),
         ),
     )
 
 
 def personal_data():
     displayed_fields = [
-        base_data_building_blocks.display_field_label_and_value(field)
+        utils.display_field_label_and_value(field)
         for field in [
             "salutation",
             "title",
@@ -55,10 +53,10 @@ def personal_data():
         ),
         hg.If(
             hg.C("object.deceased"),
-            base_data_building_blocks.display_field_label_and_value("decease_date"),
+            utils.display_field_label_and_value("decease_date"),
         ),
     ]
-    return base_data_building_blocks.tile_col_edit_modal_displayed_fields(
+    return utils.tile_col_edit_modal_displayed_fields(
         _("Personal Data"),
         models.NaturalPerson,
         "ajax_edit_personal_data",
@@ -78,7 +76,7 @@ def contact_details_naturalperson(request):
             addresses.urls(request),
         ),
         R(
-            base_data_building_blocks.tags(),
-            base_data_building_blocks.other(),
+            basxconnect.core.layouts.editperson.common.base_data.tags(),
+            utils.other(),
         ),
     )
