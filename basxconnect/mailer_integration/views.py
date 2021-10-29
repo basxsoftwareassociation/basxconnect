@@ -3,7 +3,7 @@ import traceback
 import bread.layout.components.notification
 import htmlgenerator as hg
 from bread import layout, menu
-from bread.layout.components.form import Form
+from bread.layout.components.forms import Form
 from bread.utils import aslayout, reverse_model
 from bread.utils.links import Link
 from bread.views import AddView, EditView

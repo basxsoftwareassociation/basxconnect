@@ -4,7 +4,7 @@ import bread
 import django
 import htmlgenerator as hg
 from bread import layout, menu
-from bread.layout.components.form import Form
+from bread.layout.components.forms import Form
 from bread.utils import reverse_model
 from bread.views import EditView, ReadView, layoutasreadonly
 from django.apps import apps
