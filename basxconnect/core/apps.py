@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 class CoreConfig(AppConfig):
     name = "basxconnect.core"
+    default_auto_field = "django.db.models.BigAutoField"
 
     def ready(self):
         from .models import Vocabulary
