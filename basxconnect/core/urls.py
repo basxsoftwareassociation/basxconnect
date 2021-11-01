@@ -114,6 +114,7 @@ urlpatterns = [
     *default_model_paths(models.Postal),
     *default_model_paths(models.Phone),
     *default_model_paths(models.Web),
+    autopath(breadviews.system.systeminformation),
     autopath(settings_views.generalsettings),
     autopath(
         person_details_views.togglepersonstatus,
@@ -121,6 +122,7 @@ urlpatterns = [
     ),
     autopath(settings_views.personsettings),
     autopath(settings_views.relationshipssettings),
+    autopath(settings_views.maintenancesettings),
     autopath(search_person_view.searchperson),
     autopath(
         person_modals_views.NaturalPersonEditMailingsView.as_view(),

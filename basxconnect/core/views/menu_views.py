@@ -14,6 +14,7 @@ F = layout.form.FormField
 
 persongroup = menu.Group(_("Persons"), iconname="group")
 settingsgroup = menu.Group(_("Settings"), iconname="settings", order=100)
+admingroup = menu.Group(_("Administration"), iconname="group")
 
 menu.registeritem(
     menu.Item(
@@ -47,5 +48,25 @@ menu.registeritem(
             _("Relationships"),
         ),
         settingsgroup,
+    )
+)
+
+menu.registeritem(
+    menu.Item(
+        Link(
+            reverse("bread.views.system.systeminformation"),
+            _("System Information"),
+        ),
+        admingroup,
+    )
+)
+
+menu.registeritem(
+    menu.Item(
+        Link(
+            reverse("basxconnect.core.views.settings_views.maintenancesettings"),
+            _("Maintenance"),
+        ),
+        admingroup,
     )
 )
