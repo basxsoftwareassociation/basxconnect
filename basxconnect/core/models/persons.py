@@ -10,10 +10,15 @@ from django.utils.translation import gettext_lazy as _
 from languages.fields import LanguageField
 from simple_history.models import HistoricalRecords
 
-from .. import settings
 from .utils import Note, Term
 
 LanguageField.db_collation = None  # fix issue with LanguageField in django 3.2
+
+
+def preferred_languages_choices(field, request, instance):
+    from .. import settings
+
+    return settings.PREFERRED_LANGUAGES
 
 
 class PersonManager(models.Manager):
@@ -48,9 +53,7 @@ class Person(models.Model):
     preferred_language = LanguageField(
         _("Preferred Language"), blank=True, max_length=8
     )  # mitigate up-stream bug
-    preferred_language.lazy_choices = (
-        lambda field, request, instance: settings.PREFERRED_LANGUAGES
-    )
+    preferred_language.lazy_choices = preferred_languages_choices
 
     tags = models.ManyToManyField(
         Term,
