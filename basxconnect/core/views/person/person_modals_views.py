@@ -160,8 +160,8 @@ class EditPostalAddressView(EditView):
 class AddPostalAddressView(AddView):
     model = models.Postal
 
-    def post(self, request, *args, **kwargs):
-        ret = super().post(request, *args, **kwargs)
+    def form_valid(self, request, *args, **kwargs):
+        ret = super().form_valid(request, *args, **kwargs)
         self.object.person.save()
         return ret
 
