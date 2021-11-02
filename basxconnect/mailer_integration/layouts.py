@@ -129,7 +129,7 @@ def modal_edit_mailingpreferences(mailingpreferences):
 
 def modal_add_mailingpreferences(email: models.Email):
     ret = layout.modal.Modal.with_ajax_content(
-        heading=_("Add Mailing Preferences"),
+        heading=_("Add subscription"),
         url=reverse(
             "basxconnect.mailer_integration.views.addmailingpreferencesview",
             query={"asajax": True, "email": email.pk, "status": "subscribed"},

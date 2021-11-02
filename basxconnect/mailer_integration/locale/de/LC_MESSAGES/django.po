@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-02 17:28+0200\n"
+"POT-Creation-Date: 2021-11-02 17:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,6 +31,7 @@ msgid "No subscription yet for "
 msgstr "Noch kein Abonnement für "
 
 #: basxconnect/mailer_integration/layouts.py:84
+#: basxconnect/mailer_integration/layouts.py:132
 msgid "Add subscription"
 msgstr "Abonnement hinzufügen"
 
@@ -50,10 +51,6 @@ msgstr "Abonnement bearbeiten"
 #: basxconnect/mailer_integration/layouts.py:137
 msgid "Save"
 msgstr "Speichern"
-
-#: basxconnect/mailer_integration/layouts.py:132
-msgid "Add Mailing Preferences"
-msgstr "Mailing Präferenz hinzufügen"
 
 #: basxconnect/mailer_integration/models.py:28
 msgid "Mailing Interests"
