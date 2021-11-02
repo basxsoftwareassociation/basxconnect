@@ -59,4 +59,4 @@ def relationshipssettings(request):
 
 @aslayout
 def maintenancesettings(request):
-    return hg.BaseElement(hg.H3("This is the empty Maintenance Settings View."))
+    return hg.BaseElement(hg.H3("Coming soon"))
