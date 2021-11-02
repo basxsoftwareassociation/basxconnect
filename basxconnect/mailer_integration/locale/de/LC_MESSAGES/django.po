@@ -28,7 +28,7 @@ msgstr "Person hat keine Email Adressen"
 
 #: basxconnect/mailer_integration/layouts.py:82
 msgid "No subscription yet for "
-msgstr "Noch keine Abonnemente für"
+msgstr "Noch kein Abonnement für "
 
 #: basxconnect/mailer_integration/layouts.py:84
 msgid "Add subscription"
