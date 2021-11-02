@@ -74,7 +74,7 @@ class AddMailingPreferencesView(AddView):
 
 
 class EditMailingPreferencesView(EditView):
-    fields = ["interests"]
+    fields = ["interests", "language"]
 
     def get_success_url(self):
         return reverse_model(

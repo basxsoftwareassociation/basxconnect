@@ -59,6 +59,7 @@ class MailchimpDatasource(abstract_datasource.Datasource):
                     "FNAME": person.first_name or person.display_name,
                     "LNAME": person.last_name,
                 },
+                "language": person.language,
                 **kwargs,
             },
         )
