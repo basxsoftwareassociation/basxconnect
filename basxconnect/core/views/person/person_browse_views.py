@@ -305,7 +305,7 @@ class PersonBrowseView(BrowseView):
                 self._filterform(),
                 hg.DIV(
                     hg.DIV(
-                        hg.DIV(layout.helpers.Label(_("Tags"))),
+                        hg.DIV(layout.helpers.Label(_("Person Type"))),
                         hg.DIV(
                             hg.DIV(
                                 hg.DIV(
