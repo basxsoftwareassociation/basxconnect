@@ -48,9 +48,10 @@ class MailchimpDatasource(abstract_datasource.Datasource):
         )
 
     def put_person(self, person: MailerPerson, **kwargs):
+        email_hash = compute_email_hash(person.email)
         self.client.lists.set_list_member(
             settings.MAILCHIMP_LIST_ID,
-            compute_email_hash(person.email),
+            email_hash,
             {
                 "email_address": person.email,
                 "status_if_new": person.status,
@@ -68,6 +69,12 @@ class MailchimpDatasource(abstract_datasource.Datasource):
                 **kwargs,
             },
         )
+        if hasattr(settings, "MAILCHIMP_TAG"):
+            self.client.lists.update_list_member_tags(
+                settings.MAILCHIMP_LIST_ID,
+                email_hash,
+                {"tags": [{"name": settings.MAILCHIMP_TAG, "status": "active"}]},
+            )
 
     def add_person(self, person: MailerPerson):
         self.put_person(person, status=person.status)
