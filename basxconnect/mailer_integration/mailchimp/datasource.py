@@ -58,6 +58,11 @@ class MailchimpDatasource(abstract_datasource.Datasource):
                 "merge_fields": {
                     "FNAME": person.first_name or person.display_name,
                     "LNAME": person.last_name,
+                    **(
+                        settings.MAILCHIMP_ADDITIONAL_MERGE_FIELDS(person)
+                        if hasattr(settings, "MAILCHIMP_ADDITIONAL_MERGE_FIELDS")
+                        else {}
+                    ),
                 },
                 "language": person.language,
                 **kwargs,
