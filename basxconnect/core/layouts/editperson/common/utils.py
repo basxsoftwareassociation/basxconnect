@@ -16,10 +16,10 @@ C = layout.grid.Col
 F = layout.form.FormField
 
 
-def person_metadata(model):
+def person_metadata():
     return tiling_col(
         # we need this to take exactly as much space as a real header
-        tile_header(model, style="visibility: hidden;"),
+        hg.DIV("", style="margin-bottom:3.25rem;"),
         display_field_label_and_value("personnumber"),
         display_field_label_and_value("maintype"),
         display_label_and_value(_("Status"), active_toggle()),
@@ -112,18 +112,6 @@ def create_modal(heading, model: Union[type, Lazy], action: str):
         submitlabel=_("Save"),
     )
     return modal
-
-
-def tile_header(model, **kwargs):
-    return R(
-        C(
-            hg.H4(
-                pretty_modelname(model),
-                style="margin-top: 0; margin-bottom: 3rem;",
-            ),
-            **kwargs,
-        )
-    )
 
 
 def tile_with_icon(icon, *content):

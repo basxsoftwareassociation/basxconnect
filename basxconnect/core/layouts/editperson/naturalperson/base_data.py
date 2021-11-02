@@ -24,7 +24,7 @@ def base_data_tab(request):
         utils.grid_inside_tab(
             R(
                 personal_data(),
-                person_metadata(models.NaturalPerson),
+                person_metadata(),
             ),
             base_data.common_tiles(request),
         ),
