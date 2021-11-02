@@ -79,9 +79,9 @@ def _display_email_without_preferences(email):
     modal_add = modal_add_mailingpreferences(email)
     return hg.BaseElement(
         hg.DIV(email.email, style="font-weight: bold;"),
-        hg.DIV(_("no mailing preferences yet for "), email.email),
+        hg.DIV(_("No subscription yet for "), email.email),
         layout.button.Button(
-            _("Add mailing preferences"),
+            _("Add subscription"),
             buttontype="ghost",
             icon="add",
             **modal_add.openerattributes,
@@ -114,7 +114,7 @@ def is_interested_indicator(is_subscribed):
 
 def modal_edit_mailingpreferences(mailingpreferences):
     modal = layout.modal.Modal.with_ajax_content(
-        heading=_("Edit Email Subscriptions"),
+        heading=_("Edit subscription"),
         url=reverse(
             "basxconnect.mailer_integration.views.editmailingpreferencesview",
             kwargs={"pk": mailingpreferences.pk},
