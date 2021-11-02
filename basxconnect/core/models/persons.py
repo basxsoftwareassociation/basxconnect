@@ -3,6 +3,7 @@ import random
 
 from bread import layout
 from bread.utils import get_concrete_instance, pretty_modelname
+from bread.utils.inheritancemanager import InheritanceManager
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
@@ -21,7 +22,10 @@ def preferred_languages_choices(field, request, instance):
     return settings.PREFERRED_LANGUAGES
 
 
-class PersonManager(models.Manager):
+class PersonManager(InheritanceManager):
+    def get_queryset(self):
+        return super().get_queryset().select_subclasses()
+
     def trash(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(deleted=True)
 
