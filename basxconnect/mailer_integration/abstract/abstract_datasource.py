@@ -15,6 +15,7 @@ class MailerPerson(NamedTuple):
     postcode: str = ""
     address: str = ""
     city: str = ""
+    language: str = ""
 
     @staticmethod
     def from_mailing_preferences(preferences: MailingPreferences):
@@ -36,6 +37,7 @@ class MailerPerson(NamedTuple):
                 interest.external_id for interest in preferences.interests.all()
             ],
             status=preferences.status,
+            language=preferences.language,
         )
 
 
