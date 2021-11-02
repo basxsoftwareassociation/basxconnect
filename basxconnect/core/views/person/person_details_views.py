@@ -159,7 +159,7 @@ def togglepersonstatus(request, pk: int):
 def confirm_delete_email(request, pk: int):
     class ConfirmDeleteEmailForm(forms.Form):
         delete_mailer_contact = django.forms.BooleanField(
-            label=_("Delete linked mailer contact as well"),
+            label=_("Delete linked email subscriptions as well"),
             required=False,
         )
 
