@@ -1,3 +1,4 @@
+.DS_Store   # macOS folder
 .venv/
 .tox/
 .eggs/
@@ -9,3 +10,4 @@ __pycache__
 static/
 media/
 .hypothesis/
+.idea/
