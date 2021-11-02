@@ -4,6 +4,8 @@ from bread.utils.links import Link
 from bread.utils.urls import reverse, reverse_model
 from django.utils.translation import gettext_lazy as _
 
+import basxconnect.core.models
+
 from .. import models
 
 R = layout.grid.Row
@@ -66,6 +68,16 @@ menu.registeritem(
         Link(
             reverse("basxconnect.core.views.settings_views.maintenancesettings"),
             _("Maintenance"),
+        ),
+        admingroup,
+    )
+)
+
+menu.registeritem(
+    menu.Item(
+        Link(
+            reverse("core.vocabulary.browse"),
+            _(basxconnect.core.models.Vocabulary._meta.verbose_name_plural),
         ),
         admingroup,
     )

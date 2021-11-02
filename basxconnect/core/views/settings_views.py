@@ -59,4 +59,4 @@ def relationshipssettings(request):
 
 @aslayout
 def maintenancesettings(request):
-    return hg.BaseElement(hg.H3("Coming soon"))
+    return settings_layout.maintenancesettings(request)
