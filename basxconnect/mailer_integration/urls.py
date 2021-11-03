@@ -1,4 +1,4 @@
-from bread.utils.urls import autopath
+from bread.utils.urls import autopath, default_model_paths
 
 import basxconnect.mailer_integration.views
 from basxconnect.mailer_integration import models
@@ -15,4 +15,5 @@ urlpatterns = [
             model=models.MailingPreferences
         )
     ),
+    *default_model_paths(models.SynchronizationResult),
 ]
