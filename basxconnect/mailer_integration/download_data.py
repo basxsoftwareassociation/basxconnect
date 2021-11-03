@@ -1,20 +1,18 @@
-from typing import List, NamedTuple
-
 import django_countries
+from django.utils import timezone
 
-import basxconnect.core.layouts.editperson.common.base_data
 from basxconnect.core import models
 from basxconnect.mailer_integration.abstract.abstract_datasource import (
     Datasource,
     MailerPerson,
 )
-from basxconnect.mailer_integration.models import Interest, MailingPreferences
-
-
-class SynchronizationResult(NamedTuple):
-    new_persons: int
-    total_synchronized_persons: int
-    invalid_new_persons: List[str]
+from basxconnect.mailer_integration.models import (
+    Interest,
+    InvalidPerson,
+    MailingPreferences,
+    NewPerson,
+    SynchronizationResult,
+)
 
 
 def download_persons(datasource: Datasource) -> SynchronizationResult:
@@ -26,8 +24,7 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
 
     mailer_persons = datasource.get_persons()
     datasource_tag = _get_or_create_tag(datasource.tag())
-    new_persons = 0
-    invalid_new_persons = []
+    sync_result = SynchronizationResult()
     for mailer_person in mailer_persons:
         matching_email_addresses = list(
             models.Email.objects.filter(
@@ -36,17 +33,20 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
         )
         if len(matching_email_addresses) == 0:
             if not is_valid_new_person(mailer_person):
-                invalid_new_persons.append(mailer_person.email)
+                InvalidPerson(sync_result=sync_result, email=mailer_person.email).save()
             else:
                 _save_person(datasource_tag, mailer_person)
-                new_persons += 1
+                NewPerson(sync_result=sync_result, email=mailer_person.email).save()
         else:
             # if the downloaded email address already exists in our system, update the mailing preference for this email
             # address, without creating a new person in the database
             for email in matching_email_addresses:
                 _save_mailing_preferences(email, mailer_person)
+    sync_result.total_synchronized_persons = len(mailer_persons)
+    sync_result.sync_completed_datetime = timezone.now()
+    sync_result.save()
 
-    return SynchronizationResult(new_persons, len(mailer_persons), invalid_new_persons)
+    return sync_result
 
 
 def is_valid_new_person(person: MailerPerson):
@@ -70,7 +70,7 @@ def _save_person(datasource_tag: models.Term, mailer_person: MailerPerson):
         name=mailer_person.display_name,
         last_name=mailer_person.last_name,
     )
-    basxconnect.core.layouts.editperson.common.base_data.tags.add(datasource_tag)
+    person.tags.add(datasource_tag)
     person.save()
     email = models.Email.objects.create(email=mailer_person.email, person=person)
     person.primary_email_address = email
