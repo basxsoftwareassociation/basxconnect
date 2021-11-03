@@ -53,6 +53,9 @@ class NewPerson(models.Model):
     )
     email = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.email
+
 
 class InvalidPerson(models.Model):
     sync_result = models.ForeignKey(
@@ -61,3 +64,6 @@ class InvalidPerson(models.Model):
         related_name="invalid_new_persons",
     )
     email = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.email

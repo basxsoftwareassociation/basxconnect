@@ -24,7 +24,7 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
 
     mailer_persons = datasource.get_persons()
     datasource_tag = _get_or_create_tag(datasource.tag())
-    sync_result = SynchronizationResult()
+    sync_result = SynchronizationResult.objects.create()
     for mailer_person in mailer_persons:
         matching_email_addresses = list(
             models.Email.objects.filter(
@@ -33,10 +33,14 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
         )
         if len(matching_email_addresses) == 0:
             if not is_valid_new_person(mailer_person):
-                InvalidPerson(sync_result=sync_result, email=mailer_person.email).save()
+                InvalidPerson.objects.create(
+                    sync_result=sync_result, email=mailer_person.email
+                )
             else:
                 _save_person(datasource_tag, mailer_person)
-                NewPerson(sync_result=sync_result, email=mailer_person.email).save()
+                NewPerson.objects.create(
+                    sync_result=sync_result, email=mailer_person.email
+                )
         else:
             # if the downloaded email address already exists in our system, update the mailing preference for this email
             # address, without creating a new person in the database

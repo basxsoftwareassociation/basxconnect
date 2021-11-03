@@ -3,13 +3,13 @@ import traceback
 import bread.layout.components.notification
 import htmlgenerator as hg
 from bread import layout, menu
+from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.forms import Form
 from bread.utils import aslayout, reverse_model
-from bread.utils.links import Link
-from bread.views import AddView, EditView
-from django import conf, forms
+from bread.utils.links import Link, ModelHref
+from bread.views import AddView, BrowseView, EditView
+from django import forms
 from django.urls import reverse_lazy
-from django.utils.formats import localize
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.views import menu_views
@@ -87,28 +87,55 @@ def mailer_synchronization_view(request):
             ),
             submit_label=_("Download subscriptions"),
         ),
-        display_last_execution(),
+        display_previous_execution(request),
     )
 
 
-def display_last_execution():
-    last_execution = SynchronizationResult.objects.order_by(
-        "-sync_completed_datetime"
-    ).first()
-    return hg.DIV(
-        hg.H4(_("Report of most recent execution")),
-        hg.DIV(
-            _("Time of completion: "),
-            localize(
-                last_execution.sync_completed_datetime, use_l10n=conf.settings.USE_L10N
+def display_previous_execution(request):
+    return R(
+        C(
+            layout.datatable.DataTable.from_queryset(
+                SynchronizationResult.objects.all(),
+                columns=[
+                    "total_synchronized_persons",
+                    "sync_completed_datetime",
+                    DataTableColumn(
+                        _("Invalid Persons"),
+                        hg.F(
+                            lambda c: ", ".join(
+                                [
+                                    str(person)
+                                    for person in c["row"].invalid_new_persons.all()
+                                ]
+                            )
+                        ),
+                    ),
+                    DataTableColumn(
+                        _("New Persons"),
+                        hg.F(
+                            lambda c: ", ".join(
+                                [str(person) for person in c["row"].new_persons.all()]
+                            )
+                        ),
+                    ),
+                ],
+                title="Previous Executions",
+                primary_button="",
+                rowactions=[
+                    Link(
+                        href=ModelHref(
+                            SynchronizationResult,
+                            "delete",
+                            kwargs={"pk": hg.C("row.pk")},
+                            query={"next": request.get_full_path()},
+                        ),
+                        iconname="trash-can",
+                        label=_("Delete"),
+                    )
+                ],
             ),
-        ),
-        hg.DIV(
-            _("Total subscriptions in segment: "),
-            last_execution.total_synchronized_persons,
-        ),
-        hg.DIV(_("Newly added: "), ", ".join(last_execution.new_persons.all())),
-        hg.DIV(_("Invalid: "), ", ".join(last_execution.invalid_new_persons.all())),
+            width=12,
+        )
     )
 
 
