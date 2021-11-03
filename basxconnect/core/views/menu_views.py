@@ -56,7 +56,7 @@ menu.registeritem(
 menu.registeritem(
     menu.Item(
         Link(
-            reverse("bread.views.system.systeminformation"),
+            reverse("systeminformation"),
             _("System Information"),
         ),
         admingroup,

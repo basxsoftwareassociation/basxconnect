@@ -76,20 +76,21 @@ def personsettings(request):
 
 def maintenancesettings(request):
     ret = layout.grid.Grid(R(C(hg.H3(_("Maintenance")))), gutter=False)
-    ret.append(
-        R(
-            C(
-                layout.button.Button.fromlink(
-                    Link(
-                        reverse("core.vocabulary.browse"),
-                        label=_(Vocabulary._meta.verbose_name_plural),
-                    ),
-                    icon="edit",
-                )
-            ),
-            style="margin-bottom: 2rem",
-        )
-    )
+    ret.append(R(C(hg.H4(_("Coming soon")))))
+    # ret.append(
+    #     R(
+    #         C(
+    #             layout.button.Button.fromlink(
+    #                 Link(
+    #                     reverse("core.vocabulary.browse"),
+    #                     label=_(Vocabulary._meta.verbose_name_plural),
+    #                 ),
+    #                 icon="edit",
+    #             )
+    #         ),
+    #         style="margin-bottom: 2rem",
+    #     )
+    # )
     return ret
 
 
