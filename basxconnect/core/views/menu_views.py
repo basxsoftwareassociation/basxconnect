@@ -77,7 +77,7 @@ menu.registeritem(
     menu.Item(
         Link(
             reverse("core.vocabulary.browse"),
-            _(basxconnect.core.models.Vocabulary._meta.verbose_name_plural),
+            basxconnect.core.models.Vocabulary._meta.verbose_name_plural,
         ),
         admingroup,
     )
