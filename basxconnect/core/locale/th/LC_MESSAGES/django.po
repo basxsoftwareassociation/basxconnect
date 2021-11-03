@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-02 01:55+0700\n"
-"PO-Revision-Date: 2021-10-20 02:32+0000\n"
+"PO-Revision-Date: 2021-11-05 02:35+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -585,14 +585,10 @@ msgid "Terms"
 msgstr "หมวดหมู่"
 
 #: basxconnect/core/views/menu_views.py:17
-#, fuzzy
-#| msgid "Confirmation"
 msgid "Administration"
 msgstr "ผู้ดูแลระบบ"
 
 #: basxconnect/core/views/menu_views.py:58
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
 msgstr "ข้อมูลระบบ"
 
