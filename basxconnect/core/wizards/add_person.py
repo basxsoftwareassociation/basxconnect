@@ -42,6 +42,7 @@ ADD_ADDRESS_LAYOUT = layout.grid.Grid(
         layout.grid.Col(layout.form.FormField("city")),
     ),
     layout.grid.Row(layout.grid.Col(layout.form.FormField("country"))),
+    gutter=False,
 )
 
 
@@ -200,7 +201,9 @@ def generate_add_form_for(model, request, data, files, initial=None):
         form.fields[fieldname] = field
 
     formlayout = hg.BaseElement(
-        layout.grid.Grid(ADD_FORM_LAYOUTS[model].copy(), style="margin-bottom: 2rem"),
+        layout.grid.Grid(
+            ADD_FORM_LAYOUTS[model].copy(), style="margin-bottom: 2rem", gutter=False
+        ),
         ADD_ADDRESS_LAYOUT.copy(),
     )
     form._layout = formlayout
