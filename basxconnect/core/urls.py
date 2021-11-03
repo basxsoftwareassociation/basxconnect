@@ -121,7 +121,6 @@ urlpatterns = [
     ),
     autopath(settings_views.personsettings),
     autopath(settings_views.relationshipssettings),
-    autopath(breadviews.system.systeminformation),
     autopath(settings_views.maintenancesettings),
     autopath(search_person_view.searchperson),
     autopath(
