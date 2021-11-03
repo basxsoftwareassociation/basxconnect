@@ -18,7 +18,7 @@ class DevGroup(menu.Group):
         )
 
 
-class DevItem(menu.Item):
+class SuperUserItem(menu.Item):
     def has_permission(self, request):
         return super().has_permission(request) and request.user.is_superuser
 
@@ -80,7 +80,7 @@ menu.registeritem(
 )
 
 menu.registeritem(
-    DevItem(
+    SuperUserItem(
         Link(
             reverse("basxconnect.core.views.settings_views.maintenancesettings"),
             _("Maintenance"),
@@ -89,7 +89,9 @@ menu.registeritem(
     )
 )
 
-menu.registeritem(DevItem(Link(reverse("admin:index"), _("Django Admin")), admingroup))
+menu.registeritem(
+    SuperUserItem(Link(reverse("admin:index"), _("Django Admin")), admingroup)
+)
 
 menu.registeritem(
     menu.Item(
