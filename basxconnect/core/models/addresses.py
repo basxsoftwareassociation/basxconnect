@@ -1,3 +1,4 @@
+import datetime
 from datetime import timedelta
 
 import htmlgenerator as hg
@@ -159,7 +160,9 @@ class Postal(Address):
         super().save(force_insert, force_update, using, update_fields)
         if self.valid_until and self.valid_until >= timezone.now().date():
             celery_tasks.save_person.apply_async(
-                (self.person.pk,), eta=self.valid_until + timedelta(days=1)
+                (self.person.pk,),
+                eta=datetime.datetime.combine(self.valid_until, datetime.time(0, 0))
+                + timedelta(days=1),
             )
 
         # TODO why is this not necessary?
