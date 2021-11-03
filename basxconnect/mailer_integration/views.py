@@ -16,6 +16,9 @@ from basxconnect.mailer_integration import download_data, settings
 from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
 from basxconnect.mailer_integration.mailchimp import datasource
 
+C = bread.layout.grid.Col
+R = bread.layout.grid.Row
+
 
 @aslayout
 def mailer_synchronization_view(request):
@@ -45,8 +48,41 @@ def mailer_synchronization_view(request):
 
     return Form.wrap_with_form(
         forms.Form(),
-        hg.If(notification is not None, notification),
-        submit_label="Synchronize with Mailchimp",
+        bread.layout.grid.Grid(
+            hg.H3(_("Synchronization of Email Subcriptions")),
+            R(
+                C(
+                    _(
+                        "The button below is currently the only way of getting new subcribers from the mailer into our system. Is it also the only way of getting updates for subscribers that we already have in our system. This is what happens when the button is pressed:"
+                    ),
+                    hg.UL(
+                        hg.LI(
+                            _(
+                                "For all the Subscriptions that are in the relevant segment (e.g. 'UM Switzerland') in the Mailer, we check whether the email address is already in BasxConnect."
+                            ),
+                            _class="bx--list__item",
+                        ),
+                        hg.LI(
+                            _(
+                                "If an email address is already in BasxConnect, the downloaded subscription will be attached to the email address and override the current values in case there are any."
+                            ),
+                            _class="bx--list__item",
+                        ),
+                        hg.LI(
+                            _(
+                                "If an email address is not yet in BasxConnect and the subscription fulfills some additional criteria, a new person with that email address and subscription is created in BasxConnect. The additional criteria for a subscription to be used for creating a new person are that the status is either 'subscribed' or 'unsubcribed' (and not e.g. 'cleaned') and that the subscription has a valid country."
+                            ),
+                            _class="bx--list__item",
+                        ),
+                        _class="bx--list--unordered",
+                    ),
+                    width=8,
+                )
+            ),
+            hg.If(notification is not None, notification),
+            gutter=False,
+        ),
+        submit_label=_("Download subscriptions"),
     )
 
 
@@ -56,7 +92,7 @@ menu.registeritem(
             reverse_lazy(
                 "basxconnect.mailer_integration.views.mailer_synchronization_view"
             ),
-            _("Mailchimp"),
+            _("External mailer"),
         ),
         menu_views.settingsgroup,
     )
