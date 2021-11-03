@@ -95,6 +95,7 @@ def _save_postal_address(person: models.Person, mailer_person: MailerPerson):
 def _save_mailing_preferences(email: models.Email, mailer_person: MailerPerson):
     mailing_preferences, _ = MailingPreferences.objects.get_or_create(email=email)
     mailing_preferences.status = mailer_person.status
+    mailing_preferences.language = mailer_person.language
     mailing_preferences.interests.clear()
     for interest_id in mailer_person.interests_ids:
         interest = Interest.objects.get(external_id=interest_id)
