@@ -1,6 +1,8 @@
 import htmlgenerator as hg
 from bread import layout as layout
 from bread.utils.urls import aslayout
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from dynamic_preferences.forms import global_preference_form_builder
 
@@ -57,6 +59,7 @@ def relationshipssettings(request):
     return settings_layout.relationshipssettings(request)
 
 
+@user_passes_test(lambda user: user.is_superuser)
 @aslayout
 def maintenancesettings(request):
     return settings_layout.maintenancesettings(request)

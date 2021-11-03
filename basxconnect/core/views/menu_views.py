@@ -18,6 +18,11 @@ class DevGroup(menu.Group):
         )
 
 
+class DevItem(menu.Item):
+    def has_permission(self, request):
+        return super().has_permission(request) and request.user.is_superuser
+
+
 R = layout.grid.Row
 C = layout.grid.Col
 F = layout.form.FormField
@@ -75,7 +80,7 @@ menu.registeritem(
 )
 
 menu.registeritem(
-    menu.Item(
+    DevItem(
         Link(
             reverse("basxconnect.core.views.settings_views.maintenancesettings"),
             _("Maintenance"),
@@ -83,6 +88,8 @@ menu.registeritem(
         admingroup,
     )
 )
+
+menu.registeritem(DevItem(Link(reverse("admin:index"), _("Django Admin")), admingroup))
 
 menu.registeritem(
     menu.Item(
