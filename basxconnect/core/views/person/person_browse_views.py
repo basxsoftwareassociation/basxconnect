@@ -244,9 +244,15 @@ class PersonBrowseView(BrowseView):
         form = self._filterform()
         if form.is_valid():
             ret = (
-                super()
-                .get_queryset()
-                .filter(deleted=form.cleaned_data.get("trash", False))
+                (
+                    super()
+                    .get_queryset()
+                    .filter(deleted=form.cleaned_data.get("trash", False))
+                )
+                .select_related(
+                    "primary_email_address", "primary_postal_address", "_type"
+                )
+                .prefetch_related("tags")
             )
             if any(
                 [
@@ -305,7 +311,7 @@ class PersonBrowseView(BrowseView):
                 self._filterform(),
                 hg.DIV(
                     hg.DIV(
-                        hg.DIV(layout.helpers.Label(_("Tags"))),
+                        hg.DIV(layout.helpers.Label(_("Person Type"))),
                         hg.DIV(
                             hg.DIV(
                                 hg.DIV(

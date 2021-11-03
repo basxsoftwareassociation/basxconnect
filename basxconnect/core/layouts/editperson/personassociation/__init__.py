@@ -1,2 +1,2 @@
-from .base_data import *  # noqa
+from .base_data_tab import *  # noqa
 from .mailing import *  # noqa
