@@ -55,3 +55,8 @@ def personsettings(request):
 @aslayout
 def relationshipssettings(request):
     return settings_layout.relationshipssettings(request)
+
+
+@aslayout
+def maintenancesettings(request):
+    return settings_layout.maintenancesettings(request)

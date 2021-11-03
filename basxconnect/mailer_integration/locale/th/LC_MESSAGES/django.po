@@ -18,40 +18,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: basxconnect/mailer_integration/layouts.py:27
+#: basxconnect/mailer_integration/layouts.py:25
 msgid "Email Subscriptions"
 msgstr "การสมัครรับข้อมูลทางอีเมล"
 
-#: basxconnect/mailer_integration/layouts.py:31
+#: basxconnect/mailer_integration/layouts.py:29
 msgid "Person has no email addresses"
 msgstr "บุคคลดังกล่าวไม่มีอีเมลที่ระบุไว้"
 
-#: basxconnect/mailer_integration/layouts.py:84
+#: basxconnect/mailer_integration/layouts.py:82
 msgid "no mailing preferences yet for "
 msgstr "ยังไม่มีการตั้งค่าการส่งอีเมลสำหรับ "
 
-#: basxconnect/mailer_integration/layouts.py:86
+#: basxconnect/mailer_integration/layouts.py:84
 msgid "Add mailing preferences"
 msgstr "ตั้งค่าการรับอีเมล"
 
-#: basxconnect/mailer_integration/layouts.py:103
+#: basxconnect/mailer_integration/layouts.py:101
 msgid "active"
 msgstr "เปิดใช้งาน"
 
-#: basxconnect/mailer_integration/layouts.py:106
+#: basxconnect/mailer_integration/layouts.py:104
 msgid "inactive"
 msgstr "ปิดใช้งาน"
 
-#: basxconnect/mailer_integration/layouts.py:119
+#: basxconnect/mailer_integration/layouts.py:117
 msgid "Edit Email Subscriptions"
 msgstr "แก้ไขการรับอีเมล"
 
-#: basxconnect/mailer_integration/layouts.py:125
-#: basxconnect/mailer_integration/layouts.py:139
+#: basxconnect/mailer_integration/layouts.py:123
+#: basxconnect/mailer_integration/layouts.py:137
 msgid "Save"
 msgstr "บันทึก"
 
-#: basxconnect/mailer_integration/layouts.py:134
+#: basxconnect/mailer_integration/layouts.py:132
 msgid "Add Mailing Preferences"
 msgstr "เพิ่มการตั้งค่าอีเมล"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-18 16:14+0700\n"
+"POT-Creation-Date: 2021-11-02 01:55+0700\n"
 "PO-Revision-Date: 2021-10-20 02:32+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.9-dev\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:50
+#: basxconnect/contributions/models.py:89 basxconnect/contributions/urls.py:50
 msgid "Contributions"
 msgstr "เงินบริจาค"
 
@@ -29,7 +29,7 @@ msgid "Preferred Currency"
 msgstr "สกุลเงิน"
 
 #: basxconnect/contributions/models.py:18
-#: basxconnect/contributions/models.py:70
+#: basxconnect/contributions/models.py:71
 #: basxconnect/contributions/wizards/contributionsimport.py:132
 msgid "Date"
 msgstr "วันที่"
@@ -62,38 +62,38 @@ msgstr "นำเข้าเงินบริจาค"
 msgid "Contributions Imports"
 msgstr "นำเข้าเงินบริจาค"
 
-#: basxconnect/contributions/models.py:64
+#: basxconnect/contributions/models.py:65
 msgid "Import"
 msgstr "นำเข้า"
 
-#: basxconnect/contributions/models.py:68
+#: basxconnect/contributions/models.py:69
 msgid "Person"
 msgstr "บุคคล"
 
-#: basxconnect/contributions/models.py:71
+#: basxconnect/contributions/models.py:72
 #: basxconnect/contributions/wizards/contributionsimport.py:133
 msgid "Note"
 msgstr "บันทึกเพิ่ม"
 
-#: basxconnect/contributions/models.py:72
+#: basxconnect/contributions/models.py:73
 msgid "Debit Account"
 msgstr "บัญชีเดบิต"
 
-#: basxconnect/contributions/models.py:73
+#: basxconnect/contributions/models.py:74
 msgid "Credit Account"
 msgstr "บัญชีเครดิต"
 
-#: basxconnect/contributions/models.py:74
-#: basxconnect/contributions/models.py:81
+#: basxconnect/contributions/models.py:75
+#: basxconnect/contributions/models.py:82
 #: basxconnect/contributions/wizards/contributionsimport.py:164
 msgid "Amount"
 msgstr "จำนวน"
 
-#: basxconnect/contributions/models.py:75
+#: basxconnect/contributions/models.py:76
 msgid "Currency"
 msgstr "สกุลเงิน"
 
-#: basxconnect/contributions/models.py:87
+#: basxconnect/contributions/models.py:88
 msgid "Contribution"
 msgstr "เงินบริจาค"
 
