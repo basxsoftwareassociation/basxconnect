@@ -18,7 +18,7 @@ from basxconnect.mailer_integration.mailchimp import datasource
 
 
 @aslayout
-def mailchimp_view(request):
+def mailer_synchronization_view(request):
     if request.method == "POST":
         try:
             sync_result = download_data.download_persons(settings.MAILER)
@@ -53,7 +53,9 @@ def mailchimp_view(request):
 menu.registeritem(
     menu.Item(
         Link(
-            reverse_lazy("basxconnect.mailer_integration.views.mailchimp_view"),
+            reverse_lazy(
+                "basxconnect.mailer_integration.views.mailer_synchronization_view"
+            ),
             _("Mailchimp"),
         ),
         menu_views.settingsgroup,
