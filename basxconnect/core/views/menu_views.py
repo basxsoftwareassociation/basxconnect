@@ -82,7 +82,7 @@ menu.registeritem(
 menu.registeritem(
     SuperUserItem(
         Link(
-            reverse("basxconnect.core.views.settings_views.maintenancesettings"),
+            reverse("basxconnect.core.views.admin_views.maintenancesettings"),
             _("Maintenance"),
         ),
         admingroup,

@@ -2,7 +2,7 @@ from bread import views as breadviews
 from bread.utils.urls import autopath, default_model_paths, model_urlname, reverse_model
 from django.views.generic import RedirectView
 
-from basxconnect.core.views import settings_views
+from basxconnect.core.views import admin_views, settings_views
 from basxconnect.core.views.person import (
     person_browse_views,
     person_details_views,
@@ -121,7 +121,7 @@ urlpatterns = [
     ),
     autopath(settings_views.personsettings),
     autopath(settings_views.relationshipssettings),
-    autopath(settings_views.maintenancesettings),
+    autopath(admin_views.maintenancesettings),
     autopath(search_person_view.searchperson),
     autopath(
         person_modals_views.NaturalPersonEditMailingsView.as_view(),

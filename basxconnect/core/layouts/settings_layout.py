@@ -1,4 +1,5 @@
 import htmlgenerator as hg
+import pkg_resources
 from bread import layout
 from bread.utils import Link, ModelHref, pretty_modelname, reverse
 from bread.views import BrowseView
@@ -71,12 +72,6 @@ def personsettings(request):
                 style="margin-bottom: 2rem",
             )
         )
-    return ret
-
-
-def maintenancesettings(request):
-    ret = layout.grid.Grid(R(C(hg.H3(_("Maintenance")))), gutter=False)
-    ret.append(R(C(hg.H4(_("Coming soon")))))
     return ret
 
 
