@@ -34,7 +34,14 @@ def mailer_synchronization_view(request):
                 + (
                     "The following mailchimp contacts are not yet in our database but were also not "
                     "added because they were invalid:"
-                    + (", ".join(sync_result.invalid_new_persons.all()))
+                    + (
+                        ", ".join(
+                            [
+                                str(person)
+                                for person in sync_result.invalid_new_persons.all()
+                            ]
+                        )
+                    )
                     if sync_result.invalid_new_persons.count() > 0
                     else ""
                 ),
