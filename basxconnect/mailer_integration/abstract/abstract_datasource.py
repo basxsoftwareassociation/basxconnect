@@ -60,6 +60,10 @@ class Datasource(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
+    def change_email_address(self, old_email: str, new_email: str):
+        pass
+
+    @abc.abstractmethod
     def get_interests(self) -> List[MailingInterest]:
         pass
 
