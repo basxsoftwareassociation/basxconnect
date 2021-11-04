@@ -1,3 +1,4 @@
+import bread
 import django.forms
 import htmlgenerator as hg
 from bread import layout
@@ -230,9 +231,15 @@ class EditEmailAddressView(EditView):
             ]
             + ([] if apps.is_installed("basxconnect.mailer_integration") else [])
         )
-        return hg.BaseElement(
+        return layout.grid.Grid(
             hg.H3(_("Edit Email")),
-            layout.form.Form.wrap_with_form(hg.C("form"), hg.DIV(*form_fields)),
+            layout.grid.Row(
+                layout.grid.Col(
+                    layout.form.Form.wrap_with_form(hg.C("form"), hg.DIV(*form_fields)),
+                    width=4,
+                )
+            ),
+            gutter=False,
         )
 
 
