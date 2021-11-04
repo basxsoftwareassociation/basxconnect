@@ -49,6 +49,7 @@ menu.registeritem(
         settingsgroup,
     )
 )
+
 menu.registeritem(
     menu.Item(
         Link(
@@ -58,6 +59,7 @@ menu.registeritem(
         settingsgroup,
     )
 )
+
 menu.registeritem(
     menu.Item(
         Link(
@@ -68,12 +70,11 @@ menu.registeritem(
     )
 )
 
-
 menu.registeritem(
     menu.Item(
         Link(
-            reverse("systeminformation"),
-            _("System Information"),
+            reverse("core.vocabulary.browse"),
+            basxconnect.core.models.Vocabulary._meta.verbose_name_plural,
         ),
         admingroup,
     )
@@ -90,15 +91,15 @@ menu.registeritem(
 )
 
 menu.registeritem(
-    SuperUserItem(Link(reverse("admin:index"), _("Django Admin")), admingroup)
-)
-
-menu.registeritem(
     menu.Item(
         Link(
-            reverse("core.vocabulary.browse"),
-            basxconnect.core.models.Vocabulary._meta.verbose_name_plural,
+            reverse("systeminformation"),
+            _("System Information"),
         ),
         admingroup,
     )
+)
+
+menu.registeritem(
+    SuperUserItem(Link(reverse("admin:index"), _("Django Admin")), admingroup)
 )
