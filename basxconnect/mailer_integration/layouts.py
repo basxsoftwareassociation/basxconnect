@@ -56,6 +56,10 @@ def _display_preferences(email):
                     onclick="return false;",
                     style="margin-left: 1rem;",
                 ),
+                hg.SPAN(
+                    mailingpreferences.get_language_display(),
+                    style="padding-left:0.5rem;",
+                ),
                 style="margin-bottom: 1.5rem;",
             ),
         ),

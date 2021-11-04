@@ -1,6 +1,6 @@
 import htmlgenerator as hg
 from bread import layout as layout
-from bread.utils import aslayout
+from bread.utils.urls import aslayout
 from django.utils.translation import gettext_lazy as _
 from dynamic_preferences.forms import global_preference_form_builder
 

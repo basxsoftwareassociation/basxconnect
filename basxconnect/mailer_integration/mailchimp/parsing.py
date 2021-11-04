@@ -20,6 +20,7 @@ def create_mailer_person_from_raw(person: str) -> MailerPerson:
         postcode=postcode(person),
         address=address(person),
         city=city(person),
+        language=language(person),
     )
 
 
@@ -97,3 +98,10 @@ def last_name(raw_person) -> str:
 
 def first_name(raw_person) -> str:
     return raw_person["merge_fields"]["FNAME"]
+
+
+def language(raw_person) -> str:
+    custom_reader = getattr(settings, "MAILCHIMP_LANGUAGE_READER", None)
+    if custom_reader:
+        return custom_reader(raw_person)
+    return raw_person["language"]
