@@ -7,7 +7,7 @@ from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.forms import Form
 from bread.utils import aslayout, reverse_model
 from bread.utils.links import Link, ModelHref
-from bread.views import AddView, BrowseView, EditView
+from bread.views import AddView, EditView
 from django import forms
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
