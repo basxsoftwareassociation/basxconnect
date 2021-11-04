@@ -80,7 +80,7 @@ def email(request):
         hg.F(lambda c: c["object"].core_email_list.all()),
         [
             DataTableColumn(
-                layout.fieldlabel(models.Email, "type"),
+                layout.ObjectFieldLabel("type", models.Email),
                 hg.SPAN(
                     hg.C("row.type"),
                     hg.If(

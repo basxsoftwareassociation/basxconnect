@@ -53,7 +53,7 @@ def export(request, queryset):
 
             columns.append(
                 DataTableColumn(
-                    layout.fieldlabel(models.Person, "tags"),
+                    layout.ObjectFieldLabel(models.Person, "tags"),
                     hg.F(render_matching_tags),
                 )
             )
@@ -68,14 +68,14 @@ def export(request, queryset):
     columns.insert(
         name_field + 1,
         DataTableColumn(
-            layout.fieldlabel(models.NaturalPerson, "last_name"),
+            layout.ObjectFieldLabel(models.NaturalPerson, "last_name"),
             get_from_concret_object("last_name"),
         ),
     )
     columns.insert(
         name_field + 1,
         DataTableColumn(
-            layout.fieldlabel(models.NaturalPerson, "first_name"),
+            layout.ObjectFieldLabel(models.NaturalPerson, "first_name"),
             get_from_concret_object("first_name"),
         ),
     )
@@ -86,7 +86,7 @@ def export(request, queryset):
 class PersonBrowseView(BrowseView):
     columns = [
         DataTableColumn(
-            layout.fieldlabel(models.Person, "personnumber"),
+            layout.ObjectFieldLabel("personnumber", models.Person),
             hg.DIV(
                 hg.C("row.personnumber"),
                 style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
@@ -95,10 +95,10 @@ class PersonBrowseView(BrowseView):
         ),
         "status",
         DataTableColumn(
-            layout.fieldlabel(models.Person, "_type"), hg.C("row._type"), "_type"
+            layout.ObjectFieldLabel("_type", models.Person), hg.C("row._type"), "_type"
         ),
         DataTableColumn(
-            layout.fieldlabel(models.Person, "name"),
+            layout.ObjectFieldLabel("name", models.Person),
             hg.DIV(
                 hg.C("row.name"),
                 style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
