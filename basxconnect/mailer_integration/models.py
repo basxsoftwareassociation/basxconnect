@@ -40,3 +40,30 @@ class MailingPreferences(models.Model):
         _("Language"), blank=True, max_length=8
     )  # mitigate up-stream bug
     language.lazy_choices = languages_choices
+
+
+class SynchronizationResult(models.Model):
+    total_synchronized_persons = models.IntegerField(null=True)
+    sync_completed_datetime = models.DateTimeField(null=True)
+
+
+class NewPerson(models.Model):
+    sync_result = models.ForeignKey(
+        SynchronizationResult, on_delete=models.CASCADE, related_name="new_persons"
+    )
+    email = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.email
+
+
+class InvalidPerson(models.Model):
+    sync_result = models.ForeignKey(
+        SynchronizationResult,
+        on_delete=models.CASCADE,
+        related_name="invalid_new_persons",
+    )
+    email = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.email
