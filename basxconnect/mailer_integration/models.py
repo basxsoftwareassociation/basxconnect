@@ -2,9 +2,9 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from languages.fields import LanguageField
 
-LanguageField.db_collation = None  # fix issue with LanguageField in django 3.2
-
 from basxconnect.core.models import Email
+
+LanguageField.db_collation = None  # fix issue with LanguageField in django 3.2
 
 
 class Interest(models.Model):
