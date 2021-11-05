@@ -34,12 +34,11 @@ jobs:
       run: isort --check-only --profile=black .
 
     - name: Run bandit
-      # there is no allow-failure yet. see https://github.com/actions/toolkit/issues/399
-      run: bandit -r . || true
+      run: bandit -c .bandit -r basxconnect
 
     - name: Run safety
+      # there is no allow-failure yet. see https://github.com/actions/toolkit/issues/399
       run: safety check || true
 
     - name: Test with pytest
-      run: |
-        python manage.py test
+      run: python manage.py test
