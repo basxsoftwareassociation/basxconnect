@@ -1,8 +1,10 @@
+import bread
 import django.forms
 import htmlgenerator as hg
 from bread import layout
 from bread.layout.components.icon import Icon
 from bread.views import AddView, EditView
+from django.apps import apps
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core import models
@@ -171,35 +173,73 @@ class EditEmailAddressView(EditView):
     fields = ["type", "email"]
 
     def form_valid(self, form, *args, **kwargs):
+        new_email = form.cleaned_data["email"]
+        propagate_change_to_mailer = (
+            form.cleaned_data["propagate_change_to_mailer"]
+            and hasattr(self, "old_email")
+            and new_email != self.old_email
+        )
+
         ret = super().form_valid(form, *args, **kwargs)
         is_primary = form.cleaned_data["is_primary"]
         if is_primary:
             self.object.person.primary_email_address = self.object
         self.object.person.save()
+        if propagate_change_to_mailer:
+            from basxconnect.mailer_integration import settings
+
+            settings.MAILER.change_email_address(self.old_email, new_email)
         return ret
+
+    def post(self, request, *args, **kwargs):
+        self.old_email = self.get_object().email
+        return super().post(request, *args, **kwargs)
 
     def get_form_class(self, *args, **kwargs):
         class EditEmailForm(super().get_form_class(*args, **kwargs)):
             is_primary = django.forms.BooleanField(
                 label=_("Use as primary email address"), required=False
             )
+            propagate_change_to_mailer = django.forms.BooleanField(
+                label=_("Propagate change of email address to external mailer"),
+                required=False,
+            )
 
         return EditEmailForm
 
     def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in [*self.fields]] + [
-            hg.If(
-                hg.F(
-                    lambda c: c["object"].person.primary_email_address
-                    and c["object"].person.primary_email_address.pk != c["object"].pk
+        form_fields = (
+            [layout.form.FormField(field) for field in [*self.fields]]
+            + [
+                hg.If(
+                    hg.F(
+                        lambda c: c["object"].person.primary_email_address
+                        and c["object"].person.primary_email_address.pk
+                        != c["object"].pk
+                    ),
+                    layout.form.FormField("is_primary"),
+                    "",
                 ),
-                layout.form.FormField("is_primary"),
-                "",
-            )
-        ]
-        return hg.BaseElement(
+                hg.If(
+                    hg.F(
+                        lambda c: apps.is_installed("basxconnect.mailer_integration")
+                        and hasattr(c["object"], "mailingpreferences")
+                    ),
+                    layout.form.FormField("propagate_change_to_mailer"),
+                    "",
+                ),
+            ]
+            + ([] if apps.is_installed("basxconnect.mailer_integration") else [])
+        )
+        return layout.grid.Grid(
             hg.H3(_("Edit Email")),
-            layout.form.Form.wrap_with_form(hg.C("form"), hg.DIV(*form_fields)),
+            layout.grid.Row(
+                layout.grid.Col(
+                    layout.form.Form.wrap_with_form(hg.C("form"), hg.DIV(*form_fields)),
+                    width=4,
+                )
+            ),
+            gutter=False,
         )
 
 
