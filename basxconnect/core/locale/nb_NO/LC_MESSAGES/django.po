@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-18 16:14+0700\n"
-"PO-Revision-Date: 2021-07-29 21:32+0000\n"
+"PO-Revision-Date: 2021-11-05 02:35+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
 "basxconnect/basxconnect/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7.2-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: basxconnect/core/apps.py:13
 #: basxconnect/core/layouts/editperson/common/base_data_building_blocks.py:63
@@ -117,10 +117,8 @@ msgstr ""
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:48
 #: basxconnect/core/layouts/editperson/common/addresses.py:85
-#, fuzzy
-#| msgid "Add %s"
 msgid "Add"
-msgstr "Legg til %s"
+msgstr "Legg til"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:54
 #: basxconnect/core/layouts/editperson/common/addresses.py:139
@@ -148,10 +146,9 @@ msgid "Delete"
 msgstr "Slett"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:127
-#, fuzzy, python-format
-#| msgid "Edit"
+#, python-format
 msgid "Edit %s"
-msgstr "Rediger"
+msgstr "Rediger %s"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:146
 msgid "primary"
@@ -274,7 +271,7 @@ msgstr "Relasjoner"
 #, fuzzy
 #| msgid "Relationships from %s to \"person B\""
 msgid "Add relationship from person"
-msgstr "Relasjoner fra %s til «person B»"
+msgstr "Legg til relasjon fra person"
 
 #: basxconnect/core/layouts/editperson/common/relationships_tab.py:98
 #: basxconnect/core/layouts/editperson/common/relationships_tab.py:116
