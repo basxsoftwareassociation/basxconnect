@@ -1,5 +1,5 @@
-[bandit]
 exclude_dirs:
   - .venv
   - .tox
   - .eggs
+skips: B101

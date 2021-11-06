@@ -79,6 +79,13 @@ class MailchimpDatasource(abstract_datasource.Datasource):
     def add_person(self, person: MailerPerson):
         self.put_person(person, status=person.status)
 
+    def change_email_address(self, old_email: str, new_email: str):
+        self.client.lists.update_list_member(
+            settings.MAILCHIMP_LIST_ID,
+            compute_email_hash(old_email),
+            {"email_address": new_email},
+        )
+
     def get_interests(self):
         return [
             MailingInterest(interest["id"], interest["name"])
