@@ -34,6 +34,7 @@ setup(
         "django-language-field",
         "chardet",
         "tablib",
+        "requests",
     ],
     extras_require={
         "testing": ["basx-bread[testing]"],

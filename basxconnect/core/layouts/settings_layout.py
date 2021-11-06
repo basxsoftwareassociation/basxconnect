@@ -74,12 +74,6 @@ def personsettings(request):
     return ret
 
 
-def maintenancesettings(request):
-    ret = layout.grid.Grid(R(C(hg.H3(_("Maintenance")))), gutter=False)
-    ret.append(R(C(hg.H4(_("Coming soon")))))
-    return ret
-
-
 def single_item_fieldset(related_field, fieldname, queryset=None):
     """Helper function to show only a single item of a (foreign-key) related item list"""
     return layout.form.FormsetField.as_plain(

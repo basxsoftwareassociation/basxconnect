@@ -31,7 +31,7 @@ F = layout.form.FormField
 
 persongroup = menu.Group(_("Persons"), iconname="group")
 settingsgroup = menu.Group(_("Settings"), iconname="settings", order=100)
-admingroup = DevGroup(_("Administration"), iconname="group")
+admingroup = DevGroup(_("Administration"), iconname="network--3--reference")
 
 menu.registeritem(
     menu.Item(
@@ -49,6 +49,7 @@ menu.registeritem(
         settingsgroup,
     )
 )
+
 menu.registeritem(
     menu.Item(
         Link(
@@ -58,6 +59,7 @@ menu.registeritem(
         settingsgroup,
     )
 )
+
 menu.registeritem(
     menu.Item(
         Link(
@@ -68,6 +70,25 @@ menu.registeritem(
     )
 )
 
+menu.registeritem(
+    menu.Item(
+        Link(
+            reverse("core.vocabulary.browse"),
+            basxconnect.core.models.Vocabulary._meta.verbose_name_plural,
+        ),
+        admingroup,
+    )
+)
+
+menu.registeritem(
+    SuperUserItem(
+        Link(
+            reverse("basxconnect.core.views.admin_views.maintenancesettings"),
+            _("Maintenance"),
+        ),
+        admingroup,
+    )
+)
 
 menu.registeritem(
     menu.Item(
@@ -80,25 +101,5 @@ menu.registeritem(
 )
 
 menu.registeritem(
-    SuperUserItem(
-        Link(
-            reverse("basxconnect.core.views.settings_views.maintenancesettings"),
-            _("Maintenance"),
-        ),
-        admingroup,
-    )
-)
-
-menu.registeritem(
     SuperUserItem(Link(reverse("admin:index"), _("Django Admin")), admingroup)
-)
-
-menu.registeritem(
-    menu.Item(
-        Link(
-            reverse("core.vocabulary.browse"),
-            basxconnect.core.models.Vocabulary._meta.verbose_name_plural,
-        ),
-        admingroup,
-    )
 )

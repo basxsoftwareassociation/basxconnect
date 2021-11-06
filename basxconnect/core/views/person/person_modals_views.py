@@ -1,4 +1,3 @@
-import bread
 import django.forms
 import htmlgenerator as hg
 from bread import layout
