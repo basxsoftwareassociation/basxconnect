@@ -1,5 +1,4 @@
 import htmlgenerator as hg
-import pkg_resources
 from bread import layout
 from bread.utils import Link, ModelHref, pretty_modelname, reverse
 from bread.views import BrowseView
