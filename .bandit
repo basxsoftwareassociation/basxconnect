@@ -2,4 +2,4 @@ exclude_dirs:
   - .venv
   - .tox
   - .eggs
-skips: B101
+skips: ['B101']

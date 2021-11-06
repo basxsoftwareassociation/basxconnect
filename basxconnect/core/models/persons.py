@@ -35,7 +35,8 @@ class PersonManager(InheritanceManager):
 
 # don't delete this function, other initial migrations for new projects will fail
 def random_personid():
-    return f"__placeholder__{random.randint(100000, 999999)}"
+    # this is not security related, we can disable checks here
+    return f"__placeholder__{random.randint(100000, 999999)}"  # nosec
 
 
 class Person(models.Model):
