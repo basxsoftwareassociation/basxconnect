@@ -31,7 +31,7 @@ F = layout.form.FormField
 
 persongroup = menu.Group(_("Persons"), iconname="group")
 settingsgroup = menu.Group(_("Settings"), iconname="settings", order=100)
-admingroup = DevGroup(_("Administration"), iconname="network--3--reference")
+admingroup = DevGroup(_("Administration"), iconname="network--3--reference", order=500)
 
 menu.registeritem(
     menu.Item(
