@@ -12,7 +12,7 @@ from bread.settings.required import *
 # settings are defined correctly and to reduce verbosity in this file
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "l+#35mz2=81hcda7z)$+_4!e^azx40mo83d-s1%0bc4e2jwo@2"
+SECRET_KEY = "test"  # nosec # can ignore security check for testing key
 
 ALLOWED_HOSTS = ["*"]
 

@@ -109,4 +109,5 @@ def compute_interests_dict(person) -> dict:
 
 
 def compute_email_hash(email):
-    return hashlib.md5(str(email).lower().encode()).hexdigest()
+    # required by mailchimp, ignore security check
+    return hashlib.md5(str(email).lower().encode()).hexdigest()  # nosec
