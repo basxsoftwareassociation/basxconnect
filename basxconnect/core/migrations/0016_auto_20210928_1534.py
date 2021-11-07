@@ -8,9 +8,7 @@ import basxconnect.core.layouts.editperson.common.base_data
 class Migration(migrations.Migration):
     def copy_tags(apps, scheme_editor):
         for person in apps.get_model("core.Person").objects.all():
-            basxconnect.core.layouts.editperson.common.base_data.tags.set(
-                person.categories.all()
-            )
+            person.tags.set(person.categories.all())
             person.save()
 
     dependencies = [
