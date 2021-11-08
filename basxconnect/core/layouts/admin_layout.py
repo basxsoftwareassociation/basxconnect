@@ -1,10 +1,14 @@
 # The package names we're currently interested in.
+import os
+
 import htmlgenerator as hg
 import pkg_resources
 import requests
 from bread import layout
 from bread.layout.components.datatable import DataTable, DataTableColumn
 from django.utils.translation import gettext_lazy as _
+
+from basxconnect.core.tests.settings import DATABASES
 
 PYPI_API = "https://pypi.python.org/pypi/{}/json"
 PACKAGE_NAMES = ("basx-bread", "basxconnect", "htmlgenerator")
@@ -57,4 +61,7 @@ def maintainance_package_layout(request):
 
 
 def maintenance_database_optimization(request):
-    return hg.H3("Coming Soon")
+    # get the database's size (in kilobytes)
+    current_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size // 1000
+
+    return hg.BaseElement(hg.P(_("Current Size: %.2f KB" % current_db_size)))

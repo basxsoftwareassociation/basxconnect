@@ -1,5 +1,6 @@
 import htmlgenerator as hg
 from bread import layout
+from bread.layout.components.modal import Modal
 from bread.utils.urls import aslayout
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.translation import gettext_lazy as _
@@ -19,9 +20,24 @@ def maintenancesettings(request):
     # Add the view's header
     ret = layout.grid.Grid(R(C(hg.H3(_("Maintenance")))), gutter=False)
 
-    # package information
-    ret.append(R(C(admin_layout.maintainance_package_layout(request))))
+    # Add the Package Information modal
+    ret.append(
+        R(
+            C(
+                C(hg.H4(_("Packages"))),
+                admin_layout.maintainance_package_layout(request),
+            ),
+        )
+    )
 
-    # Database Optimization
+    # Add the Database Optimization modal
+    ret.append(
+        R(
+            C(
+                C(hg.H4(_("Database Optimization"))),
+                admin_layout.maintenance_database_optimization(request),
+            )
+        )
+    )
 
     return ret
