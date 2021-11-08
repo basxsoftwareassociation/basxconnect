@@ -1,6 +1,5 @@
 import htmlgenerator as hg
 from bread import layout
-from bread.layout.components.modal import Modal
 from bread.utils.urls import aslayout
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.translation import gettext_lazy as _
