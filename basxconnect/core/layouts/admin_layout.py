@@ -1,4 +1,3 @@
-# The package names we're currently interested in.
 import os
 
 import htmlgenerator as hg
