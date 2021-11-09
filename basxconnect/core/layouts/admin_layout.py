@@ -75,7 +75,7 @@ def maintenance_database_optimization(request):
 
     if request.method == "POST":
         cursor = connection.cursor()
-        debug_str = cursor.execute("VACUUM;")
+        cursor.execute("VACUUM;")
         current_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size / 1000
         previous_size = request.body.decode("utf-8")
         previous_size = float(previous_size[previous_size.find("previous-size") + 14 :])
