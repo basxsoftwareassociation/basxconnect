@@ -1,5 +1,4 @@
 # The package names we're currently interested in.
-import json
 import os
 
 import htmlgenerator as hg
@@ -66,14 +65,6 @@ def maintenance_database_optimization(request):
     # TODO: Add a button that runs the command
     current_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size / 1000
     previous_size = 0
-    debug_str = ""
-
-    if request.method == "POST":
-        cursor = connection.cursor()
-        debug_str = cursor.execute("VACUUM;")
-        current_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size / 1000
-        previous_size = request.body.decode("utf-8")
-        previous_size = previous_size[previous_size.find("previous-size") + 13 :]
 
     optimize_btn = hg.FORM(
         layout.form.CsrfToken(),
@@ -82,12 +73,22 @@ def maintenance_database_optimization(request):
         method="POST",
     )
 
+    if request.method == "POST":
+        cursor = connection.cursor()
+        debug_str = cursor.execute("VACUUM;")
+        current_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size / 1000
+        previous_size = request.body.decode("utf-8")
+        previous_size = float(previous_size[previous_size.find("previous-size") + 14 :])
+
     return hg.BaseElement(
         hg.If(
             request.method == "POST",
             hg.H5(f"Previous Size: {previous_size : .2f} KB"),
             hg.H5(f"Current Size: {current_db_size : .2f} KB"),
         ),
-        hg.If(request.method == "POST", f"Minimized Size: {current_db_size : .2f} KB"),
+        hg.If(
+            request.method == "POST",
+            hg.H5(f"Minimized Size: {current_db_size : .2f} KB"),
+        ),
         optimize_btn,
     )
