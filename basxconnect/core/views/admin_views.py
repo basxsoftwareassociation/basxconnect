@@ -23,19 +23,13 @@ def maintenancesettings(request):
     ret.append(
         R(
             C(
-                C(hg.H4(_("Packages"))),
+                hg.H4(_("Packages")),
                 admin_layout.maintainance_package_layout(request),
             ),
-        )
-    )
-
-    # Add the Database Optimization modal
-    ret.append(
-        R(
             C(
-                C(hg.H4(_("Database Optimization"))),
+                hg.H4(_("Database Optimization")),
                 admin_layout.maintenance_database_optimization(request),
-            )
+            ),
         )
     )
 
