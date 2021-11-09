@@ -6,6 +6,7 @@ import pkg_resources
 import requests
 from bread import layout
 from bread.layout.components.datatable import DataTable, DataTableColumn
+from django.db import connection
 from django.utils.translation import gettext_lazy as _
 
 PYPI_API = "https://pypi.python.org/pypi/{}/json"
@@ -60,6 +61,17 @@ def maintainance_package_layout(request):
 
 def maintenance_database_optimization(request):
     # get the database's size (in kilobytes)
+    # TODO: Add a button that runs the command
     current_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size / 1000
 
-    return hg.BaseElement(hg.P(_("Current Size: %.2f KB" % current_db_size)))
+    # execute a raw sql command
+    cursor = connection.cursor()
+    debug_str = cursor.execute("VACUUM;")
+
+    new_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size / 1000
+
+    return hg.BaseElement(
+        hg.P(_("Current Size: %.2f KB" % current_db_size)),
+        hg.P(_("New Size: %.2f KB" % new_db_size)),
+        hg.P(debug_str),
+    )
