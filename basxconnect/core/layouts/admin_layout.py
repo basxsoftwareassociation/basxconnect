@@ -1,10 +1,12 @@
 # The package names we're currently interested in.
+import json
 import os
 
 import htmlgenerator as hg
 import pkg_resources
 import requests
 from bread import layout
+from bread.layout.components.button import Button
 from bread.layout.components.datatable import DataTable, DataTableColumn
 from django.db import connection
 from django.utils.translation import gettext_lazy as _
@@ -63,15 +65,29 @@ def maintenance_database_optimization(request):
     # get the database's size (in kilobytes)
     # TODO: Add a button that runs the command
     current_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size / 1000
+    previous_size = 0
+    debug_str = ""
 
-    # execute a raw sql command
-    cursor = connection.cursor()
-    debug_str = cursor.execute("VACUUM;")
+    if request.method == "POST":
+        cursor = connection.cursor()
+        debug_str = cursor.execute("VACUUM;")
+        current_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size / 1000
+        previous_size = request.body.decode("utf-8")
+        previous_size = previous_size[previous_size.find("previous-size") + 13 :]
 
-    new_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size / 1000
+    optimize_btn = hg.FORM(
+        layout.form.CsrfToken(),
+        Button("Optimize", type="submit"),
+        hg.INPUT(type="hidden", name="previous-size", value=current_db_size),
+        method="POST",
+    )
 
     return hg.BaseElement(
-        hg.P(_("Current Size: %.2f KB" % current_db_size)),
-        hg.P(_("New Size: %.2f KB" % new_db_size)),
-        hg.P(debug_str),
+        hg.If(
+            request.method == "POST",
+            hg.H5(f"Previous Size: {previous_size : .2f} KB"),
+            hg.H5(f"Current Size: {current_db_size : .2f} KB"),
+        ),
+        hg.If(request.method == "POST", f"Minimized Size: {current_db_size : .2f} KB"),
+        optimize_btn,
     )
