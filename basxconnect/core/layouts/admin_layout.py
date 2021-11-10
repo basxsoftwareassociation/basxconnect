@@ -6,6 +6,7 @@ import requests
 from bread import layout
 from bread.layout.components.button import Button
 from bread.layout.components.datatable import DataTable, DataTableColumn
+from django.conf import settings
 from django.db import connection
 from django.utils.translation import gettext_lazy as _
 
@@ -60,34 +61,36 @@ def maintainance_package_layout(request):
 
 
 def maintenance_database_optimization(request):
-    # get the database's size (in kilobytes)
-    # TODO: Add a button that runs the command
-    current_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size / 1000
-    previous_size = 0
+    database_path = settings.DATABASES["default"]["NAME"]
+
+    current_db_size = os.stat(database_path).st_size / 1_000
+    previous_size = None
 
     optimize_btn = hg.FORM(
         layout.form.CsrfToken(),
-        Button("Optimize", type="submit"),
+        Button(_("Optimize"), type="submit"),
         hg.INPUT(type="hidden", name="previous-size", value=current_db_size),
         method="POST",
     )
 
     if request.method == "POST":
-        cursor = connection.cursor()
-        cursor.execute("VACUUM;")
-        current_db_size = os.stat(os.getcwd() + "/db.sqlite3").st_size / 1000
-        previous_size = request.body.decode("utf-8")
-        previous_size = float(previous_size[previous_size.find("previous-size") + 14 :])
+        post_body = {key: val[0] for key, val in dict(request.POST).items()}
+        # to avoid unexpected POST requests, check if "previous-size" is included.
+        if "previous-size" in post_body:
+            connection.cursor().execute("VACUUM;")
+            # get the previous size
+            previous_size = float(post_body["previous-size"])
+            current_db_size = os.stat(database_path).st_size / 1_000
 
     return hg.BaseElement(
         hg.If(
-            request.method == "POST",
-            hg.H5(f"Previous Size: {previous_size : .2f} KB"),
-            hg.H5(f"Current Size: {current_db_size : .2f} KB"),
+            previous_size is not None,
+            hg.H5(f"Previous Size: {previous_size : .2f} kB"),
+            hg.H5(f"Current Size: {current_db_size : .2f} kB"),
         ),
         hg.If(
-            request.method == "POST",
-            hg.H5(f"Minimized Size: {current_db_size : .2f} KB"),
+            previous_size is not None,
+            hg.H5(f"Minimized Size: {current_db_size : .2f} kB"),
         ),
         optimize_btn,
     )
