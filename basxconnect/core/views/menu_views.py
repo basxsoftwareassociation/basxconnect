@@ -73,11 +73,15 @@ menu.registeritem(
 menu.registeritem(
     menu.Item(
         Link(
-            reverse("core.vocabulary.browse"),
-            basxconnect.core.models.Vocabulary._meta.verbose_name_plural,
+            reverse("breadadmin.backgroundjobs"),
+            _("Background Jobs"),
         ),
         admingroup,
     )
+)
+
+menu.registeritem(
+    SuperUserItem(Link(reverse("admin:index"), _("Django Admin")), admingroup)
 )
 
 menu.registeritem(
@@ -101,5 +105,11 @@ menu.registeritem(
 )
 
 menu.registeritem(
-    SuperUserItem(Link(reverse("admin:index"), _("Django Admin")), admingroup)
+    menu.Item(
+        Link(
+            reverse("core.vocabulary.browse"),
+            basxconnect.core.models.Vocabulary._meta.verbose_name_plural,
+        ),
+        admingroup,
+    )
 )
