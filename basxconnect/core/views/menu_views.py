@@ -29,9 +29,18 @@ F = layout.form.FormField
 
 # MENU ENTRIES ---------------------------------------------------------------------
 
+menu.registeritem(
+    menu.Item(
+        Link(
+            reverse("core.vocabulary.browse"),
+            basxconnect.core.models.Vocabulary._meta.verbose_name_plural,
+        ),
+        menu.admingroup,
+    )
+)
+
 persongroup = menu.Group(_("Persons"), iconname="group")
 settingsgroup = menu.Group(_("Settings"), iconname="settings", order=100)
-admingroup = DevGroup(_("Administration"), iconname="network--3--reference", order=500)
 
 menu.registeritem(
     menu.Item(
@@ -67,49 +76,5 @@ menu.registeritem(
             _("Relationships"),
         ),
         settingsgroup,
-    )
-)
-
-menu.registeritem(
-    menu.Item(
-        Link(
-            reverse("breadadmin.backgroundjobs"),
-            _("Background Jobs"),
-        ),
-        admingroup,
-    )
-)
-
-menu.registeritem(
-    SuperUserItem(Link(reverse("admin:index"), _("Django Admin")), admingroup)
-)
-
-menu.registeritem(
-    SuperUserItem(
-        Link(
-            reverse("breadadmin.maintenance"),
-            _("Maintenance"),
-        ),
-        admingroup,
-    )
-)
-
-menu.registeritem(
-    menu.Item(
-        Link(
-            reverse("systeminformation"),
-            _("System Information"),
-        ),
-        admingroup,
-    )
-)
-
-menu.registeritem(
-    menu.Item(
-        Link(
-            reverse("core.vocabulary.browse"),
-            basxconnect.core.models.Vocabulary._meta.verbose_name_plural,
-        ),
-        admingroup,
     )
 )
