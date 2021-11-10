@@ -1,4 +1,3 @@
-from django import db
 from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
@@ -28,5 +27,5 @@ class CoreConfig(AppConfig):
         try:
             for slug, name in pre_installed_vocabulary.items():
                 Vocabulary.objects.get_or_create(slug=slug, defaults={"name": name})
-        except db.utils.OperationalError:
+        except Exception:  # nosec this is trivial, no service interuption
             pass
