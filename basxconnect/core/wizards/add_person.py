@@ -31,8 +31,6 @@ ADD_FORM_LAYOUTS = {
     PersonAssociation: hg.DIV(layout.form.FormField("name")),
 }
 ADD_ADDRESS_LAYOUT = layout.grid.Grid(
-    layout.grid.Row(layout.grid.Col(_("E-mail Address"))),
-    layout.grid.Row(layout.form.FormField("email"), style="margin-bottom: 4rem"),
     layout.grid.Row(
         layout.grid.Col(_("Address"), style="font-weight: 700; margin-bottom: 2rem")
     ),
