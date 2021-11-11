@@ -265,7 +265,6 @@ class AddPersonWizard(PermissionRequiredMixin, BreadView, NamedUrlSessionWizardV
                     addressTextarea = document.getElementById("id_address");
                     submitBtn = document.querySelector(".bx--content [type=\"submit\"]");
                     var addressFocused = false;
-    
                     if (addressTextarea !== null) {
                         addressTextarea.addEventListener("focus", e => {
                             addressFocused = true;
@@ -274,7 +273,6 @@ class AddPersonWizard(PermissionRequiredMixin, BreadView, NamedUrlSessionWizardV
                             addressFocused = false;
                         });
                     }
-    
                     document.addEventListener("keydown", e => {
                         if (e.code === "Enter" && !addressFocused)
                             submitBtn.click();
