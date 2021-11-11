@@ -259,6 +259,29 @@ class AddPersonWizard(PermissionRequiredMixin, BreadView, NamedUrlSessionWizardV
                 style="margin-bottom: 2rem",
             ),
             generate_wizard_form(self.get_form()._layout),
+            hg.SCRIPT(
+                hg.mark_safe(
+                    r"""
+                    addressTextarea = document.getElementById("id_address");
+                    submitBtn = document.querySelector(".bx--content [type=\"submit\"]");
+                    var addressFocused = false;
+    
+                    if (addressTextarea !== null) {
+                        addressTextarea.addEventListener("focus", e => {
+                            addressFocused = true;
+                        });
+                        addressTextarea.addEventListener("blur", e => {
+                            addressFocused = false;
+                        });
+                    }
+    
+                    document.addEventListener("keydown", e => {
+                        if (e.code === "Enter" && !addressFocused)
+                            submitBtn.click();
+                    });
+                    """
+                )
+            ),
         )
 
     def get_form_kwargs(self, step):
