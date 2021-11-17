@@ -102,7 +102,7 @@ def display_previous_execution(request):
     return R(
         C(
             layout.datatable.DataTable.from_queryset(
-                SynchronizationResult.objects.all(),
+                SynchronizationResult.objects.order_by("-sync_completed_datetime"),
                 columns=[
                     "total_synchronized_persons",
                     "sync_completed_datetime",
