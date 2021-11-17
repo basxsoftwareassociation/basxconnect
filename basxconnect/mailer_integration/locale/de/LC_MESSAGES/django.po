@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-02 17:33+0200\n"
+"POT-Creation-Date: 2021-11-17 09:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,36 +26,97 @@ msgstr "Email Abonnemente"
 msgid "Person has no email addresses"
 msgstr "Person hat keine Email Adressen"
 
-#: basxconnect/mailer_integration/layouts.py:82
+#: basxconnect/mailer_integration/layouts.py:86
 msgid "No subscription yet for "
 msgstr "Noch kein Abonnement für "
 
-#: basxconnect/mailer_integration/layouts.py:84
-#: basxconnect/mailer_integration/layouts.py:132
+#: basxconnect/mailer_integration/layouts.py:88
+#: basxconnect/mailer_integration/layouts.py:136
 msgid "Add subscription"
 msgstr "Abonnement hinzufügen"
 
-#: basxconnect/mailer_integration/layouts.py:101
+#: basxconnect/mailer_integration/layouts.py:105
 msgid "active"
 msgstr "Aktiv"
 
-#: basxconnect/mailer_integration/layouts.py:104
+#: basxconnect/mailer_integration/layouts.py:108
 msgid "inactive"
 msgstr "Inaktiv"
 
-#: basxconnect/mailer_integration/layouts.py:117
+#: basxconnect/mailer_integration/layouts.py:121
 msgid "Edit subscription"
 msgstr "Abonnement bearbeiten"
 
-#: basxconnect/mailer_integration/layouts.py:123
-#: basxconnect/mailer_integration/layouts.py:137
+#: basxconnect/mailer_integration/layouts.py:127
+#: basxconnect/mailer_integration/layouts.py:141
 msgid "Save"
 msgstr "Speichern"
 
-#: basxconnect/mailer_integration/models.py:28
+#: basxconnect/mailer_integration/models.py:37
 msgid "Mailing Interests"
 msgstr "Mailing Interessen"
 
-#: basxconnect/mailer_integration/views.py:57
-msgid "Mailchimp"
-msgstr "Mailchimp"
+#: basxconnect/mailer_integration/models.py:40
+msgid "Language"
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:62
+#, fuzzy
+#| msgid "Email Subscriptions"
+msgid "Synchronization of Email Subcriptions"
+msgstr "Email Abonnemente"
+
+#: basxconnect/mailer_integration/views.py:66
+msgid ""
+"The button below is currently the only way of getting new subcribers from "
+"the mailer into our system. Is it also the only way of getting updates for "
+"subscribers that we already have in our system. This is what happens when "
+"the button is pressed:"
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:71
+msgid ""
+"For all the Subscriptions that are in the relevant segment (e.g. 'UM "
+"Switzerland') in the Mailer, we check whether the email address is already "
+"in BasxConnect."
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:77
+msgid ""
+"If an email address is already in BasxConnect, the downloaded subscription "
+"will be attached to the email address and override the current values in "
+"case there are any."
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:83
+msgid ""
+"If an email address is not yet in BasxConnect and the subscription fulfills "
+"some additional criteria, a new person with that email address and "
+"subscription is created in BasxConnect. The additional criteria for a "
+"subscription to be used for creating a new person are that the status is "
+"either 'subscribed' or 'unsubcribed' (and not e.g. 'cleaned') and that the "
+"subscription has a valid country."
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:95
+msgid "Download subscriptions"
+msgstr "Abonnemente herunterladen"
+
+#: basxconnect/mailer_integration/views.py:110
+msgid "Invalid Persons"
+msgstr "Ungültige Personen"
+
+#: basxconnect/mailer_integration/views.py:121
+msgid "New Persons"
+msgstr "Neu hinzugefügte Personen"
+
+#: basxconnect/mailer_integration/views.py:140
+msgid "Delete"
+msgstr "Löschen"
+
+#: basxconnect/mailer_integration/views.py:155
+msgid "External mailer"
+msgstr "Externer Mailer"
+
+#~ msgid "Mailchimp"
+#~ msgstr "Mailchimp"
