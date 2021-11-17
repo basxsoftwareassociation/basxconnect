@@ -87,7 +87,7 @@ def email(request):
                         hg.F(
                             lambda c: c["row"] == c["row"].person.primary_email_address
                         ),
-                        f" ({_('primary')})",
+                        hg.BaseElement(" (", _("primary"), ")"),
                         "",
                     ),
                 ),
@@ -127,7 +127,7 @@ def display_postal(postal: models.Postal):
         C(
             hg.DIV(
                 postal.type,
-                f" ({_('primary')})"
+                hg.BaseElement(" (", _("primary"), ")")
                 if postal.person.primary_postal_address
                 and postal.person.primary_postal_address.pk == postal.pk
                 else "",
