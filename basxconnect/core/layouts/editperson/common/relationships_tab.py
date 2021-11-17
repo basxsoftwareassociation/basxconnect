@@ -24,7 +24,7 @@ def relationshipstab(request):
                 request,
                 title=_("Relationships to person"),
                 queryset=hg.F(lambda c: c["object"].relationships_from.all()),
-                primary_button=button_add_relationship_to(modal_from),
+                primary_button=button_add_relationship_to(modal_to),
             ),
             modal_to,
             relationships_datatable(
