@@ -180,6 +180,8 @@ menu.registeritem(
 
 
 class AddSubscriptionView(AddView):
+    fields = ["interests", "language", "email", "status"]
+
     def get_success_url(self):
         return reverse_model(
             self.object.email.person, "read", kwargs={"pk": self.object.email.person.pk}
