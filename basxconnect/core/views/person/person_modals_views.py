@@ -222,7 +222,7 @@ class EditEmailAddressView(EditView):
                 hg.If(
                     hg.F(
                         lambda c: apps.is_installed("basxconnect.mailer_integration")
-                        and hasattr(c["object"], "mailingpreferences")
+                        and hasattr(c["object"], "subscriptions")
                     ),
                     layout.form.FormField("propagate_change_to_mailer"),
                     "",

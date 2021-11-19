@@ -26,7 +26,7 @@ class SynchronizationResult(models.Model):
     sync_completed_datetime = models.DateTimeField(null=True)
 
 
-class MailingPreferences(models.Model):
+class Subscription(models.Model):
     email = models.OneToOneField(Email, on_delete=models.CASCADE)
     status = models.CharField(
         max_length=50,

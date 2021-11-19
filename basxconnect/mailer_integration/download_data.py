@@ -8,14 +8,14 @@ from basxconnect.mailer_integration.abstract.abstract_datasource import (
 )
 from basxconnect.mailer_integration.models import (
     Interest,
-    MailingPreferences,
+    Subscription,
     SynchronizationPerson,
     SynchronizationResult,
 )
 
 
 def download_persons(datasource: Datasource) -> SynchronizationResult:
-    MailingPreferences.objects.all().delete()
+    Subscription.objects.all().delete()
     Interest.objects.all().delete()
     interests = datasource.get_interests()
     for interest in interests:
@@ -104,7 +104,7 @@ def _save_postal_address(person: models.Person, mailer_person: MailerPerson):
 
 
 def _save_mailing_preferences(email: models.Email, mailer_person: MailerPerson):
-    mailing_preferences, _ = MailingPreferences.objects.get_or_create(email=email)
+    mailing_preferences, _ = Subscription.objects.get_or_create(email=email)
     mailing_preferences.status = mailer_person.status
     mailing_preferences.language = mailer_person.language
     mailing_preferences.interests.clear()

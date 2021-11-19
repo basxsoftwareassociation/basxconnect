@@ -179,7 +179,7 @@ menu.registeritem(
 )
 
 
-class AddMailingPreferencesView(AddView):
+class AddSubscriptionView(AddView):
     def get_success_url(self):
         return reverse_model(
             self.object.email.person, "read", kwargs={"pk": self.object.email.person.pk}
@@ -191,7 +191,7 @@ class AddMailingPreferencesView(AddView):
         return response
 
 
-class EditMailingPreferencesView(EditView):
+class EditSubscriptionView(EditView):
     fields = ["interests", "language"]
 
     def get_success_url(self):

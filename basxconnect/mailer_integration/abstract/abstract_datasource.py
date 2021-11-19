@@ -1,7 +1,7 @@
 import abc
 from typing import List, NamedTuple
 
-from basxconnect.mailer_integration.models import MailingPreferences
+from basxconnect.mailer_integration.models import Subscription
 
 
 class MailerPerson(NamedTuple):
@@ -18,7 +18,7 @@ class MailerPerson(NamedTuple):
     language: str = ""
 
     @staticmethod
-    def from_mailing_preferences(preferences: MailingPreferences):
+    def from_mailing_preferences(preferences: Subscription):
         person = preferences.email.person
         return MailerPerson(
             display_name=person.name,
