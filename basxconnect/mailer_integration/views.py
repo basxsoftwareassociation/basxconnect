@@ -146,6 +146,8 @@ def display_previous_execution(request):
     )
 
 
+tools_group = menu.Group(_("Tools"), iconname="tool", order=99)
+
 menu.registeritem(
     menu.Item(
         Link(
@@ -153,8 +155,9 @@ menu.registeritem(
                 "basxconnect.mailer_integration.views.mailer_synchronization_view"
             ),
             _("External mailer"),
+            iconname="email",
         ),
-        menu_views.settingsgroup,
+        tools_group,
     )
 )
 
