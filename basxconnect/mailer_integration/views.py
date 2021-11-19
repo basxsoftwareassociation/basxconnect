@@ -30,7 +30,7 @@ def mailer_synchronization_view(request):
             notification = bread.layout.components.notification.InlineNotification(
                 "Success",
                 f"Synchronized mailing preferences for {sync_result.total_synchronized_persons} Mailchimp "
-                f"contacts. {sync_result.new_persons.count()} new persons were added to the BasxConnect database. "
+                f"contacts. {sync_result.persons.filter(successfully_added=True).count()} new persons were added to the BasxConnect database. "
                 + (
                     "The following mailchimp contacts are not yet in our database but were also not "
                     "added because they were invalid:"
@@ -38,11 +38,13 @@ def mailer_synchronization_view(request):
                         ", ".join(
                             [
                                 str(person)
-                                for person in sync_result.invalid_new_persons.all()
+                                for person in sync_result.persons.filter(
+                                    successfully_added=False
+                                )
                             ]
                         )
                     )
-                    if sync_result.invalid_new_persons.count() > 0
+                    if sync_result.persons.filter(successfully_added=False).count() > 0
                     else ""
                 ),
             )
@@ -107,26 +109,42 @@ def display_previous_execution(request):
                     "total_synchronized_persons",
                     "sync_completed_datetime",
                     DataTableColumn(
-                        _("Invalid Persons"),
+                        _("Person records with errors"),
                         hg.F(
                             lambda c: ", ".join(
                                 [
                                     str(person)
-                                    for person in c["row"].invalid_new_persons.all()
+                                    for person in c["row"].persons.filter(
+                                        successfully_added=False
+                                    )
                                 ]
                             )
                         ),
                     ),
                     DataTableColumn(
-                        _("New Persons"),
+                        _("New person records"),
                         hg.F(
-                            lambda c: ", ".join(
-                                [str(person) for person in c["row"].new_persons.all()]
+                            lambda c: hg.BaseElement(
+                                *[
+                                    hg.BaseElement(
+                                        hg.DIV(
+                                            person.first_name,
+                                            " ",
+                                            person.last_name,
+                                            " <",
+                                            person.email,
+                                            ">",
+                                        )
+                                    )
+                                    for person in c["row"].persons.filter(
+                                        successfully_added=True
+                                    )
+                                ]
                             )
                         ),
                     ),
                 ],
-                title="Previous Executions",
+                title=_("Previous Executions"),
                 primary_button="",
                 rowactions=[
                     Link(
