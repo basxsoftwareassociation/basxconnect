@@ -21,6 +21,11 @@ def languages_choices(field, request, instance):
     return settings.PREFERRED_LANGUAGES
 
 
+class SynchronizationResult(models.Model):
+    total_synchronized_persons = models.IntegerField(null=True)
+    sync_completed_datetime = models.DateTimeField(null=True)
+
+
 class MailingPreferences(models.Model):
     email = models.OneToOneField(Email, on_delete=models.CASCADE)
     status = models.CharField(
@@ -41,10 +46,12 @@ class MailingPreferences(models.Model):
     )  # mitigate up-stream bug
     language.lazy_choices = languages_choices
 
-
-class SynchronizationResult(models.Model):
-    total_synchronized_persons = models.IntegerField(null=True)
-    sync_completed_datetime = models.DateTimeField(null=True)
+    latest_sync = models.ForeignKey(
+        SynchronizationResult,
+        related_name="synchronized_subscription",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
 
 
 class SynchronizationPerson(models.Model):
