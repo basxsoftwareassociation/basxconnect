@@ -47,23 +47,14 @@ class SynchronizationResult(models.Model):
     sync_completed_datetime = models.DateTimeField(null=True)
 
 
-class NewPerson(models.Model):
+class SynchronizationPerson(models.Model):
     sync_result = models.ForeignKey(
-        SynchronizationResult, on_delete=models.CASCADE, related_name="new_persons"
+        SynchronizationResult, on_delete=models.CASCADE, related_name="persons"
     )
     email = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.email
-
-
-class InvalidPerson(models.Model):
-    sync_result = models.ForeignKey(
-        SynchronizationResult,
-        on_delete=models.CASCADE,
-        related_name="invalid_new_persons",
-    )
-    email = models.CharField(max_length=100)
+    first_name = models.CharField(_("First Name"), max_length=255, blank=True)
+    last_name = models.CharField(_("Last Name"), max_length=255, blank=True)
+    successfully_added = models.BooleanField(models.BooleanField)
 
     def __str__(self):
         return self.email

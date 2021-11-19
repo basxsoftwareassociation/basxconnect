@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 09:06+0200\n"
+"POT-Creation-Date: 2021-11-19 11:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,13 +60,18 @@ msgstr "Mailing Interessen"
 msgid "Language"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:62
-#, fuzzy
-#| msgid "Email Subscriptions"
-msgid "Synchronization of Email Subcriptions"
-msgstr "Email Abonnemente"
+#: basxconnect/mailer_integration/models.py:55
+msgid "First Name"
+msgstr ""
 
-#: basxconnect/mailer_integration/views.py:66
+#: basxconnect/mailer_integration/models.py:56
+msgid "Last Name"
+msgstr ""
+
+msgid "Synchronization of Email Subcriptions"
+msgstr "Synchronisation von Email Abonnementen"
+
+#: basxconnect/mailer_integration/views.py:68
 msgid ""
 "The button below is currently the only way of getting new subcribers from "
 "the mailer into our system. Is it also the only way of getting updates for "
@@ -74,21 +79,21 @@ msgid ""
 "the button is pressed:"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:71
+#: basxconnect/mailer_integration/views.py:73
 msgid ""
 "For all the Subscriptions that are in the relevant segment (e.g. 'UM "
 "Switzerland') in the Mailer, we check whether the email address is already "
 "in BasxConnect."
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:77
+#: basxconnect/mailer_integration/views.py:79
 msgid ""
 "If an email address is already in BasxConnect, the downloaded subscription "
 "will be attached to the email address and override the current values in "
 "case there are any."
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:83
+#: basxconnect/mailer_integration/views.py:85
 msgid ""
 "If an email address is not yet in BasxConnect and the subscription fulfills "
 "some additional criteria, a new person with that email address and "
@@ -98,25 +103,31 @@ msgid ""
 "subscription has a valid country."
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:95
+#: basxconnect/mailer_integration/views.py:97
 msgid "Download subscriptions"
 msgstr "Abonnemente herunterladen"
 
-#: basxconnect/mailer_integration/views.py:110
-msgid "Invalid Persons"
-msgstr "Ungültige Personen"
+#: basxconnect/mailer_integration/views.py:112
+msgid "Person records with errors"
+msgstr "Personen mit fehlerhaften Daten"
 
-#: basxconnect/mailer_integration/views.py:121
-msgid "New Persons"
+#: basxconnect/mailer_integration/views.py:125
+msgid "New person records"
 msgstr "Neu hinzugefügte Personen"
 
-#: basxconnect/mailer_integration/views.py:140
+#: basxconnect/mailer_integration/views.py:147
+msgid "Previous Executions"
+msgstr "Vergangene Ausführungen"
+
+#: basxconnect/mailer_integration/views.py:158
 msgid "Delete"
 msgstr "Löschen"
 
-#: basxconnect/mailer_integration/views.py:155
+#: basxconnect/mailer_integration/views.py:167
+msgid "Tools"
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:175
 msgid "External mailer"
 msgstr "Externer Mailer"
 
-#~ msgid "Mailchimp"
-#~ msgstr "Mailchimp"

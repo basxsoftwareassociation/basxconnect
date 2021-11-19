@@ -48,6 +48,7 @@ menu.registeritem(
         Link(
             ModelHref(models.ContributionImport, "browse"),
             _("Contributions"),
+            iconname="money",
         ),
         importgroup,
     )

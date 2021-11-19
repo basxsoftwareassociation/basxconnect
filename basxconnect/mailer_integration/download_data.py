@@ -8,9 +8,8 @@ from basxconnect.mailer_integration.abstract.abstract_datasource import (
 )
 from basxconnect.mailer_integration.models import (
     Interest,
-    InvalidPerson,
     MailingPreferences,
-    NewPerson,
+    SynchronizationPerson,
     SynchronizationResult,
 )
 
@@ -33,13 +32,21 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
         )
         if len(matching_email_addresses) == 0:
             if not is_valid_new_person(mailer_person):
-                InvalidPerson.objects.create(
-                    sync_result=sync_result, email=mailer_person.email
+                SynchronizationPerson.objects.create(
+                    sync_result=sync_result,
+                    email=mailer_person.email,
+                    successfully_added=False,
+                    first_name=mailer_person.first_name,
+                    last_name=mailer_person.last_name,
                 )
             else:
                 _save_person(datasource_tag, mailer_person)
-                NewPerson.objects.create(
-                    sync_result=sync_result, email=mailer_person.email
+                SynchronizationPerson.objects.create(
+                    sync_result=sync_result,
+                    email=mailer_person.email,
+                    successfully_added=True,
+                    first_name=mailer_person.first_name,
+                    last_name=mailer_person.last_name,
                 )
         else:
             # if the downloaded email address already exists in our system, update the mailing preference for this email

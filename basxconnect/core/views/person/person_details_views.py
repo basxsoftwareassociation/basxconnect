@@ -140,7 +140,7 @@ def editperson_tabs(base_data_tab, mailing_tab, request):
         [
             contributions_tab.contributions_tab(request),
         ]
-        if apps.is_installed("basxconnect.mailer_integration")
+        if apps.is_installed("basxconnect.contributions")
         else []
     )
 
