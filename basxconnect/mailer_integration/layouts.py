@@ -4,7 +4,10 @@ from bread import layout
 from bread.layout.components import tag
 from bread.layout.components.icon import Icon
 from bread.utils import ModelHref, reverse, reverse_model
+from django.conf import settings
 from django.shortcuts import get_object_or_404
+from django.utils.formats import localize
+from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core import models
@@ -64,6 +67,19 @@ def _display_subscription(email):
             ),
         ),
         *interests,
+        R(
+            C(_("Last synchronized"), width=6, breakpoint="lg"),
+            C(
+                localize(
+                    localtime(subscription.latest_sync.sync_completed_datetime),
+                    use_l10n=settings.USE_L10N,
+                )
+                if hasattr(subscription.latest_sync, "sync_completed_datetime")
+                else "",
+                breakpoint="lg",
+            ),
+            style="padding-bottom: 24px;",
+        ),
         R(
             C(
                 layout.button.Button(
