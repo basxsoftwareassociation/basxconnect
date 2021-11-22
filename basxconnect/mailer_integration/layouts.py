@@ -24,13 +24,13 @@ def mailer_integration_tile(request):
         hg.H4(
             _("Email Subscriptions"),
         ),
-        *[_display_preferences(email) for email in addresses]
+        *[_display_subscription(email) for email in addresses]
         if hasattr(person, "core_email_list") and person.core_email_list.count() > 0
         else C(_("Person has no email addresses")),
     )
 
 
-def _display_preferences(email):
+def _display_subscription(email):
     if not hasattr(email, "subscription"):
         return _display_email_without_subscription(email)
     subscription = email.subscription
