@@ -15,7 +15,6 @@ from basxconnect.mailer_integration.models import (
 
 
 def synchronize(datasource: Datasource) -> SynchronizationResult:
-    Subscription.objects.all().delete()
     synchronize_interests(datasource)
 
     mailer_persons = datasource.get_persons()
