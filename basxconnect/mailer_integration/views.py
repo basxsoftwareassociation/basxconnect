@@ -96,39 +96,16 @@ def display_previous_execution(request):
                     "total_synchronized_persons",
                     "sync_completed_datetime",
                     DataTableColumn(
-                        _("Person records with errors"),
-                        hg.F(
-                            lambda c: ", ".join(
-                                [
-                                    str(person)
-                                    for person in c["row"].persons.filter(
-                                        sync_status=SynchronizationPerson.SKIPPED
-                                    )
-                                ]
-                            )
-                        ),
+                        _("Not added to BasxConnect"),
+                        display_sync_persons(SynchronizationPerson.SKIPPED),
                     ),
                     DataTableColumn(
-                        _("New person records"),
-                        hg.F(
-                            lambda c: hg.BaseElement(
-                                *[
-                                    hg.BaseElement(
-                                        hg.DIV(
-                                            person.first_name,
-                                            " ",
-                                            person.last_name,
-                                            " <",
-                                            person.email,
-                                            ">",
-                                        )
-                                    )
-                                    for person in c["row"].persons.filter(
-                                        sync_status=SynchronizationPerson.NEW
-                                    )
-                                ]
-                            )
-                        ),
+                        _("Newly added to BasxConnect"),
+                        display_sync_persons(SynchronizationPerson.NEW),
+                    ),
+                    DataTableColumn(
+                        _("Synchronized previously but not this time"),
+                        display_sync_persons(SynchronizationPerson.PREVIOUSLY_SYNCED),
                     ),
                 ],
                 title=_("Previous Executions"),
@@ -147,6 +124,26 @@ def display_previous_execution(request):
                 ],
             ),
             width=12,
+        )
+    )
+
+
+def display_sync_persons(sync_status):
+    return hg.F(
+        lambda c: hg.BaseElement(
+            *[
+                hg.BaseElement(
+                    hg.DIV(
+                        person.first_name,
+                        " ",
+                        person.last_name,
+                        " <",
+                        person.email,
+                        ">",
+                    )
+                )
+                for person in c["row"].persons.filter(sync_status=sync_status)
+            ]
         )
     )
 

@@ -64,11 +64,11 @@ class SynchronizationPerson(models.Model):
 
     NEW = "new"
     SKIPPED = "import_error"
-    NOT_SYNCED = "not_synced"
+    PREVIOUSLY_SYNCED = "synced_previously"
     SYNC_STATUS_CHOICES = [
         (NEW, _("Newly added to BasxConnect")),
-        (SKIPPED, _("Was not added to BasxConnect")),
-        (NOT_SYNCED, _("Previously synchronized but not this time")),
+        (SKIPPED, _("Not added to BasxConnect")),
+        (PREVIOUSLY_SYNCED, _("Synchronized previously but not this time")),
     ]
     sync_status = models.CharField(
         _("Synchronization Status"),
