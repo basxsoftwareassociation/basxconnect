@@ -3,7 +3,7 @@ import htmlgenerator as hg
 from bread import layout
 from bread.layout.components import tag
 from bread.layout.components.icon import Icon
-from bread.utils import ModelHref, reverse, reverse_model
+from bread.utils import ModelHref
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.utils.formats import localize
