@@ -15,7 +15,10 @@ from django.utils.translation import gettext_lazy as _
 from basxconnect.mailer_integration import download_data, settings
 from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
 from basxconnect.mailer_integration.mailchimp import datasource
-from basxconnect.mailer_integration.models import SynchronizationResult
+from basxconnect.mailer_integration.models import (
+    SynchronizationPerson,
+    SynchronizationResult,
+)
 
 C = bread.layout.grid.Col
 R = bread.layout.grid.Row
@@ -28,24 +31,8 @@ def mailer_synchronization_view(request):
             sync_result = download_data.download_persons(settings.MAILER)
             notification = bread.layout.components.notification.InlineNotification(
                 "Success",
-                f"Synchronized mailing preferences for {sync_result.total_synchronized_persons} Mailchimp "
-                f"contacts. {sync_result.persons.filter(successfully_added=True).count()} new persons were added to the BasxConnect database. "
-                + (
-                    "The following mailchimp contacts are not yet in our database but were also not "
-                    "added because they were invalid:"
-                    + (
-                        ", ".join(
-                            [
-                                str(person)
-                                for person in sync_result.persons.filter(
-                                    successfully_added=False
-                                )
-                            ]
-                        )
-                    )
-                    if sync_result.persons.filter(successfully_added=False).count() > 0
-                    else ""
-                ),
+                f"Synchronized with mailer segment containing {sync_result.total_synchronized_persons} contacts."
+                f"{sync_result.persons.filter(sync_status=SynchronizationPerson.NEW).count()} new persons were added to BasxConnect.",
             )
         except Exception:
             notification = bread.layout.components.notification.InlineNotification(
@@ -114,7 +101,7 @@ def display_previous_execution(request):
                                 [
                                     str(person)
                                     for person in c["row"].persons.filter(
-                                        successfully_added=False
+                                        sync_status=SynchronizationPerson.SKIPPED
                                     )
                                 ]
                             )
@@ -136,7 +123,7 @@ def display_previous_execution(request):
                                         )
                                     )
                                     for person in c["row"].persons.filter(
-                                        successfully_added=True
+                                        sync_status=SynchronizationPerson.NEW
                                     )
                                 ]
                             )

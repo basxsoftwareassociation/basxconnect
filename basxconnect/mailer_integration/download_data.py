@@ -32,25 +32,15 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
         )
         if len(matching_email_addresses) == 0:
             if not is_valid_new_person(mailer_person):
-                SynchronizationPerson.objects.create(
-                    sync_result=sync_result,
-                    email=mailer_person.email,
-                    successfully_added=False,
-                    first_name=mailer_person.first_name,
-                    last_name=mailer_person.last_name,
+                _save_sync_person(
+                    mailer_person, sync_result, SynchronizationPerson.SKIPPED
                 )
             else:
                 created_person = _save_person(datasource_tag, mailer_person)
                 _save_mailing_preferences(
-                    created_person.email, mailer_person, sync_result
+                    created_person.primary_email_address, mailer_person, sync_result
                 )
-                SynchronizationPerson.objects.create(
-                    sync_result=sync_result,
-                    email=mailer_person.email,
-                    successfully_added=True,
-                    first_name=mailer_person.first_name,
-                    last_name=mailer_person.last_name,
-                )
+                _save_sync_person(mailer_person, sync_result, SynchronizationPerson.NEW)
         else:
             # if the downloaded email address already exists in our system, update the mailing preference for this email
             # address, without creating a new person in the database
@@ -63,6 +53,12 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
     return sync_result
 
 
+def _get_or_create_tag(tag: str) -> models.Term:
+    tags_vocabulary = models.Vocabulary.objects.get(slug="tag")
+    tag, _ = models.Term.objects.get_or_create(term=tag, vocabulary=tags_vocabulary)
+    return tag
+
+
 def is_valid_new_person(person: MailerPerson):
     return django_countries.Countries().countries.get(
         person.country
@@ -72,10 +68,14 @@ def is_valid_new_person(person: MailerPerson):
     ]
 
 
-def _get_or_create_tag(tag: str) -> models.Term:
-    tags_vocabulary = models.Vocabulary.objects.get(slug="tag")
-    tag, _ = models.Term.objects.get_or_create(term=tag, vocabulary=tags_vocabulary)
-    return tag
+def _save_sync_person(mailer_person, sync_result, syn_status):
+    SynchronizationPerson.objects.create(
+        sync_result=sync_result,
+        email=mailer_person.email,
+        first_name=mailer_person.first_name,
+        last_name=mailer_person.last_name,
+        sync_status=syn_status,
+    )
 
 
 def _save_person(datasource_tag: models.Term, mailer_person: MailerPerson):

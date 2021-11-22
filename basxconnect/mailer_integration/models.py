@@ -61,7 +61,21 @@ class SynchronizationPerson(models.Model):
     email = models.CharField(max_length=100)
     first_name = models.CharField(_("First Name"), max_length=255, blank=True)
     last_name = models.CharField(_("Last Name"), max_length=255, blank=True)
-    message = models.CharField(_("Message"), max_length=255, blank=True)
+
+    NEW = "new"
+    SKIPPED = "import_error"
+    NOT_SYNCED = "not_synced"
+    SYNC_STATUS_CHOICES = [
+        (NEW, _("Newly added to BasxConnect")),
+        (SKIPPED, _("Was not added to BasxConnect")),
+        (NOT_SYNCED, _("Previously synchronized but not this time")),
+    ]
+    sync_status = models.CharField(
+        _("Synchronization Status"),
+        choices=SYNC_STATUS_CHOICES,
+        max_length=255,
+        blank=True,
+    )
 
     def __str__(self):
         return self.email
