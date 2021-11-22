@@ -61,7 +61,7 @@ class SynchronizationPerson(models.Model):
     email = models.CharField(max_length=100)
     first_name = models.CharField(_("First Name"), max_length=255, blank=True)
     last_name = models.CharField(_("Last Name"), max_length=255, blank=True)
-    successfully_added = models.BooleanField(models.BooleanField)
+    message = models.CharField(_("Message"), max_length=255, blank=True)
 
     def __str__(self):
         return self.email
