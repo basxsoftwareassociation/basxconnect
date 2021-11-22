@@ -34,7 +34,7 @@ def synchronize(datasource: Datasource) -> SynchronizationResult:
                 )
             else:
                 created_person = _save_person(datasource_tag, mailer_person)
-                _save_mailing_preferences(
+                _save_subscription(
                     created_person.primary_email_address, mailer_person, sync_result
                 )
                 _save_sync_person(mailer_person, sync_result, SynchronizationPerson.NEW)
@@ -42,7 +42,7 @@ def synchronize(datasource: Datasource) -> SynchronizationResult:
             # if the downloaded email address already exists in our system, update the mailing preference for this email
             # address, without creating a new person in the database
             for email in matching_email_addresses:
-                _save_mailing_preferences(email, mailer_person, sync_result)
+                _save_subscription(email, mailer_person, sync_result)
     sync_result.total_synchronized_persons = len(mailer_persons)
     sync_result.sync_completed_datetime = timezone.now()
     sync_result.save()
@@ -117,7 +117,7 @@ def _save_postal_address(person: models.Person, mailer_person: MailerPerson):
     person.save()
 
 
-def _save_mailing_preferences(
+def _save_subscription(
     email: models.Email, mailer_person: MailerPerson, sync_result: SynchronizationResult
 ):
     mailing_preferences, _ = Subscription.objects.get_or_create(email=email)
