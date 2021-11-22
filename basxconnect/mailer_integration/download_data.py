@@ -40,7 +40,10 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
                     last_name=mailer_person.last_name,
                 )
             else:
-                _save_person(datasource_tag, mailer_person)
+                created_person = _save_person(datasource_tag, mailer_person)
+                _save_mailing_preferences(
+                    created_person.email, mailer_person, sync_result
+                )
                 SynchronizationPerson.objects.create(
                     sync_result=sync_result,
                     email=mailer_person.email,
@@ -52,7 +55,7 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
             # if the downloaded email address already exists in our system, update the mailing preference for this email
             # address, without creating a new person in the database
             for email in matching_email_addresses:
-                _save_mailing_preferences(email, mailer_person)
+                _save_mailing_preferences(email, mailer_person, sync_result)
     sync_result.total_synchronized_persons = len(mailer_persons)
     sync_result.sync_completed_datetime = timezone.now()
     sync_result.save()
@@ -86,8 +89,8 @@ def _save_person(datasource_tag: models.Term, mailer_person: MailerPerson):
     email = models.Email.objects.create(email=mailer_person.email, person=person)
     person.primary_email_address = email
     person.save()
-    _save_mailing_preferences(email, mailer_person)
     _save_postal_address(person, mailer_person)
+    return person
 
 
 def _save_postal_address(person: models.Person, mailer_person: MailerPerson):
@@ -103,7 +106,9 @@ def _save_postal_address(person: models.Person, mailer_person: MailerPerson):
     person.save()
 
 
-def _save_mailing_preferences(email: models.Email, mailer_person: MailerPerson):
+def _save_mailing_preferences(
+    email: models.Email, mailer_person: MailerPerson, sync_result: SynchronizationResult
+):
     mailing_preferences, _ = Subscription.objects.get_or_create(email=email)
     mailing_preferences.status = mailer_person.status
     mailing_preferences.language = mailer_person.language
@@ -111,4 +116,5 @@ def _save_mailing_preferences(email: models.Email, mailer_person: MailerPerson):
     for interest_id in mailer_person.interests_ids:
         interest = Interest.objects.get(external_id=interest_id)
         mailing_preferences.interests.add(interest)
+    mailing_preferences.latest_sync = sync_result
     mailing_preferences.save()
