@@ -32,7 +32,7 @@ def mailer_synchronization_view(request):
             sync_result = synchronize(settings.MAILER)
             notification = bread.layout.components.notification.InlineNotification(
                 "Success",
-                f"Synchronized with mailer segment containing {sync_result.total_synchronized_persons} contacts."
+                f"Synchronized with mailer segment containing {sync_result.total_synchronized_persons} contacts. "
                 f"{sync_result.persons.filter(sync_status=SynchronizationPerson.NEW).count()} new persons were added to BasxConnect.",
             )
         except Exception:

@@ -22,8 +22,12 @@ def languages_choices(field, request, instance):
 
 
 class SynchronizationResult(models.Model):
-    total_synchronized_persons = models.IntegerField(null=True)
-    sync_completed_datetime = models.DateTimeField(null=True)
+    total_synchronized_persons = models.IntegerField(
+        null=True, verbose_name=_("Number of persons in the mailer segment")
+    )
+    sync_completed_datetime = models.DateTimeField(
+        null=True, verbose_name=_("Date and time")
+    )
 
 
 class Subscription(models.Model):
