@@ -14,12 +14,9 @@ from basxconnect.mailer_integration.models import (
 )
 
 
-def download_persons(datasource: Datasource) -> SynchronizationResult:
+def synchronize(datasource: Datasource) -> SynchronizationResult:
     Subscription.objects.all().delete()
-    Interest.objects.all().delete()
-    interests = datasource.get_interests()
-    for interest in interests:
-        Interest.objects.get_or_create(external_id=interest.id, name=interest.name)
+    synchronize_interests(datasource)
 
     mailer_persons = datasource.get_persons()
     datasource_tag = _get_or_create_tag(datasource.tag())
@@ -51,6 +48,20 @@ def download_persons(datasource: Datasource) -> SynchronizationResult:
     sync_result.save()
 
     return sync_result
+
+
+def synchronize_interests(datasource):
+    old_interests = Interest.objects.all()
+    downloaded_interests = datasource.get_interests()
+    new_interests_ids = []
+    for interest in downloaded_interests:
+        interest_from_db, _ = Interest.objects.get_or_create(
+            external_id=interest.id, name=interest.name
+        )
+        new_interests_ids.append(interest_from_db.id)
+    for interest in old_interests:
+        if interest.id not in new_interests_ids:
+            interest.delete()
 
 
 def _get_or_create_tag(tag: str) -> models.Term:

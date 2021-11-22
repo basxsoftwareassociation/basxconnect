@@ -12,13 +12,14 @@ from django import forms
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from basxconnect.mailer_integration import download_data, settings
+from basxconnect.mailer_integration import settings
 from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
 from basxconnect.mailer_integration.mailchimp import datasource
 from basxconnect.mailer_integration.models import (
     SynchronizationPerson,
     SynchronizationResult,
 )
+from basxconnect.mailer_integration.synchronize import synchronize
 
 C = bread.layout.grid.Col
 R = bread.layout.grid.Row
@@ -28,7 +29,7 @@ R = bread.layout.grid.Row
 def mailer_synchronization_view(request):
     if request.method == "POST":
         try:
-            sync_result = download_data.download_persons(settings.MAILER)
+            sync_result = synchronize(settings.MAILER)
             notification = bread.layout.components.notification.InlineNotification(
                 "Success",
                 f"Synchronized with mailer segment containing {sync_result.total_synchronized_persons} contacts."
