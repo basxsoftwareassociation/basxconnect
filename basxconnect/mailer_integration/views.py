@@ -69,7 +69,7 @@ def mailer_synchronization_view(request):
                             ),
                             hg.LI(
                                 _(
-                                    "If an email address is not yet in BasxConnect and the subscription fulfills some additional criteria, a new person with that email address and subscription is created in BasxConnect. The additional criteria for a subscription to be used for creating a new person are that the status is either 'subscribed' or 'unsubcribed' (and not e.g. 'cleaned') and that the subscription has a valid country."
+                                    "If an email address is not yet in BasxConnect, a new person will be created with that email address."
                                 ),
                                 _class="bx--list__item",
                             ),
@@ -96,7 +96,7 @@ def display_previous_execution(request):
                     "total_synchronized_persons",
                     "sync_completed_datetime",
                     DataTableColumn(
-                        _("Not added to BasxConnect"),
+                        _("In mailer segment but not added to BasxConnect"),
                         display_sync_persons(SynchronizationPerson.SKIPPED),
                     ),
                     DataTableColumn(

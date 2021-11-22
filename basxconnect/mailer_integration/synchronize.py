@@ -72,10 +72,7 @@ def _get_or_create_tag(tag: str) -> models.Term:
 def is_valid_new_person(person: MailerPerson):
     return django_countries.Countries().countries.get(
         person.country
-    ) and person.status in [
-        "subscribed",
-        "unsubscribed",
-    ]
+    ) and person.status in ["subscribed", "unsubscribed", "cleaned"]
 
 
 def _save_sync_person(mailer_person, sync_result, syn_status):
