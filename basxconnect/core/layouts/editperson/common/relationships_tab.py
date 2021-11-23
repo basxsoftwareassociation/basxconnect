@@ -7,6 +7,7 @@ from bread.utils import Link, ModelHref, reverse_model
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
+from basxconnect.core.layouts.editperson.common import utils
 from basxconnect.core.models import Person, Relationship
 
 R = layout.grid.Row
@@ -19,21 +20,26 @@ def relationshipstab(request):
     modal_to = modal_add_relationship_to(person)
     return layout.tabs.Tab(
         _("Relationships"),
-        hg.BaseElement(
-            relationships_datatable(
-                request,
-                title=_("Relationships to person"),
-                queryset=hg.F(lambda c: c["object"].relationships_from.all()),
-                primary_button=button_add_relationship_to(modal_to),
+        utils.grid_inside_tab(
+            R(
+                utils.tiling_col(
+                    relationships_datatable(
+                        request,
+                        title=_("Relationships to person"),
+                        queryset=hg.F(lambda c: c["object"].relationships_from.all()),
+                        primary_button=button_add_relationship_to(modal_to),
+                    ),
+                    modal_to,
+                    hg.DIV(style="margin-top: 4rem;"),
+                    relationships_datatable(
+                        request,
+                        title=_("Relationships from person"),
+                        queryset=hg.F(lambda c: c["object"].relationships_to.all()),
+                        primary_button=button_add_relationship_from(modal_from),
+                    ),
+                    modal_from,
+                )
             ),
-            modal_to,
-            relationships_datatable(
-                request,
-                title=_("Relationships from person"),
-                queryset=hg.F(lambda c: c["object"].relationships_to.all()),
-                primary_button=button_add_relationship_from(modal_from),
-            ),
-            modal_from,
         ),
     )
 
