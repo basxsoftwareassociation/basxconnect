@@ -12,7 +12,7 @@ class CoreConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
 
     def ready(self):
-        shared_task(base=RepeatedTask, run_every=timedelta(minutes=1))(update_addresses)
+        shared_task(base=RepeatedTask, run_every=timedelta(hours=6))(update_addresses)
 
         from .models import Vocabulary
 
@@ -41,5 +41,5 @@ class CoreConfig(AppConfig):
 def update_addresses():
     from .models import Postal
 
-    for address in Postal.objects.filter(valid_until=now().date() - timedelta(days=1)):
+    for address in Postal.objects.filter(valid_until__lt=now().date()):
         address.person.save()
