@@ -17,6 +17,7 @@ else:
         "djmoney",
         "basxconnect.core",
         "basxconnect.contributions",
+        "basxconnect.mailer_integration",
     ]
     settings.configure(
         DEBUG=True,
