@@ -30,6 +30,11 @@ else:
         SITE_ID=1,
         INSTALLED_APPS=INSTALLED_APPS,
         STATIC_URL="static/",
+        MAILCHIMP_API_KEY=None,
+        MAILCHIMP_INTERESTS_CATEGORY_ID=None,
+        MAILCHIMP_LIST_ID=None,
+        MAILCHIMP_SEGMENT_ID=None,
+        MAILCHIMP_SERVER=None,
     )
     django.setup()
 
