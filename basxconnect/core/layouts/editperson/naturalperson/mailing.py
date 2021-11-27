@@ -11,7 +11,6 @@ from basxconnect.core.layouts.editperson.common.utils import (
 
 R = layout.grid.Row
 C = layout.grid.Col
-F = layout.form.FormField
 
 
 def mailings_tab(request):
