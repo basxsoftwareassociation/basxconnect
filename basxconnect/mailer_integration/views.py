@@ -137,22 +137,17 @@ def display_previous_execution(request):
 
 
 def display_sync_persons(sync_status):
-    return hg.F(
-        lambda c: hg.BaseElement(
-            *[
-                hg.BaseElement(
-                    hg.DIV(
-                        person.first_name,
-                        " ",
-                        person.last_name,
-                        " <",
-                        person.email,
-                        ">",
-                    )
-                )
-                for person in c["row"].persons.filter(sync_status=sync_status)
-            ]
-        )
+    return hg.Iterator(
+        hg.F(lambda c: c["row"].persons.filter(sync_status=sync_status)),
+        "person",
+        hg.DIV(
+            hg.format(
+                "{} {} <{}>",
+                hg.C("person.first_name"),
+                hg.C("person.last_name"),
+                hg.C("person.email"),
+            )
+        ),
     )
 
 
