@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-22 16:07+0200\n"
+"POT-Creation-Date: 2021-11-27 10:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,7 +81,7 @@ msgid "Last Name"
 msgstr ""
 
 #: basxconnect/mailer_integration/models.py:73
-#: basxconnect/mailer_integration/views.py:103
+#: basxconnect/mailer_integration/views.py:111
 msgid "Newly added to BasxConnect"
 msgstr "Neu zu BasxConnect hinzugefügt"
 
@@ -90,7 +90,7 @@ msgid "Not added to BasxConnect"
 msgstr "Nicht zu BasxConnect hinzugefügt"
 
 #: basxconnect/mailer_integration/models.py:75
-#: basxconnect/mailer_integration/views.py:107
+#: basxconnect/mailer_integration/views.py:115
 msgid "Synchronized previously but not this time"
 msgstr "Schon mal synchronisiert, aber nicht diesmal"
 
@@ -98,11 +98,24 @@ msgstr "Schon mal synchronisiert, aber nicht diesmal"
 msgid "Synchronization Status"
 msgstr "Synchronisationsstatus"
 
-#: basxconnect/mailer_integration/views.py:51
+#: basxconnect/mailer_integration/views.py:34
+msgid "Sychronization successful"
+msgstr "Synchronisation erfolgreich"
+
+#: basxconnect/mailer_integration/views.py:36
+#, python-format
+msgid ""
+"Synchronized with mailer segment containing %s contacts. %s new persons were "
+"added to BasxConnect."
+msgstr ""
+"Das synchronisierte Segment auf dem Mailer beinhhaltet %s Kontakte. %s neue personen wurden "
+"zu BasxConnect hinzugefügt."
+
+#: basxconnect/mailer_integration/views.py:59
 msgid "Synchronization of Email Subcriptions"
 msgstr "Synchronisation von Email Abonnementen"
 
-#: basxconnect/mailer_integration/views.py:55
+#: basxconnect/mailer_integration/views.py:63
 msgid ""
 "The button below is currently the only way of getting new subcribers from "
 "the mailer into our system. Is it also the only way of getting updates for "
@@ -110,47 +123,47 @@ msgid ""
 "the button is pressed:"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:60
+#: basxconnect/mailer_integration/views.py:68
 msgid ""
 "For all the Subscriptions that are in the relevant segment (e.g. 'UM "
 "Switzerland') in the Mailer, we check whether the email address is already "
 "in BasxConnect."
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:66
+#: basxconnect/mailer_integration/views.py:74
 msgid ""
 "If an email address is already in BasxConnect, the downloaded subscription "
 "will be attached to the email address and override the current values in "
 "case there are any."
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:72
+#: basxconnect/mailer_integration/views.py:80
 msgid ""
 "If an email address is not yet in BasxConnect, a new person will be created "
 "with that email address."
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:84
+#: basxconnect/mailer_integration/views.py:92
 msgid "Download subscriptions"
 msgstr "Abonnemente herunterladen"
 
-#: basxconnect/mailer_integration/views.py:99
+#: basxconnect/mailer_integration/views.py:107
 msgid "In mailer segment but not added to BasxConnect"
 msgstr "Im Mailer-Segment aber nicht zu BasxConnect hinzugefügt"
 
-#: basxconnect/mailer_integration/views.py:111
+#: basxconnect/mailer_integration/views.py:119
 msgid "Previous Executions"
 msgstr "Vergangene Ausführungen"
 
-#: basxconnect/mailer_integration/views.py:122
+#: basxconnect/mailer_integration/views.py:130
 msgid "Delete"
 msgstr "Löschen"
 
-#: basxconnect/mailer_integration/views.py:151
+#: basxconnect/mailer_integration/views.py:159
 msgid "Tools"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:159
+#: basxconnect/mailer_integration/views.py:167
 msgid "External mailer"
 msgstr "Externer Mailer"
 
