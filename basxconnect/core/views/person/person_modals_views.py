@@ -53,7 +53,6 @@ class NaturalPersonEditPersonalDataView(EditView):
 
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)
-        print(form)
         # only set the disabled attribute on the widget, otherwise we cannot change it on the client side in the future
         if self.object.autogenerate_displayname:
             form.fields["name"].widget.attrs["disabled"] = True
