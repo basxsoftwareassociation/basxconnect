@@ -12,10 +12,14 @@ from django import forms
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from basxconnect.mailer_integration import download_data, settings
+from basxconnect.mailer_integration import settings
 from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
 from basxconnect.mailer_integration.mailchimp import datasource
-from basxconnect.mailer_integration.models import SynchronizationResult
+from basxconnect.mailer_integration.models import (
+    SynchronizationPerson,
+    SynchronizationResult,
+)
+from basxconnect.mailer_integration.synchronize import synchronize
 
 C = bread.layout.grid.Col
 R = bread.layout.grid.Row
@@ -25,27 +29,19 @@ R = bread.layout.grid.Row
 def mailer_synchronization_view(request):
     if request.method == "POST":
         try:
-            sync_result = download_data.download_persons(settings.MAILER)
+            sync_result = synchronize(settings.MAILER)
             notification = bread.layout.components.notification.InlineNotification(
-                "Success",
-                f"Synchronized mailing preferences for {sync_result.total_synchronized_persons} Mailchimp "
-                f"contacts. {sync_result.persons.filter(successfully_added=True).count()} new persons were added to the BasxConnect database. "
-                + (
-                    "The following mailchimp contacts are not yet in our database but were also not "
-                    "added because they were invalid:"
-                    + (
-                        ", ".join(
-                            [
-                                str(person)
-                                for person in sync_result.persons.filter(
-                                    successfully_added=False
-                                )
-                            ]
-                        )
-                    )
-                    if sync_result.persons.filter(successfully_added=False).count() > 0
-                    else ""
+                _("Sychronization successful"),
+                _(
+                    "Synchronized with mailer segment containing %s contacts. %s new persons were added to BasxConnect."
+                )
+                % (
+                    sync_result.total_synchronized_persons,
+                    sync_result.persons.filter(
+                        sync_status=SynchronizationPerson.NEW
+                    ).count(),
                 ),
+                kind="success",
             )
         except Exception:
             notification = bread.layout.components.notification.InlineNotification(
@@ -81,7 +77,7 @@ def mailer_synchronization_view(request):
                             ),
                             hg.LI(
                                 _(
-                                    "If an email address is not yet in BasxConnect and the subscription fulfills some additional criteria, a new person with that email address and subscription is created in BasxConnect. The additional criteria for a subscription to be used for creating a new person are that the status is either 'subscribed' or 'unsubcribed' (and not e.g. 'cleaned') and that the subscription has a valid country."
+                                    "If an email address is not yet in BasxConnect, a new person will be created with that email address."
                                 ),
                                 _class="bx--list__item",
                             ),
@@ -108,39 +104,16 @@ def display_previous_execution(request):
                     "total_synchronized_persons",
                     "sync_completed_datetime",
                     DataTableColumn(
-                        _("Person records with errors"),
-                        hg.F(
-                            lambda c: ", ".join(
-                                [
-                                    str(person)
-                                    for person in c["row"].persons.filter(
-                                        successfully_added=False
-                                    )
-                                ]
-                            )
-                        ),
+                        _("In mailer segment but not added to BasxConnect"),
+                        display_sync_persons(SynchronizationPerson.SKIPPED),
                     ),
                     DataTableColumn(
-                        _("New person records"),
-                        hg.F(
-                            lambda c: hg.BaseElement(
-                                *[
-                                    hg.BaseElement(
-                                        hg.DIV(
-                                            person.first_name,
-                                            " ",
-                                            person.last_name,
-                                            " <",
-                                            person.email,
-                                            ">",
-                                        )
-                                    )
-                                    for person in c["row"].persons.filter(
-                                        successfully_added=True
-                                    )
-                                ]
-                            )
-                        ),
+                        _("Newly added to BasxConnect"),
+                        display_sync_persons(SynchronizationPerson.NEW),
+                    ),
+                    DataTableColumn(
+                        _("Synchronized previously but not this time"),
+                        display_sync_persons(SynchronizationPerson.PREVIOUSLY_SYNCED),
                     ),
                 ],
                 title=_("Previous Executions"),
@@ -163,6 +136,21 @@ def display_previous_execution(request):
     )
 
 
+def display_sync_persons(sync_status):
+    return hg.Iterator(
+        hg.F(lambda c: c["row"].persons.filter(sync_status=sync_status)),
+        "person",
+        hg.DIV(
+            hg.format(
+                "{} {} <{}>",
+                hg.C("person.first_name"),
+                hg.C("person.last_name"),
+                hg.C("person.email"),
+            )
+        ),
+    )
+
+
 tools_group = menu.Group(_("Tools"), iconname="tool", order=99)
 
 menu.registeritem(
@@ -179,7 +167,9 @@ menu.registeritem(
 )
 
 
-class AddMailingPreferencesView(AddView):
+class AddSubscriptionView(AddView):
+    fields = ["interests", "language", "email", "status"]
+
     def get_success_url(self):
         return reverse_model(
             self.object.email.person, "read", kwargs={"pk": self.object.email.person.pk}
@@ -191,7 +181,7 @@ class AddMailingPreferencesView(AddView):
         return response
 
 
-class EditMailingPreferencesView(EditView):
+class EditSubscriptionView(EditView):
     fields = ["interests", "language"]
 
     def get_success_url(self):
