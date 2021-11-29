@@ -251,7 +251,7 @@ def postals():
                     layout.button.Button,
                     "Add",
                     buttontype="ghost",
-                    icon="Add",
+                    icon="add",
                 ),
             ),
         ),
