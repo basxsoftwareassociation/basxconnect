@@ -13,7 +13,6 @@ from basxconnect.core.layouts.editperson.common.utils import (
 
 R = layout.grid.Row
 C = layout.grid.Col
-F = layout.form.FormField
 
 
 def base_data_tab(request):

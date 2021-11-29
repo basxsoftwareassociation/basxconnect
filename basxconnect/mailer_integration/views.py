@@ -31,9 +31,17 @@ def mailer_synchronization_view(request):
         try:
             sync_result = synchronize(settings.MAILER)
             notification = bread.layout.components.notification.InlineNotification(
-                "Success",
-                f"Synchronized with mailer segment containing {sync_result.total_synchronized_persons} contacts. "
-                f"{sync_result.persons.filter(sync_status=SynchronizationPerson.NEW).count()} new persons were added to BasxConnect.",
+                _("Sychronization successful"),
+                _(
+                    "Synchronized with mailer segment containing %s contacts. %s new persons were added to BasxConnect."
+                )
+                % (
+                    sync_result.total_synchronized_persons,
+                    sync_result.persons.filter(
+                        sync_status=SynchronizationPerson.NEW
+                    ).count(),
+                ),
+                kind="success",
             )
         except Exception:
             notification = bread.layout.components.notification.InlineNotification(
@@ -129,22 +137,17 @@ def display_previous_execution(request):
 
 
 def display_sync_persons(sync_status):
-    return hg.F(
-        lambda c: hg.BaseElement(
-            *[
-                hg.BaseElement(
-                    hg.DIV(
-                        person.first_name,
-                        " ",
-                        person.last_name,
-                        " <",
-                        person.email,
-                        ">",
-                    )
-                )
-                for person in c["row"].persons.filter(sync_status=sync_status)
-            ]
-        )
+    return hg.Iterator(
+        hg.F(lambda c: c["row"].persons.filter(sync_status=sync_status)),
+        "person",
+        hg.DIV(
+            hg.format(
+                "{} {} <{}>",
+                hg.C("person.first_name"),
+                hg.C("person.last_name"),
+                hg.C("person.email"),
+            )
+        ),
     )
 
 

@@ -53,6 +53,7 @@ class NaturalPersonEditPersonalDataView(EditView):
 
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)
+        print(form)
         # only set the disabled attribute on the widget, otherwise we cannot change it on the client side in the future
         if self.object.autogenerate_displayname:
             form.fields["name"].widget.attrs["disabled"] = True
@@ -66,27 +67,30 @@ class NaturalPersonEditPersonalDataView(EditView):
         C = layout.grid.Col
         F = layout.form.FormField
         return layout.grid.Grid(
-            R(C(F("salutation"))),
-            R(C(F("title"))),
-            R(
-                C(
-                    F("name"),
-                    width=10,
-                    breakpoint="lg",
+            layout.components.forms.Form(
+                hg.C("form"),
+                R(C(F("salutation"))),
+                R(C(F("title"))),
+                R(
+                    C(
+                        F("name"),
+                        width=10,
+                        breakpoint="lg",
+                    ),
+                    C(
+                        F("autogenerate_displayname"),
+                        width=6,
+                        breakpoint="lg",
+                        style="align-self: flex-end;",
+                    ),
                 ),
-                C(
-                    F("autogenerate_displayname"),
-                    width=6,
-                    breakpoint="lg",
-                    style="align-self: flex-end;",
-                ),
-            ),
-            R(C(F("first_name"))),
-            R(C(F("last_name"))),
-            R(C(F("date_of_birth"))),
-            R(C(F("profession"))),
-            R(C(F("deceased"))),
-            R(C(F("decease_date"))),
+                R(C(F("first_name"))),
+                R(C(F("last_name"))),
+                R(C(F("date_of_birth"))),
+                R(C(F("profession"))),
+                R(C(F("deceased"))),
+                R(C(F("decease_date"))),
+            )
         )
 
 
@@ -155,7 +159,7 @@ class EditPostalAddressView(EditView):
                 "",
             )
         ]
-        return hg.DIV(*form_fields)
+        return hg.DIV(layout.components.forms.Form(hg.C("form"), *form_fields))
 
 
 class AddPostalAddressView(AddView):

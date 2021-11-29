@@ -1,4 +1,9 @@
+from datetime import timedelta
+
+from bread.utils.celery import RepeatedTask
+from celery import shared_task
 from django.apps import AppConfig
+from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 
@@ -7,6 +12,8 @@ class CoreConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
 
     def ready(self):
+        shared_task(base=RepeatedTask, run_every=timedelta(hours=6))(update_addresses)
+
         from .models import Vocabulary
 
         pre_installed_vocabulary = {
@@ -29,3 +36,10 @@ class CoreConfig(AppConfig):
                 Vocabulary.objects.get_or_create(slug=slug, defaults={"name": name})
         except Exception:  # nosec this is trivial, no service interuption
             pass
+
+
+def update_addresses():
+    from .models import Postal
+
+    for address in Postal.objects.filter(valid_until__lt=now().date()):
+        address.person.save()

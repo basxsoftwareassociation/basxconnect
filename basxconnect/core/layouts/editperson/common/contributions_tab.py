@@ -9,7 +9,6 @@ from basxconnect.core.models import Person
 
 R = layout.grid.Row
 C = layout.grid.Col
-F = layout.form.FormField
 
 
 def contributions_tab(request):

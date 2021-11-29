@@ -24,7 +24,6 @@ from ...layouts.editperson.common.relationships_tab import relationshipstab
 
 R = layout.grid.Row
 C = layout.grid.Col
-F = layout.form.FormField
 
 
 class NaturalPersonEditView(EditView):
@@ -81,7 +80,7 @@ def personform_shortcut(request, formlayout):
     return hg.BaseElement(
         layout.grid.Grid(
             editperson_head(request),
-            layout.form.Form(hg.C("form"), formlayout),
+            formlayout,
             gutter=False,
         )
     )

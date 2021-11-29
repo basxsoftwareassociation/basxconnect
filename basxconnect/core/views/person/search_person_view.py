@@ -12,7 +12,6 @@ from ... import models, settings
 
 R = layout.grid.Row
 C = layout.grid.Col
-F = layout.form.FormField
 
 ITEM_CLASS = "search_result_item"
 ITEM_LABEL_CLASS = "search_result_label"
