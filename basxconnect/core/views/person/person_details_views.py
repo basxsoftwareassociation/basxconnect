@@ -165,7 +165,7 @@ def confirm_delete_email(request, pk: int):
     email = models.Email.objects.get(id=pk)
     enable_delete_mailer_contact_checkbox = apps.is_installed(
         "basxconnect.mailer_integration"
-    ) and hasattr(email, "mailingpreferences")
+    ) and hasattr(email, "subscription")
 
     if request.method == "POST":
         form = ConfirmDeleteEmailForm(request.POST)

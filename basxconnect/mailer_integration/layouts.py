@@ -3,14 +3,17 @@ import htmlgenerator as hg
 from bread import layout
 from bread.layout.components import tag
 from bread.layout.components.icon import Icon
-from bread.utils import reverse
+from bread.utils import ModelHref
+from django.conf import settings
 from django.shortcuts import get_object_or_404
+from django.utils.formats import localize
+from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core import models
 from basxconnect.core.layouts.editperson.common.utils import tile_with_icon
 from basxconnect.core.models import Person
-from basxconnect.mailer_integration.models import Interest
+from basxconnect.mailer_integration.models import Interest, Subscription
 
 R = bread.layout.grid.Row
 C = bread.layout.grid.Col
@@ -24,22 +27,22 @@ def mailer_integration_tile(request):
         hg.H4(
             _("Email Subscriptions"),
         ),
-        *[_display_preferences(email) for email in addresses]
+        *[_display_subscription(email) for email in addresses]
         if hasattr(person, "core_email_list") and person.core_email_list.count() > 0
         else C(_("Person has no email addresses")),
     )
 
 
-def _display_preferences(email):
-    if not hasattr(email, "mailingpreferences"):
-        return _display_email_without_preferences(email)
-    mailingpreferences = email.mailingpreferences
-    modal = modal_edit_mailingpreferences(mailingpreferences)
+def _display_subscription(email):
+    if not hasattr(email, "subscription"):
+        return _display_email_without_subscription(email)
+    subscription = email.subscription
+    modal = modal_edit_subscription(subscription)
     interests = [
         R(
             C(interest, width=6, breakpoint="lg"),
             C(
-                is_interested_indicator(interest in mailingpreferences.interests.all()),
+                is_interested_indicator(interest in subscription.interests.all()),
                 breakpoint="lg",
             ),
             style="padding-bottom: 24px;",
@@ -51,19 +54,32 @@ def _display_preferences(email):
             C(
                 hg.SPAN(email.email, style="font-weight: bold;"),
                 tag.Tag(
-                    _(mailingpreferences.status),
-                    tag_color=map_tag_color(mailingpreferences.status),
+                    _(subscription.status),
+                    tag_color=map_tag_color(subscription.status),
                     onclick="return false;",
                     style="margin-left: 1rem;",
                 ),
                 hg.SPAN(
-                    mailingpreferences.get_language_display(),
+                    subscription.get_language_display(),
                     style="padding-left:0.5rem;",
                 ),
                 style="margin-bottom: 1.5rem;",
             ),
         ),
         *interests,
+        R(
+            C(_("Last synchronized"), width=6, breakpoint="lg"),
+            C(
+                localize(
+                    localtime(subscription.latest_sync.sync_completed_datetime),
+                    use_l10n=settings.USE_L10N,
+                )
+                if hasattr(subscription.latest_sync, "sync_completed_datetime")
+                else "",
+                breakpoint="lg",
+            ),
+            style="padding-bottom: 24px;",
+        ),
         R(
             C(
                 layout.button.Button(
@@ -79,8 +95,8 @@ def _display_preferences(email):
     )
 
 
-def _display_email_without_preferences(email):
-    modal_add = modal_add_mailingpreferences(email)
+def _display_email_without_subscription(email):
+    modal_add = modal_add_subscription(email)
     return hg.BaseElement(
         hg.DIV(email.email, style="font-weight: bold;"),
         hg.DIV(_("No subscription yet for "), email.email),
@@ -116,11 +132,12 @@ def is_interested_indicator(is_subscribed):
     )
 
 
-def modal_edit_mailingpreferences(mailingpreferences):
+def modal_edit_subscription(mailingpreferences):
     modal = layout.modal.Modal.with_ajax_content(
         heading=_("Edit subscription"),
-        url=reverse(
-            "basxconnect.mailer_integration.views.editmailingpreferencesview",
+        url=ModelHref(
+            Subscription,
+            "ajax_edit",
             kwargs={"pk": mailingpreferences.pk},
             query={"asajax": True},
         ),
@@ -131,11 +148,12 @@ def modal_edit_mailingpreferences(mailingpreferences):
     return modal
 
 
-def modal_add_mailingpreferences(email: models.Email):
+def modal_add_subscription(email: models.Email):
     ret = layout.modal.Modal.with_ajax_content(
         heading=_("Add subscription"),
-        url=reverse(
-            "basxconnect.mailer_integration.views.addmailingpreferencesview",
+        url=ModelHref(
+            Subscription,
+            "ajax_add",
             query={"asajax": True, "email": email.pk, "status": "subscribed"},
         ),
         submitlabel=_("Save"),
