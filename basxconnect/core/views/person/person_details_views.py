@@ -141,12 +141,13 @@ def editperson_tabs(base_data_tab, mailing_tab, request):
             base_data_tab(request),
             relationshipstab(request),
             mailing_tab(request),
-        ] + (
-            [
-                contributions_tab.contributions_tab(request),
-            ]
-        )
-    return []
+            contributions_tab.contributions_tab(request),
+        ]
+    return [
+        base_data_tab(request),
+        relationshipstab(request),
+        mailing_tab(request),
+    ]
 
 
 @csrf_exempt
