@@ -8,7 +8,7 @@ import basxconnect.core.layouts.settings_layout as settings_layout
 
 R = layout.grid.Row
 C = layout.grid.Col
-F = layout.form.FormField
+F = layout.forms.FormField
 
 
 @aslayout
@@ -32,11 +32,10 @@ def generalsettings(request):
             R(C(hg.H5(_("Information about our organization")))),
             R(
                 C(
-                    layout.form.Form.wrap_with_form(
+                    layout.forms.Form(
                         form,
-                        hg.BaseElement(
-                            layout.form.FormField("general__organizationname")
-                        ),
+                        hg.BaseElement(F("general__organizationname")),
+                        layout.forms.helpers.Submit(),
                         style="max-width: 480px",
                     )
                 )

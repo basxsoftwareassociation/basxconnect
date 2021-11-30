@@ -25,7 +25,7 @@ class SuperUserItem(menu.Item):
 
 R = layout.grid.Row
 C = layout.grid.Col
-F = layout.form.FormField
+F = layout.forms.FormField
 
 # MENU ENTRIES ---------------------------------------------------------------------
 

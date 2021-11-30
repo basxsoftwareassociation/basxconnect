@@ -91,10 +91,10 @@ class UploadForm(forms.Form):
         label=_("Filter out duplicates"), required=False
     )
     layout = hg.BaseElement(
-        _layout.form.FormField("importfile"),
+        _layout.forms.FormField("importfile"),
         _layout.helpers.Label(_("Import options")),
-        _layout.form.FormField("first_line_is_header"),
-        _layout.form.FormField("filter_duplicates"),
+        _layout.forms.FormField("first_line_is_header"),
+        _layout.forms.FormField("filter_duplicates"),
     )
 
     def clean(self):

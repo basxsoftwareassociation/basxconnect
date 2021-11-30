@@ -53,7 +53,7 @@ def mailer_synchronization_view(request):
         notification = None
 
     return hg.BaseElement(
-        Form.wrap_with_form(
+        Form(
             forms.Form(),
             bread.layout.grid.Grid(
                 hg.H3(_("Synchronization of Email Subcriptions")),
@@ -89,7 +89,7 @@ def mailer_synchronization_view(request):
                 hg.If(notification is not None, notification),
                 gutter=False,
             ),
-            submit_label=_("Download subscriptions"),
+            layout.forms.helpers.Submit(_("Download subscriptions")),
         ),
         display_previous_execution(request),
     )
@@ -198,5 +198,5 @@ class EditSubscriptionView(EditView):
         return result
 
     def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in self.fields]
+        form_fields = [layout.forms.FormField(field) for field in self.fields]
         return hg.DIV(*form_fields)

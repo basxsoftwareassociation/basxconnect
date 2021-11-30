@@ -307,7 +307,7 @@ class PersonBrowseView(BrowseView):
 
     def get_settingspanel(self):
         return hg.DIV(
-            layout.form.Form(
+            layout.forms.Form(
                 self._filterform(),
                 hg.DIV(
                     hg.DIV(
@@ -315,14 +315,14 @@ class PersonBrowseView(BrowseView):
                         hg.DIV(
                             hg.DIV(
                                 hg.DIV(
-                                    layout.form.FormField(
+                                    layout.forms.FormField(
                                         "naturalperson",
                                         elementattributes={
                                             "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
                                         },
                                     ),
                                     hg.DIV(
-                                        layout.form.FormField(
+                                        layout.forms.FormField(
                                             "naturalperson_subtypes",
                                             elementattributes={
                                                 "style": "padding-left: 1rem",
@@ -331,14 +331,14 @@ class PersonBrowseView(BrowseView):
                                         style="margin-top: -2rem",
                                     ),
                                 ),
-                                layout.form.FormField(
+                                layout.forms.FormField(
                                     "personassociation",
                                     elementattributes={
                                         "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
                                     },
                                 ),
                                 hg.DIV(
-                                    layout.form.FormField(
+                                    layout.forms.FormField(
                                         "personassociation_subtypes",
                                         elementattributes={
                                             "style": "padding-left: 1rem"
@@ -349,14 +349,14 @@ class PersonBrowseView(BrowseView):
                                 style="margin-right: 16px",
                             ),
                             hg.DIV(
-                                layout.form.FormField(
+                                layout.forms.FormField(
                                     "legalperson",
                                     elementattributes={
                                         "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
                                     },
                                 ),
                                 hg.DIV(
-                                    layout.form.FormField(
+                                    layout.forms.FormField(
                                         "legalperson_subtypes",
                                         elementattributes={
                                             "style": "padding-left: 1rem"
@@ -373,7 +373,7 @@ class PersonBrowseView(BrowseView):
                     hg.DIV(
                         hg.DIV(layout.helpers.Label(_("Tags"))),
                         hg.DIV(
-                            layout.form.FormField("tags"),
+                            layout.forms.FormField("tags"),
                             style="margin-right: 16px",
                         ),
                         style="border-right: #ccc solid 1px; margin: 0 16px 0 0; overflow-y: scroll",
@@ -381,17 +381,17 @@ class PersonBrowseView(BrowseView):
                     hg.DIV(
                         hg.DIV(layout.helpers.Label(_("Languages"))),
                         hg.DIV(
-                            layout.form.FormField("preferred_language"),
+                            layout.forms.FormField("preferred_language"),
                             style="margin-right: 16px",
                         ),
                         style="border-right: #ccc solid 1px; margin: 0 16px 0 0",
                     ),
                     hg.DIV(
                         hg.DIV(layout.helpers.Label(_("Status"))),
-                        hg.DIV(layout.form.FormField("status"), style="flex-grow: 0"),
+                        hg.DIV(layout.forms.FormField("status"), style="flex-grow: 0"),
                         hg.DIV(style="flex-grow: 1"),
                         hg.DIV(
-                            layout.form.FormField("trash"),
+                            layout.forms.FormField("trash"),
                             style="max-height: 2rem",
                         ),
                         style="display: flex; flex-direction: column",

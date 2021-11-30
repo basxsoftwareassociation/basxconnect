@@ -8,7 +8,7 @@ from basxconnect.core.models import RelationshipType, Term, Vocabulary
 
 R = layout.grid.Row
 C = layout.grid.Col
-F = layout.form.FormField
+F = layout.forms.FormField
 
 
 def relationshipssettings(request):
@@ -76,7 +76,7 @@ def personsettings(request):
 
 def single_item_fieldset(related_field, fieldname, queryset=None):
     """Helper function to show only a single item of a (foreign-key) related item list"""
-    return layout.form.FormsetField.as_plain(
+    return layout.forms.FormsetField.as_plain(
         related_field,
         F(fieldname),
         formsetinitial={"queryset": queryset},
