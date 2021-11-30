@@ -18,7 +18,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 from ... import models
 from ...layouts.editperson import legalperson, naturalperson, personassociation
-from ...layouts.editperson.common import contributions_tab
 from ...layouts.editperson.common.head import editperson_head
 from ...layouts.editperson.common.relationships_tab import relationshipstab
 
@@ -135,13 +134,19 @@ def editperson_tabs(base_data_tab, mailing_tab, request):
 
     from django.apps import apps
 
-    return [base_data_tab(request), relationshipstab(request), mailing_tab(request)] + (
-        [
-            contributions_tab.contributions_tab(request),
-        ]
-        if apps.is_installed("basxconnect.contributions")
-        else []
-    )
+    if apps.is_installed("basxconnect.contributions"):
+        from ...layouts.editperson.common import contributions_tab
+
+        return [
+            base_data_tab(request),
+            relationshipstab(request),
+            mailing_tab(request),
+        ] + (
+            [
+                contributions_tab.contributions_tab(request),
+            ]
+        )
+    return []
 
 
 @csrf_exempt
