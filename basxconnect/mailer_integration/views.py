@@ -196,7 +196,3 @@ class EditSubscriptionView(EditView):
             MailerPerson.from_mailing_preferences(self.object)
         )
         return result
-
-    def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in self.fields]
-        return hg.DIV(*form_fields)
