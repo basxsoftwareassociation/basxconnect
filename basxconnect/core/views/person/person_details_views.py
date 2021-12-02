@@ -204,7 +204,7 @@ def confirm_delete_email(request, pk: int):
         import_string(settings.DEFAULT_PAGE_LAYOUT)(
             menu.main,
             hg.FORM(
-                Form.wrap_with_form(
+                Form(
                     form,
                     hg.BaseElement(
                         hg.H3(_("Delete email %s") % email.email),
