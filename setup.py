@@ -27,8 +27,6 @@ setup(
     license="New BSD License",
     install_requires=[
         "basx-bread",
-        "django-phonenumber-field",
-        "phonenumbers",
         "django-formtools",
         "djangorestframework",
         "django-language-field",
