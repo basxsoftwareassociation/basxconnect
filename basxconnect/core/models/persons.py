@@ -8,6 +8,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from dynamic_preferences.registries import global_preferences_registry
 from languages.fields import LanguageField
 from simple_history.models import HistoricalRecords
 
@@ -293,7 +294,10 @@ class NaturalPerson(Person):
             self.name = self.first_name + " " + self.last_name
         if self.decease_date:
             self.deceased = True
-        self._type = self.type
+        self._type = (
+            self.type
+            or global_preferences_registry.manager()["persons__default_naturaltype"]
+        )
         self._maintype = "naturalperson"
         super().save(*args, **kwargs)
 
@@ -316,7 +320,10 @@ class LegalPerson(Person):
 
     def save(self, *args, **kwargs):
         self._maintype = "legalperson"
-        self._type = self.type
+        self._type = (
+            self.type
+            or global_preferences_registry.manager()["persons__default_legaltype"]
+        )
         super().save(*args, **kwargs)
 
     class Meta:
@@ -337,7 +344,10 @@ class PersonAssociation(Person):
 
     def save(self, *args, **kwargs):
         self._maintype = "personassociation"
-        self._type = self.type
+        self._type = (
+            self.type
+            or global_preferences_registry.manager()["persons__default_associationtype"]
+        )
         super().save(*args, **kwargs)
 
     class Meta:
