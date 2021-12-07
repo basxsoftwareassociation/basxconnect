@@ -127,7 +127,7 @@ def display_previous_execution(request):
                     )
                 ],
             ),
-            width=12,
+            width=16,
         )
     )
 
