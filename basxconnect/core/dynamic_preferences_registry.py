@@ -12,7 +12,7 @@ from dynamic_preferences.types import (
 from basxconnect.core.models import Term
 
 general = Section("general", _("General"))
-person_default_types = Section("persons", _("Persons"))
+persons = Section("persons", _("Persons"))
 
 
 @global_preferences_registry.register
@@ -46,7 +46,7 @@ class OrganizationName(StringPreference):
 
 @global_preferences_registry.register
 class DefaultTypeNaturalPerson(ModelChoicePreference):
-    section = person_default_types
+    section = persons
     name = "default_naturaltype"
     default = None
     queryset = Term.objects.filter(vocabulary__slug="naturaltype")
@@ -55,7 +55,7 @@ class DefaultTypeNaturalPerson(ModelChoicePreference):
 
 @global_preferences_registry.register
 class DefaultTypePersonAssociation(ModelChoicePreference):
-    section = person_default_types
+    section = persons
     name = "default_associationtype"
     default = None
     queryset = Term.objects.filter(vocabulary__slug="associationtype")
@@ -64,7 +64,7 @@ class DefaultTypePersonAssociation(ModelChoicePreference):
 
 @global_preferences_registry.register
 class DefaultTypeLegalPerson(ModelChoicePreference):
-    section = person_default_types
+    section = persons
     name = "default_legaltype"
     default = None
     queryset = Term.objects.filter(vocabulary__slug="legaltype")
