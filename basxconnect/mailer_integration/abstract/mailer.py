@@ -48,6 +48,10 @@ class MailingInterest(NamedTuple):
 
 class AbstractMailer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
+    def name(self) -> str:
+        pass
+
+    @abc.abstractmethod
     def get_persons(self) -> List[MailerPerson]:
         pass
 

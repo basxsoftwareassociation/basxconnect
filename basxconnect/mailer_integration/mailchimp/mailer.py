@@ -19,6 +19,9 @@ class Mailchimp(mailer.AbstractMailer):
             {"api_key": settings.MAILCHIMP_API_KEY, "server": settings.MAILCHIMP_SERVER}
         )
 
+    def name(self) -> str:
+        return "Mailchimp"
+
     def get_persons(self) -> List[MailerPerson]:
         segment = self.client.lists.get_segment_members_list(
             list_id=settings.MAILCHIMP_LIST_ID,

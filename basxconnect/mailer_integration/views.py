@@ -159,7 +159,7 @@ menu.registeritem(
             reverse_lazy(
                 "basxconnect.mailer_integration.views.mailer_synchronization_view"
             ),
-            _("External mailer"),
+            settings.MAILER.name(),
             iconname="email",
         ),
         tools_group,
