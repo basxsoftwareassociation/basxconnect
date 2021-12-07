@@ -46,7 +46,7 @@ class MailingInterest(NamedTuple):
     name: str
 
 
-class Datasource(metaclass=abc.ABCMeta):
+class AbstractMailer(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def get_persons(self) -> List[MailerPerson]:
         pass

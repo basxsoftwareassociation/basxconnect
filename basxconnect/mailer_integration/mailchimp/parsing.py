@@ -3,7 +3,7 @@ from typing import List
 
 from django.conf import settings
 
-from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
+from basxconnect.mailer_integration.abstract.mailer import MailerPerson
 
 logger = logging.getLogger(__name__)
 

@@ -13,8 +13,8 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.mailer_integration import settings
-from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
-from basxconnect.mailer_integration.mailchimp import datasource
+from basxconnect.mailer_integration.abstract.mailer import MailerPerson
+from basxconnect.mailer_integration.mailchimp import mailer
 from basxconnect.mailer_integration.models import (
     SynchronizationPerson,
     SynchronizationResult,
@@ -192,7 +192,7 @@ class EditSubscriptionView(EditView):
     def post(self, request, *args, **kwargs):
         result = super().post(request, *args, **kwargs)
         # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
-        datasource.MailchimpDatasource().put_person(
+        mailer.Mailchimp().put_person(
             MailerPerson.from_mailing_preferences(self.object)
         )
         return result
