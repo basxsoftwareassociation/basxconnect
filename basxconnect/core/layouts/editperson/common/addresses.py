@@ -1,13 +1,12 @@
 import django.db.models
 import htmlgenerator as hg
 from bread import layout
+from bread.layout import ObjectFieldValue
 from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.icon import Icon
 from bread.layout.components.modal import modal_with_trigger
 from bread.utils import Link, ModelHref, pretty_modelname, reverse_model
-from django.conf import settings
 from django.utils import timezone
-from django.utils.formats import localize
 from django.utils.translation import gettext_lazy as _
 from htmlgenerator import mark_safe
 
@@ -111,10 +110,11 @@ def edit_heading(model: type):
     return _("Edit %s") % pretty_modelname(model)
 
 
-def display_postal(postal: models.Postal):
+def display_postal():
+    postal = hg.C("i")
     modal = layout.modal.Modal.with_ajax_content(
         heading=edit_heading(models.Postal),
-        url=reverse_model(
+        url=ModelHref(
             models.Postal,
             "ajax_edit",
             kwargs={"pk": postal.pk},
@@ -122,25 +122,33 @@ def display_postal(postal: models.Postal):
         ),
         submitlabel=_("Save"),
     )
-    is_inactive = postal.valid_until and postal.valid_until < timezone.now().date()
+    is_inactive = hg.F(
+        lambda c: c["i"].valid_until and c["i"].valid_until < timezone.now().date()
+    )
     return R(
         C(
             hg.DIV(
                 postal.type,
-                hg.BaseElement(" (", _("primary"), ")")
-                if postal.person.primary_postal_address
-                and postal.person.primary_postal_address.pk == postal.pk
-                else "",
+                hg.If(
+                    hg.F(
+                        lambda c: c["i"].person.primary_postal_address
+                        and c["i"].person.primary_postal_address.pk == c["i"].pk
+                    ),
+                    hg.BaseElement(" (", _("primary"), ")"),
+                ),
                 style="font-weight: bold; margin-bottom: 1rem;",
             ),
-            hg.DIV(postal.address, style="margin-bottom: 0.25rem;"),
+            hg.DIV(
+                ObjectFieldValue("address", object_contextname="i"),
+                style="margin-bottom: 0.25rem;",
+            ),
             hg.DIV(postal.postcode, " ", postal.city, style="margin-bottom: 0.25rem;"),
             hg.DIV(postal.get_country_display()),
             hg.If(
                 postal.valid_from,
                 hg.DIV(
                     hg.SPAN(_("Valid from: "), style="font-weight: bold;"),
-                    localize(postal.valid_from, use_l10n=settings.USE_L10N),
+                    ObjectFieldValue("valid_from", object_contextname="i"),
                     " ",
                     style="display: inline-block; margin-top: 1rem; margin-right: 1rem;",
                 ),
@@ -150,7 +158,7 @@ def display_postal(postal: models.Postal):
                 postal.valid_until,
                 hg.DIV(
                     hg.SPAN(_("Valid until: "), style="font-weight: bold;"),
-                    localize(postal.valid_until, use_l10n=settings.USE_L10N),
+                    ObjectFieldValue("valid_until", object_contextname="i"),
                     style="display: inline-block; margin-top: 1rem;",
                 ),
                 hg.BaseElement(),
@@ -159,13 +167,11 @@ def display_postal(postal: models.Postal):
                 edit_postal_button(modal),
             ),
         ),
-        **(
-            {
-                "_class": "inactive_postal",
-                "style": "display: none; margin-top: 1.5rem; color: #a8a8a8;",
-            }
-            if is_inactive
-            else {"style": "margin-top: 1.5rem;"}
+        _class=hg.If(is_inactive, "inactive_postal", ""),
+        style=hg.If(
+            is_inactive,
+            "display: none; margin-top: 1.5rem; color: #a8a8a8;",
+            "margin-top: 1.5rem;",
         ),
     )
 
@@ -218,9 +224,7 @@ def postals():
                         else []
                     ),
                     "i",
-                    hg.BaseElement(
-                        hg.F(lambda c: display_postal(c["i"])),
-                    ),
+                    display_postal(),
                 )
             )
         ),
