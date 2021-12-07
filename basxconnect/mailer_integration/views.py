@@ -111,10 +111,6 @@ def display_previous_execution(request):
                         _("Newly added to BasxConnect"),
                         display_sync_persons(SynchronizationPerson.NEW),
                     ),
-                    DataTableColumn(
-                        _("Synchronized previously but not this time"),
-                        display_sync_persons(SynchronizationPerson.PREVIOUSLY_SYNCED),
-                    ),
                 ],
                 title=_("Previous Executions"),
                 primary_button="",
