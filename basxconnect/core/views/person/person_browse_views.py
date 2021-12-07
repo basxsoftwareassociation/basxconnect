@@ -307,123 +307,126 @@ class PersonBrowseView(BrowseView):
 
     def get_settingspanel(self):
         return hg.DIV(
-            layout.forms.Form(
-                self._filterform(),
-                hg.DIV(
+            hg.WithContext(
+                layout.forms.Form(
+                    hg.C("form"),
                     hg.DIV(
-                        hg.DIV(layout.helpers.Label(_("Person Type"))),
                         hg.DIV(
+                            hg.DIV(layout.helpers.Label(_("Person Type"))),
                             hg.DIV(
                                 hg.DIV(
+                                    hg.DIV(
+                                        layout.forms.FormField(
+                                            "naturalperson",
+                                            elementattributes={
+                                                "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
+                                            },
+                                        ),
+                                        hg.DIV(
+                                            layout.forms.FormField(
+                                                "naturalperson_subtypes",
+                                                elementattributes={
+                                                    "style": "padding-left: 1rem",
+                                                },
+                                            ),
+                                            style="margin-top: -2rem",
+                                        ),
+                                    ),
                                     layout.forms.FormField(
-                                        "naturalperson",
+                                        "personassociation",
                                         elementattributes={
                                             "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
                                         },
                                     ),
                                     hg.DIV(
                                         layout.forms.FormField(
-                                            "naturalperson_subtypes",
+                                            "personassociation_subtypes",
                                             elementattributes={
-                                                "style": "padding-left: 1rem",
+                                                "style": "padding-left: 1rem"
                                             },
                                         ),
                                         style="margin-top: -2rem",
                                     ),
-                                ),
-                                layout.forms.FormField(
-                                    "personassociation",
-                                    elementattributes={
-                                        "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
-                                    },
+                                    style="margin-right: 16px",
                                 ),
                                 hg.DIV(
                                     layout.forms.FormField(
-                                        "personassociation_subtypes",
+                                        "legalperson",
                                         elementattributes={
-                                            "style": "padding-left: 1rem"
+                                            "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
                                         },
                                     ),
-                                    style="margin-top: -2rem",
+                                    hg.DIV(
+                                        layout.forms.FormField(
+                                            "legalperson_subtypes",
+                                            elementattributes={
+                                                "style": "padding-left: 1rem"
+                                            },
+                                        ),
+                                        style="margin-top: -2rem",
+                                    ),
+                                    style="margin-right: 16px",
                                 ),
-                                style="margin-right: 16px",
+                                style="display: flex",
                             ),
+                            style="border-right: #ccc solid 1px; margin: 0 16px 0 0",
+                        ),
+                        hg.DIV(
+                            hg.DIV(layout.helpers.Label(_("Tags"))),
                             hg.DIV(
-                                layout.forms.FormField(
-                                    "legalperson",
-                                    elementattributes={
-                                        "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
-                                    },
-                                ),
-                                hg.DIV(
-                                    layout.forms.FormField(
-                                        "legalperson_subtypes",
-                                        elementattributes={
-                                            "style": "padding-left: 1rem"
-                                        },
-                                    ),
-                                    style="margin-top: -2rem",
-                                ),
+                                layout.forms.FormField("tags"),
                                 style="margin-right: 16px",
                             ),
-                            style="display: flex",
+                            style="border-right: #ccc solid 1px; margin: 0 16px 0 0; overflow-y: scroll",
                         ),
-                        style="border-right: #ccc solid 1px; margin: 0 16px 0 0",
+                        hg.DIV(
+                            hg.DIV(layout.helpers.Label(_("Languages"))),
+                            hg.DIV(
+                                layout.forms.FormField("preferred_language"),
+                                style="margin-right: 16px",
+                            ),
+                            style="border-right: #ccc solid 1px; margin: 0 16px 0 0",
+                        ),
+                        hg.DIV(
+                            hg.DIV(layout.helpers.Label(_("Status"))),
+                            hg.DIV(
+                                layout.forms.FormField("status"), style="flex-grow: 0"
+                            ),
+                            hg.DIV(style="flex-grow: 1"),
+                            hg.DIV(
+                                layout.forms.FormField("trash"),
+                                style="max-height: 2rem",
+                            ),
+                            style="display: flex; flex-direction: column",
+                        ),
+                        style="display: flex; max-height: 50vh; padding: 24px 32px 0 32px",
                     ),
                     hg.DIV(
-                        hg.DIV(layout.helpers.Label(_("Tags"))),
-                        hg.DIV(
-                            layout.forms.FormField("tags"),
-                            style="margin-right: 16px",
+                        layout.button.Button(
+                            _("Cancel"),
+                            buttontype="ghost",
+                            onclick="this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
                         ),
-                        style="border-right: #ccc solid 1px; margin: 0 16px 0 0; overflow-y: scroll",
-                    ),
-                    hg.DIV(
-                        hg.DIV(layout.helpers.Label(_("Languages"))),
-                        hg.DIV(
-                            layout.forms.FormField("preferred_language"),
-                            style="margin-right: 16px",
+                        layout.button.Button.fromlink(
+                            Link(
+                                label=_("Reset"),
+                                href=self.request.path + "?reset=1",
+                                iconname=None,
+                            ),
+                            buttontype="secondary",
                         ),
-                        style="border-right: #ccc solid 1px; margin: 0 16px 0 0",
-                    ),
-                    hg.DIV(
-                        hg.DIV(layout.helpers.Label(_("Status"))),
-                        hg.DIV(layout.forms.FormField("status"), style="flex-grow: 0"),
-                        hg.DIV(style="flex-grow: 1"),
-                        hg.DIV(
-                            layout.forms.FormField("trash"),
-                            style="max-height: 2rem",
+                        layout.button.Button(
+                            pgettext_lazy("apply filter", "Filter"),
+                            type="submit",
                         ),
-                        style="display: flex; flex-direction: column",
+                        style="display: flex; justify-content: flex-end; margin-top: 24px",
+                        _class="bx--modal-footer",
                     ),
-                    style="display: flex; max-height: 50vh; padding: 24px 32px 0 32px",
+                    method="GET",
                 ),
-                hg.DIV(
-                    layout.button.Button(
-                        _("Cancel"),
-                        buttontype="ghost",
-                        onclick="this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
-                    ),
-                    layout.button.Button.fromlink(
-                        Link(
-                            label=_("Reset"),
-                            href=self.request.path + "?reset=1",
-                            iconname=None,
-                        ),
-                        buttontype="secondary",
-                    ),
-                    layout.button.Button(
-                        pgettext_lazy("apply filter", "Filter"),
-                        type="submit",
-                    ),
-                    style="display: flex; justify-content: flex-end; margin-top: 24px",
-                    _class="bx--modal-footer",
-                ),
-                method="GET",
-            ),
-            hg.SCRIPT(
-                mark_safe(
-                    """
+                hg.SCRIPT(
+                    mark_safe(
+                        """
                     function updateCheckboxGroupItems(group) {
                         var items = $$('input[type=checkbox]', group);
                         var value = items[0].getAttribute('aria-checked');
@@ -443,9 +446,11 @@ class PersonBrowseView(BrowseView):
                         $('#%s').closest('div[role=button]').style.display = count === 0 ? "none" : "flex";
                     }
                     """
-                    % (self.checkboxcounterid, self.checkboxcounterid)
-                )
-            ),
-            style="background-color: #fff",
-            onclick="updateCheckboxCounter(this)",
+                        % (self.checkboxcounterid, self.checkboxcounterid)
+                    )
+                ),
+                style="background-color: #fff",
+                onclick="updateCheckboxCounter(this)",
+                form=self._filterform(),
+            )
         )
