@@ -1,3 +1,3 @@
-from basxconnect.mailer_integration.mailchimp.datasource import MailchimpDatasource
+from basxconnect.mailer_integration.mailchimp.mailer import Mailchimp
 
-MAILER = MailchimpDatasource()
+MAILER = Mailchimp()
