@@ -325,22 +325,24 @@ class PersonBrowseView(BrowseView):
                                         style="margin-top: -2rem",
                                     ),
                                 ),
-                                layout.form.FormField(
-                                    "personassociation",
-                                    elementattributes={
-                                        "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
-                                    },
-                                ),
                                 hg.DIV(
                                     layout.form.FormField(
-                                        "personassociation_subtypes",
+                                        "personassociation",
                                         elementattributes={
-                                            "style": "padding-left: 1rem"
+                                            "onclick": "updateCheckboxGroupItems(this.parentElement.parentElement)"
                                         },
                                     ),
-                                    style="margin-top: -2rem",
+                                    hg.DIV(
+                                        layout.form.FormField(
+                                            "personassociation_subtypes",
+                                            elementattributes={
+                                                "style": "padding-left: 1rem"
+                                            },
+                                        ),
+                                        style="margin-top: -2rem",
+                                    ),
+                                    style="margin-right: 16px",
                                 ),
-                                style="margin-right: 16px",
                             ),
                             hg.DIV(
                                 layout.form.FormField(

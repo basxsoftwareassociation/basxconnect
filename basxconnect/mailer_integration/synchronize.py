@@ -2,10 +2,7 @@ import django_countries
 from django.utils import timezone
 
 from basxconnect.core import models
-from basxconnect.mailer_integration.abstract.abstract_datasource import (
-    Datasource,
-    MailerPerson,
-)
+from basxconnect.mailer_integration.abstract.mailer import AbstractMailer, MailerPerson
 from basxconnect.mailer_integration.models import (
     Interest,
     Subscription,
@@ -14,11 +11,11 @@ from basxconnect.mailer_integration.models import (
 )
 
 
-def synchronize(datasource: Datasource) -> SynchronizationResult:
-    synchronize_interests(datasource)
+def synchronize(mailer: AbstractMailer) -> SynchronizationResult:
+    synchronize_interests(mailer)
 
-    mailer_persons = datasource.get_persons()
-    datasource_tag = _get_or_create_tag(datasource.tag())
+    mailer_persons = mailer.get_persons()
+    datasource_tag = _get_or_create_tag(mailer.tag())
     sync_result = SynchronizationResult.objects.create()
     for mailer_person in mailer_persons:
         matching_email_addresses = list(
