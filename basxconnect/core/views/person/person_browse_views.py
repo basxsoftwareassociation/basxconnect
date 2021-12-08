@@ -100,7 +100,25 @@ class PersonBrowseView(BrowseView):
         DataTableColumn(
             layout.ObjectFieldLabel("name", models.Person),
             hg.DIV(
-                hg.C("row.name"),
+                hg.If(
+                    hg.F(lambda context: type(context["row"]) == models.NaturalPerson),
+                    hg.C("row.name"),
+                    "",
+                ),
+                # hg.C("row.name"),
+                style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
+            ),
+            "name",
+        ),
+        DataTableColumn(
+            layout.ObjectFieldLabel("name", models.Person),
+            hg.DIV(
+                hg.If(
+                    hg.F(lambda context: type(context["row"]) == models.NaturalPerson),
+                    hg.C("row.last_name"),
+                    hg.C("row.name"),
+                ),
+                # hg.C("row.name"),
                 style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
             ),
             "name",
