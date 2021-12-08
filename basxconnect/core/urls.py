@@ -11,6 +11,7 @@ from basxconnect.core.views.person import (
 )
 
 from . import models
+from .views.relationship_views import AddRelationshipView, EditRelationshipView
 from .wizards.add_person import AddPersonWizard
 
 urlpatterns = [
@@ -107,7 +108,11 @@ urlpatterns = [
             ),
         ),
     ),
-    *default_model_paths(models.Relationship),
+    *default_model_paths(
+        models.Relationship,
+        editview=EditRelationshipView,
+        addview=AddRelationshipView,
+    ),
     *default_model_paths(models.RelationshipType),
     *default_model_paths(models.Term),
     *default_model_paths(models.Vocabulary),
