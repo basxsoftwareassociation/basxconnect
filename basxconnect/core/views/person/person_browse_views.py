@@ -53,7 +53,7 @@ def export(request, queryset):
 
             columns.append(
                 DataTableColumn(
-                    layout.ObjectFieldLabel(models.Person, "tags"),
+                    layout.ObjectFieldLabel("tags", models.Person),
                     hg.F(render_matching_tags),
                 )
             )
@@ -68,14 +68,14 @@ def export(request, queryset):
     columns.insert(
         name_field + 1,
         DataTableColumn(
-            layout.ObjectFieldLabel(models.NaturalPerson, "last_name"),
+            layout.ObjectFieldLabel("last_name", models.NaturalPerson),
             get_from_concret_object("last_name"),
         ),
     )
     columns.insert(
         name_field + 1,
         DataTableColumn(
-            layout.ObjectFieldLabel(models.NaturalPerson, "first_name"),
+            layout.ObjectFieldLabel("first_name", models.NaturalPerson),
             get_from_concret_object("first_name"),
         ),
     )
