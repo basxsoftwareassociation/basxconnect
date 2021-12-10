@@ -24,6 +24,8 @@ def preferred_languages_choices(field, request, instance):
 
 
 class PersonManager(InheritanceManager):
+    use_in_migrations = True
+
     def get_queryset(self):
         return super().get_queryset().select_subclasses()
 
@@ -50,6 +52,11 @@ class Person(models.Model):
     )
     personnumber.sorting_name = "personnumber__int"
     name = models.CharField(_("Display name"), max_length=255, blank=True)
+    # this one is to solve a problem when sorting names from
+    # naturalperson and other types of person
+    default_sorting_name = models.CharField(
+        _("Default Sorting Name"), max_length=255, blank=True
+    )
     active = models.BooleanField(_("Active"), default=True)
     salutation_letter = models.CharField(
         _("Salutation Letter"),
@@ -166,6 +173,7 @@ class Person(models.Model):
                 )
             ):
                 self.primary_postal_address = active_postals[0]
+
         else:
             self.primary_postal_address = None
         if hasattr(self, "core_email_list"):
@@ -181,6 +189,8 @@ class Person(models.Model):
         if self.personnumber.startswith("__placeholder__"):
             self.personnumber = str(self.pk)
             super().save(update_fields=["personnumber"])
+
+        self.default_sorting_name = self.name
 
         # this signal needs to be sent manually in order to trigger the search-index update
         # Django does only send a signal for the child-model but our search-index only observes
@@ -292,6 +302,7 @@ class NaturalPerson(Person):
     def save(self, *args, **kwargs):
         if self.autogenerate_displayname:
             self.name = self.first_name + " " + self.last_name
+        self.default_sorting_name = self.last_name
         if self.decease_date:
             self.deceased = True
         self._type = (
