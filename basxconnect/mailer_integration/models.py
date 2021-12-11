@@ -1,10 +1,8 @@
+from bread.contrib.languages.fields import LanguageField
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from languages.fields import LanguageField
 
 from basxconnect.core.models import Email
-
-LanguageField.db_collation = None  # fix issue with LanguageField in django 3.2
 
 
 class Interest(models.Model):
@@ -45,9 +43,7 @@ class Subscription(models.Model):
     interests = models.ManyToManyField(Interest, blank=True)
     interests.verbose_name = _("Mailing Interests")
 
-    language = LanguageField(
-        _("Language"), blank=True, max_length=8
-    )  # mitigate up-stream bug
+    language = LanguageField(_("Language"), blank=True)
     language.lazy_choices = languages_choices
 
     latest_sync = models.ForeignKey(
