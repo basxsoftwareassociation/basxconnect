@@ -97,7 +97,7 @@ class PersonBrowseView(BrowseView):
                 hg.If(
                     hg.F(lambda context: type(context["row"]) == models.NaturalPerson),
                     hg.C("row.last_name"),
-                    hg.C("row.default_sorting_name"),
+                    hg.C("row.name"),
                 ),
                 style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
             ),
@@ -109,7 +109,7 @@ class PersonBrowseView(BrowseView):
                 hg.If(
                     hg.F(lambda context: type(context["row"]) == models.NaturalPerson),
                     hg.C("row.first_name"),
-                    "-",
+                    "",
                 ),
                 style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
             ),
