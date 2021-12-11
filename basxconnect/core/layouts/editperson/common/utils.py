@@ -91,7 +91,7 @@ def open_modal_popup_button(heading, model, action):
             modal_with_trigger(
                 create_modal(heading, model, action),
                 layout.button.Button,
-                "Edit",
+                _("Edit"),
                 buttontype="tertiary",
                 icon="edit",
             ),

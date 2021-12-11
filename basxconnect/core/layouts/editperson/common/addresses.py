@@ -253,7 +253,7 @@ def postals():
                 modal_with_trigger(
                     modal_add_postal(),
                     layout.button.Button,
-                    "Add",
+                    _("Add"),
                     buttontype="ghost",
                     icon="add",
                 ),
