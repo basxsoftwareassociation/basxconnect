@@ -92,7 +92,6 @@ class PersonBrowseView(BrowseView):
             layout.ObjectFieldLabel("_type", models.Person), hg.C("row._type"), "_type"
         ),
         DataTableColumn(
-            # layout.ObjectFieldLabel("name", models.Person),
             _("Name"),
             hg.DIV(
                 hg.If(
