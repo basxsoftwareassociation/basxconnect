@@ -31,7 +31,6 @@ setup(
         "phonenumbers",
         "django-formtools",
         "djangorestframework",
-        "django-language-field",
         "chardet",
         "tablib",
     ],
