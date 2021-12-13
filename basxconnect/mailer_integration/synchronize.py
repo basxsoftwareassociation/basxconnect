@@ -19,17 +19,17 @@ def synchronize(mailer: AbstractMailer) -> SynchronizationResult:
     person_count = mailer.get_person_count()
     sync_result = SynchronizationResult.objects.create()
     sync_result.total_synchronized_persons = person_count
-    page_size = 1000
-    for page_number in range(int(math.ceil(person_count / page_size))):
-        synchronize_page(page_number, page_size, mailer, sync_result)
+    batch_size = 1000
+    for batch_number in range(int(math.ceil(person_count / batch_size))):
+        synchronize_batch(batch_size, batch_number * batch_size, mailer, sync_result)
     sync_result.sync_completed_datetime = timezone.now()
     sync_result.save()
 
     return sync_result
 
 
-def synchronize_page(page_number, page_size, mailer, sync_result):
-    mailer_persons = mailer.get_persons(page_size, page_number * page_size)
+def synchronize_batch(count, offset, mailer, sync_result):
+    mailer_persons = mailer.get_persons(count, offset)
     datasource_tag = _get_or_create_tag(mailer.tag())
     for mailer_person in mailer_persons:
         matching_email_addresses = list(
