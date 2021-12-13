@@ -1,5 +1,3 @@
-import math
-
 import django_countries
 from django.utils import timezone
 
@@ -20,7 +18,7 @@ def synchronize(mailer: AbstractMailer) -> SynchronizationResult:
     sync_result = SynchronizationResult.objects.create()
     sync_result.total_synchronized_persons = person_count
     batch_size = 1000
-    for batch_number in range(int(math.ceil(person_count / batch_size))):
+    for batch_number in range(((person_count - 1) // batch_size) + 1):
         synchronize_batch(batch_size, batch_number * batch_size, mailer, sync_result)
     sync_result.sync_completed_datetime = timezone.now()
     sync_result.save()
