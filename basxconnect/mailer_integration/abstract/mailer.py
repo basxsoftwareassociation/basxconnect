@@ -52,7 +52,15 @@ class AbstractMailer(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def get_persons(self) -> List[MailerPerson]:
+    def get_person_count(self) -> int:
+        pass
+
+    @abc.abstractmethod
+    def get_persons(
+        self,
+        count: int,
+        offset: int,
+    ) -> List[MailerPerson]:
         pass
 
     @abc.abstractmethod

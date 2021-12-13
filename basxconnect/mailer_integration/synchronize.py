@@ -1,3 +1,5 @@
+import math
+
 import django_countries
 from django.utils import timezone
 
@@ -14,9 +16,21 @@ from basxconnect.mailer_integration.models import (
 def synchronize(mailer: AbstractMailer) -> SynchronizationResult:
     synchronize_interests(mailer)
 
-    mailer_persons = mailer.get_persons()
-    datasource_tag = _get_or_create_tag(mailer.tag())
+    person_count = mailer.get_person_count()
     sync_result = SynchronizationResult.objects.create()
+    sync_result.total_synchronized_persons = person_count
+    page_size = 1000
+    for page_number in range(int(math.ceil(person_count / page_size))):
+        synchronize_page(page_number, page_size, mailer, sync_result)
+    sync_result.sync_completed_datetime = timezone.now()
+    sync_result.save()
+
+    return sync_result
+
+
+def synchronize_page(page_number, page_size, mailer, sync_result):
+    mailer_persons = mailer.get_persons(page_size, page_number * page_size)
+    datasource_tag = _get_or_create_tag(mailer.tag())
     for mailer_person in mailer_persons:
         matching_email_addresses = list(
             models.Email.objects.filter(
@@ -39,11 +53,6 @@ def synchronize(mailer: AbstractMailer) -> SynchronizationResult:
             # address, without creating a new person in the database
             for email in matching_email_addresses:
                 _save_subscription(email, mailer_person, sync_result)
-    sync_result.total_synchronized_persons = len(mailer_persons)
-    sync_result.sync_completed_datetime = timezone.now()
-    sync_result.save()
-
-    return sync_result
 
 
 def synchronize_interests(datasource):
