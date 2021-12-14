@@ -202,10 +202,15 @@ class EditEmailAddressView(EditView):
             is_primary = django.forms.BooleanField(
                 label=_("Use as primary email address"), required=False
             )
-            propagate_change_to_mailer = django.forms.BooleanField(
-                label=_("Propagate change of email address to external mailer"),
-                required=False,
-            )
+            propagate_change_to_mailer = django.forms.BooleanField(required=False)
+
+            if apps.is_installed("basxconnect.mailer_integration"):
+                import basxconnect.mailer_integration.settings as mailer_integration_settings
+
+                propagate_change_to_mailer.label = (
+                    _("Propagate change of email address to %s")
+                    % mailer_integration_settings.MAILER.name()
+                )
 
         return EditEmailForm
 
@@ -222,7 +227,7 @@ class EditEmailAddressView(EditView):
             hg.If(
                 hg.F(
                     lambda c: apps.is_installed("basxconnect.mailer_integration")
-                    and hasattr(c["object"], "subscriptions")
+                    and hasattr(c["object"], "subscription")
                 ),
                 layout.form.FormField("propagate_change_to_mailer"),
                 "",

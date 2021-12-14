@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from dynamic_preferences.registries import global_preferences_registry
 from formtools.wizard.views import NamedUrlSessionWizardView
 
 from ..models import LegalPerson, NaturalPerson, Person, PersonAssociation, Postal, Term
@@ -170,6 +171,9 @@ class ChooseSubType(forms.Form):
             self.fields["subtype"].queryset = Term.objects.filter(
                 vocabulary__slug=subtype_vocabulary
             )
+            self.fields["subtype"].initial = global_preferences_registry.manager()[
+                f"persons__default_{subtype_vocabulary}"
+            ]
 
     title = _("Choose person type")
     _layout = layout.forms.FormField("subtype")
