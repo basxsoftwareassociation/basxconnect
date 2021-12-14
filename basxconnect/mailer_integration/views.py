@@ -13,8 +13,8 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.mailer_integration import settings
-from basxconnect.mailer_integration.abstract.abstract_datasource import MailerPerson
-from basxconnect.mailer_integration.mailchimp import datasource
+from basxconnect.mailer_integration.abstract.mailer import MailerPerson
+from basxconnect.mailer_integration.mailchimp import mailer
 from basxconnect.mailer_integration.models import (
     SynchronizationPerson,
     SynchronizationResult,
@@ -111,10 +111,6 @@ def display_previous_execution(request):
                         _("Newly added to BasxConnect"),
                         display_sync_persons(SynchronizationPerson.NEW),
                     ),
-                    DataTableColumn(
-                        _("Synchronized previously but not this time"),
-                        display_sync_persons(SynchronizationPerson.PREVIOUSLY_SYNCED),
-                    ),
                 ],
                 title=_("Previous Executions"),
                 primary_button="",
@@ -131,7 +127,7 @@ def display_previous_execution(request):
                     )
                 ],
             ),
-            width=12,
+            width=16,
         )
     )
 
@@ -159,7 +155,7 @@ menu.registeritem(
             reverse_lazy(
                 "basxconnect.mailer_integration.views.mailer_synchronization_view"
             ),
-            _("External mailer"),
+            settings.MAILER.name(),
             iconname="email",
         ),
         tools_group,
@@ -192,7 +188,7 @@ class EditSubscriptionView(EditView):
     def post(self, request, *args, **kwargs):
         result = super().post(request, *args, **kwargs)
         # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
-        datasource.MailchimpDatasource().put_person(
+        mailer.Mailchimp().put_person(
             MailerPerson.from_mailing_preferences(self.object)
         )
         return result

@@ -2,18 +2,17 @@ import datetime
 import random
 
 from bread import layout
+from bread.contrib.languages.fields import LanguageField
 from bread.utils import get_concrete_instance, pretty_modelname
 from bread.utils.inheritancemanager import InheritanceManager
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from languages.fields import LanguageField
+from dynamic_preferences.registries import global_preferences_registry
 from simple_history.models import HistoricalRecords
 
 from .utils import Note, Term
-
-LanguageField.db_collation = None  # fix issue with LanguageField in django 3.2
 
 
 def preferred_languages_choices(field, request, instance):
@@ -55,9 +54,7 @@ class Person(models.Model):
         max_length=255,
         blank=True,
     )
-    preferred_language = LanguageField(
-        _("Preferred Language"), blank=True, max_length=8
-    )  # mitigate up-stream bug
+    preferred_language = LanguageField(_("Preferred Language"), blank=True)
     preferred_language.lazy_choices = preferred_languages_choices
 
     tags = models.ManyToManyField(
@@ -293,7 +290,10 @@ class NaturalPerson(Person):
             self.name = self.first_name + " " + self.last_name
         if self.decease_date:
             self.deceased = True
-        self._type = self.type
+        self._type = (
+            self.type
+            or global_preferences_registry.manager()["persons__default_naturaltype"]
+        )
         self._maintype = "naturalperson"
         super().save(*args, **kwargs)
 
@@ -316,7 +316,10 @@ class LegalPerson(Person):
 
     def save(self, *args, **kwargs):
         self._maintype = "legalperson"
-        self._type = self.type
+        self._type = (
+            self.type
+            or global_preferences_registry.manager()["persons__default_legaltype"]
+        )
         super().save(*args, **kwargs)
 
     class Meta:
@@ -337,7 +340,10 @@ class PersonAssociation(Person):
 
     def save(self, *args, **kwargs):
         self._maintype = "personassociation"
-        self._type = self.type
+        self._type = (
+            self.type
+            or global_preferences_registry.manager()["persons__default_associationtype"]
+        )
         super().save(*args, **kwargs)
 
     class Meta:

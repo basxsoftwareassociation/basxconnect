@@ -1,5 +1,5 @@
+from bread.contrib.languages.languages import LANGUAGES
 from django.conf import settings
-from languages.languages import LANGUAGES
 
 DEFAULTS = {"PREFERRED_LANGUAGES": ("en",)}
 

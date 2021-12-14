@@ -29,7 +29,6 @@ setup(
         "basx-bread",
         "django-formtools",
         "djangorestframework",
-        "django-language-field",
         "chardet",
         "tablib",
     ],

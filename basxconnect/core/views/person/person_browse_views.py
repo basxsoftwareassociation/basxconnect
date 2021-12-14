@@ -14,7 +14,6 @@ from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 
-import basxconnect.core.layouts.editperson.common.base_data
 from basxconnect.core import models, settings
 
 
@@ -39,24 +38,19 @@ def export(request, queryset):
     if form.is_valid():
 
         # only the tags selected in the filter should be visible in the export
+        tags = models.Term.objects.all()
         if form.cleaned_data.get("tags"):
-            tags = set(form.cleaned_data.get("tags"))
+            tags = form.cleaned_data.get("tags")
 
-            def render_matching_tags(context):
-                return ", ".join(
-                    str(i)
-                    for i in tags
-                    & set(
-                        basxconnect.core.layouts.editperson.common.base_data.tags.all()
-                    )
-                )
+        def render_matching_tags(context):
+            return ", ".join(str(i) for i in set(tags) & set(context["row"].tags.all()))
 
-            columns.append(
-                DataTableColumn(
-                    layout.ObjectFieldLabel(models.Person, "tags"),
-                    hg.F(render_matching_tags),
-                )
+        columns.append(
+            DataTableColumn(
+                layout.ObjectFieldLabel("tags", models.Person),
+                hg.F(render_matching_tags),
             )
+        )
         if form.cleaned_data.get("preferred_language"):
             columns.append("preferred_language")
 
@@ -68,14 +62,14 @@ def export(request, queryset):
     columns.insert(
         name_field + 1,
         DataTableColumn(
-            layout.ObjectFieldLabel(models.NaturalPerson, "last_name"),
+            layout.ObjectFieldLabel("last_name", models.NaturalPerson),
             get_from_concret_object("last_name"),
         ),
     )
     columns.insert(
         name_field + 1,
         DataTableColumn(
-            layout.ObjectFieldLabel(models.NaturalPerson, "first_name"),
+            layout.ObjectFieldLabel("first_name", models.NaturalPerson),
             get_from_concret_object("first_name"),
         ),
     )
