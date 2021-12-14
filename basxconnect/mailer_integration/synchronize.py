@@ -14,9 +14,24 @@ from basxconnect.mailer_integration.models import (
 def synchronize(mailer: AbstractMailer) -> SynchronizationResult:
     synchronize_interests(mailer)
 
-    mailer_persons = mailer.get_persons()
-    datasource_tag = _get_or_create_tag(mailer.tag())
+    person_count = mailer.get_person_count()
     sync_result = SynchronizationResult.objects.create()
+    sync_result.total_synchronized_persons = person_count
+    batch_size = 1000
+    for batch_number in range(((person_count - 1) // batch_size) + 1):
+        synchronize_batch(batch_size, batch_number * batch_size, mailer, sync_result)
+    sync_result.sync_completed_datetime = timezone.now()
+    sync_result.save()
+
+    # delete all subscriptions which were not synchronized
+    Subscription.objects.exclude(latest_sync=sync_result).delete()
+
+    return sync_result
+
+
+def synchronize_batch(count, offset, mailer, sync_result):
+    mailer_persons = mailer.get_persons(count, offset)
+    datasource_tag = _get_or_create_tag(mailer.tag())
     for mailer_person in mailer_persons:
         matching_email_addresses = list(
             models.Email.objects.filter(
@@ -39,11 +54,6 @@ def synchronize(mailer: AbstractMailer) -> SynchronizationResult:
             # address, without creating a new person in the database
             for email in matching_email_addresses:
                 _save_subscription(email, mailer_person, sync_result)
-    sync_result.total_synchronized_persons = len(mailer_persons)
-    sync_result.sync_completed_datetime = timezone.now()
-    sync_result.save()
-
-    return sync_result
 
 
 def synchronize_interests(datasource):

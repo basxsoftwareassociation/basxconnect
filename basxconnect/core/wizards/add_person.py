@@ -10,9 +10,18 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from dynamic_preferences.registries import global_preferences_registry
 from formtools.wizard.views import NamedUrlSessionWizardView
 
-from ..models import LegalPerson, NaturalPerson, Person, PersonAssociation, Postal, Term
+from ..models import (
+    Email,
+    LegalPerson,
+    NaturalPerson,
+    Person,
+    PersonAssociation,
+    Postal,
+    Term,
+)
 
 ADD_FORM_LAYOUTS = {
     NaturalPerson: hg.BaseElement(
@@ -42,6 +51,18 @@ ADD_ADDRESS_LAYOUT = layout.grid.Grid(
         layout.grid.Col(layout.form.FormField("city")),
     ),
     layout.grid.Row(layout.grid.Col(layout.form.FormField("country"))),
+    gutter=False,
+)
+ADD_EMAIL_LAYOUT = layout.grid.Grid(
+    layout.grid.Row(
+        layout.grid.Col(_("Email"), style="font-weight: 700; margin-bottom: 2rem")
+    ),
+    layout.grid.Row(
+        layout.grid.Col(
+            layout.form.FormField("email", elementattributes={"required": False})
+        ),
+        layout.grid.Col(layout.form.FormField("type")),
+    ),
     gutter=False,
 )
 
@@ -170,6 +191,9 @@ class ChooseSubType(forms.Form):
             self.fields["subtype"].queryset = Term.objects.filter(
                 vocabulary__slug=subtype_vocabulary
             )
+            self.fields["subtype"].initial = global_preferences_registry.manager()[
+                f"persons__default_{subtype_vocabulary}"
+            ]
 
     title = _("Choose person type")
     _layout = layout.form.FormField("subtype")
@@ -195,8 +219,14 @@ def generate_add_form_for(model, request, data, files, initial=None):
     form = breadmodelform_factory(
         request=request, model=model, layout=ADD_FORM_LAYOUTS[model]
     )(data, files, initial=initial)
+
     for fieldname, field in breadmodelform_factory(
         request, Postal, ADD_ADDRESS_LAYOUT
+    )().fields.items():
+        form.fields[fieldname] = field
+
+    for fieldname, field in breadmodelform_factory(
+        request, Email, ADD_EMAIL_LAYOUT
     )().fields.items():
         form.fields[fieldname] = field
 
@@ -204,7 +234,13 @@ def generate_add_form_for(model, request, data, files, initial=None):
         layout.grid.Grid(
             ADD_FORM_LAYOUTS[model].copy(), style="margin-bottom: 2rem", gutter=False
         ),
-        ADD_ADDRESS_LAYOUT.copy(),
+        layout.grid.Grid(
+            layout.grid.Row(
+                layout.grid.Col(ADD_ADDRESS_LAYOUT.copy()),
+                layout.grid.Col(ADD_EMAIL_LAYOUT.copy()),
+            ),
+            gutter=False,
+        ),
     )
     form._layout = formlayout
     return form
@@ -328,18 +364,25 @@ class AddPersonWizard(PermissionRequiredMixin, BreadView, NamedUrlSessionWizardV
         return form
 
     def done(self, form_list, **kwargs):
+        personform = list(form_list)[-1]
         # in case the new person had a subtype set, we need to set the attribute here
         subtype = (self.get_cleaned_data_for_step("Subtype") or {}).get("subtype")
         if subtype:
-            list(form_list)[-1].instance.type = subtype
-        newperson = list(form_list)[-1].save()
+            personform.instance.type = subtype
+        newperson = personform.save()
         newperson.core_postal_list.create(
             **{
                 k: v
-                for k, v in list(form_list)[-1].cleaned_data.items()
+                for k, v in personform.cleaned_data.items()
                 if k in ("address", "city", "postcode", "country")
             }
         )
+        if "email" in personform.cleaned_data:
+            newperson.core_email_list.create(
+                email=personform.cleaned_data["email"],
+                type=personform.cleaned_data["type"],
+            )
+
         newperson.save()
         return redirect(
             reverse_model(
