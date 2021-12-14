@@ -9,7 +9,7 @@ from basxconnect.core.views.person import search_person_view
 
 
 def search_select_person(person: str):
-    return layout.form.FormField(
+    return layout.forms.FormField(
         person,
         fieldtype=layout.search_select.SearchSelect,
         hidelabel=False,
@@ -27,11 +27,11 @@ def search_select_person(person: str):
 
 
 formfields = [
-    layout.form.FormField("type"),
+    layout.forms.FormField("type"),
     search_select_person("person_a"),
     search_select_person("person_b"),
-    layout.form.FormField("start_date"),
-    layout.form.FormField("end_date"),
+    layout.forms.FormField("start_date"),
+    layout.forms.FormField("end_date"),
 ]
 
 
@@ -43,7 +43,7 @@ class EditRelationshipView(EditView):
             hg.H3(_("Edit Relationship")),
             layout.grid.Row(
                 layout.grid.Col(
-                    layout.form.Form.wrap_with_form(
+                    layout.forms.Form.wrap_with_form(
                         hg.C("form"),
                         hg.DIV(*formfields),
                     ),
@@ -65,7 +65,7 @@ class AddRelationshipView(AddView):
                 hg.H3(_("Add Relationship")),
                 layout.grid.Row(
                     layout.grid.Col(
-                        layout.form.Form.wrap_with_form(
+                        layout.forms.Form.wrap_with_form(
                             hg.C("form"),
                             hg.DIV(*formfields),
                         ),

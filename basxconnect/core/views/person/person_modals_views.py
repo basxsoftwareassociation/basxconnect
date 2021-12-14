@@ -215,13 +215,13 @@ class EditEmailAddressView(EditView):
         return EditEmailForm
 
     def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in [*self.fields]] + [
+        form_fields = [layout.forms.FormField(field) for field in [*self.fields]] + [
             hg.If(
                 hg.F(
                     lambda c: c["object"].person.primary_email_address
                     and c["object"].person.primary_email_address.pk != c["object"].pk
                 ),
-                layout.form.FormField("is_primary"),
+                layout.forms.FormField("is_primary"),
                 "",
             ),
             hg.If(
@@ -229,7 +229,7 @@ class EditEmailAddressView(EditView):
                     lambda c: apps.is_installed("basxconnect.mailer_integration")
                     and hasattr(c["object"], "subscription")
                 ),
-                layout.form.FormField("propagate_change_to_mailer"),
+                layout.forms.FormField("propagate_change_to_mailer"),
                 "",
             ),
         ]

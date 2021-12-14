@@ -210,7 +210,7 @@ def confirm_delete_email(request, pk: int):
                         hg.H3(_("Delete email %s") % email.email),
                         hg.If(
                             enable_delete_mailer_contact_checkbox,
-                            bread.layout.form.FormField("delete_mailer_contact"),
+                            bread.layout.forms.FormField("delete_mailer_contact"),
                             hg.BaseElement(),
                         ),
                     ),
