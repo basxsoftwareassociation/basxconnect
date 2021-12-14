@@ -22,11 +22,18 @@ class Mailchimp(mailer.AbstractMailer):
     def name(self) -> str:
         return "Mailchimp"
 
-    def get_persons(self) -> List[MailerPerson]:
+    def get_person_count(self) -> int:
+        return self.client.lists.get_segment(
+            list_id=settings.MAILCHIMP_LIST_ID,
+            segment_id=settings.MAILCHIMP_SEGMENT_ID,
+        )["member_count"]
+
+    def get_persons(self, count: int, offset: int) -> List[MailerPerson]:
         segment = self.client.lists.get_segment_members_list(
             list_id=settings.MAILCHIMP_LIST_ID,
             segment_id=settings.MAILCHIMP_SEGMENT_ID,
-            count=getattr(settings, "MAILCHIMP_MAX_SYNC_COUNT", 1000),
+            count=count,
+            offset=offset,
             include_cleaned=True,
             include_transactional=True,
             include_unsubscribed=True,
