@@ -104,12 +104,12 @@ def display_previous_execution(request):
                     "total_synchronized_persons",
                     "sync_completed_datetime",
                     DataTableColumn(
-                        _("In mailer segment but not added to BasxConnect"),
-                        display_sync_persons(SynchronizationPerson.SKIPPED),
-                    ),
-                    DataTableColumn(
                         _("Newly added to BasxConnect"),
                         display_sync_persons(SynchronizationPerson.NEW),
+                    ),
+                    DataTableColumn(
+                        _("In mailer segment but not added to BasxConnect"),
+                        display_sync_persons(SynchronizationPerson.SKIPPED),
                     ),
                 ],
                 title=_("Previous Executions"),
