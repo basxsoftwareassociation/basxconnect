@@ -23,6 +23,9 @@ def synchronize(mailer: AbstractMailer) -> SynchronizationResult:
     sync_result.sync_completed_datetime = timezone.now()
     sync_result.save()
 
+    # delete all subscriptions which were not synchronized
+    Subscription.objects.exclude(latest_sync=sync_result).delete()
+
     return sync_result
 
 
