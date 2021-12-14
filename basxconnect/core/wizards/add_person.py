@@ -360,22 +360,23 @@ class AddPersonWizard(PermissionRequiredMixin, BreadView, NamedUrlSessionWizardV
         return form
 
     def done(self, form_list, **kwargs):
+        personform = list(form_list)[-1]
         # in case the new person had a subtype set, we need to set the attribute here
         subtype = (self.get_cleaned_data_for_step("Subtype") or {}).get("subtype")
         if subtype:
-            list(form_list)[-1].instance.type = subtype
-        newperson = list(form_list)[-1].save()
+            personform.instance.type = subtype
+        newperson = personform.save()
         newperson.core_postal_list.create(
             **{
                 k: v
-                for k, v in list(form_list)[-1].cleaned_data.items()
+                for k, v in personform.cleaned_data.items()
                 if k in ("address", "city", "postcode", "country")
             }
         )
-        if "email" in list(form_list)[-1].cleaned_data:
+        if "email" in personform.cleaned_data:
             newperson.core_email_list.create(
-                email=list(form_list)[-1].cleaned_data["email"],
-                type=list(form_list)[-1].cleaned_data["type"],
+                email=personform.cleaned_data["email"],
+                type=personform.cleaned_data["type"],
             )
 
         newperson.save()
