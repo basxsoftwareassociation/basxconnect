@@ -113,6 +113,7 @@ class PersonBrowseView(BrowseView):
                 ),
                 style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
             ),
+            "naturalperson__first_name",
         ),
         "primary_postal_address.address",
         "primary_postal_address.postcode",
@@ -251,13 +252,10 @@ class PersonBrowseView(BrowseView):
 
     def get_queryset(self):
         form = self._filterform()
+        qs = super().get_queryset()
         if form.is_valid():
             ret = (
-                (
-                    super()
-                    .get_queryset()
-                    .filter(deleted=form.cleaned_data.get("trash", False))
-                )
+                (qs.filter(deleted=form.cleaned_data.get("trash", False)))
                 .select_related(
                     "primary_email_address", "primary_postal_address", "_type"
                 )
@@ -312,7 +310,8 @@ class PersonBrowseView(BrowseView):
             ):
                 ret = ret.filter(active=form.cleaned_data.get("status")[0] == "active")
 
-        return ret
+            return ret
+        return qs
 
     def get_settingspanel(self):
         return hg.DIV(
