@@ -58,13 +58,8 @@ def export(request, queryset):
         return hg.F(lambda c: getattr(get_concrete_instance(c["row"]), field, ""))
 
     # insert last_name and first_name
-    name_field = [getattr(i, "sortingname", i) for i in columns].index("name")
-    columns.insert(
-        name_field + 1,
-        DataTableColumn(
-            layout.ObjectFieldLabel("last_name", models.NaturalPerson),
-            get_from_concret_object("last_name"),
-        ),
+    name_field = [getattr(i, "sortingname", i) for i in columns].index(
+        "default_sorting_name"
     )
     columns.insert(
         name_field + 1,
