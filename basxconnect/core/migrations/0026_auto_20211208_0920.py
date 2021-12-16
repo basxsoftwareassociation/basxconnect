@@ -6,33 +6,43 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0025_alter_term_slug'),
+        ("core", "0025_alter_term_slug"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='historicallegalperson',
-            name='default_sorting_name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Default Sorting Name'),
+            model_name="historicallegalperson",
+            name="default_sorting_name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Default Sorting Name"
+            ),
         ),
         migrations.AddField(
-            model_name='historicalnaturalperson',
-            name='default_sorting_name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Default Sorting Name'),
+            model_name="historicalnaturalperson",
+            name="default_sorting_name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Default Sorting Name"
+            ),
         ),
         migrations.AddField(
-            model_name='historicalperson',
-            name='default_sorting_name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Default Sorting Name'),
+            model_name="historicalperson",
+            name="default_sorting_name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Default Sorting Name"
+            ),
         ),
         migrations.AddField(
-            model_name='historicalpersonassociation',
-            name='default_sorting_name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Default Sorting Name'),
+            model_name="historicalpersonassociation",
+            name="default_sorting_name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Default Sorting Name"
+            ),
         ),
         migrations.AddField(
-            model_name='person',
-            name='default_sorting_name',
-            field=models.CharField(blank=True, max_length=255, verbose_name='Default Sorting Name'),
+            model_name="person",
+            name="default_sorting_name",
+            field=models.CharField(
+                blank=True, max_length=255, verbose_name="Default Sorting Name"
+            ),
         ),
     ]
