@@ -23,4 +23,6 @@ class Migration(migrations.Migration):
         ("core", "0027_auto_20211211_0140"),
     ]
 
-    operations = [migrations.RunPython(init_default_sorting_name)]
+    operations = [
+        migrations.RunPython(init_default_sorting_name, migrations.RunPython.noop)
+    ]
