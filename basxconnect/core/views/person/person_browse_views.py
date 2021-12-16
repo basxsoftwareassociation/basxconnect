@@ -58,13 +58,8 @@ def export(request, queryset):
         return hg.F(lambda c: getattr(get_concrete_instance(c["row"]), field, ""))
 
     # insert last_name and first_name
-    name_field = [getattr(i, "sortingname", i) for i in columns].index("name")
-    columns.insert(
-        name_field + 1,
-        DataTableColumn(
-            layout.ObjectFieldLabel("last_name", models.NaturalPerson),
-            get_from_concret_object("last_name"),
-        ),
+    name_field = [getattr(i, "sortingname", i) for i in columns].index(
+        "default_sorting_name"
     )
     columns.insert(
         name_field + 1,
@@ -92,12 +87,28 @@ class PersonBrowseView(BrowseView):
             layout.ObjectFieldLabel("_type", models.Person), hg.C("row._type"), "_type"
         ),
         DataTableColumn(
-            layout.ObjectFieldLabel("name", models.Person),
+            _("Name"),
             hg.DIV(
-                hg.C("row.name"),
+                hg.If(
+                    hg.F(lambda context: type(context["row"]) == models.NaturalPerson),
+                    hg.C("row.last_name"),
+                    hg.C("row.name"),
+                ),
                 style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
             ),
-            "name",
+            "default_sorting_name",
+        ),
+        DataTableColumn(
+            layout.ObjectFieldLabel("first_name", models.NaturalPerson),
+            hg.DIV(
+                hg.If(
+                    hg.F(lambda context: type(context["row"]) == models.NaturalPerson),
+                    hg.C("row.first_name"),
+                    "",
+                ),
+                style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
+            ),
+            "naturalperson__first_name",
         ),
         "primary_postal_address.address",
         "primary_postal_address.postcode",
@@ -239,13 +250,10 @@ class PersonBrowseView(BrowseView):
 
     def get_queryset(self):
         form = self._filterform()
+        qs = super().get_queryset()
         if form.is_valid():
             ret = (
-                (
-                    super()
-                    .get_queryset()
-                    .filter(deleted=form.cleaned_data.get("trash", False))
-                )
+                (qs.filter(deleted=form.cleaned_data.get("trash", False)))
                 .select_related(
                     "primary_email_address", "primary_postal_address", "_type"
                 )
@@ -300,7 +308,8 @@ class PersonBrowseView(BrowseView):
             ):
                 ret = ret.filter(active=form.cleaned_data.get("status")[0] == "active")
 
-        return ret
+            return ret
+        return qs
 
     def get_settingspanel(self):
         return hg.DIV(

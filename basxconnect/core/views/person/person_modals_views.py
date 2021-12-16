@@ -191,6 +191,9 @@ class EditEmailAddressView(EditView):
             from basxconnect.mailer_integration import settings
 
             settings.MAILER.change_email_address(self.old_email, new_email)
+        else:
+            if hasattr(self.object, "subscription") and new_email != self.old_email:
+                self.object.subscription.delete()
         return ret
 
     def post(self, request, *args, **kwargs):
