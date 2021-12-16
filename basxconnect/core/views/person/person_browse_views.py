@@ -92,12 +92,27 @@ class PersonBrowseView(BrowseView):
             layout.ObjectFieldLabel("_type", models.Person), hg.C("row._type"), "_type"
         ),
         DataTableColumn(
-            layout.ObjectFieldLabel("name", models.Person),
+            _("Name"),
             hg.DIV(
-                hg.C("row.name"),
+                hg.If(
+                    hg.F(lambda context: type(context["row"]) == models.NaturalPerson),
+                    hg.C("row.last_name"),
+                    hg.C("row.name"),
+                ),
                 style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
             ),
-            "name",
+            "default_sorting_name",
+        ),
+        DataTableColumn(
+            layout.ObjectFieldLabel("first_name", models.NaturalPerson),
+            hg.DIV(
+                hg.If(
+                    hg.F(lambda context: type(context["row"]) == models.NaturalPerson),
+                    hg.C("row.first_name"),
+                    "",
+                ),
+                style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
+            ),
         ),
         "primary_postal_address.address",
         "primary_postal_address.postcode",
