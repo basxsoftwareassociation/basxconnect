@@ -22,8 +22,6 @@ def preferred_languages_choices(field, request, instance):
 
 
 class PersonManager(InheritanceManager):
-    use_in_migrations = True
-
     def get_queryset(self):
         return super().get_queryset().select_subclasses()
 
