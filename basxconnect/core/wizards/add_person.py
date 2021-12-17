@@ -59,9 +59,9 @@ ADD_EMAIL_LAYOUT = layout.grid.Grid(
     ),
     layout.grid.Row(
         layout.grid.Col(
-            layout.form.FormField("email", elementattributes={"required": False})
+            layout.forms.FormField("email", elementattributes={"required": False})
         ),
-        layout.grid.Col(layout.form.FormField("type")),
+        layout.grid.Col(layout.forms.FormField("type")),
     ),
     gutter=False,
 )
