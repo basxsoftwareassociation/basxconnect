@@ -72,6 +72,10 @@ class AbstractMailer(metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
+    def email_exists(self, email: str) -> bool:
+        pass
+
+    @abc.abstractmethod
     def change_email_address(self, old_email: str, new_email: str):
         pass
 
