@@ -25,24 +25,21 @@ def generalsettings(request):
             preferences=["general__organizationname"]
         )()
 
-    return hg.WithContext(
-        layout.grid.Grid(
-            R(C(hg.H3(_("Settings")))),
-            R(C(hg.H4(_("General")))),
-            R(C(hg.H5(_("Information about our organization")))),
-            R(
-                C(
-                    layout.forms.Form(
-                        form,
-                        hg.BaseElement(F("general__organizationname")),
-                        layout.forms.helpers.Submit(),
-                        style="max-width: 480px",
-                    )
+    return layout.grid.Grid(
+        R(C(hg.H3(_("Settings")))),
+        R(C(hg.H4(_("General")))),
+        R(C(hg.H5(_("Information about our organization")))),
+        R(
+            C(
+                layout.forms.Form(
+                    form,
+                    hg.BaseElement(F("general__organizationname")),
+                    layout.forms.helpers.Submit(),
+                    style="max-width: 480px",
                 )
-            ),
-            gutter=False,
+            )
         ),
-        form=form,
+        gutter=False,
     )
 
 
