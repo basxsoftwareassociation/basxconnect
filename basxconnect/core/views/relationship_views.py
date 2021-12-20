@@ -11,18 +11,15 @@ from basxconnect.core.views.person import search_person_view
 def search_select_person(person: str):
     return layout.forms.FormField(
         person,
-        fieldtype=layout.search_select.SearchSelect,
-        hidelabel=False,
-        elementattributes={
-            "backend": layout.search.SearchBackendConfig(
-                reverse_lazy(
-                    "basxconnect.core.views.person.search_person_view.searchperson"
-                ),
-                result_selector=f".{search_person_view.ITEM_CLASS}",
-                result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
-                result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
+        widgetclass=layout.search_select.SearchSelect,
+        backend=layout.search.SearchBackendConfig(
+            reverse_lazy(
+                "basxconnect.core.views.person.search_person_view.searchperson"
             ),
-        },
+            result_selector=f".{search_person_view.ITEM_CLASS}",
+            result_label_selector=f".{search_person_view.ITEM_LABEL_CLASS}",
+            result_value_selector=f".{search_person_view.ITEM_VALUE_CLASS}",
+        ),
     )
 
 
@@ -59,7 +56,7 @@ class AddRelationshipView(AddView):
 
     def get_layout(self):
         if self.ajax_urlparameter in self.request.GET:
-            return hg.BaseElement(*formfields)
+            return layout.forms.Form(hg.C("form"), hg.BaseElement(*formfields))
         else:
             return layout.grid.Grid(
                 hg.H3(_("Add Relationship")),
