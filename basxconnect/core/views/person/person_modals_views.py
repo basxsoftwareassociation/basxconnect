@@ -175,24 +175,27 @@ class EditEmailAddressView(EditView):
     fields = ["type", "email"]
 
     def form_valid(self, form, *args, **kwargs):
-        new_email = form.cleaned_data["email"]
-        propagate_change_to_mailer = (
-            form.cleaned_data["propagate_change_to_mailer"]
-            and hasattr(self, "old_email")
-            and new_email != self.old_email
-        )
 
         ret = super().form_valid(form, *args, **kwargs)
         is_primary = form.cleaned_data["is_primary"]
         if is_primary:
             self.object.person.primary_email_address = self.object
         self.object.person.save()
-        if propagate_change_to_mailer:
+
+        if apps.is_installed("basxconnect.mailer_integration"):
             from basxconnect.mailer_integration import settings
 
-            settings.MAILER.change_email_address(self.old_email, new_email)
-        else:
-            if hasattr(self.object, "subscription") and new_email != self.old_email:
+            new_email = form.cleaned_data["email"]
+            propagate_change_to_mailer = (
+                form.cleaned_data["propagate_change_to_mailer"]
+                and new_email != self.old_email
+                and settings.MAILER.email_exists(self.old_email)
+                and not settings.MAILER.email_exists(new_email)
+            )
+            if propagate_change_to_mailer:
+                settings.MAILER.change_email_address(self.old_email, new_email)
+            elif new_email != self.old_email and hasattr(self.object, "subscription"):
+                # if an email-change is not being pushed to the mailer, the subscription is likely to be outdated
                 self.object.subscription.delete()
         return ret
 
