@@ -188,7 +188,6 @@ class EditEmailAddressView(EditView):
             new_email = form.cleaned_data["email"]
             propagate_change_to_mailer = (
                 form.cleaned_data["propagate_change_to_mailer"]
-                and hasattr(self, "old_email")
                 and new_email != self.old_email
                 and settings.MAILER.email_exists(self.old_email)
                 and not settings.MAILER.email_exists(new_email)
