@@ -47,7 +47,6 @@ class Person(models.Model):
         max_length=255,
         unique=True,
         default=random_personid,
-        editable=False,
     )
     personnumber.sorting_name = "personnumber__int"
     name = models.CharField(_("Display name"), max_length=255, blank=True)
@@ -56,7 +55,7 @@ class Person(models.Model):
     default_sorting_name = models.CharField(
         _("Default Sorting Name"), max_length=255, blank=True, editable=False
     )
-    active = models.BooleanField(_("Active"), default=True)
+    active = models.BooleanField(_("Active"), default=True, editable=False)
     salutation_letter = models.CharField(
         _("Salutation Letter"),
         max_length=255,
