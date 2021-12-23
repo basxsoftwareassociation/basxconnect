@@ -6,83 +6,128 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0026_auto_20211216_0946'),
+        ("core", "0026_auto_20211216_0946"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='historicallegalperson',
-            name='active',
-            field=models.BooleanField(default=True, editable=False, verbose_name='Active'),
+            model_name="historicallegalperson",
+            name="active",
+            field=models.BooleanField(
+                default=True, editable=False, verbose_name="Active"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicallegalperson',
-            name='default_sorting_name',
-            field=models.CharField(blank=True, editable=False, max_length=255, verbose_name='Default Sorting Name'),
+            model_name="historicallegalperson",
+            name="default_sorting_name",
+            field=models.CharField(
+                blank=True,
+                editable=False,
+                max_length=255,
+                verbose_name="Default Sorting Name",
+            ),
         ),
         migrations.AlterField(
-            model_name='historicallegalperson',
-            name='deleted',
-            field=models.BooleanField(blank=True, default=False, editable=False, verbose_name='Deleted'),
+            model_name="historicallegalperson",
+            name="deleted",
+            field=models.BooleanField(
+                blank=True, default=False, editable=False, verbose_name="Deleted"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalnaturalperson',
-            name='active',
-            field=models.BooleanField(default=True, editable=False, verbose_name='Active'),
+            model_name="historicalnaturalperson",
+            name="active",
+            field=models.BooleanField(
+                default=True, editable=False, verbose_name="Active"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalnaturalperson',
-            name='default_sorting_name',
-            field=models.CharField(blank=True, editable=False, max_length=255, verbose_name='Default Sorting Name'),
+            model_name="historicalnaturalperson",
+            name="default_sorting_name",
+            field=models.CharField(
+                blank=True,
+                editable=False,
+                max_length=255,
+                verbose_name="Default Sorting Name",
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalnaturalperson',
-            name='deleted',
-            field=models.BooleanField(blank=True, default=False, editable=False, verbose_name='Deleted'),
+            model_name="historicalnaturalperson",
+            name="deleted",
+            field=models.BooleanField(
+                blank=True, default=False, editable=False, verbose_name="Deleted"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalperson',
-            name='active',
-            field=models.BooleanField(default=True, editable=False, verbose_name='Active'),
+            model_name="historicalperson",
+            name="active",
+            field=models.BooleanField(
+                default=True, editable=False, verbose_name="Active"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalperson',
-            name='default_sorting_name',
-            field=models.CharField(blank=True, editable=False, max_length=255, verbose_name='Default Sorting Name'),
+            model_name="historicalperson",
+            name="default_sorting_name",
+            field=models.CharField(
+                blank=True,
+                editable=False,
+                max_length=255,
+                verbose_name="Default Sorting Name",
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalperson',
-            name='deleted',
-            field=models.BooleanField(blank=True, default=False, editable=False, verbose_name='Deleted'),
+            model_name="historicalperson",
+            name="deleted",
+            field=models.BooleanField(
+                blank=True, default=False, editable=False, verbose_name="Deleted"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalpersonassociation',
-            name='active',
-            field=models.BooleanField(default=True, editable=False, verbose_name='Active'),
+            model_name="historicalpersonassociation",
+            name="active",
+            field=models.BooleanField(
+                default=True, editable=False, verbose_name="Active"
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalpersonassociation',
-            name='default_sorting_name',
-            field=models.CharField(blank=True, editable=False, max_length=255, verbose_name='Default Sorting Name'),
+            model_name="historicalpersonassociation",
+            name="default_sorting_name",
+            field=models.CharField(
+                blank=True,
+                editable=False,
+                max_length=255,
+                verbose_name="Default Sorting Name",
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalpersonassociation',
-            name='deleted',
-            field=models.BooleanField(blank=True, default=False, editable=False, verbose_name='Deleted'),
+            model_name="historicalpersonassociation",
+            name="deleted",
+            field=models.BooleanField(
+                blank=True, default=False, editable=False, verbose_name="Deleted"
+            ),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='active',
-            field=models.BooleanField(default=True, editable=False, verbose_name='Active'),
+            model_name="person",
+            name="active",
+            field=models.BooleanField(
+                default=True, editable=False, verbose_name="Active"
+            ),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='default_sorting_name',
-            field=models.CharField(blank=True, editable=False, max_length=255, verbose_name='Default Sorting Name'),
+            model_name="person",
+            name="default_sorting_name",
+            field=models.CharField(
+                blank=True,
+                editable=False,
+                max_length=255,
+                verbose_name="Default Sorting Name",
+            ),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='deleted',
-            field=models.BooleanField(blank=True, default=False, editable=False, verbose_name='Deleted'),
+            model_name="person",
+            name="deleted",
+            field=models.BooleanField(
+                blank=True, default=False, editable=False, verbose_name="Deleted"
+            ),
         ),
     ]
