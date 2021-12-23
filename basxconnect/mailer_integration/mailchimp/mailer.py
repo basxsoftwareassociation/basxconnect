@@ -3,6 +3,7 @@ from typing import List
 
 import mailchimp_marketing
 from django.conf import settings
+from mailchimp_marketing.api_client import ApiClientError
 
 from basxconnect.mailer_integration.abstract import mailer
 from basxconnect.mailer_integration.abstract.mailer import MailerPerson, MailingInterest
@@ -85,6 +86,17 @@ class Mailchimp(mailer.AbstractMailer):
 
     def add_person(self, person: MailerPerson):
         self.put_person(person, status=person.status)
+
+    def email_exists(self, email: str) -> bool:
+        try:
+            self.client.lists.get_list_member(
+                settings.MAILCHIMP_LIST_ID, compute_email_hash(email)
+            )
+        except ApiClientError as e:
+            if e.status_code == 404:
+                return False
+            raise e
+        return True
 
     def change_email_address(self, old_email: str, new_email: str):
         self.client.lists.update_list_member(
