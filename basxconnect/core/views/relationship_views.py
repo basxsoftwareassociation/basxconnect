@@ -40,7 +40,7 @@ class EditRelationshipView(EditView):
             hg.H3(_("Edit Relationship")),
             layout.grid.Row(
                 layout.grid.Col(
-                    layout.forms.Form.wrap_with_form(
+                    layout.forms.Form(
                         hg.C("form"),
                         hg.DIV(*formfields),
                     ),
@@ -62,7 +62,7 @@ class AddRelationshipView(AddView):
                 hg.H3(_("Add Relationship")),
                 layout.grid.Row(
                     layout.grid.Col(
-                        layout.forms.Form.wrap_with_form(
+                        layout.forms.Form(
                             hg.C("form"),
                             hg.DIV(*formfields),
                         ),
