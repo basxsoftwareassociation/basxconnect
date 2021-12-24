@@ -39,7 +39,9 @@ def random_personid():
 
 
 class Person(models.Model):
-    deleted = models.BooleanField(_("Deleted"), blank=True, default=False)
+    deleted = models.BooleanField(
+        _("Deleted"), blank=True, default=False, editable=False
+    )
     personnumber = models.CharField(
         _("Person number"),
         max_length=255,
@@ -51,9 +53,9 @@ class Person(models.Model):
     # this one is to solve a problem when sorting names from
     # naturalperson and other types of person
     default_sorting_name = models.CharField(
-        _("Default Sorting Name"), max_length=255, blank=True
+        _("Default Sorting Name"), max_length=255, blank=True, editable=False
     )
-    active = models.BooleanField(_("Active"), default=True)
+    active = models.BooleanField(_("Active"), default=True, editable=False)
     salutation_letter = models.CharField(
         _("Salutation Letter"),
         max_length=255,
