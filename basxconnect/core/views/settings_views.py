@@ -8,7 +8,7 @@ import basxconnect.core.layouts.settings_layout as settings_layout
 
 R = layout.grid.Row
 C = layout.grid.Col
-F = layout.form.FormField
+F = layout.forms.FormField
 
 
 @aslayout
@@ -25,25 +25,21 @@ def generalsettings(request):
             preferences=["general__organizationname"]
         )()
 
-    return hg.WithContext(
-        layout.grid.Grid(
-            R(C(hg.H3(_("Settings")))),
-            R(C(hg.H4(_("General")))),
-            R(C(hg.H5(_("Information about our organization")))),
-            R(
-                C(
-                    layout.form.Form.wrap_with_form(
-                        form,
-                        hg.BaseElement(
-                            layout.form.FormField("general__organizationname")
-                        ),
-                        style="max-width: 480px",
-                    )
+    return layout.grid.Grid(
+        R(C(hg.H3(_("Settings")))),
+        R(C(hg.H4(_("General")))),
+        R(C(hg.H5(_("Information about our organization")))),
+        R(
+            C(
+                layout.forms.Form(
+                    form,
+                    hg.BaseElement(F("general__organizationname")),
+                    layout.forms.helpers.Submit(),
+                    style="max-width: 480px",
                 )
-            ),
-            gutter=False,
+            )
         ),
-        form=form,
+        gutter=False,
     )
 
 

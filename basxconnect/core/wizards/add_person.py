@@ -24,47 +24,53 @@ from ..models import (
 )
 
 ADD_FORM_LAYOUTS = {
-    NaturalPerson: hg.BaseElement(
+    NaturalPerson: lambda: hg.BaseElement(
         layout.grid.Row(
-            layout.grid.Col(layout.form.FormField("first_name")),
-            layout.grid.Col(layout.form.FormField("last_name")),
+            layout.grid.Col(layout.forms.FormField("first_name")),
+            layout.grid.Col(layout.forms.FormField("last_name")),
         ),
         layout.grid.Row(
-            layout.grid.Col(layout.form.FormField("salutation")),
-            layout.grid.Col(layout.form.FormField("gender")),
+            layout.grid.Col(layout.forms.FormField("salutation")),
+            layout.grid.Col(layout.forms.FormField("gender")),
         ),
     ),
-    LegalPerson: hg.DIV(
-        layout.form.FormField("name"), layout.form.FormField("name_addition")
+    LegalPerson: lambda: hg.DIV(
+        layout.forms.FormField("name"), layout.forms.FormField("name_addition")
     ),
-    PersonAssociation: hg.DIV(layout.form.FormField("name")),
+    PersonAssociation: hg.DIV(layout.forms.FormField("name")),
 }
-ADD_ADDRESS_LAYOUT = layout.grid.Grid(
-    layout.grid.Row(
-        layout.grid.Col(_("Address"), style="font-weight: 700; margin-bottom: 2rem")
-    ),
-    layout.grid.Row(layout.grid.Col(layout.form.FormField("address"))),
-    layout.grid.Row(
-        layout.grid.Col(
-            layout.form.FormField("postcode"),
+
+
+def ADD_ADDRESS_LAYOUT():
+    return layout.grid.Grid(
+        layout.grid.Row(
+            layout.grid.Col(_("Address"), style="font-weight: 700; margin-bottom: 2rem")
         ),
-        layout.grid.Col(layout.form.FormField("city")),
-    ),
-    layout.grid.Row(layout.grid.Col(layout.form.FormField("country"))),
-    gutter=False,
-)
-ADD_EMAIL_LAYOUT = layout.grid.Grid(
-    layout.grid.Row(
-        layout.grid.Col(_("Email"), style="font-weight: 700; margin-bottom: 2rem")
-    ),
-    layout.grid.Row(
-        layout.grid.Col(
-            layout.form.FormField("email", elementattributes={"required": False})
+        layout.grid.Row(layout.grid.Col(layout.forms.FormField("address"))),
+        layout.grid.Row(
+            layout.grid.Col(
+                layout.forms.FormField("postcode"),
+            ),
+            layout.grid.Col(layout.forms.FormField("city")),
         ),
-        layout.grid.Col(layout.form.FormField("type")),
-    ),
-    gutter=False,
-)
+        layout.grid.Row(layout.grid.Col(layout.forms.FormField("country"))),
+        gutter=False,
+    )
+
+
+def ADD_EMAIL_LAYOUT():
+    return layout.grid.Grid(
+        layout.grid.Row(
+            layout.grid.Col(_("Email"), style="font-weight: 700; margin-bottom: 2rem")
+        ),
+        layout.grid.Row(
+            layout.grid.Col(
+                layout.forms.FormField("email", elementattributes={"required": False})
+            ),
+            layout.grid.Col(layout.forms.FormField("type")),
+        ),
+        gutter=False,
+    )
 
 
 def generate_wizard_form(formlayout):
@@ -76,11 +82,11 @@ def generate_wizard_form(formlayout):
         )
         return f"document.location='{url}'"
 
-    return layout.form.Form(
+    return layout.forms.Form(
         hg.C("wizard.form"),
-        layout.form.Form(
+        layout.forms.Form(
             hg.C("wizard.management_form"),
-            layout.form.FormField("current_step"),
+            layout.forms.FormField("current_step"),
             standalone=False,
         ),
         formlayout,
@@ -167,7 +173,7 @@ class ChooseType(forms.Form):
             _("Please choose what type of person you want to add:"),
             style="margin-bottom: 2rem",
         ),
-        layout.form.FormField("persontype"),
+        layout.forms.FormField("persontype"),
     )
 
 
@@ -196,7 +202,7 @@ class ChooseSubType(forms.Form):
             ]
 
     title = _("Choose person type")
-    _layout = layout.form.FormField("subtype")
+    _layout = layout.forms.FormField("subtype")
 
 
 class AddPersonInformation(forms.Form):
@@ -217,27 +223,27 @@ class ConfirmNewPerson(forms.Form):
 
 def generate_add_form_for(model, request, data, files, initial=None):
     form = breadmodelform_factory(
-        request=request, model=model, layout=ADD_FORM_LAYOUTS[model]
+        request=request, model=model, layout=ADD_FORM_LAYOUTS[model]()
     )(data, files, initial=initial)
 
     for fieldname, field in breadmodelform_factory(
-        request, Postal, ADD_ADDRESS_LAYOUT
+        request, Postal, ADD_ADDRESS_LAYOUT()
     )().fields.items():
         form.fields[fieldname] = field
 
     for fieldname, field in breadmodelform_factory(
-        request, Email, ADD_EMAIL_LAYOUT
+        request, Email, ADD_EMAIL_LAYOUT()
     )().fields.items():
         form.fields[fieldname] = field
 
     formlayout = hg.BaseElement(
         layout.grid.Grid(
-            ADD_FORM_LAYOUTS[model].copy(), style="margin-bottom: 2rem", gutter=False
+            ADD_FORM_LAYOUTS[model](), style="margin-bottom: 2rem", gutter=False
         ),
         layout.grid.Grid(
             layout.grid.Row(
-                layout.grid.Col(ADD_ADDRESS_LAYOUT.copy()),
-                layout.grid.Col(ADD_EMAIL_LAYOUT.copy()),
+                layout.grid.Col(ADD_ADDRESS_LAYOUT()),
+                layout.grid.Col(ADD_EMAIL_LAYOUT()),
             ),
             gutter=False,
         ),

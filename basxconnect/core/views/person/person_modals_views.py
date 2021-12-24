@@ -64,7 +64,7 @@ class NaturalPersonEditPersonalDataView(EditView):
     def get_layout(self):
         R = layout.grid.Row
         C = layout.grid.Col
-        F = layout.form.FormField
+        F = layout.forms.FormField
         return layout.grid.Grid(
             layout.components.forms.Form(
                 hg.C("form"),
@@ -148,13 +148,13 @@ class EditPostalAddressView(EditView):
         return EditPostalForm
 
     def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in [*self.fields]] + [
+        form_fields = [layout.forms.FormField(field) for field in [*self.fields]] + [
             hg.If(
                 hg.F(
                     lambda c: c["object"].person.primary_postal_address
                     and c["object"].person.primary_postal_address.pk != c["object"].pk
                 ),
-                layout.form.FormField("is_primary"),
+                layout.forms.FormField("is_primary"),
                 "",
             )
         ]
@@ -221,13 +221,13 @@ class EditEmailAddressView(EditView):
         return EditEmailForm
 
     def get_layout(self):
-        form_fields = [layout.form.FormField(field) for field in [*self.fields]] + [
+        form_fields = [layout.forms.FormField(field) for field in [*self.fields]] + [
             hg.If(
                 hg.F(
                     lambda c: c["object"].person.primary_email_address
                     and c["object"].person.primary_email_address.pk != c["object"].pk
                 ),
-                layout.form.FormField("is_primary"),
+                layout.forms.FormField("is_primary"),
                 "",
             ),
             hg.If(
@@ -235,7 +235,7 @@ class EditEmailAddressView(EditView):
                     lambda c: apps.is_installed("basxconnect.mailer_integration")
                     and hasattr(c["object"], "subscription")
                 ),
-                layout.form.FormField("propagate_change_to_mailer"),
+                layout.forms.FormField("propagate_change_to_mailer"),
                 "",
             ),
         ]
@@ -243,7 +243,11 @@ class EditEmailAddressView(EditView):
             hg.H3(_("Edit Email")),
             layout.grid.Row(
                 layout.grid.Col(
-                    layout.form.Form.wrap_with_form(hg.C("form"), hg.DIV(*form_fields)),
+                    layout.forms.Form(
+                        hg.C("form"),
+                        hg.DIV(*form_fields),
+                        layout.forms.helpers.Submit(),
+                    ),
                     width=4,
                 )
             ),
