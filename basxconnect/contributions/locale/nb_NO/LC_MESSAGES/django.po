@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-18 16:14+0700\n"
+"POT-Creation-Date: 2021-12-29 20:28+0700\n"
 "PO-Revision-Date: 2021-07-29 21:32+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.7.2-dev\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:50
+#: basxconnect/contributions/models.py:89 basxconnect/contributions/urls.py:50
 msgid "Contributions"
 msgstr "Bidragsytere"
 
@@ -29,7 +29,7 @@ msgid "Preferred Currency"
 msgstr "Foretrukket valuta"
 
 #: basxconnect/contributions/models.py:18
-#: basxconnect/contributions/models.py:70
+#: basxconnect/contributions/models.py:71
 #: basxconnect/contributions/wizards/contributionsimport.py:132
 msgid "Date"
 msgstr "Dato"
@@ -63,38 +63,38 @@ msgstr "Bidragsimport"
 msgid "Contributions Imports"
 msgstr "Bidragsimporter"
 
-#: basxconnect/contributions/models.py:64
+#: basxconnect/contributions/models.py:65
 msgid "Import"
 msgstr "Import"
 
-#: basxconnect/contributions/models.py:68
+#: basxconnect/contributions/models.py:69
 msgid "Person"
 msgstr "Person"
 
-#: basxconnect/contributions/models.py:71
+#: basxconnect/contributions/models.py:72
 #: basxconnect/contributions/wizards/contributionsimport.py:133
 msgid "Note"
 msgstr "Merknad"
 
-#: basxconnect/contributions/models.py:72
+#: basxconnect/contributions/models.py:73
 msgid "Debit Account"
 msgstr "Debetkonto"
 
-#: basxconnect/contributions/models.py:73
+#: basxconnect/contributions/models.py:74
 msgid "Credit Account"
 msgstr "Kredittkonto"
 
-#: basxconnect/contributions/models.py:74
-#: basxconnect/contributions/models.py:81
+#: basxconnect/contributions/models.py:75
+#: basxconnect/contributions/models.py:82
 #: basxconnect/contributions/wizards/contributionsimport.py:164
 msgid "Amount"
 msgstr "Beløp"
 
-#: basxconnect/contributions/models.py:75
+#: basxconnect/contributions/models.py:76
 msgid "Currency"
 msgstr "Valuta"
 
-#: basxconnect/contributions/models.py:87
+#: basxconnect/contributions/models.py:88
 msgid "Contribution"
 msgstr "Bidrag"
 

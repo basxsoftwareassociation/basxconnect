@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-18 16:14+0700\n"
+"POT-Creation-Date: 2021-12-29 20:28+0700\n"
 "PO-Revision-Date: 2021-05-08 22:32+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/basxconnect/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.7-dev\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:88 basxconnect/contributions/urls.py:50
+#: basxconnect/contributions/models.py:89 basxconnect/contributions/urls.py:50
 msgid "Contributions"
 msgstr "Contribuições"
 
@@ -29,7 +29,7 @@ msgid "Preferred Currency"
 msgstr "Moeda de preferência"
 
 #: basxconnect/contributions/models.py:18
-#: basxconnect/contributions/models.py:70
+#: basxconnect/contributions/models.py:71
 #: basxconnect/contributions/wizards/contributionsimport.py:132
 msgid "Date"
 msgstr "Data"
@@ -62,38 +62,38 @@ msgstr "Importação de Contribuição"
 msgid "Contributions Imports"
 msgstr "Importação de Contribuições"
 
-#: basxconnect/contributions/models.py:64
+#: basxconnect/contributions/models.py:65
 msgid "Import"
 msgstr "Importação"
 
-#: basxconnect/contributions/models.py:68
+#: basxconnect/contributions/models.py:69
 msgid "Person"
 msgstr "Pessoa"
 
-#: basxconnect/contributions/models.py:71
+#: basxconnect/contributions/models.py:72
 #: basxconnect/contributions/wizards/contributionsimport.py:133
 msgid "Note"
 msgstr "Nota"
 
-#: basxconnect/contributions/models.py:72
+#: basxconnect/contributions/models.py:73
 msgid "Debit Account"
 msgstr "Conta de débito"
 
-#: basxconnect/contributions/models.py:73
+#: basxconnect/contributions/models.py:74
 msgid "Credit Account"
 msgstr "Conta de crédito"
 
-#: basxconnect/contributions/models.py:74
-#: basxconnect/contributions/models.py:81
+#: basxconnect/contributions/models.py:75
+#: basxconnect/contributions/models.py:82
 #: basxconnect/contributions/wizards/contributionsimport.py:164
 msgid "Amount"
 msgstr "Montante"
 
-#: basxconnect/contributions/models.py:75
+#: basxconnect/contributions/models.py:76
 msgid "Currency"
 msgstr "Moeda"
 
-#: basxconnect/contributions/models.py:87
+#: basxconnect/contributions/models.py:88
 msgid "Contribution"
 msgstr "Contribuição"
 
