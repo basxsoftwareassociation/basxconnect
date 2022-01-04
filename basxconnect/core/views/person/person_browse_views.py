@@ -13,11 +13,11 @@ from bread.views.browse import export as breadexport
 from bread.views.browse import restore as breadrestore
 from django import forms
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.utils.html import mark_safe
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import pgettext_lazy
+from django.utils.translation import ngettext_lazy, pgettext_lazy
 
 from basxconnect.core import models, settings
 
@@ -36,23 +36,49 @@ def bulkrestore(request, qs):
         person.save()
 
 
-def bulk_add_tag_view(request):
-    class BulkAddTagForm(forms.Form):
+def bulk_tag_operation(request):
+    operation = request.GET["operation"]
+    if operation not in ["add", "remove"]:
+        return HttpResponseBadRequest("invalid GET parameter 'operation'")
+    persons = request.GET["persons"].split(",")
+
+    class BulkTagOperationForm(forms.Form):
         tag = forms.ModelChoiceField(
             queryset=models.Term.objects.filter(vocabulary__slug="tag"), required=True
         )
 
     if request.method == "POST":
-        form = BulkAddTagForm(request.POST)
+        form = BulkTagOperationForm(request.POST)
         if form.is_valid():
             tag = form.cleaned_data.get("tag")
-            persons = request.GET["persons"].split(",")
             for person in models.Person.objects.filter(pk__in=persons):
-                person.tags.add(tag)
+                if operation == "add":
+                    person.tags.add(tag)
+                else:
+                    person.tags.remove(tag)
                 person.save()
             return HttpResponseRedirect(reverse_model(models.Person, "browse"))
 
-    form = BulkAddTagForm()
+    form = BulkTagOperationForm()
+    count = len(persons)
+    if operation == "add":
+        header = (
+            ngettext_lazy(
+                "Add tag to %(count)d person",
+                "Add tag to %(count)d persons",
+                count,
+            )
+            % {"count": count}
+        )
+    else:
+        header = (
+            ngettext_lazy(
+                "Remove tag from %(count)d person",
+                "Remove tag from %(count)d persons",
+                count,
+            )
+            % {"count": count}
+        )
     return layout.render(
         request,
         import_string(django.conf.settings.DEFAULT_PAGE_LAYOUT)(
@@ -60,7 +86,7 @@ def bulk_add_tag_view(request):
             bread.layout.forms.Form(
                 form,
                 hg.BaseElement(
-                    hg.H3(_("Add tag")),
+                    hg.H3(header),
                     bread.layout.forms.FormField("tag"),
                 ),
                 layout.forms.helpers.Submit(_("Submit")),
@@ -70,11 +96,22 @@ def bulk_add_tag_view(request):
 
 
 def bulkaddtag(request, qs):
+    return _redirect_to_tag_operation(qs, "add")
+
+
+def bulkremovetag(request, qs):
+    return _redirect_to_tag_operation(qs, "remove")
+
+
+def _redirect_to_tag_operation(qs, operation):
     return HttpResponseRedirect(
         reverse_model(
             models.Person,
-            "bulk-add-tag",
-            query={"persons": ",".join([str(person.id) for person in qs])},
+            "bulk-tag-operation",
+            query={
+                "operation": operation,
+                "persons": ",".join([str(person.id) for person in qs]),
+            },
         )
     )
 
@@ -183,6 +220,12 @@ class PersonBrowseView(BrowseView):
             label=_("Add tag"),
             iconname="add",
             action=bulkaddtag,
+        ),
+        BulkAction(
+            "remove-tag",
+            label=_("Remove tag"),
+            iconname="subtract",
+            action=bulkremovetag,
         ),
         BulkAction(
             "delete",

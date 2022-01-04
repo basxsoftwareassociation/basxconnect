@@ -195,7 +195,7 @@ urlpatterns = [
         urlname=model_urlname(models.Email, "edit"),
     ),
     autopath(
-        person_browse_views.bulk_add_tag_view,
-        urlname=model_urlname(models.Person, "bulk-add-tag"),
+        person_browse_views.bulk_tag_operation,
+        urlname=model_urlname(models.Person, "bulk-tag-operation"),
     ),
 ]
