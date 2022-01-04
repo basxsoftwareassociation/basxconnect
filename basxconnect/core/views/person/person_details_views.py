@@ -203,23 +203,14 @@ def confirm_delete_email(request, pk: int):
         request,
         import_string(settings.DEFAULT_PAGE_LAYOUT)(
             menu.main,
-            hg.FORM(
-                Form(
-                    form,
-                    hg.BaseElement(
-                        hg.H3(_("Delete email %s") % email.email),
-                        hg.If(
-                            enable_delete_mailer_contact_checkbox,
-                            bread.layout.forms.FormField("delete_mailer_contact"),
-                            hg.BaseElement(),
-                        ),
+            Form(
+                form,
+                hg.BaseElement(
+                    hg.H3(_("Delete email %s") % email.email),
+                    hg.If(
+                        enable_delete_mailer_contact_checkbox,
+                        bread.layout.forms.FormField("delete_mailer_contact"),
                     ),
-                    standalone=False,
-                ),
-                hg.DIV(
-                    Button(_("Save"), type="submit"),
-                    _class="bx--form-item",
-                    style="margin-top: 2rem; display: inline-block;",
                 ),
                 hg.DIV(
                     Button.fromlink(
@@ -232,10 +223,10 @@ def confirm_delete_email(request, pk: int):
                         ),
                         buttontype="tertiary",
                     ),
-                    _class="bx--form-item",
-                    style="margin-top: 2rem; display: inline-block; margin-left: 1rem;",
+                    hg.DIV(style="width: 1rem"),
+                    *layout.forms.helpers.Submit(_("Confirm")),
+                    style="display: flex; ",
                 ),
-                layout.forms.helpers.Submit(_("Confirm")),
             ),
         ),
     )
