@@ -89,33 +89,34 @@ def bulk_tag_operation(request):
             menu.main,
             bread.layout.forms.Form(
                 form,
-                hg.BaseElement(
-                    hg.H3(header),
-                    bread.layout.forms.FormField("tag"),
+                hg.H3(header),
+                hg.DIV(
+                    hg.DIV(bread.layout.forms.FormField("tag")),
                     hg.If(
                         operation == "add",
-                        modal_with_trigger(
-                            Modal.with_ajax_content(
-                                heading=_("Create new tag"),
-                                url=ModelHref(
-                                    Term,
-                                    "add",
-                                    query={
-                                        "vocabulary": tags_vocabulary_id,
-                                        "next": reverse(
-                                            "basxconnect.core.views.settings_views.personsettings"
-                                        ),
-                                        "asajax": True,
-                                    },
+                        hg.DIV(
+                            modal_with_trigger(
+                                Modal.with_ajax_content(
+                                    heading=_("Create new tag"),
+                                    url=ModelHref(
+                                        Term,
+                                        "add",
+                                        query={
+                                            "vocabulary": tags_vocabulary_id,
+                                            "asajax": True,
+                                        },
+                                    ),
+                                    submitlabel=_("Save"),
                                 ),
-                                submitlabel=_("Save"),
+                                Button,
+                                _("Create new tag"),
+                                buttontype="ghost",
+                                style="margin-bottom: 2rem;",
+                                icon="add",
                             ),
-                            Button,
-                            _("Create new tag"),
-                            buttontype="ghost",
-                            style="margin-bottom: 2rem;",
                         ),
                     ),
+                    style="display:flex;align-items:end;",
                 ),
                 layout.forms.helpers.Submit(_("Submit")),
             ),
