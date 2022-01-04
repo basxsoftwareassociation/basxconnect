@@ -38,7 +38,14 @@ def relationshipssettings(request):
                         Link(
                             label=_("Edit"),
                             href=ModelHref(
-                                RelationshipType, "edit", kwargs={"pk": hg.C("row.pk")}
+                                RelationshipType,
+                                "edit",
+                                kwargs={"pk": hg.C("row.pk")},
+                                query={
+                                    "next": reverse(
+                                        "basxconnect.core.views.settings_views.relationshipssettings"
+                                    )
+                                },
                             ),
                             iconname="edit",
                         ),
@@ -48,6 +55,11 @@ def relationshipssettings(request):
                                 RelationshipType,
                                 "delete",
                                 kwargs={"pk": hg.C("row.pk")},
+                                query={
+                                    "next": reverse(
+                                        "basxconnect.core.views.settings_views.relationshipssettings"
+                                    )
+                                },
                             ),
                             iconname="trash-can",
                         ),
@@ -112,11 +124,25 @@ def generate_term_datatable(title, vocabulary_slug):
             icon=layout.icon.Icon("add", size=20),
         ),
         prevent_automatic_sortingnames=True,
-        rowclickaction=BrowseView.gen_rowclickaction("edit"),
+        rowclickaction=BrowseView.gen_rowclickaction(
+            "edit",
+            query={
+                "next": reverse("basxconnect.core.views.settings_views.personsettings")
+            },
+        ),
         rowactions=[
             Link(
                 label=_("Delete"),
-                href=ModelHref(Term, "delete", kwargs={"pk": hg.C("row.pk")}),
+                href=ModelHref(
+                    Term,
+                    "delete",
+                    kwargs={"pk": hg.C("row.pk")},
+                    query={
+                        "next": reverse(
+                            "basxconnect.core.views.settings_views.personsettings"
+                        )
+                    },
+                ),
                 iconname="trash-can",
             )
         ],
