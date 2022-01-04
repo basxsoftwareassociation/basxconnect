@@ -120,6 +120,7 @@ def display_postal():
             kwargs={"pk": postal.pk},
             query={"asajax": True},
         ),
+        id=hg.format("postal-modal-{}", hg.C("i").id),
         submitlabel=_("Save"),
     )
     is_inactive = hg.F(
