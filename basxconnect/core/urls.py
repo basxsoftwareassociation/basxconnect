@@ -1,5 +1,6 @@
 from bread import views as breadviews
 from bread.utils.urls import autopath, default_model_paths, model_urlname, reverse_model
+from bread.views import AddView
 from django.views.generic import RedirectView
 
 from basxconnect.core.views import settings_views
@@ -114,7 +115,9 @@ urlpatterns = [
         addview=AddRelationshipView,
     ),
     *default_model_paths(models.RelationshipType),
-    *default_model_paths(models.Term),
+    *default_model_paths(
+        models.Term, addview=AddView._with(fields=["term", "vocabulary"])
+    ),
     *default_model_paths(models.Vocabulary),
     *default_model_paths(models.Postal),
     *default_model_paths(models.Phone),

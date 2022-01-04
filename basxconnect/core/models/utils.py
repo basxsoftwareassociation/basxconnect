@@ -34,7 +34,7 @@ class Term(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = self.vocabulary.slug + "__" + slugify(self.slug)
+            self.slug = self.vocabulary.slug + "__" + slugify(self.term)
         super().save(*args, **kwargs)
 
     def __str__(self):
