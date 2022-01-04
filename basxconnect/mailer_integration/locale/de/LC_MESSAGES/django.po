@@ -70,15 +70,15 @@ msgstr "Mailing Interessen"
 
 #: basxconnect/mailer_integration/models.py:46
 msgid "Language"
-msgstr ""
+msgstr "Sprache"
 
 #: basxconnect/mailer_integration/models.py:62
 msgid "First Name"
-msgstr ""
+msgstr "Vorname"
 
 #: basxconnect/mailer_integration/models.py:63
 msgid "Last Name"
-msgstr ""
+msgstr "Nachname"
 
 #: basxconnect/mailer_integration/models.py:69
 #: basxconnect/mailer_integration/views.py:107
@@ -160,13 +160,4 @@ msgstr "Löschen"
 
 #: basxconnect/mailer_integration/views.py:150
 msgid "Tools"
-msgstr ""
-
-#~ msgid "External mailer"
-#~ msgstr "Externer Mailer"
-
-#~ msgid "Person records with errors"
-#~ msgstr "Personen mit fehlerhaften Daten"
-
-#~ msgid "New person records"
-#~ msgstr "Neu hinzugefügte Personen"
+msgstr "Werkzeuge"
