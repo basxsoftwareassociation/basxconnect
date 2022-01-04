@@ -1,16 +1,21 @@
+import bread
+import django.conf
 import htmlgenerator as hg
 from bread import layout as layout
+from bread import menu
 from bread.layout.components.datatable import DataTableColumn
 from bread.utils import get_concrete_instance
 from bread.utils.links import Link
-from bread.utils.urls import reverse
+from bread.utils.urls import reverse, reverse_model
 from bread.views import BrowseView, BulkAction
 from bread.views.browse import delete as breaddelete
 from bread.views.browse import export as breadexport
 from bread.views.browse import restore as breadrestore
 from django import forms
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.utils.html import mark_safe
+from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 
@@ -29,6 +34,49 @@ def bulkrestore(request, qs):
     for person in qs:
         person.active = True
         person.save()
+
+
+def bulk_add_tag_view(request):
+    class BulkAddTagForm(forms.Form):
+        tag = forms.ModelChoiceField(
+            queryset=models.Term.objects.filter(vocabulary__slug="tag"), required=True
+        )
+
+    if request.method == "POST":
+        form = BulkAddTagForm(request.POST)
+        if form.is_valid():
+            tag = form.cleaned_data.get("tag")
+            persons = request.GET["persons"].split(",")
+            for person in models.Person.objects.filter(pk__in=persons):
+                person.tags.add(tag)
+                person.save()
+            return HttpResponseRedirect(reverse_model(models.Person, "browse"))
+
+    form = BulkAddTagForm()
+    return layout.render(
+        request,
+        import_string(django.conf.settings.DEFAULT_PAGE_LAYOUT)(
+            menu.main,
+            bread.layout.forms.Form(
+                form,
+                hg.BaseElement(
+                    hg.H3(_("Add tag")),
+                    bread.layout.forms.FormField("tag"),
+                ),
+                layout.forms.helpers.Submit(_("Submit")),
+            ),
+        ),
+    )
+
+
+def bulkaddtag(request, qs):
+    return HttpResponseRedirect(
+        reverse_model(
+            models.Person,
+            "bulk-add-tag",
+            query={"persons": ",".join([str(person.id) for person in qs])},
+        )
+    )
 
 
 def export(request, queryset):
@@ -130,6 +178,12 @@ class PersonBrowseView(BrowseView):
         ),
     ]
     bulkactions = (
+        BulkAction(
+            "add-tag",
+            label=_("Add tag"),
+            iconname="add",
+            action=bulkaddtag,
+        ),
         BulkAction(
             "delete",
             label=_("Delete"),

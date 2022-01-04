@@ -194,4 +194,8 @@ urlpatterns = [
         person_modals_views.EditEmailAddressView.as_view(),
         urlname=model_urlname(models.Email, "edit"),
     ),
+    autopath(
+        person_browse_views.bulk_add_tag_view,
+        urlname=model_urlname(models.Person, "bulk-add-tag"),
+    ),
 ]

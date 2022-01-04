@@ -75,7 +75,7 @@ def contact_details_naturalperson(request):
             addresses.urls(request),
         ),
         R(
-            basxconnect.core.layouts.editperson.common.base_data.tags(),
-            utils.other(),
+            base_data.tags(),
+            base_data.other(),
         ),
     )
