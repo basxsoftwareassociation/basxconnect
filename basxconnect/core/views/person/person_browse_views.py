@@ -43,7 +43,7 @@ def bulk_tag_operation(request):
     operation = request.GET["operation"]
     if operation not in ["add", "remove"]:
         return HttpResponseBadRequest("invalid GET parameter 'operation'")
-    persons = request.GET["persons"].split(",")
+    persons = request.GET.getlist("persons")
 
     class BulkTagOperationForm(forms.Form):
         tag = forms.ModelChoiceField(
@@ -139,7 +139,7 @@ def _redirect_to_tag_operation(qs, operation):
             "bulk-tag-operation",
             query={
                 "operation": operation,
-                "persons": ",".join([str(person.id) for person in qs]),
+                "persons": [str(person.id) for person in qs],
             },
         )
     )
