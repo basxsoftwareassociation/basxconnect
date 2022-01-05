@@ -3,6 +3,7 @@ import django.conf
 import htmlgenerator as hg
 from bread import layout as layout
 from bread import menu
+from bread.layout.components.button import Button
 from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.modal import Modal, modal_with_trigger
 from bread.utils import get_concrete_instance
@@ -12,7 +13,6 @@ from bread.views import BrowseView, BulkAction
 from bread.views.browse import delete as breaddelete
 from bread.views.browse import export as breadexport
 from bread.views.browse import restore as breadrestore
-from build.lib.bread.layout.components.button import Button
 from django import forms
 from django.db.models import Q
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
