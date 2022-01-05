@@ -1,6 +1,5 @@
 import traceback
 
-import bread.layout.components.forms.helpers
 import bread.layout.components.notification
 import htmlgenerator as hg
 from bread import layout, menu
