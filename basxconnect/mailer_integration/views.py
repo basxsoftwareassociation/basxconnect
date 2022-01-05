@@ -7,7 +7,7 @@ from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.forms import Form
 from bread.utils import aslayout, reverse_model
 from bread.utils.links import Link, ModelHref
-from bread.views import AddView, EditView
+from bread.views import AddView, DeleteView, EditView
 from django import forms
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -15,6 +15,7 @@ from django.utils.translation import gettext_lazy as _
 from basxconnect.mailer_integration import settings
 from basxconnect.mailer_integration.abstract.mailer import MailerPerson
 from basxconnect.mailer_integration.models import (
+    Subscription,
     SynchronizationPerson,
     SynchronizationResult,
 )
@@ -189,3 +190,18 @@ class EditSubscriptionView(EditView):
         # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
         settings.MAILER.put_person(MailerPerson.from_mailing_preferences(self.object))
         return result
+
+
+class DeleteSubscriptionView(DeleteView):
+    model = Subscription
+
+    def get(self, *args, **kwargs):
+        ret = super().get(*args, **kwargs)
+        if self.restore:
+            settings.MAILER.add_person(
+                MailerPerson.from_mailing_preferences(self.instance)
+            )
+        else:
+            settings.MAILER.delete_person(self.instance.email)
+
+        return ret
