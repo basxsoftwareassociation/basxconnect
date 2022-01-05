@@ -14,7 +14,6 @@ from django.utils.translation import gettext_lazy as _
 
 from basxconnect.mailer_integration import settings
 from basxconnect.mailer_integration.abstract.mailer import MailerPerson
-from basxconnect.mailer_integration.mailchimp import mailer
 from basxconnect.mailer_integration.models import (
     SynchronizationPerson,
     SynchronizationResult,
@@ -188,7 +187,5 @@ class EditSubscriptionView(EditView):
     def post(self, request, *args, **kwargs):
         result = super().post(request, *args, **kwargs)
         # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
-        mailer.Mailchimp().put_person(
-            MailerPerson.from_mailing_preferences(self.object)
-        )
+        settings.MAILER.put_person(MailerPerson.from_mailing_preferences(self.object))
         return result
