@@ -190,17 +190,3 @@ class EditSubscriptionView(EditView):
         # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
         settings.MAILER.put_person(MailerPerson.from_subscription(self.object))
         return result
-
-
-class DeleteSubscriptionView(DeleteView):
-    model = Subscription
-    softdeletefield = "deleted"
-
-    def get(self, *args, **kwargs):
-        ret = super().get(*args, **kwargs)
-        if self.restore:
-            settings.MAILER.add_person(MailerPerson.from_subscription(self.instance))
-        else:
-            settings.MAILER.delete_person(self.instance.email)
-
-        return ret
