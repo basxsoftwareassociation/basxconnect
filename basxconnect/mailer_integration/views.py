@@ -173,7 +173,7 @@ class AddSubscriptionView(AddView):
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
-        settings.MAILER.add_person(MailerPerson.from_mailing_preferences(self.object))
+        settings.MAILER.add_person(MailerPerson.from_subscription(self.object))
         return response
 
 
@@ -188,7 +188,7 @@ class EditSubscriptionView(EditView):
     def post(self, request, *args, **kwargs):
         result = super().post(request, *args, **kwargs)
         # TODO: https://github.com/basxsoftwareassociation/basxconnect/issues/140
-        settings.MAILER.put_person(MailerPerson.from_mailing_preferences(self.object))
+        settings.MAILER.put_person(MailerPerson.from_subscription(self.object))
         return result
 
 
@@ -199,9 +199,7 @@ class DeleteSubscriptionView(DeleteView):
     def get(self, *args, **kwargs):
         ret = super().get(*args, **kwargs)
         if self.restore:
-            settings.MAILER.add_person(
-                MailerPerson.from_mailing_preferences(self.instance)
-            )
+            settings.MAILER.add_person(MailerPerson.from_subscription(self.instance))
         else:
             settings.MAILER.delete_person(self.instance.email)
 

@@ -49,37 +49,6 @@ def _display_subscription(email, request):
         )
         for interest in Interest.objects.all()
     ]
-    deletebutton = layout.button.Button(
-        _("Delete"),
-        buttontype="ghost",
-        icon="trash-can",
-        **layout.aslink_attributes(
-            reverse_model(
-                Subscription,
-                "delete",
-                kwargs={"pk": email.subscription.pk},
-                query={
-                    "next": request.get_full_path(),
-                },
-            )
-        ),
-    )
-    restorebutton = layout.button.Button(
-        _("Restore"),
-        buttontype="ghost",
-        icon="undo",
-        **layout.aslink_attributes(
-            reverse_model(
-                Subscription,
-                "delete",
-                kwargs={"pk": email.subscription.pk},
-                query={
-                    "restore": True,
-                    "next": request.get_full_path(),
-                },
-            )
-        ),
-    )
     return hg.DIV(
         R(
             C(
@@ -119,13 +88,12 @@ def _display_subscription(email, request):
                     icon="edit",
                     **modal.openerattributes,
                 ),
-                hg.If(email.subscription.deleted, restorebutton, deletebutton),
                 modal,
                 style="margin-top: 1.5rem;margin-bottom: 3rem;",
             )
         ),
         style=hg.If(
-            email.subscription.deleted,
+            not email.subscription.active,
             "color: #a8a8a8;",
         ),
     )
@@ -147,7 +115,7 @@ def _display_email_without_subscription(email):
 
 
 def map_tag_color(subscription):
-    if subscription.deleted:
+    if not subscription.active:
         return "gray"
     mapping = {"subscribed": "green"}
     return mapping.get(subscription.status, "gray")

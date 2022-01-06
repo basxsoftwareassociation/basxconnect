@@ -39,9 +39,7 @@ class Subscription(models.Model):
             ("cleaned", "cleaned"),
         ],
     )
-    deleted = models.BooleanField(
-        _("Deleted"), blank=True, default=False, editable=False
-    )
+    active = models.BooleanField(_("Deleted"), blank=True, default=True, editable=False)
 
     interests = models.ManyToManyField(Interest, blank=True)
     interests.verbose_name = _("Mailing Interests")

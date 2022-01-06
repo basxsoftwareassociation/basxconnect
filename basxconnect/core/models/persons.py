@@ -5,6 +5,7 @@ from bread import layout
 from bread.contrib.languages.fields import LanguageField
 from bread.utils import get_concrete_instance, pretty_modelname
 from bread.utils.inheritancemanager import InheritanceManager
+from django.apps import apps
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
@@ -187,6 +188,28 @@ class Person(models.Model):
             super().save(update_fields=["personnumber"])
 
         self.default_sorting_name = self.name
+
+        if apps.is_installed("basxconnect.mailer_integration") and hasattr(
+            self, "core_email_list"
+        ):
+            from basxconnect.mailer_integration.abstract.mailer import MailerPerson
+            from basxconnect.mailer_integration.settings import MAILER
+
+            for email in self.core_email_list.all():
+                if hasattr(email, "subscription"):
+                    if (
+                        self.active
+                        and not self.deleted
+                        and not email.subscription.active
+                    ):
+                        email.subscription.active = True
+                        MAILER.add_person(
+                            MailerPerson.from_subscription(email.subscription)
+                        )
+                    elif email.subscription.active:
+                        email.subscription.active = False
+                        MAILER.delete_person(email.email)
+                    email.subscription.save()
 
         # this signal needs to be sent manually in order to trigger the search-index update
         # Django does only send a signal for the child-model but our search-index only observes
