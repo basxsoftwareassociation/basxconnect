@@ -124,12 +124,12 @@ def _save_postal_address(person: models.Person, mailer_person: MailerPerson):
 def _save_subscription(
     email: models.Email, mailer_person: MailerPerson, sync_result: SynchronizationResult
 ):
-    mailing_preferences, _ = Subscription.objects.get_or_create(email=email)
-    mailing_preferences.status = mailer_person.status
-    mailing_preferences.language = mailer_person.language
-    mailing_preferences.interests.clear()
+    subscription, _ = Subscription.objects.get_or_create(email=email)
+    subscription.status = mailer_person.status
+    subscription.language = mailer_person.language
+    subscription.interests.clear()
     for interest_id in mailer_person.interests_ids:
         interest = Interest.objects.get(external_id=interest_id)
-        mailing_preferences.interests.add(interest)
-    mailing_preferences.latest_sync = sync_result
-    mailing_preferences.save()
+        subscription.interests.add(interest)
+    subscription.latest_sync = sync_result
+    subscription.save()
