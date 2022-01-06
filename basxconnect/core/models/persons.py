@@ -5,7 +5,6 @@ from bread import layout
 from bread.contrib.languages.fields import LanguageField
 from bread.utils import get_concrete_instance, pretty_modelname
 from bread.utils.inheritancemanager import InheritanceManager
-from django.apps import apps
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
