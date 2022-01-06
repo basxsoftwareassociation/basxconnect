@@ -8,7 +8,7 @@ from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.modal import Modal, modal_with_trigger
 from bread.utils import get_concrete_instance
 from bread.utils.links import Link, ModelHref
-from bread.utils.urls import reverse, reverse_model
+from bread.utils.urls import aslayout, reverse, reverse_model
 from bread.views import BrowseView, BulkAction
 from bread.views.browse import delete as breaddelete
 from bread.views.browse import export as breadexport
@@ -39,6 +39,7 @@ def bulkrestore(request, qs):
         person.save()
 
 
+@aslayout
 def bulk_tag_operation(request):
     operation = request.GET["operation"]
     if operation not in ["add", "remove"]:
@@ -83,44 +84,38 @@ def bulk_tag_operation(request):
             % {"count": count}
         )
     tags_vocabulary_id = Vocabulary.objects.filter(slug="tag").first().id or ""
-    return layout.render(
-        request,
-        import_string(django.conf.settings.DEFAULT_PAGE_LAYOUT)(
-            menu.main,
-            bread.layout.forms.Form(
-                form,
-                hg.H3(header),
+    return bread.layout.forms.Form(
+        form,
+        hg.H3(header),
+        hg.DIV(
+            hg.DIV(bread.layout.forms.FormField("tag")),
+            hg.If(
+                operation == "add",
                 hg.DIV(
-                    hg.DIV(bread.layout.forms.FormField("tag")),
-                    hg.If(
-                        operation == "add",
-                        hg.DIV(
-                            modal_with_trigger(
-                                Modal.with_ajax_content(
-                                    heading=_("Create new tag"),
-                                    url=ModelHref(
-                                        Term,
-                                        "add",
-                                        query={
-                                            "vocabulary": tags_vocabulary_id,
-                                            "asajax": True,
-                                        },
-                                    ),
-                                    submitlabel=_("Save"),
-                                ),
-                                Button,
-                                _("Create new tag"),
-                                buttontype="ghost",
-                                style="margin-bottom: 2rem;",
-                                icon="add",
+                    modal_with_trigger(
+                        Modal.with_ajax_content(
+                            heading=_("Create new tag"),
+                            url=ModelHref(
+                                Term,
+                                "add",
+                                query={
+                                    "vocabulary": tags_vocabulary_id,
+                                    "asajax": True,
+                                },
                             ),
+                            submitlabel=_("Save"),
                         ),
+                        Button,
+                        _("Create new tag"),
+                        buttontype="ghost",
+                        style="margin-bottom: 2rem;",
+                        icon="add",
                     ),
-                    style="display:flex;align-items:end;",
                 ),
-                layout.forms.helpers.Submit(_("Submit")),
             ),
+            style="display:flex;align-items:end;",
         ),
+        layout.forms.helpers.Submit(_("Submit")),
     )
 
 
