@@ -194,6 +194,7 @@ class EditSubscriptionView(EditView):
 
 class DeleteSubscriptionView(DeleteView):
     model = Subscription
+    softdeletefield = "deleted"
 
     def get(self, *args, **kwargs):
         ret = super().get(*args, **kwargs)

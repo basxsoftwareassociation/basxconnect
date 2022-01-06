@@ -3,7 +3,7 @@ import htmlgenerator as hg
 from bread import layout
 from bread.layout.components import tag
 from bread.layout.components.icon import Icon
-from bread.utils import ModelHref
+from bread.utils import ModelHref, reverse_model
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.utils.formats import localize
@@ -27,13 +27,13 @@ def mailer_integration_tile(request):
         hg.H4(
             _("Email Subscriptions"),
         ),
-        *[_display_subscription(email) for email in addresses]
+        *[_display_subscription(email, request) for email in addresses]
         if hasattr(person, "core_email_list") and person.core_email_list.count() > 0
         else C(_("Person has no email addresses")),
     )
 
 
-def _display_subscription(email):
+def _display_subscription(email, request):
     if not hasattr(email, "subscription"):
         return _display_email_without_subscription(email)
     subscription = email.subscription
@@ -49,13 +49,44 @@ def _display_subscription(email):
         )
         for interest in Interest.objects.all()
     ]
-    return hg.BaseElement(
+    deletebutton = layout.button.Button(
+        _("Delete"),
+        buttontype="ghost",
+        icon="trash-can",
+        **layout.aslink_attributes(
+            reverse_model(
+                Subscription,
+                "delete",
+                kwargs={"pk": email.subscription.pk},
+                query={
+                    "next": request.get_full_path(),
+                },
+            )
+        ),
+    )
+    restorebutton = layout.button.Button(
+        _("Restore"),
+        buttontype="ghost",
+        icon="undo",
+        **layout.aslink_attributes(
+            reverse_model(
+                Subscription,
+                "delete",
+                kwargs={"pk": email.subscription.pk},
+                query={
+                    "restore": True,
+                    "next": request.get_full_path(),
+                },
+            )
+        ),
+    )
+    return hg.DIV(
         R(
             C(
                 hg.SPAN(email.email, style="font-weight: bold;"),
                 tag.Tag(
                     _(subscription.status),
-                    tag_color=map_tag_color(subscription.status),
+                    tag_color=map_tag_color(subscription),
                     onclick="return false;",
                     style="margin-left: 1rem;",
                 ),
@@ -88,9 +119,14 @@ def _display_subscription(email):
                     icon="edit",
                     **modal.openerattributes,
                 ),
+                hg.If(email.subscription.deleted, restorebutton, deletebutton),
                 modal,
                 style="margin-top: 1.5rem;margin-bottom: 3rem;",
             )
+        ),
+        style=hg.If(
+            email.subscription.deleted,
+            "color: #a8a8a8;",
         ),
     )
 
@@ -110,9 +146,11 @@ def _display_email_without_subscription(email):
     )
 
 
-def map_tag_color(status):
+def map_tag_color(subscription):
+    if subscription.deleted:
+        return "gray"
     mapping = {"subscribed": "green"}
-    return mapping.get(status, "gray")
+    return mapping.get(subscription.status, "gray")
 
 
 def is_interested_indicator(is_subscribed):

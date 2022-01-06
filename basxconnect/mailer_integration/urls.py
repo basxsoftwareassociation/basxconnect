@@ -17,5 +17,9 @@ urlpatterns = [
         ),
         urlname=model_urlname(models.Subscription, "ajax_add"),
     ),
+    autopath(
+        basxconnect.mailer_integration.views.DeleteSubscriptionView.as_view(),
+        urlname=model_urlname(models.Subscription, "delete"),
+    ),
     *default_model_paths(models.SynchronizationResult),
 ]
