@@ -132,4 +132,5 @@ def _save_subscription(
         interest = Interest.objects.get(external_id=interest_id)
         subscription.interests.add(interest)
     subscription.latest_sync = sync_result
+    subscription.active = True
     subscription.save()
