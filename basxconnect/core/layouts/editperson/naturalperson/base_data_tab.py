@@ -4,7 +4,6 @@ from bread.layout import ObjectFieldLabel
 from bread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
-import basxconnect.core.layouts.editperson.common.base_data
 from basxconnect.core import models
 from basxconnect.core.layouts.editperson.common import addresses, base_data, utils
 from basxconnect.core.layouts.editperson.common.utils import (
@@ -75,7 +74,7 @@ def contact_details_naturalperson(request):
             addresses.urls(request),
         ),
         R(
-            basxconnect.core.layouts.editperson.common.base_data.tags(),
-            utils.other(),
+            base_data.tags(),
+            base_data.other(),
         ),
     )

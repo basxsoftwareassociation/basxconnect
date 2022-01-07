@@ -18,7 +18,7 @@ class MailerPerson(NamedTuple):
     language: str = ""
 
     @staticmethod
-    def from_mailing_preferences(preferences: Subscription):
+    def from_subscription(preferences: Subscription):
         person = preferences.email.person
         return MailerPerson(
             display_name=person.name,
