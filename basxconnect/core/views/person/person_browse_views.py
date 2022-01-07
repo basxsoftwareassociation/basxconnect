@@ -1,20 +1,25 @@
+import bread
 import htmlgenerator as hg
 from bread import layout as layout
+from bread.layout.components.button import Button
 from bread.layout.components.datatable import DataTableColumn
+from bread.layout.components.modal import Modal, modal_with_trigger
 from bread.utils import get_concrete_instance
-from bread.utils.links import Link
-from bread.utils.urls import reverse
+from bread.utils.links import Link, ModelHref
+from bread.utils.urls import aslayout, reverse, reverse_model
 from bread.views import BrowseView, BulkAction
 from bread.views.browse import delete as breaddelete
 from bread.views.browse import export as breadexport
 from bread.views.browse import restore as breadrestore
 from django import forms
 from django.db.models import Q
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import pgettext_lazy
+from django.utils.translation import ngettext_lazy, pgettext_lazy
 
 from basxconnect.core import models, settings
+from basxconnect.core.models import Term, Vocabulary
 
 
 def bulkdelete(request, qs):
@@ -29,6 +34,107 @@ def bulkrestore(request, qs):
     for person in qs:
         person.active = True
         person.save()
+
+
+@aslayout
+def bulk_tag_operation(request):
+    operation = request.GET["operation"]
+    if operation not in ["add", "remove"]:
+        return HttpResponseBadRequest("invalid GET parameter 'operation'")
+    persons = request.GET.getlist("persons")
+
+    class BulkTagOperationForm(forms.Form):
+        tag = forms.ModelChoiceField(
+            queryset=models.Term.objects.filter(vocabulary__slug="tag"), required=True
+        )
+
+    if request.method == "POST":
+        form = BulkTagOperationForm(request.POST)
+        if form.is_valid():
+            tag = form.cleaned_data.get("tag")
+            for person in models.Person.objects.filter(pk__in=persons):
+                if operation == "add":
+                    person.tags.add(tag)
+                else:
+                    person.tags.remove(tag)
+                person.save()
+            return HttpResponseRedirect(reverse_model(models.Person, "browse"))
+
+    form = BulkTagOperationForm()
+    count = len(persons)
+    if operation == "add":
+        header = (
+            ngettext_lazy(
+                "Add tag to %(count)d person",
+                "Add tag to %(count)d persons",
+                count,
+            )
+            % {"count": count}
+        )
+    else:
+        header = (
+            ngettext_lazy(
+                "Remove tag from %(count)d person",
+                "Remove tag from %(count)d persons",
+                count,
+            )
+            % {"count": count}
+        )
+    tags_vocabulary_id = Vocabulary.objects.filter(slug="tag").first().id or ""
+    return bread.layout.forms.Form(
+        form,
+        hg.H3(header),
+        hg.DIV(
+            hg.DIV(bread.layout.forms.FormField("tag")),
+            hg.If(
+                operation == "add",
+                hg.DIV(
+                    modal_with_trigger(
+                        Modal.with_ajax_content(
+                            heading=_("Create new tag"),
+                            url=ModelHref(
+                                Term,
+                                "add",
+                                query={
+                                    "vocabulary": tags_vocabulary_id,
+                                    "asajax": True,
+                                },
+                            ),
+                            submitlabel=_("Save"),
+                        ),
+                        Button,
+                        _("Create new tag"),
+                        buttontype="ghost",
+                        style="margin-bottom: 2rem;",
+                        icon="add",
+                    ),
+                ),
+            ),
+            style="display:flex;align-items:end;",
+        ),
+        layout.forms.helpers.Submit(_("Submit")),
+    )
+
+
+def bulkaddtag(request, qs):
+    return _redirect_to_tag_operation(qs, "add")
+
+
+def bulkremovetag(request, qs):
+    return _redirect_to_tag_operation(qs, "remove")
+
+
+def _redirect_to_tag_operation(qs, operation):
+    return HttpResponseRedirect(
+        reverse_model(
+            models.Person,
+            "bulk-tag-operation",
+            query={
+                "operation": operation,
+                "persons": [str(person.id) for person in qs],
+            },
+        )
+    )
 
 
 def export(request, queryset):
@@ -130,6 +236,18 @@ class PersonBrowseView(BrowseView):
         ),
     ]
     bulkactions = (
+        BulkAction(
+            "add-tag",
+            label=_("Add tag"),
+            iconname="add",
+            action=bulkaddtag,
+        ),
+        BulkAction(
+            "remove-tag",
+            label=_("Remove tag"),
+            iconname="subtract",
+            action=bulkremovetag,
+        ),
         BulkAction(
             "delete",
             label=_("Delete"),
