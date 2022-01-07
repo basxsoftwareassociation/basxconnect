@@ -1,8 +1,6 @@
 import bread
-import django.conf
 import htmlgenerator as hg
 from bread import layout as layout
-from bread import menu
 from bread.layout.components.button import Button
 from bread.layout.components.datatable import DataTableColumn
 from bread.layout.components.modal import Modal, modal_with_trigger
@@ -17,7 +15,6 @@ from django import forms
 from django.db.models import Q
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.utils.html import mark_safe
-from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext_lazy, pgettext_lazy
 
