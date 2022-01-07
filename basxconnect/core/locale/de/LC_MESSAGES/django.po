@@ -101,22 +101,16 @@ msgid "Organization Name"
 msgstr "Name der Organisation"
 
 #: basxconnect/core/dynamic_preferences_registry.py:53
-#, fuzzy
-#| msgid "Subtype of person"
 msgid "Default type of natural persons"
-msgstr "Art der Person"
+msgstr "Standart-Typ für Natürliche Personen"
 
 #: basxconnect/core/dynamic_preferences_registry.py:62
-#, fuzzy
-#| msgid "Person Associations"
 msgid "Default type of person associations"
-msgstr "Personenverbindungen"
+msgstr "Standart-Typ für Personenverbindungen"
 
 #: basxconnect/core/dynamic_preferences_registry.py:71
-#, fuzzy
-#| msgid "Subtype of person"
 msgid "Default type of legal persons"
-msgstr "Art der Person"
+msgstr "Standart-Typ für juristische Personen"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:31
 #: basxconnect/core/layouts/editperson/common/addresses.py:68
@@ -652,10 +646,8 @@ msgid "Delete email %s"
 msgstr "Email %s löschen"
 
 #: basxconnect/core/views/person/person_details_views.py:238
-#, fuzzy
-#| msgid "Confirmation"
 msgid "Confirm"
-msgstr "Bestätigung"
+msgstr "Bestätigen"
 
 #: basxconnect/core/views/person/person_modals_views.py:32
 msgid "Edit mailing settings"

@@ -49,13 +49,13 @@ def _display_subscription(email):
         )
         for interest in Interest.objects.all()
     ]
-    return hg.BaseElement(
+    return hg.DIV(
         R(
             C(
                 hg.SPAN(email.email, style="font-weight: bold;"),
                 tag.Tag(
                     _(subscription.status),
-                    tag_color=map_tag_color(subscription.status),
+                    tag_color=map_tag_color(subscription),
                     onclick="return false;",
                     style="margin-left: 1rem;",
                 ),
@@ -92,6 +92,10 @@ def _display_subscription(email):
                 style="margin-top: 1.5rem;margin-bottom: 3rem;",
             )
         ),
+        style=hg.If(
+            not email.subscription.active,
+            "color: #a8a8a8;",
+        ),
     )
 
 
@@ -110,9 +114,11 @@ def _display_email_without_subscription(email):
     )
 
 
-def map_tag_color(status):
+def map_tag_color(subscription):
+    if not subscription.active:
+        return "gray"
     mapping = {"subscribed": "green"}
-    return mapping.get(status, "gray")
+    return mapping.get(subscription.status, "gray")
 
 
 def is_interested_indicator(is_subscribed):
