@@ -13,7 +13,7 @@ from basxconnect.core.models import Vocabulary, Term
 
 
 @aslayout
-def bulk_tag_operation(request):
+def bulk_tag_operation_view(request):
     operation = request.GET["operation"]
     if operation not in ["add", "remove"]:
         return HttpResponseBadRequest("invalid GET parameter 'operation'")

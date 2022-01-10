@@ -196,7 +196,7 @@ urlpatterns = [
         urlname=model_urlname(models.Email, "edit"),
     ),
     autopath(
-        basxconnect.core.views.tag_views.bulk_tag_operation,
+        basxconnect.core.views.tag_views.bulk_tag_operation_view,
         urlname=model_urlname(models.Person, "bulk-tag-operation"),
     ),
 ]
