@@ -24,8 +24,8 @@ def synchronize(mailer: AbstractMailer) -> SynchronizationResult:
     sync_result.save()
 
     # delete all subscriptions which were not synchronized
-    # and were not deleted already using the UI (those we want to be able to un-delete, so we have to keep them)
-    Subscription.objects.exclude(latest_sync=sync_result).exclude(deleted=True).delete()
+    # and were not deactivated already using the UI (those we want to be able to reactivate, so we have to keep them)
+    Subscription.objects.exclude(latest_sync=sync_result).exclude(active=False).delete()
 
     return sync_result
 
