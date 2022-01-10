@@ -2,14 +2,15 @@ import bread
 import htmlgenerator as hg
 from bread import layout as layout
 from bread.layout.components.button import Button
-from bread.layout.components.modal import modal_with_trigger, Modal
-from bread.utils import aslayout, reverse_model, ModelHref
+from bread.layout.components.modal import Modal, modal_with_trigger
+from bread.utils import ModelHref, aslayout, reverse_model
 from django import forms
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
-from django.utils.translation import ngettext_lazy, gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext_lazy
 
 from basxconnect.core import models
-from basxconnect.core.models import Vocabulary, Term
+from basxconnect.core.models import Term, Vocabulary
 
 
 @aslayout
