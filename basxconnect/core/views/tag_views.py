@@ -4,6 +4,7 @@ from bread import layout as layout
 from bread.layout.components.button import Button
 from bread.layout.components.modal import Modal, modal_with_trigger
 from bread.utils import ModelHref, aslayout, reverse_model
+from bread.views import AddView
 from django import forms
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
@@ -11,6 +12,18 @@ from django.utils.translation import ngettext_lazy
 
 from basxconnect.core import models
 from basxconnect.core.models import Term, Vocabulary
+
+
+class AddTagView(AddView):
+    model = models.Term
+
+    def form_valid(self, *args, **kwargs):
+        ret = super().form_valid(*args, **kwargs)
+        # todo
+        ret["HX-Redirect"] = "path to 'next' with the newly added tag as GET parameter"
+        return ret
+
+    fields = ["term", "vocabulary"]
 
 
 @aslayout
@@ -71,10 +84,12 @@ def bulk_tag_operation_view(request):
                             heading=_("Create new tag"),
                             url=ModelHref(
                                 Term,
-                                "add",
+                                "ajax_add",
                                 query={
                                     "vocabulary": tags_vocabulary_id,
                                     "asajax": True,
+                                    # "next": request.get_full_path(),
+                                    "next": "http://google.com",
                                 },
                             ),
                             submitlabel=_("Save"),

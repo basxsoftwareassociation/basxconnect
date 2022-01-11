@@ -199,4 +199,8 @@ urlpatterns = [
         basxconnect.core.views.tag_views.bulk_tag_operation_view,
         urlname=model_urlname(models.Person, "bulk-tag-operation"),
     ),
+    autopath(
+        basxconnect.core.views.tag_views.AddTagView.as_view(),
+        urlname=model_urlname(models.Term, "ajax_add"),
+    ),
 ]
