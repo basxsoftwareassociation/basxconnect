@@ -3,12 +3,13 @@ import htmlgenerator as hg
 from bread import layout as layout
 from bread.layout.components.button import Button
 from bread.layout.components.modal import Modal, modal_with_trigger
-from bread.utils import ModelHref, aslayout, reverse_model
+from bread.utils import aslayout, reverse_model
 from bread.views import AddView
 from django import forms
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext_lazy
+from htmlgenerator import mark_safe
 
 from basxconnect.core import models
 from basxconnect.core.models import Term, Vocabulary
@@ -16,26 +17,27 @@ from basxconnect.core.models import Term, Vocabulary
 
 class AddTagView(AddView):
     model = models.Term
+    fields = ["term", "vocabulary"]
 
     def form_valid(self, *args, **kwargs):
         ret = super().form_valid(*args, **kwargs)
-        # todo
-        ret["HX-Redirect"] = "path to 'next' with the newly added tag as GET parameter"
+        ret["HX-Redirect"] = f"{self.request.GET['next']}&new-tag={self.object.id}"
         return ret
-
-    fields = ["term", "vocabulary"]
 
 
 @aslayout
 def bulk_tag_operation_view(request):
     operation = request.GET["operation"]
+    initial = request.GET.get("new-tag")
     if operation not in ["add", "remove"]:
         return HttpResponseBadRequest("invalid GET parameter 'operation'")
     persons = request.GET.getlist("persons")
 
     class BulkTagOperationForm(forms.Form):
         tag = forms.ModelChoiceField(
-            queryset=models.Term.objects.filter(vocabulary__slug="tag"), required=True
+            queryset=models.Term.objects.filter(vocabulary__slug="tag"),
+            required=True,
+            initial=initial,
         )
 
     if request.method == "POST":
@@ -82,14 +84,22 @@ def bulk_tag_operation_view(request):
                     modal_with_trigger(
                         Modal.with_ajax_content(
                             heading=_("Create new tag"),
-                            url=ModelHref(
+                            url=reverse_model(
                                 Term,
                                 "ajax_add",
                                 query={
                                     "vocabulary": tags_vocabulary_id,
                                     "asajax": True,
-                                    # "next": request.get_full_path(),
-                                    "next": "http://google.com",
+                                    "next": mark_safe(
+                                        reverse_model(
+                                            models.Person,
+                                            "bulk-tag-operation",
+                                            query={
+                                                "operation": operation,
+                                                "persons": persons,
+                                            },
+                                        )
+                                    ),
                                 },
                             ),
                             submitlabel=_("Save"),
