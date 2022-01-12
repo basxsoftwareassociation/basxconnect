@@ -3,6 +3,7 @@ from bread.utils.urls import autopath, default_model_paths, model_urlname, rever
 from bread.views import AddView
 from django.views.generic import RedirectView
 
+import basxconnect.core.views.tag_views
 from basxconnect.core.views import settings_views
 from basxconnect.core.views.person import (
     person_browse_views,
@@ -195,7 +196,11 @@ urlpatterns = [
         urlname=model_urlname(models.Email, "edit"),
     ),
     autopath(
-        person_browse_views.bulk_tag_operation,
+        basxconnect.core.views.tag_views.bulk_tag_operation_view,
         urlname=model_urlname(models.Person, "bulk-tag-operation"),
+    ),
+    autopath(
+        basxconnect.core.views.tag_views.AddTagView.as_view(),
+        urlname=model_urlname(models.Term, "ajax_add"),
     ),
 ]
