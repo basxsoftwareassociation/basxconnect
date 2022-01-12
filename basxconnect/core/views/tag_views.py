@@ -78,7 +78,9 @@ def bulk_tag_operation_view(request):
             )
             % {"count": count}
         )
-    tags_vocabulary_id = Vocabulary.objects.filter(slug="tag").first().id or ""
+    tags_vocabulary_id = (
+        getattr(Vocabulary.objects.filter(slug="tag").first(), "id", "") or ""
+    )
     return bread.layout.forms.Form(
         form,
         hg.H3(header),
