@@ -31,7 +31,13 @@ def bulk_tag_operation_view(request):
     initial = request.GET.get("new-tag")
     if operation not in ["add", "remove"]:
         return HttpResponseBadRequest("invalid GET parameter 'operation'")
-    persons = request.GET.getlist("persons")
+
+    class PersonList(forms.Form):
+        persons = forms.ModelMultipleChoiceField(queryset=models.Person.objects.all())
+
+    personlist = PersonList(request.GET)
+    personlist.is_valid()
+    persons = personlist.cleaned_data["persons"]
 
     class BulkTagOperationForm(forms.Form):
         tag = forms.ModelChoiceField(
