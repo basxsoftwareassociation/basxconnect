@@ -163,30 +163,35 @@ def togglepersonstatus(request, pk: int):
 
 
 def confirm_delete_email(request, pk: int):
-    class ConfirmDeleteEmailForm(forms.Form):
-        delete_mailer_contact = django.forms.BooleanField(
-            label=_("Delete linked email subscriptions as well"),
-            required=False,
-        )
-
     email = models.Email.objects.get(id=pk)
     enable_delete_mailer_contact_checkbox = apps.is_installed(
         "basxconnect.mailer_integration"
     ) and hasattr(email, "subscription")
 
+    if enable_delete_mailer_contact_checkbox:
+
+        from basxconnect.mailer_integration.settings import MAILER
+
+        class DeleteMailerSubscriptionForm(forms.Form):
+            delete_mailer_contact = django.forms.BooleanField(
+                label=_("Delete linked %s subscription as well") % MAILER.name(),
+                required=False,
+            )
+
     if request.method == "POST":
-        form = ConfirmDeleteEmailForm(request.POST)
+        if enable_delete_mailer_contact_checkbox:
+            form = DeleteMailerSubscriptionForm(request.POST)
+        else:
+            form = forms.Form()
         if form.is_valid():
             person = email.person
             if enable_delete_mailer_contact_checkbox and form.cleaned_data.get(
                 "delete_mailer_contact"
             ):
                 try:
-                    import basxconnect.mailer_integration.settings
+                    from basxconnect.mailer_integration.settings import MAILER
 
-                    basxconnect.mailer_integration.settings.MAILER.delete_person(
-                        email.email
-                    )
+                    MAILER.delete_person(email.email)
                 except Exception:
                     logging.error("tried to delete person from mailchimp but failed")
 
@@ -197,7 +202,7 @@ def confirm_delete_email(request, pk: int):
                 reverse_model(person, "read", kwargs={"pk": person.pk})
             )
     else:
-        form = ConfirmDeleteEmailForm()
+        form = DeleteMailerSubscriptionForm()
 
     return layout.render(
         request,
