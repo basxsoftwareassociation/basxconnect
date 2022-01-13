@@ -36,8 +36,10 @@ def bulk_tag_operation_view(request):
         persons = forms.ModelMultipleChoiceField(queryset=models.Person.objects.all())
 
     personlist = PersonList(request.GET)
-    personlist.is_valid()
-    persons = personlist.cleaned_data["persons"]
+    if personlist.is_valid():
+        persons = [person.pk for person in personlist.cleaned_data["persons"]]
+    else:
+        return HttpResponseBadRequest("invalid GET parameter 'persons'")
 
     class BulkTagOperationForm(forms.Form):
         tag = forms.ModelChoiceField(
