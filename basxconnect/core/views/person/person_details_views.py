@@ -178,31 +178,30 @@ def confirm_delete_email(request, pk: int):
                 required=False,
             )
 
-    if request.method == "POST":
-        if enable_delete_mailer_contact_checkbox:
+        if request.method == "POST":
             form = DeleteMailerSubscriptionForm(request.POST)
+            if form.is_valid():
+                person = email.person
+                if enable_delete_mailer_contact_checkbox and form.cleaned_data.get(
+                    "delete_mailer_contact"
+                ):
+                    try:
+                        from basxconnect.mailer_integration.settings import MAILER
+
+                        MAILER.delete_person(email.email)
+                    except Exception:
+                        logging.error("tried to delete person from mailer but failed")
+
+                email.delete()
+                person.refresh_from_db()
+                person.save()
+                return HttpResponseRedirect(
+                    reverse_model(person, "read", kwargs={"pk": person.pk})
+                )
         else:
-            form = forms.Form()
-        if form.is_valid():
-            person = email.person
-            if enable_delete_mailer_contact_checkbox and form.cleaned_data.get(
-                "delete_mailer_contact"
-            ):
-                try:
-                    from basxconnect.mailer_integration.settings import MAILER
-
-                    MAILER.delete_person(email.email)
-                except Exception:
-                    logging.error("tried to delete person from mailchimp but failed")
-
-            email.delete()
-            person.refresh_from_db()
-            person.save()
-            return HttpResponseRedirect(
-                reverse_model(person, "read", kwargs={"pk": person.pk})
-            )
+            form = DeleteMailerSubscriptionForm()
     else:
-        form = DeleteMailerSubscriptionForm()
+        form = forms.Form()
 
     return layout.render(
         request,
