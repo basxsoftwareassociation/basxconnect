@@ -168,6 +168,7 @@ def confirm_delete_email(request, pk: int):
         "basxconnect.mailer_integration"
     ) and hasattr(email, "subscription")
 
+    fields = []
     if enable_delete_mailer_contact_checkbox:
 
         from basxconnect.mailer_integration.settings import MAILER
@@ -177,6 +178,8 @@ def confirm_delete_email(request, pk: int):
                 label=_("Delete linked %s subscription as well") % MAILER.name(),
                 required=False,
             )
+
+        fields.append("delete_mailer_contact")
 
         if request.method == "POST":
             form = DeleteMailerSubscriptionForm(request.POST)
@@ -211,10 +214,7 @@ def confirm_delete_email(request, pk: int):
                 form,
                 hg.BaseElement(
                     hg.H3(_("Delete email %s") % email.email),
-                    hg.If(
-                        enable_delete_mailer_contact_checkbox,
-                        bread.layout.forms.FormField("delete_mailer_contact"),
-                    ),
+                    *(bread.layout.forms.FormField(field) for field in fields),
                 ),
                 hg.DIV(
                     Button.fromlink(
