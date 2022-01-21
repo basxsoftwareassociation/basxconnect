@@ -107,7 +107,22 @@ class PersonBrowseView(BrowseView):
             ),
             "personnumber__int",
         ),
-        "status",
+        DataTableColumn(
+            hg.DIV(
+                layout.tooltip.IconTooltip(
+                    hg.UL(
+                        hg.LI(hg.SPAN("●", style="color: green"), " ", _("Active")),
+                        hg.LI(hg.SPAN("●", style="color: red"), " ", _("Inactive")),
+                    ),
+                    position="top",
+                )
+            ),
+            hg.DIV(
+                "●",
+                style=hg.format("color: {}", hg.If(hg.C("row.active"), "green", "red")),
+            ),
+            "active",
+        ),
         DataTableColumn(
             layout.ObjectFieldLabel("_type", models.Person), hg.C("row._type"), "_type"
         ),
