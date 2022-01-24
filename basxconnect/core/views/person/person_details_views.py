@@ -163,41 +163,48 @@ def togglepersonstatus(request, pk: int):
 
 
 def confirm_delete_email(request, pk: int):
-    class ConfirmDeleteEmailForm(forms.Form):
-        delete_mailer_contact = django.forms.BooleanField(
-            label=_("Delete linked email subscriptions as well"),
-            required=False,
-        )
-
     email = models.Email.objects.get(id=pk)
     enable_delete_mailer_contact_checkbox = apps.is_installed(
         "basxconnect.mailer_integration"
     ) and hasattr(email, "subscription")
 
-    if request.method == "POST":
-        form = ConfirmDeleteEmailForm(request.POST)
-        if form.is_valid():
-            person = email.person
-            if enable_delete_mailer_contact_checkbox and form.cleaned_data.get(
-                "delete_mailer_contact"
-            ):
-                try:
-                    import basxconnect.mailer_integration.settings
+    fields = []
+    if enable_delete_mailer_contact_checkbox:
 
-                    basxconnect.mailer_integration.settings.MAILER.delete_person(
-                        email.email
-                    )
-                except Exception:
-                    logging.error("tried to delete person from mailchimp but failed")
+        from basxconnect.mailer_integration.settings import MAILER
 
-            email.delete()
-            person.refresh_from_db()
-            person.save()
-            return HttpResponseRedirect(
-                reverse_model(person, "read", kwargs={"pk": person.pk})
+        class DeleteMailerSubscriptionForm(forms.Form):
+            delete_mailer_contact = django.forms.BooleanField(
+                label=_("Delete linked %s subscription as well") % MAILER.name(),
+                required=False,
             )
+
+        fields.append("delete_mailer_contact")
+
+        if request.method == "POST":
+            form = DeleteMailerSubscriptionForm(request.POST)
+            if form.is_valid():
+                person = email.person
+                if enable_delete_mailer_contact_checkbox and form.cleaned_data.get(
+                    "delete_mailer_contact"
+                ):
+                    try:
+                        from basxconnect.mailer_integration.settings import MAILER
+
+                        MAILER.delete_person(email.email)
+                    except Exception:
+                        logging.error("tried to delete person from mailer but failed")
+
+                email.delete()
+                person.refresh_from_db()
+                person.save()
+                return HttpResponseRedirect(
+                    reverse_model(person, "read", kwargs={"pk": person.pk})
+                )
+        else:
+            form = DeleteMailerSubscriptionForm()
     else:
-        form = ConfirmDeleteEmailForm()
+        form = forms.Form()
 
     return layout.render(
         request,
@@ -207,10 +214,7 @@ def confirm_delete_email(request, pk: int):
                 form,
                 hg.BaseElement(
                     hg.H3(_("Delete email %s") % email.email),
-                    hg.If(
-                        enable_delete_mailer_contact_checkbox,
-                        bread.layout.forms.FormField("delete_mailer_contact"),
-                    ),
+                    *(bread.layout.forms.FormField(field) for field in fields),
                 ),
                 hg.DIV(
                     Button.fromlink(
