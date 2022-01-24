@@ -144,10 +144,7 @@ def is_interested_indicator(is_interested, is_active):
         color = "#e0e0e0"
         text = _("inactive")
     return hg.DIV(
-        hg.DIV(
-            "",
-            style=f"height: 8px; width: 8px; background-color: {color}; border-radius: 50%; display: inline-block;",
-        ),
+        hg.DIV("●", style=f"color: {color}; display: inline-block;"),
         hg.DIV(text, style="display: inline-block; padding-left: 8px"),
         style="display: inline-block;",
     )
