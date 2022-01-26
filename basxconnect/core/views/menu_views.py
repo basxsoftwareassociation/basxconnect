@@ -78,3 +78,13 @@ menu.registeritem(
         settingsgroup,
     )
 )
+
+menu.registeritem(
+    menu.Item(
+        Link(
+            reverse("preferences:global"),
+            _("Global Settings"),
+        ),
+        settingsgroup,
+    )
+)
