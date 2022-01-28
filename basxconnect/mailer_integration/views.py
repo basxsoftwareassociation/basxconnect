@@ -14,6 +14,7 @@ from django.utils.translation import gettext_lazy as _
 
 from basxconnect.mailer_integration import settings
 from basxconnect.mailer_integration.abstract.mailer import MailerPerson
+from basxconnect.mailer_integration.help import sync_help_modal
 from basxconnect.mailer_integration.models import (
     SynchronizationPerson,
     SynchronizationResult,
@@ -56,39 +57,20 @@ def mailer_synchronization_view(request):
             forms.Form(),
             bread.layout.grid.Grid(
                 hg.H3(_("Synchronization of Email Subcriptions")),
-                R(
-                    C(
-                        _(
-                            "The button below is currently the only way of getting new subcribers from the mailer into our system. Is it also the only way of getting updates for subscribers that we already have in our system. This is what happens when the button is pressed:"
-                        ),
-                        hg.UL(
-                            hg.LI(
-                                _(
-                                    "For all the Subscriptions that are in the relevant segment (e.g. 'UM Switzerland') in the Mailer, we check whether the email address is already in BasxConnect."
-                                ),
-                                _class="bx--list__item",
-                            ),
-                            hg.LI(
-                                _(
-                                    "If an email address is already in BasxConnect, the downloaded subscription will be attached to the email address and override the current values in case there are any."
-                                ),
-                                _class="bx--list__item",
-                            ),
-                            hg.LI(
-                                _(
-                                    "If an email address is not yet in BasxConnect, a new person will be created with that email address."
-                                ),
-                                _class="bx--list__item",
-                            ),
-                            _class="bx--list--unordered",
-                        ),
-                        width=8,
-                    )
-                ),
-                hg.If(notification is not None, notification),
+                notification,
                 gutter=False,
             ),
-            layout.forms.helpers.Submit(_("Download subscriptions")),
+            sync_help_modal(),
+            layout.forms.helpers.Submit(
+                _("Download subscriptions"), style="display: inline-block;"
+            ),
+            layout.button.Button(
+                _("Help"),
+                buttontype="ghost",
+                style="margin-left: 1rem",
+                icon="help",
+                **sync_help_modal().openerattributes,
+            ),
         ),
         display_previous_execution(request),
     )

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-04 15:40+0200\n"
+"POT-Creation-Date: 2022-01-12 16:25+0200\n"
 "PO-Revision-Date: 2021-04-08 02:26+0000\n"
 "Last-Translator: Frederik Bugglin <bugglin@basx.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/basxconnect/"
@@ -80,7 +80,7 @@ msgid "General"
 msgstr "Allgemein"
 
 #: basxconnect/core/dynamic_preferences_registry.py:15
-#: basxconnect/core/layouts/settings_layout.py:66
+#: basxconnect/core/layouts/settings_layout.py:78
 #: basxconnect/core/models/persons.py:219
 #: basxconnect/core/views/menu_views.py:42
 #: basxconnect/core/views/menu_views.py:47
@@ -114,18 +114,17 @@ msgstr "Standart-Typ für juristische Personen"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:31
 #: basxconnect/core/layouts/editperson/common/addresses.py:68
-#: basxconnect/core/layouts/editperson/common/addresses.py:256
+#: basxconnect/core/layouts/editperson/common/addresses.py:257
 msgid "Add"
 msgstr "Hinzufügen"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:37
-#: basxconnect/core/layouts/editperson/common/addresses.py:123
-#: basxconnect/core/layouts/editperson/common/addresses.py:295
+#: basxconnect/core/layouts/editperson/common/addresses.py:124
+#: basxconnect/core/layouts/editperson/common/addresses.py:296
 #: basxconnect/core/layouts/editperson/common/relationships_tab.py:115
 #: basxconnect/core/layouts/editperson/common/relationships_tab.py:126
 #: basxconnect/core/layouts/editperson/common/utils.py:112
-#: basxconnect/core/views/person/person_browse_views.py:109
-#: basxconnect/core/views/person/person_details_views.py:220
+#: basxconnect/core/views/person/person_browse_views.py:103
 msgid "Save"
 msgstr "Speichern"
 
@@ -137,17 +136,17 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:64
-#: basxconnect/core/layouts/editperson/common/addresses.py:193
+#: basxconnect/core/layouts/editperson/common/addresses.py:194
 #: basxconnect/core/layouts/editperson/common/head.py:14
 #: basxconnect/core/layouts/editperson/common/relationships_tab.py:88
-#: basxconnect/core/layouts/settings_layout.py:46
-#: basxconnect/core/layouts/settings_layout.py:118
-#: basxconnect/core/views/person/person_browse_views.py:261
+#: basxconnect/core/layouts/settings_layout.py:53
+#: basxconnect/core/layouts/settings_layout.py:135
+#: basxconnect/core/views/person/person_browse_views.py:256
 msgid "Delete"
 msgstr "Löschen"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:89
-#: basxconnect/core/layouts/editperson/common/addresses.py:137
+#: basxconnect/core/layouts/editperson/common/addresses.py:138
 msgid "primary"
 msgstr "primär"
 
@@ -156,27 +155,27 @@ msgstr "primär"
 msgid "Edit %s"
 msgstr "%s bearbeiten"
 
-#: basxconnect/core/layouts/editperson/common/addresses.py:150
+#: basxconnect/core/layouts/editperson/common/addresses.py:151
 msgid "Valid from: "
 msgstr "Gültig von: "
 
-#: basxconnect/core/layouts/editperson/common/addresses.py:160
+#: basxconnect/core/layouts/editperson/common/addresses.py:161
 msgid "Valid until: "
 msgstr "Gültig bis: "
 
-#: basxconnect/core/layouts/editperson/common/addresses.py:213
+#: basxconnect/core/layouts/editperson/common/addresses.py:214
 msgid "Address(es)"
 msgstr "Adresse(n)"
 
-#: basxconnect/core/layouts/editperson/common/addresses.py:234
+#: basxconnect/core/layouts/editperson/common/addresses.py:235
 msgid "Hide inactive postals"
 msgstr "Inaktive Adressen verbergen"
 
-#: basxconnect/core/layouts/editperson/common/addresses.py:242
+#: basxconnect/core/layouts/editperson/common/addresses.py:243
 msgid "Show inactive postals"
 msgstr "Inaktive Adressen anzeigen"
 
-#: basxconnect/core/layouts/editperson/common/addresses.py:287
+#: basxconnect/core/layouts/editperson/common/addresses.py:288
 msgid "Add Address"
 msgstr "Adresse hinzufügen"
 
@@ -194,14 +193,14 @@ msgstr "Zuwendungen"
 
 #: basxconnect/core/layouts/editperson/common/contributions_tab.py:37
 #: basxconnect/core/layouts/settings_layout.py:33
-#: basxconnect/core/layouts/settings_layout.py:110
+#: basxconnect/core/layouts/settings_layout.py:122
 #: basxconnect/core/wizards/add_person.py:369
 #, python-format
 msgid "Add %s"
 msgstr "%s hinzufügen"
 
 #: basxconnect/core/layouts/editperson/common/head.py:23
-#: basxconnect/core/views/person/person_browse_views.py:267
+#: basxconnect/core/views/person/person_browse_views.py:262
 msgid "Restore"
 msgstr "Wiederherstellen"
 
@@ -253,14 +252,14 @@ msgid "Created"
 msgstr "Erstellt"
 
 #: basxconnect/core/layouts/editperson/common/utils.py:48
-#: basxconnect/core/views/person/person_browse_views.py:319
+#: basxconnect/core/views/person/person_browse_views.py:314
 #: basxconnect/core/views/person/person_details_views.py:161
 msgid "Inactive"
 msgstr "Inaktiv"
 
 #: basxconnect/core/layouts/editperson/common/utils.py:48
 #: basxconnect/core/models/persons.py:58
-#: basxconnect/core/views/person/person_browse_views.py:319
+#: basxconnect/core/views/person/person_browse_views.py:314
 #: basxconnect/core/views/person/person_details_views.py:161
 msgid "Active"
 msgstr "Aktiv"
@@ -317,7 +316,7 @@ msgstr "Person"
 
 #: basxconnect/core/models/addresses.py:30
 #: basxconnect/core/models/addresses.py:54
-#: basxconnect/core/views/person/person_browse_views.py:232
+#: basxconnect/core/views/person/person_browse_views.py:227
 #: basxconnect/core/wizards/add_person.py:64
 msgid "Email"
 msgstr "E-Mail"
@@ -446,7 +445,7 @@ msgstr "Bemerkungen"
 
 #: basxconnect/core/models/persons.py:119
 #: basxconnect/core/models/persons.py:283
-#: basxconnect/core/views/person/person_browse_views.py:446
+#: basxconnect/core/views/person/person_browse_views.py:441
 msgid "Person Type"
 msgstr "Personentyp"
 
@@ -515,7 +514,7 @@ msgid "Age"
 msgstr "Alter"
 
 #: basxconnect/core/models/persons.py:313
-#: basxconnect/core/views/person/person_browse_views.py:285
+#: basxconnect/core/views/person/person_browse_views.py:280
 msgid "Natural Person"
 msgstr "Natürliche Person"
 
@@ -528,7 +527,7 @@ msgid "Addition name"
 msgstr "Zusatz"
 
 #: basxconnect/core/models/persons.py:338
-#: basxconnect/core/views/person/person_browse_views.py:286
+#: basxconnect/core/views/person/person_browse_views.py:281
 msgid "Legal Person"
 msgstr "Juristische Person"
 
@@ -537,7 +536,7 @@ msgid "Legal Persons"
 msgstr "Juristische Personen"
 
 #: basxconnect/core/models/persons.py:362
-#: basxconnect/core/views/person/person_browse_views.py:288
+#: basxconnect/core/views/person/person_browse_views.py:283
 msgid "Person Association"
 msgstr "Personenverbindung"
 
@@ -582,7 +581,7 @@ msgid "Relationship"
 msgstr "Beziehung"
 
 #: basxconnect/core/models/utils.py:13
-#: basxconnect/core/views/person/person_browse_views.py:204
+#: basxconnect/core/views/person/person_browse_views.py:199
 msgid "Name"
 msgstr "Name"
 
@@ -610,55 +609,55 @@ msgstr "Begriff"
 msgid "Terms"
 msgstr "Begriffe"
 
-#: basxconnect/core/views/person/person_browse_views.py:70
+#: basxconnect/core/views/person/person_browse_views.py:68
 #, python-format
 msgid "Add tag to %(count)d person"
 msgid_plural "Add tag to %(count)d persons"
 msgstr[0] "Tag zu %(count)d Person hinzufügen"
 msgstr[1] "Tag zu %(count)d Personen hinzufügen"
 
-#: basxconnect/core/views/person/person_browse_views.py:79
+#: basxconnect/core/views/person/person_browse_views.py:77
 #, python-format
 msgid "Remove tag from %(count)d person"
 msgid_plural "Remove tag from %(count)d persons"
 msgstr[0] "Tag von %(count)d Person entfernen"
 msgstr[1] "Tag von %(count)d Personen entfernen"
 
-#: basxconnect/core/views/person/person_browse_views.py:100
-#: basxconnect/core/views/person/person_browse_views.py:112
+#: basxconnect/core/views/person/person_browse_views.py:94
+#: basxconnect/core/views/person/person_browse_views.py:106
 msgid "Create new tag"
 msgstr "Einen neuen Tag erstellen"
 
-#: basxconnect/core/views/person/person_browse_views.py:121
+#: basxconnect/core/views/person/person_browse_views.py:115
 msgid "Submit"
 msgstr "Absenden"
 
-#: basxconnect/core/views/person/person_browse_views.py:249
+#: basxconnect/core/views/person/person_browse_views.py:244
 msgid "Add tag"
 msgstr "Tag hinzufügen"
 
-#: basxconnect/core/views/person/person_browse_views.py:255
+#: basxconnect/core/views/person/person_browse_views.py:250
 msgid "Remove tag"
 msgstr "Tag entfernen"
 
-#: basxconnect/core/views/person/person_browse_views.py:273
+#: basxconnect/core/views/person/person_browse_views.py:268
 msgid "Excel"
 msgstr "Excel"
 
-#: basxconnect/core/views/person/person_browse_views.py:323
+#: basxconnect/core/views/person/person_browse_views.py:318
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: basxconnect/core/views/person/person_browse_views.py:520
-#: basxconnect/core/views/person/person_details_views.py:230
+#: basxconnect/core/views/person/person_browse_views.py:515
+#: basxconnect/core/views/person/person_details_views.py:228
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: basxconnect/core/views/person/person_browse_views.py:526
+#: basxconnect/core/views/person/person_browse_views.py:521
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: basxconnect/core/views/person/person_browse_views.py:533
+#: basxconnect/core/views/person/person_browse_views.py:528
 msgctxt "apply filter"
 msgid "Filter"
 msgstr "Anwenden"
@@ -668,16 +667,16 @@ msgstr "Anwenden"
 msgid "%s is %s"
 msgstr "%s ist %s"
 
-#: basxconnect/core/views/person/person_details_views.py:168
-msgid "Delete linked email subscriptions as well"
-msgstr "Verknüpfte Email-Abonnemente auch löschen"
+#: basxconnect/core/views/person/person_details_views.py:177
+msgid "Delete linked %s subscription as well"
+msgstr "Verknüpftes %s Abonnement auch löschen"
 
-#: basxconnect/core/views/person/person_details_views.py:210
+#: basxconnect/core/views/person/person_details_views.py:216
 #, python-format
 msgid "Delete email %s"
 msgstr "Email %s löschen"
 
-#: basxconnect/core/views/person/person_details_views.py:238
+#: basxconnect/core/views/person/person_details_views.py:234
 msgid "Confirm"
 msgstr "Bestätigen"
 

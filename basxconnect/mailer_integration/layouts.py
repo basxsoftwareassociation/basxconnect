@@ -42,7 +42,10 @@ def _display_subscription(email):
         R(
             C(interest, width=6, breakpoint="lg"),
             C(
-                is_interested_indicator(interest in subscription.interests.all()),
+                is_interested_indicator(
+                    interest in subscription.interests.all(),
+                    subscription.status != "archived",
+                ),
                 breakpoint="lg",
             ),
             style="padding-bottom: 24px;",
@@ -64,6 +67,17 @@ def _display_subscription(email):
                     style="padding-left:0.5rem;",
                 ),
                 style="margin-bottom: 1.5rem;",
+            ),
+        ),
+        hg.If(
+            subscription.status == "archived",
+            R(
+                C(_("Status before archiving"), width=6, breakpoint="lg"),
+                C(
+                    subscription.status_before_archiving,
+                    breakpoint="lg",
+                ),
+                style="padding-bottom: 24px;",
             ),
         ),
         *interests,
@@ -93,7 +107,7 @@ def _display_subscription(email):
             )
         ),
         style=hg.If(
-            not email.subscription.active,
+            email.subscription.status == "archived",
             "color: #a8a8a8;",
         ),
     )
@@ -115,24 +129,22 @@ def _display_email_without_subscription(email):
 
 
 def map_tag_color(subscription):
-    if not subscription.active:
-        return "gray"
     mapping = {"subscribed": "green"}
     return mapping.get(subscription.status, "gray")
 
 
-def is_interested_indicator(is_subscribed):
-    if is_subscribed:
+def is_interested_indicator(is_interested, is_active):
+    if is_interested and is_active:
         color = "#198038"
+        text = _("active")
+    elif is_interested:
+        color = "#e0e0e0"
         text = _("active")
     else:
         color = "#e0e0e0"
         text = _("inactive")
     return hg.DIV(
-        hg.DIV(
-            "",
-            style=f"height: 8px; width: 8px; background-color: {color}; border-radius: 50%; display: inline-block;",
-        ),
+        hg.DIV("●", style=f"color: {color}; display: inline-block;"),
         hg.DIV(text, style="display: inline-block; padding-left: 8px"),
         style="display: inline-block;",
     )

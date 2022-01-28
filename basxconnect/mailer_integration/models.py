@@ -37,9 +37,19 @@ class Subscription(models.Model):
             ("unsubscribed", "unsubscribed"),
             ("non-subscribed", "non-subscribed"),
             ("cleaned", "cleaned"),
+            ("archived", "archived"),
         ],
     )
-    active = models.BooleanField(_("Deleted"), blank=True, default=True, editable=False)
+    status_before_archiving = models.CharField(
+        max_length=50,
+        choices=[
+            ("subscribed", "subscribed"),
+            ("unsubscribed", "unsubscribed"),
+            ("non-subscribed", "non-subscribed"),
+            ("cleaned", "cleaned"),
+        ],
+        null=True,
+    )
 
     interests = models.ManyToManyField(Interest, blank=True)
     interests.verbose_name = _("Mailing Interests")
