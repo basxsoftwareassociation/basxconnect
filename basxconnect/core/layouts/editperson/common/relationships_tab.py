@@ -45,8 +45,7 @@ def relationshipstab(request):
 
 
 def relationships_datatable(request, queryset, primary_button, title):
-    return layout.datatable.DataTable.from_model(
-        Relationship,
+    return layout.datatable.DataTable.from_queryset(
         queryset,
         title=title,
         backurl=request.get_full_path(),

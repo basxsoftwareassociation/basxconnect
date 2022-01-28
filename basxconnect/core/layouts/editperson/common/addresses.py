@@ -37,8 +37,7 @@ def tile_with_datatable(model, queryset, columns, request):
         submitlabel=_("Save"),
     )
     return tiling_col(
-        layout.datatable.DataTable.from_model(
-            model,
+        layout.datatable.DataTable.from_queryset(
             queryset,
             prevent_automatic_sortingnames=True,
             columns=columns,
