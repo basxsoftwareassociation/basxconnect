@@ -15,15 +15,6 @@ from basxconnect.mailer_integration.models import Interest
 
 
 class Mailchimp(mailer.AbstractMailer):
-    api_key = ""
-    server = ""
-    list_id = ""
-    segment_id = ""
-    # This tag is used to label synchronized persons in Mailchimp.
-    # The other one is used to label synchronized persons in BasxConnect.
-    mailchimp_tag = ""
-    interests_category_id = ""
-
     def __init__(self) -> None:
         from basxconnect.mailer_integration import dynamic_preferences_registry  # noqa
 
