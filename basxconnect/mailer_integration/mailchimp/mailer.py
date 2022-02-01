@@ -22,6 +22,7 @@ class Mailchimp(mailer.AbstractMailer):
         self.api_key = preferences["mailchimp__api_key"]
         self.server = preferences["mailchimp__server"]
         self.mailchimp_tag = preferences["mailchimp__tag"]
+        self.mailchimp_basxconnect_tag = preferences["mailchimp__basxconnect_tag"]
         self.interests_category_id = preferences["mailchimp__interests_category_id"]
         self.list_id = preferences["mailchimp__list_id"]
         self.segment_id = preferences["mailchimp__segment_id"]
@@ -124,7 +125,7 @@ class Mailchimp(mailer.AbstractMailer):
         ]
 
     def tag(self) -> str:
-        return "Imported from Mailchimp"
+        return self.mailchimp_basxconnect_tag
 
 
 def compute_interests_dict(person) -> dict:

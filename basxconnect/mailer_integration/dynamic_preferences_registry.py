@@ -42,8 +42,16 @@ class MailchimpInterestsCategoryId(StringPreference):
 class MailchimpTag(StringPreference):
     section = mailchimp_integration
     name = "tag"
-    default = ""
+    default = "Synchronized with Basxconnect"
     verbose_name = _("Mailchimp tag")
+
+
+@global_preferences_registry.register
+class MailchimpBasxconnectTag(StringPreference):
+    section = mailchimp_integration
+    name = "basxconnect_tag"
+    default = "Imported from Mailchimp"
+    verbose_name = _("BasxConnect Mailchimp tag")
 
 
 @global_preferences_registry.register
