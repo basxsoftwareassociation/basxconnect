@@ -19,6 +19,8 @@ class Mailchimp(mailer.AbstractMailer):
     server = ""
     list_id = ""
     segment_id = ""
+    # This tag is used to label synchronized persons in Mailchimp.
+    # The other one is used to label synchronized persons in BasxConnect.
     mailchimp_tag = ""
     interests_category_id = ""
 
