@@ -63,23 +63,17 @@ def bulk_tag_operation_view(request):
     form = BulkTagOperationForm()
     count = len(persons)
     if operation == "add":
-        header = (
-            ngettext_lazy(
-                "Add tag to %(count)d person",
-                "Add tag to %(count)d persons",
-                count,
-            )
-            % {"count": count}
-        )
+        header = ngettext_lazy(
+            "Add tag to %(count)d person",
+            "Add tag to %(count)d persons",
+            count,
+        ) % {"count": count}
     else:
-        header = (
-            ngettext_lazy(
-                "Remove tag from %(count)d person",
-                "Remove tag from %(count)d persons",
-                count,
-            )
-            % {"count": count}
-        )
+        header = ngettext_lazy(
+            "Remove tag from %(count)d person",
+            "Remove tag from %(count)d persons",
+            count,
+        ) % {"count": count}
     tags_vocabulary_id = (
         getattr(Vocabulary.objects.filter(slug="tag").first(), "id", "") or ""
     )
