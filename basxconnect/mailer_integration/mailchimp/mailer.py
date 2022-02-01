@@ -3,7 +3,6 @@ from typing import List
 
 import mailchimp_marketing
 from django.conf import settings
-from dynamic_preferences.registries import global_preferences_registry
 from mailchimp_marketing.api_client import ApiClientError
 
 from basxconnect.mailer_integration.abstract import mailer
@@ -16,23 +15,9 @@ from basxconnect.mailer_integration.models import Interest
 
 class Mailchimp(mailer.AbstractMailer):
     def __init__(self) -> None:
-        from basxconnect.mailer_integration import dynamic_preferences_registry  # noqa
-
-        preferences = global_preferences_registry.manager()
-        self.api_key = preferences["mailchimp__api_key"]
-        self.server = preferences["mailchimp__server"]
-        self.mailchimp_tag = preferences["mailchimp__tag"]
-        self.mailchimp_basxconnect_tag = preferences["mailchimp__basxconnect_tag"]
-        self.interests_category_id = preferences["mailchimp__interests_category_id"]
-        self.list_id = preferences["mailchimp__list_id"]
-        self.segment_id = preferences["mailchimp__segment_id"]
-
         self.client = mailchimp_marketing.Client()
         self.client.set_config(
-            {
-                "api_key": self.api_key,
-                "server": self.server,
-            }
+            {"api_key": settings.MAILCHIMP_API_KEY, "server": settings.MAILCHIMP_SERVER}
         )
 
     def name(self) -> str:
@@ -40,14 +25,14 @@ class Mailchimp(mailer.AbstractMailer):
 
     def get_person_count(self) -> int:
         return self.client.lists.get_segment(
-            list_id=self.list_id,
-            segment_id=self.segment_id,
+            list_id=settings.MAILCHIMP_LIST_ID,
+            segment_id=settings.MAILCHIMP_SEGMENT_ID,
         )["member_count"]
 
     def get_persons(self, count: int, offset: int) -> List[MailerPerson]:
         segment = self.client.lists.get_segment_members_list(
-            list_id=self.list_id,
-            segment_id=self.segment_id,
+            list_id=settings.MAILCHIMP_LIST_ID,
+            segment_id=settings.MAILCHIMP_SEGMENT_ID,
             count=count,
             offset=offset,
             include_cleaned=True,
@@ -66,12 +51,14 @@ class Mailchimp(mailer.AbstractMailer):
         ]
 
     def delete_person(self, email: str):
-        self.client.lists.delete_list_member(self.list_id, compute_email_hash(email))
+        self.client.lists.delete_list_member(
+            settings.MAILCHIMP_LIST_ID, compute_email_hash(email)
+        )
 
     def put_person(self, person: MailerPerson, **kwargs):
         email_hash = compute_email_hash(person.email)
         self.client.lists.set_list_member(
-            self.list_id,
+            settings.MAILCHIMP_LIST_ID,
             email_hash,
             {
                 "email_address": person.email,
@@ -90,18 +77,21 @@ class Mailchimp(mailer.AbstractMailer):
                 **kwargs,
             },
         )
-        self.client.lists.update_list_member_tags(
-            self.list_id,
-            email_hash,
-            {"tags": [{"name": self.mailchimp_tag, "status": "active"}]},
-        )
+        if hasattr(settings, "MAILCHIMP_TAG"):
+            self.client.lists.update_list_member_tags(
+                settings.MAILCHIMP_LIST_ID,
+                email_hash,
+                {"tags": [{"name": settings.MAILCHIMP_TAG, "status": "active"}]},
+            )
 
     def add_person(self, person: MailerPerson):
         self.put_person(person, status=person.status)
 
     def email_exists(self, email: str) -> bool:
         try:
-            self.client.lists.get_list_member(self.list_id, compute_email_hash(email))
+            self.client.lists.get_list_member(
+                settings.MAILCHIMP_LIST_ID, compute_email_hash(email)
+            )
         except ApiClientError as e:
             if e.status_code == 404:
                 return False
@@ -110,7 +100,7 @@ class Mailchimp(mailer.AbstractMailer):
 
     def change_email_address(self, old_email: str, new_email: str):
         self.client.lists.update_list_member(
-            self.list_id,
+            settings.MAILCHIMP_LIST_ID,
             compute_email_hash(old_email),
             {"email_address": new_email},
         )
@@ -119,13 +109,13 @@ class Mailchimp(mailer.AbstractMailer):
         return [
             MailingInterest(interest["id"], interest["name"])
             for interest in self.client.lists.list_interest_category_interests(
-                self.list_id,
-                self.interests_category_id,
+                settings.MAILCHIMP_LIST_ID,
+                settings.MAILCHIMP_INTERESTS_CATEGORY_ID,
             )["interests"]
         ]
 
     def tag(self) -> str:
-        return self.mailchimp_basxconnect_tag
+        return "Imported from Mailchimp"
 
 
 def compute_interests_dict(person) -> dict:
