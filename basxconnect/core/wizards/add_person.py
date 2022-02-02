@@ -300,7 +300,14 @@ class AddPersonWizard(PermissionRequiredMixin, BreadView, NamedUrlSessionWizardV
                 self.get_steps(),
                 style="margin-bottom: 2rem",
             ),
-            generate_wizard_form(self.get_form()._layout),
+            layout.grid.Grid(
+                layout.grid.Row(
+                    layout.grid.Col(
+                        generate_wizard_form(self.get_form()._layout), width=8
+                    )
+                ),
+                gutter=False,
+            ),
             hg.SCRIPT(
                 hg.mark_safe(
                     r"""
