@@ -18,7 +18,7 @@ C = layout.grid.Col
 def base_data_tab(request):
 
     return layout.tabs.Tab(
-        _("Base data"),
+        _("Personal data"),
         utils.grid_inside_tab(
             R(
                 personal_data(),
