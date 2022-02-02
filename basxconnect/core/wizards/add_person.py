@@ -46,7 +46,11 @@ def ADD_ADDRESS_LAYOUT():
         layout.grid.Row(
             layout.grid.Col(_("Address"), style="font-weight: 700; margin-bottom: 2rem")
         ),
-        layout.grid.Row(layout.grid.Col(layout.forms.FormField("address"))),
+        layout.grid.Row(
+            layout.grid.Col(
+                layout.forms.FormField("address", inputelement_attrs={"rows": "2"})
+            )
+        ),
         layout.grid.Row(
             layout.grid.Col(
                 layout.forms.FormField("postcode"),
