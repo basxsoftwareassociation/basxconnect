@@ -204,7 +204,15 @@ def confirm_delete_email(request, pk: int):
         else:
             form = DeleteMailerSubscriptionForm()
     else:
-        form = forms.Form()
+        if request.method == "POST":
+            form = forms.Form(request.POST)
+            if form.is_valid():
+                email.delete()
+                return HttpResponseRedirect(
+                    reverse_model(email.person, "read", kwargs={"pk": email.person.pk})
+                )
+        else:
+            form = forms.Form()
 
     return layout.render(
         request,

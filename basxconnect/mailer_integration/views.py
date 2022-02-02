@@ -52,6 +52,7 @@ def mailer_synchronization_view(request):
     else:
         notification = None
 
+    help_modal = sync_help_modal()
     return hg.BaseElement(
         Form(
             forms.Form(),
@@ -60,7 +61,7 @@ def mailer_synchronization_view(request):
                 notification,
                 gutter=False,
             ),
-            sync_help_modal(),
+            help_modal,
             layout.forms.helpers.Submit(
                 _("Download subscriptions"), style="display: inline-block;"
             ),
@@ -69,7 +70,7 @@ def mailer_synchronization_view(request):
                 buttontype="ghost",
                 style="margin-left: 1rem",
                 icon="help",
-                **sync_help_modal().openerattributes,
+                **help_modal.openerattributes,
             ),
         ),
         display_previous_execution(request),
