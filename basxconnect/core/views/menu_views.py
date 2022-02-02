@@ -40,7 +40,6 @@ menu.registeritem(
 )
 
 persongroup = menu.Group(_("Persons"), iconname="group")
-settingsgroup = menu.Group(_("Settings"), iconname="settings", order=100)
 
 menu.registeritem(
     menu.Item(
@@ -55,7 +54,7 @@ menu.registeritem(
             reverse("basxconnect.core.views.settings_views.generalsettings"),
             _("General"),
         ),
-        settingsgroup,
+        menu.settingsgroup,
     )
 )
 
@@ -65,7 +64,7 @@ menu.registeritem(
             reverse("basxconnect.core.views.settings_views.personsettings"),
             _("Persons"),
         ),
-        settingsgroup,
+        menu.settingsgroup,
     )
 )
 
@@ -75,6 +74,6 @@ menu.registeritem(
             reverse("basxconnect.core.views.settings_views.relationshipssettings"),
             _("Relationships"),
         ),
-        settingsgroup,
+        menu.settingsgroup,
     )
 )
