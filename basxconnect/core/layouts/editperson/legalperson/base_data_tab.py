@@ -31,7 +31,7 @@ def base_data_tab(request):
                             "name_addition",
                         ],
                     ),
-                    person_metadata(),
+                    person_metadata(models.LegalPerson),
                 ),
                 common_tiles(request),
             ),

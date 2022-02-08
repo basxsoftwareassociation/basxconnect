@@ -29,7 +29,7 @@ def base_data_tab(request):
                         "salutation_letter",
                     ],
                 ),
-                person_metadata(),
+                person_metadata(models.PersonAssociation),
             ),
             base_data.common_tiles(request),
         ),
