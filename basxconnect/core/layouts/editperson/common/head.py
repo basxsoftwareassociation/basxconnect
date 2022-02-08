@@ -1,9 +1,6 @@
 import htmlgenerator as hg
 from bread import layout
-from bread.utils import reverse_model
 from django.utils.translation import gettext_lazy as _
-
-from basxconnect.core.models import Person
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -42,18 +39,10 @@ def editperson_toolbar(request):
         ),
     )
 
-    add_person_button = layout.button.Button(
-        _("Add person"),
-        buttontype="primary",
-        icon="add",
-        notext=True,
-        **layout.aslink_attributes(hg.F(lambda c: reverse_model(Person, "add"))),
-    )
     return hg.SPAN(
         hg.If(hg.C("object.deleted"), restorebutton, deletebutton),
         copybutton,
         layout.button.PrintPageButton(buttontype="ghost"),
-        add_person_button,
         _class="no-print",
         style="margin-bottom: 1rem; margin-left: 1rem",
         width=3,
