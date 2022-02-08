@@ -41,8 +41,7 @@ class EditRelationshipView(EditView):
             layout.grid.Row(
                 layout.grid.Col(
                     layout.forms.Form(
-                        hg.C("form"),
-                        hg.DIV(*formfields),
+                        hg.C("form"), hg.DIV(*formfields), layout.forms.helpers.Submit()
                     ),
                     width=4,
                 )
