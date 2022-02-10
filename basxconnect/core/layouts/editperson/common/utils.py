@@ -41,7 +41,7 @@ def person_metadata(model):
             ),
         ),
         open_modal_popup_button(
-            "", model, f"{model._meta.model_name}_ajax_edit_metadata"
+            _("Meta data"), model, f"{model._meta.model_name}_ajax_edit_metadata"
         ),
         style="border-left: none;",
     )
