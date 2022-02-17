@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-29 20:28+0700\n"
-"PO-Revision-Date: 2021-11-15 00:49+0000\n"
-"Last-Translator: Maxime Leroy <lisacintosh@gmail.com>\n"
+"PO-Revision-Date: 2022-02-12 10:55+0000\n"
+"Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.9.1-dev\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: basxconnect/core/apps.py:20
 #: basxconnect/core/layouts/editperson/common/base_data.py:54
@@ -43,17 +43,15 @@ msgstr "Genres"
 
 #: basxconnect/core/apps.py:25
 msgid "Natural Person Types"
-msgstr "Nature des personnes physiques"
+msgstr "Type des personnes physiques"
 
 #: basxconnect/core/apps.py:26
 msgid "Legal Person Types"
-msgstr "Nature des personnes morales"
+msgstr "Type des personnes morales"
 
 #: basxconnect/core/apps.py:27
-#, fuzzy
-#| msgid "Person A"
 msgid "Association Person Types"
-msgstr "Personne A"
+msgstr "Types des associations de personnes"
 
 #: basxconnect/core/apps.py:28
 msgid "Address statuses"
@@ -65,7 +63,7 @@ msgstr "Types d'e-mail"
 
 #: basxconnect/core/apps.py:30
 msgid "URL Types"
-msgstr "Types de lien web"
+msgstr "Types d'URL"
 
 #: basxconnect/core/apps.py:31
 msgid "Phone Types"
@@ -73,7 +71,7 @@ msgstr "Types de téléphone"
 
 #: basxconnect/core/apps.py:32
 msgid "Address Types"
-msgstr "Types de l'adresse"
+msgstr "Types d'adresses"
 
 #: basxconnect/core/dynamic_preferences_registry.py:14
 #: basxconnect/core/views/menu_views.py:56
@@ -103,22 +101,16 @@ msgid "Organization Name"
 msgstr "Nom de l'organisation"
 
 #: basxconnect/core/dynamic_preferences_registry.py:53
-#, fuzzy
-#| msgid "Subtype of person"
 msgid "Default type of natural persons"
-msgstr "Sous-type de personne"
+msgstr "Type par défaut des personnes physiques"
 
 #: basxconnect/core/dynamic_preferences_registry.py:62
-#, fuzzy
-#| msgid "Person Associations"
 msgid "Default type of person associations"
-msgstr "Associations"
+msgstr "Type par défaut des associations de personnes"
 
 #: basxconnect/core/dynamic_preferences_registry.py:71
-#, fuzzy
-#| msgid "Subtype of person"
 msgid "Default type of legal persons"
-msgstr "Sous-type de personne"
+msgstr "Type par défaut des personnes morales"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:31
 #: basxconnect/core/layouts/editperson/common/addresses.py:68
@@ -429,7 +421,7 @@ msgstr "Nom d'usage"
 
 #: basxconnect/core/models/persons.py:56
 msgid "Default Sorting Name"
-msgstr ""
+msgstr "Nom de tri par défaut"
 
 #: basxconnect/core/models/persons.py:60
 msgid "Salutation Letter"
@@ -528,7 +520,7 @@ msgstr "Personne physique"
 
 #: basxconnect/core/models/persons.py:314
 msgid "Natural Persons"
-msgstr "Personnes morales"
+msgstr "Personnes physiques"
 
 #: basxconnect/core/models/persons.py:318
 msgid "Addition name"
@@ -550,7 +542,7 @@ msgstr "Association"
 
 #: basxconnect/core/models/persons.py:363
 msgid "Person Associations"
-msgstr "Associations"
+msgstr "Associations de personnes"
 
 #: basxconnect/core/models/relationships.py:9
 msgid "Name for relationship type"
@@ -645,10 +637,8 @@ msgid "%s is %s"
 msgstr "%s est %s"
 
 #: basxconnect/core/views/person/person_details_views.py:168
-#, fuzzy
-#| msgid "Delete linked mailer contact as well"
 msgid "Delete linked email subscriptions as well"
-msgstr "Supprimer aussi tous les contacts de l'envoyeur"
+msgstr "Supprimer également les abonnements e-mail liés"
 
 #: basxconnect/core/views/person/person_details_views.py:210
 #, python-format
@@ -674,7 +664,7 @@ msgstr "Utiliser comme adresse e-mail principale"
 #: basxconnect/core/views/person/person_modals_views.py:217
 #, python-format
 msgid "Propagate change of email address to %s"
-msgstr ""
+msgstr "Propager les modifications d'adresse e-mail vers %s"
 
 #: basxconnect/core/views/person/person_modals_views.py:243
 msgid "Edit Email"
@@ -695,16 +685,12 @@ msgid "%s items found"
 msgstr "%s éléments trouvés"
 
 #: basxconnect/core/views/relationship_views.py:40
-#, fuzzy
-#| msgid "Relationship"
 msgid "Edit Relationship"
-msgstr "Relation"
+msgstr "Modifier la relation"
 
 #: basxconnect/core/views/relationship_views.py:62
-#, fuzzy
-#| msgid "Relationship"
 msgid "Add Relationship"
-msgstr "Relation"
+msgstr "Ajouter une relation"
 
 #: basxconnect/core/views/settings_views.py:31
 msgid "Information about our organization"
