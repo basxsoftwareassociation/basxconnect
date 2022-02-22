@@ -1,6 +1,6 @@
 from bread import views as breadviews
 from bread.utils.urls import autopath, default_model_paths, model_urlname, reverse_model
-from bread.views import AddView
+from bread.views import AddView, EditView
 from django.views.generic import RedirectView
 
 import basxconnect.core.views.tag_views
@@ -183,6 +183,13 @@ urlpatterns = [
         person_modals_views.PersonAssociationEditTagsView.as_view(),
         urlname=model_urlname(models.PersonAssociation, "ajax_edit_tags"),
     ),
+    *[
+        autopath(
+            EditView._with(model=m, fields=["personnumber", "type"]).as_view(),
+            urlname=model_urlname(m, f"{m._meta.model_name}_ajax_edit_metadata"),
+        )
+        for m in [models.NaturalPerson, models.LegalPerson, models.PersonAssociation]
+    ],
     autopath(
         person_details_views.confirm_delete_email,
         urlname=model_urlname(models.Email, "delete"),

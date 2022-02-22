@@ -16,12 +16,13 @@ C = layout.grid.Col
 F = layout.forms.FormField
 
 
-def person_metadata():
+def person_metadata(model):
     return tiling_col(
         # we need this to take exactly as much space as a real header
         hg.DIV("", style="margin-bottom:3.25rem;"),
         display_field_label_and_value("personnumber"),
         display_field_label_and_value("maintype"),
+        display_field_label_and_value("type"),
         display_label_and_value(_("Status"), active_toggle()),
         display_label_and_value(
             _("Changed"),
@@ -38,6 +39,9 @@ def person_metadata():
                 " / ",
                 hg.C("object.history.last.history_user"),
             ),
+        ),
+        open_modal_popup_button(
+            _("Meta data"), model, f"{model._meta.model_name}_ajax_edit_metadata"
         ),
         style="border-left: none;",
     )

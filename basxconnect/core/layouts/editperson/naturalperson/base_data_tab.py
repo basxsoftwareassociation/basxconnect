@@ -22,7 +22,7 @@ def base_data_tab(request):
         utils.grid_inside_tab(
             R(
                 personal_data(),
-                person_metadata(),
+                person_metadata(models.NaturalPerson),
             ),
             base_data.common_tiles(request),
         ),
