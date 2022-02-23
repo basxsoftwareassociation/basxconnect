@@ -122,13 +122,19 @@ class Mailchimp(mailer.AbstractMailer):
         )
 
     def get_interests(self):
-        return [
-            MailingInterest(interest["id"], interest["name"])
-            for interest in self._client().lists.list_interest_category_interests(
-                self._dynamic_setting("mailchimp__list_id"),
-                self._dynamic_setting("mailchimp__interests_category_id"),
-            )["interests"]
-        ]
+        interests_category_id = self._dynamic_setting(
+            "mailchimp__interests_category_id"
+        )
+        if interests_category_id:
+            return [
+                MailingInterest(interest["id"], interest["name"])
+                for interest in self._client().lists.list_interest_category_interests(
+                    self._dynamic_setting("mailchimp__list_id"),
+                    interests_category_id,
+                )["interests"]
+            ]
+        else:
+            return []
 
     def tag(self) -> str:
         return self._dynamic_setting("mailchimp__basxconnect_tag")
