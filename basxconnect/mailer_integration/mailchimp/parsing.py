@@ -8,7 +8,7 @@ from basxconnect.mailer_integration.abstract.mailer import MailerPerson
 logger = logging.getLogger(__name__)
 
 
-def create_mailer_person_from_raw(person: str) -> MailerPerson:
+def create_mailer_person_from_raw(person: dict) -> MailerPerson:
     return MailerPerson(
         first_name=first_name(person),
         last_name=last_name(person),
