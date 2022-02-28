@@ -73,7 +73,9 @@ def status(raw_person) -> str:
 
 
 def interests_ids(raw_person) -> List[str]:
-    interest_indicators = raw_person["interests"]
+    interest_indicators = raw_person.get("interests")
+    if interest_indicators is None:
+        return []
     interests_ids = [
         interest_id
         for interest_id, interested in interest_indicators.items()
