@@ -49,7 +49,6 @@ def relationships_datatable(request, queryset, primary_button, title):
         queryset,
         model=Relationship,
         title=title,
-        backurl=request.get_full_path(),
         prevent_automatic_sortingnames=True,
         columns=[
             person_in_relationship(
