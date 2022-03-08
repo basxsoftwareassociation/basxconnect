@@ -39,6 +39,7 @@ def tile_with_datatable(model, queryset, columns, request):
     return tiling_col(
         layout.datatable.DataTable.from_queryset(
             queryset,
+            model=model,
             prevent_automatic_sortingnames=True,
             columns=columns,
             rowactions=[
