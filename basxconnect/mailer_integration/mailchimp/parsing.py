@@ -8,7 +8,7 @@ from basxconnect.mailer_integration.abstract.mailer import MailerPerson
 logger = logging.getLogger(__name__)
 
 
-def create_mailer_person_from_raw(person: str) -> MailerPerson:
+def create_mailer_person_from_raw(person: dict) -> MailerPerson:
     return MailerPerson(
         first_name=first_name(person),
         last_name=last_name(person),
@@ -73,7 +73,9 @@ def status(raw_person) -> str:
 
 
 def interests_ids(raw_person) -> List[str]:
-    interest_indicators = raw_person["interests"]
+    interest_indicators = raw_person.get("interests")
+    if interest_indicators is None:
+        return []
     interests_ids = [
         interest_id
         for interest_id, interested in interest_indicators.items()
