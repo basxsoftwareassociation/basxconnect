@@ -1,9 +1,10 @@
+import csv
 import os
 import traceback
 
 import chardet
+import dateparser
 import htmlgenerator as hg
-import tablib
 from bread import layout as _layout
 from bread.utils.urls import reverse_model
 from bread.views import BreadView, generate_wizard_form
@@ -15,6 +16,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import redirect
 from django.utils.html import mark_safe
+from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from djmoney.contrib.exchange.models import convert_money
 from dynamic_preferences.registries import global_preferences_registry
@@ -40,24 +42,27 @@ DEFAULT_COLUMN_MAPPING = {
 }
 
 
-def contributions_from_csv(filedata, headers, filter_duplicates):
+def contributions_from_csv(filedata, has_header, filter_duplicates, delimiter=";"):
     global_preferences = global_preferences_registry.manager()
     mapping = settings.BASXCONNECT.get(
         "CONTRIBUTIONS_CSV_COLUMN_MAPPING", DEFAULT_COLUMN_MAPPING
     )
     if not all([key in mapping for key in DEFAULT_COLUMN_MAPPING.keys()]):
         raise ValueError(
-            f"Settings CONTRIBUTIONS_CSV_COLUMN_MAPPING needs all keys {DEFAULT_COLUMN_MAPPING.keys()}"
+            "Settings CONTRIBUTIONS_CSV_COLUMN_MAPPING needs "
+            f"all keys {DEFAULT_COLUMN_MAPPING.keys()}"
         )
 
-    encoding = chardet.detect(filedata).get("encoding", "utf8") or "utf8"
+    encoding = chardet.detect(filedata).get("encoding") or "utf8"
+    data = filedata.decode(encoding).splitlines()
+    if has_header:
+        data = data[1:]
 
     ret = []
-    for row in tablib.import_set(
-        filedata.decode(encoding), headers=headers, format="tsv"
-    ):
+    for row in csv.reader(data, delimiter=delimiter):
         data = {k: row[mapping[k]] for k in mapping.keys() if mapping[k] is not None}
         data.setdefault("currency", global_preferences["contributions__currency"])
+        data["date"] = dateparser.parse(data["date"], languages=[get_language()])
 
         externalnumber = data.pop("donornumber")
         person = Person.objects.filter(personnumber=externalnumber)
@@ -90,22 +95,25 @@ class UploadForm(forms.Form):
     filter_duplicates = forms.BooleanField(
         label=_("Filter out duplicates"), required=False
     )
+    delimiter = forms.CharField(label=("Delimiter"), max_length=1, initial=";")
     layout = hg.BaseElement(
         _layout.forms.FormField("importfile"),
         _layout.helpers.Label(_("Import options")),
         _layout.forms.FormField("first_line_is_header"),
         _layout.forms.FormField("filter_duplicates"),
+        _layout.forms.FormField("delimiter"),
     )
 
     def clean(self):
         ret = super().clean()
-        if not ret["importfile"]:
+        if "importfile" not in ret or not ret["importfile"]:
             raise ValidationError(_("Required field"))
         try:
             contributions_from_csv(
                 ret["importfile"].read(),
                 ret["first_line_is_header"],
                 ret["filter_duplicates"],
+                ret.get("delimiter") or ";",
             )
         except Exception as e:
             traceback.print_exception(type(e), e, e.__traceback__)
@@ -209,7 +217,8 @@ class AssignmentForm(forms.Form):
                     _(" contributions could not been assigned"),
                 ),
                 _(
-                    "Please make sure that each entry has contributor number which matches with a person number and do the import again"
+                    "Please make sure that each entry has contributor number "
+                    "which matches with a person number and do the import again"
                 ),
                 kind="error",
                 lowcontrast=True,
@@ -235,6 +244,7 @@ class AssignmentForm(forms.Form):
 class ContributionsImportWizard(
     PermissionRequiredMixin, BreadView, NamedUrlSessionWizardView
 ):
+    initial_dict = {"upload_file": {"delimiter": ";"}}
     urlparams = (("step", str),)
     file_storage = FileSystemStorage(
         location=os.path.join(settings.MEDIA_ROOT, "wizards")
@@ -260,6 +270,7 @@ class ContributionsImportWizard(
                     context["importfile"].read(),
                     upload_file.get("first_line_is_header", True),
                     upload_file.get("filter_duplicates", False),
+                    upload_file.get("delimiter") or ";",
                 )
 
         context["unassigned_contributions"] = len(
