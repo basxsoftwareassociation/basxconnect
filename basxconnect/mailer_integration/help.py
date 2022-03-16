@@ -13,7 +13,7 @@ def sync_help_modal():
             hg.UL(
                 hg.LI(
                     _(
-                        "For all the Subscriptions that are in the relevant segment (e.g. 'UM Switzerland') in the Mailer, we check whether the email address is already in BasxConnect."
+                        "For all the Subscriptions that are in the relevant segment in the Mailer, we check whether the email address is already in BasxConnect."
                     ),
                     _class="bx--list__item",
                 ),

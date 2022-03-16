@@ -1,5 +1,4 @@
 from django.apps import AppConfig
-from django.core.checks import Error, register
 
 
 class MailerIntegrationConfig(AppConfig):

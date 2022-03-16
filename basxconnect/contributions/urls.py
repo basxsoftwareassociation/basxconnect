@@ -1,5 +1,6 @@
 import htmlgenerator as hg
 from bread import layout, menu, views
+from bread.formatters import format_value
 from bread.utils.links import Link, ModelHref
 from bread.utils.urls import autopath, default_model_paths, model_urlname, reverse
 from django.utils.translation import gettext_lazy as _
@@ -23,7 +24,9 @@ urlpatterns = [
                 layout.datatable.DataTableColumn(
                     _("Importfile"),
                     hg.BaseElement(
-                        layout.FC("row.importfile.name"), layout.FC("row.importfile")
+                        layout.ObjectFieldValue(
+                            "importfile", "row", formatter=format_value
+                        ),
                     ),
                     None,
                 ),

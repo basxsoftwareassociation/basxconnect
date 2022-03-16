@@ -31,6 +31,7 @@ setup(
         "djangorestframework",
         "chardet",
         "tablib",
+        "dateparser",
     ],
     extras_require={
         "testing": ["basx-bread[testing]"],
