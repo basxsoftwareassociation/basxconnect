@@ -1,7 +1,6 @@
 from bread import views as breadviews
-from bread.utils import ModelHref
 from bread.utils.urls import autopath, default_model_paths, model_urlname, reverse_model
-from bread.views import AddView, BrowseView, EditView
+from bread.views import AddView, EditView
 from django.views.generic import RedirectView
 
 import basxconnect.core.views.tag_views
@@ -15,6 +14,8 @@ from basxconnect.core.views.person import (
 
 from . import models
 from .views.relationship_views import AddRelationshipView, EditRelationshipView
+from .views.term import TermsBrowseView
+from .views.vocabulary import VocabularyBrowseView
 from .wizards.add_person import AddPersonWizard
 
 urlpatterns = [
@@ -118,16 +119,13 @@ urlpatterns = [
     ),
     *default_model_paths(models.RelationshipType),
     *default_model_paths(
-        models.Term, addview=AddView._with(fields=["term", "vocabulary"])
+        models.Term,
+        addview=AddView._with(fields=["term", "vocabulary"]),
+        browseview=TermsBrowseView,
     ),
     *default_model_paths(
         models.Vocabulary,
-        browseview=BrowseView._with(
-            rowclickaction=BrowseView.gen_rowclickaction(
-                "edit",
-                query={"next": ModelHref(models.Vocabulary, "browse")},
-            ),
-        ),
+        browseview=VocabularyBrowseView,
     ),
     *default_model_paths(models.Postal),
     *default_model_paths(models.Phone),
