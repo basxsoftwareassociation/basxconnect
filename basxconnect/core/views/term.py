@@ -11,9 +11,9 @@ class TermsBrowseView(BrowseView):
         super().__init__(*args, **kwargs)
 
     def get(self, *args, **kwargs):
-        vocabulary = Vocabulary.objects.get(
+        vocabulary = Vocabulary.objects.filter(
             slug=self.request.GET.get("vocabulary_slug")
-        )
+        ).first()
         if vocabulary:
             self.primary_button = layout.button.Button.fromlink(
                 Link(
