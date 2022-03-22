@@ -110,38 +110,19 @@ def generate_term_datatable(title, vocabulary_slug):
         primary_button=layout.button.Button.fromlink(
             Link(
                 href=ModelHref(
-                    Term,
-                    "add",
-                    query={
-                        "vocabulary": cat.id,
-                        "next": reverse(
-                            "basxconnect.core.views.settings_views.personsettings"
-                        ),
-                    },
+                    Term, "add", query={"vocabulary": cat.id}, return_to_current=True
                 ),
                 label=_("Add %s") % pretty_modelname(Term),
             ),
             icon=layout.icon.Icon("add", size=20),
         ),
         prevent_automatic_sortingnames=True,
-        rowclickaction=BrowseView.gen_rowclickaction(
-            "edit",
-            query={
-                "next": reverse("basxconnect.core.views.settings_views.personsettings")
-            },
-        ),
+        rowclickaction=BrowseView.gen_rowclickaction("edit", return_to_current=True),
         rowactions=[
             Link(
                 label=_("Delete"),
-                href=ModelHref(
-                    Term,
-                    "delete",
-                    kwargs={"pk": hg.C("row.pk")},
-                    query={
-                        "next": reverse(
-                            "basxconnect.core.views.settings_views.personsettings"
-                        )
-                    },
+                href=ModelHref.from_object(
+                    hg.C("row"), "delete", return_to_current=True
                 ),
                 iconname="trash-can",
             )
