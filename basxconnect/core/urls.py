@@ -14,6 +14,8 @@ from basxconnect.core.views.person import (
 
 from . import models
 from .views.relationship_views import AddRelationshipView, EditRelationshipView
+from .views.term import TermsBrowseView
+from .views.vocabulary import VocabularyBrowseView
 from .wizards.add_person import AddPersonWizard
 
 urlpatterns = [
@@ -117,9 +119,14 @@ urlpatterns = [
     ),
     *default_model_paths(models.RelationshipType),
     *default_model_paths(
-        models.Term, addview=AddView._with(fields=["term", "vocabulary"])
+        models.Term,
+        addview=AddView._with(fields=["term", "vocabulary"]),
+        browseview=TermsBrowseView,
     ),
-    *default_model_paths(models.Vocabulary),
+    *default_model_paths(
+        models.Vocabulary,
+        browseview=VocabularyBrowseView,
+    ),
     *default_model_paths(models.Postal),
     *default_model_paths(models.Phone),
     *default_model_paths(models.Web),
