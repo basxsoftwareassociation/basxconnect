@@ -225,7 +225,7 @@ def confirm_delete_email(request, pk: int):
                     *(bread.layout.forms.FormField(field) for field in fields),
                 ),
                 hg.DIV(
-                    Button.fromlink(
+                    Button.from_link(
                         Link(
                             href=reverse_model(
                                 email.person, "read", kwargs={"pk": email.person.pk}

@@ -447,7 +447,7 @@ class PersonBrowseView(BrowseView):
                         buttontype="ghost",
                         onclick="this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = 'none'",
                     ),
-                    layout.button.Button.fromlink(
+                    layout.button.Button.from_link(
                         Link(
                             label=_("Reset"),
                             href=self.request.path + "?reset=1",

@@ -15,7 +15,7 @@ class TermsBrowseView(BrowseView):
             slug=self.request.GET.get("vocabulary_slug")
         ).first()
         if vocabulary:
-            self.primary_button = layout.button.Button.fromlink(
+            self.primary_button = layout.button.Button.from_link(
                 Link(
                     href=ModelHref(
                         Term,

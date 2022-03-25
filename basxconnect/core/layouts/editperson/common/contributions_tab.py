@@ -29,7 +29,7 @@ def contributions_tab(request):
                             "amount_formatted",
                         ],
                         title="",
-                        primary_button=layout.button.Button.fromlink(
+                        primary_button=layout.button.Button.from_link(
                             Link(
                                 href=ModelHref(
                                     Contribution, "add", query={"person": person.id}

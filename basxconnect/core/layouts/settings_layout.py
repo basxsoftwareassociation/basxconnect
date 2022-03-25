@@ -19,7 +19,7 @@ def relationshipssettings(request):
                 layout.datatable.DataTable.from_queryset(
                     RelationshipType.objects.all(),
                     columns=["name"],
-                    primary_button=layout.button.Button.fromlink(
+                    primary_button=layout.button.Button.from_link(
                         Link(
                             href=ModelHref(
                                 RelationshipType,
@@ -107,7 +107,7 @@ def generate_term_datatable(title, vocabulary_slug):
         Term.objects.filter(vocabulary__slug=vocabulary_slug),
         columns=["term"],
         title=title,
-        primary_button=layout.button.Button.fromlink(
+        primary_button=layout.button.Button.from_link(
             Link(
                 href=ModelHref(
                     Term, "add", query={"vocabulary": cat.id}, return_to_current=True
