@@ -1,6 +1,6 @@
 from bread import layout as layout
 from bread import menu
-from bread.layout.base import DEVMODE_KEY
+from bread.layout import DEVMODE_KEY
 from bread.utils.links import Link
 from bread.utils.urls import reverse, reverse_model
 from django.utils.translation import gettext_lazy as _
