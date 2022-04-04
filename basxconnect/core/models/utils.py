@@ -41,9 +41,9 @@ class Term(models.Model):
         return self.term
 
     class Meta:
-        ordering = ["term"]
         verbose_name = _("Term")
         verbose_name_plural = _("Terms")
+        order_with_respect_to = "vocabulary"
 
 
 class Note(models.Model):
