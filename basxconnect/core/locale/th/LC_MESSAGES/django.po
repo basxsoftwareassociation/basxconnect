@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-29 20:28+0700\n"
-"PO-Revision-Date: 2021-11-05 02:35+0000\n"
+"PO-Revision-Date: 2022-03-30 10:08+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: basxconnect/core/apps.py:20
 #: basxconnect/core/layouts/editperson/common/base_data.py:54
@@ -101,22 +101,16 @@ msgid "Organization Name"
 msgstr "ชื่อองค์กร"
 
 #: basxconnect/core/dynamic_preferences_registry.py:53
-#, fuzzy
-#| msgid "Subtype of person"
 msgid "Default type of natural persons"
-msgstr "ประเภทบุคคลรายย่อย"
+msgstr "ค่าเริ่มต้นประเภทบุคคลธรรมดา"
 
 #: basxconnect/core/dynamic_preferences_registry.py:62
-#, fuzzy
-#| msgid "Person Associations"
 msgid "Default type of person associations"
-msgstr "กลุ่มบุคคล"
+msgstr "ค่าเริ่มต้นประเภทกลุ่มบุคคล"
 
 #: basxconnect/core/dynamic_preferences_registry.py:71
-#, fuzzy
-#| msgid "Subtype of person"
 msgid "Default type of legal persons"
-msgstr "ประเภทบุคคลรายย่อย"
+msgstr "ค่าเริ่มต้นประเภทนิติบุคคล"
 
 #: basxconnect/core/layouts/editperson/common/addresses.py:31
 #: basxconnect/core/layouts/editperson/common/addresses.py:68
@@ -427,7 +421,7 @@ msgstr "นามเรียกขาน"
 
 #: basxconnect/core/models/persons.py:56
 msgid "Default Sorting Name"
-msgstr ""
+msgstr "ชื่อการเรียงลำดับเริ่มต้น"
 
 #: basxconnect/core/models/persons.py:60
 msgid "Salutation Letter"
@@ -643,10 +637,8 @@ msgid "%s is %s"
 msgstr "%s คือ %s"
 
 #: basxconnect/core/views/person/person_details_views.py:168
-#, fuzzy
-#| msgid "Delete linked mailer contact as well"
 msgid "Delete linked email subscriptions as well"
-msgstr "ลบรายชื่ออีเมลที่เชื่อมโยงด้วย"
+msgstr "ลบการอีเมลที่เชื่อมโยงด้วยการสมัครสมาชิก"
 
 #: basxconnect/core/views/person/person_details_views.py:210
 #, python-format
@@ -693,16 +685,12 @@ msgid "%s items found"
 msgstr "%sรายการที่พบ"
 
 #: basxconnect/core/views/relationship_views.py:40
-#, fuzzy
-#| msgid "Relationship"
 msgid "Edit Relationship"
-msgstr "ความสัมพันธ์"
+msgstr "แก้ไขความสัมพันธ์"
 
 #: basxconnect/core/views/relationship_views.py:62
-#, fuzzy
-#| msgid "Relationship"
 msgid "Add Relationship"
-msgstr "ความสัมพันธ์"
+msgstr "เพิ่มความสัมพันธ์"
 
 #: basxconnect/core/views/settings_views.py:31
 msgid "Information about our organization"
