@@ -1,6 +1,6 @@
 from bread import views as breadviews
 from bread.utils.urls import autopath, default_model_paths, model_urlname, reverse_model
-from bread.views import AddView, EditView
+from bread.views import AddView, BrowseView, EditView
 from django.views.generic import RedirectView
 
 import basxconnect.core.views.tag_views
@@ -121,7 +121,10 @@ urlpatterns = [
     *default_model_paths(
         models.Term,
         addview=AddView._with(fields=["term", "vocabulary"]),
-        browseview=TermsBrowseView,
+        editview=EditView._with(fields=["term", "slug"]),
+        browseview=TermsBrowseView._with(
+            rowclickaction=BrowseView.gen_rowclickaction("edit")
+        ),
     ),
     *default_model_paths(
         models.Vocabulary,
