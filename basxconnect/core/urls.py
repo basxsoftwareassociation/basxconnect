@@ -123,7 +123,7 @@ urlpatterns = [
         addview=AddView._with(fields=["term", "vocabulary"]),
         editview=EditView._with(fields=["term", "slug"]),
         browseview=TermsBrowseView._with(
-            rowclickaction=BrowseView.gen_rowclickaction("edit")
+            rowclickaction=BrowseView.gen_rowclickaction("edit", return_to_current=True)
         ),
     ),
     *default_model_paths(
