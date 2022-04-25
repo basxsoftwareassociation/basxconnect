@@ -3,7 +3,6 @@ from bread import layout
 from bread.layout import ObjectFieldLabel, ObjectFieldValue
 from bread.layout.components.icon import Icon
 from bread.layout.components.tag import Tag
-from bread.utils import get_concrete_instance
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.layouts.editperson.common import addresses, utils
@@ -42,7 +41,7 @@ def other():
         ObjectFieldValue("remarks"),
         utils.open_modal_popup_button(
             "Remarks",
-            hg.F(lambda c: get_concrete_instance(c["object"])),
+            hg.C("object").person_ptr,
             "ajax_edit_remarks",
         ),
     )
@@ -55,7 +54,7 @@ def tags():
         hg.Iterator(hg.F(lambda c: c["object"].tags.all()), "i", Tag(hg.C("i"))),
         open_modal_popup_button(
             _("Edit Tags"),
-            hg.F(lambda c: get_concrete_instance(c["object"])),
+            hg.C("object").person_ptr,
             "ajax_edit_tags",
         ),
     )
