@@ -98,6 +98,19 @@ class Person(models.Model):
         if hasattr(instance, "core_email_list")
         else None
     )
+    primary_phonenumber = models.ForeignKey(
+        "core.Phone",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="primary_phone_for",
+    )
+    primary_phonenumber.verbose_name = _("Primary phonenumber")
+    primary_phonenumber.lazy_choices = (
+        lambda field, request, instance: instance.core_phone_list.all()
+        if hasattr(instance, "core_phone_list")
+        else None
+    )
 
     remarks = models.TextField(_("Remarks"), blank=True)
     notes = GenericRelation(Note)
@@ -172,6 +185,7 @@ class Person(models.Model):
 
         else:
             self.primary_postal_address = None
+
         if hasattr(self, "core_email_list"):
             if (
                 self.core_email_list.all().count() == 1
@@ -180,6 +194,15 @@ class Person(models.Model):
                 self.primary_email_address = self.core_email_list.first()
         else:
             self.primary_email_address = None
+
+        if hasattr(self, "core_phone_list"):
+            if (
+                self.core_phone_list.all().count() == 1
+                or self.primary_phonenumber is None
+            ):
+                self.primary_phonenumber = self.core_phone_list.first()
+        else:
+            self.primary_phonenumber = None
 
         super().save(*args, **kwargs)
         if self.personnumber.startswith("__placeholder__"):

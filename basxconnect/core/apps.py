@@ -12,9 +12,17 @@ class CoreConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
 
     def ready(self):
+        from django.db.models.signals import post_save
+
+        from .models import Address, Phone, Vocabulary
+
         shared_task(base=RepeatedTask, run_every=timedelta(hours=6))(update_addresses)
 
-        from .models import Vocabulary
+        def saveperson(sender, instance, **kwargs):
+            instance.person.save()
+
+        post_save.connect(saveperson, Phone, dispatch_uid="save_person_phone")
+        post_save.connect(saveperson, Address, dispatch_uid="save_person_address")
 
         pre_installed_vocabulary = {
             "tag": _("Tags"),
