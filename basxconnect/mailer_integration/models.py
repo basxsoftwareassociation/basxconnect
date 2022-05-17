@@ -72,14 +72,18 @@ class SynchronizationPerson(models.Model):
     email = models.CharField(max_length=100)
     first_name = models.CharField(_("First Name"), max_length=255, blank=True)
     last_name = models.CharField(_("Last Name"), max_length=255, blank=True)
+    old_subscription_status = models.CharField(_("Old subscription status"), max_length=255, blank=True)
+    new_subscription_status = models.CharField(_("New subscription status"), max_length=255, blank=True)
 
     NEW = "new"
     SKIPPED = "import_error"
     PREVIOUSLY_SYNCED = "synced_previously"
+    SUBSCRIPTION_STATUS_CHANGED = "subscription_status_changed"
     SYNC_STATUS_CHOICES = [
         (NEW, _("Newly added to BasxConnect")),
         (SKIPPED, _("Not added to BasxConnect")),
         (PREVIOUSLY_SYNCED, _("Synchronized previously but not this time")),
+        (SUBSCRIPTION_STATUS_CHANGED, _("Subscription status changed")),
     ]
     sync_status = models.CharField(
         _("Synchronization Status"),
