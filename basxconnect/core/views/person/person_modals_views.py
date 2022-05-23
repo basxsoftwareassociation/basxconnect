@@ -241,6 +241,9 @@ class EditEmailAddressView(EditView):
                 "",
             ),
         ]
+        if self.ajax_urlparameter in self.request.GET:
+            return layout.forms.Form(hg.C("form"), *form_fields)
+
         return layout.grid.Grid(
             hg.H3(_("Edit Email")),
             layout.grid.Row(

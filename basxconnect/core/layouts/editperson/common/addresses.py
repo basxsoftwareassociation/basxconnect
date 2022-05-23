@@ -27,7 +27,7 @@ def numbers(request):
 
 
 def tile_with_datatable(model, queryset, columns, request):
-    modal = layout.modal.Modal.with_ajax_content(
+    addmodal = layout.modal.Modal.with_ajax_content(
         _("Add"),
         ModelHref(
             model,
@@ -36,6 +36,23 @@ def tile_with_datatable(model, queryset, columns, request):
         ),
         submitlabel=_("Save"),
     )
+
+    def editmodal():
+        return modal_with_trigger(
+            layout.modal.Modal.with_ajax_content(
+                _("Edit"),
+                ModelHref.from_object(hg.C("row"), "edit", query={"asajax": True}),
+                submitlabel=_("Save"),
+            ),
+            layout.button.Button,
+            notext=True,
+            small=True,
+            buttontype="ghost",
+            icon="edit",
+            label=_("Edit"),
+            _class="bx--overflow-menu",
+        )
+
     return tiling_col(
         layout.datatable.DataTable.from_queryset(
             queryset,
@@ -43,16 +60,7 @@ def tile_with_datatable(model, queryset, columns, request):
             prevent_automatic_sortingnames=True,
             columns=columns,
             rowactions=[
-                Link(
-                    href=ModelHref(
-                        model,
-                        "edit",
-                        kwargs={"pk": hg.C("row.pk")},
-                        query={"next": request.get_full_path()},
-                    ),
-                    iconname="edit",
-                    label=_("Edit"),
-                ),
+                editmodal(),
                 Link(
                     href=ModelHref(
                         model,
@@ -65,11 +73,11 @@ def tile_with_datatable(model, queryset, columns, request):
                 ),
             ],
             primary_button=layout.button.Button(
-                _("Add"), buttontype="primary", **modal.openerattributes
+                _("Add"), buttontype="primary", **addmodal.openerattributes
             ),
             style="border-top: none;",
         ),
-        modal,
+        addmodal,
     )
 
 
