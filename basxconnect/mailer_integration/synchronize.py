@@ -1,5 +1,6 @@
 import django_countries
 from django.utils import timezone
+from dynamic_preferences.registries import global_preferences_registry
 
 from basxconnect.core import models
 from basxconnect.mailer_integration.abstract.mailer import AbstractMailer, MailerPerson
@@ -141,3 +142,7 @@ def _save_subscription(
     if old_subscription_status != subscription.status:
         _save_sync_person(mailer_person, sync_result, SynchronizationPerson.SUBSCRIPTION_STATUS_CHANGED,
                           old_subscription_status=old_subscription_status)
+    if global_preferences_registry.manager()["mailchimp__synchronize_language"]:
+        email.person.preferred_language = mailer_person.language
+        email.person.save()
+
