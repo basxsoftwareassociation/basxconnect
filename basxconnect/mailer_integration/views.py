@@ -128,9 +128,14 @@ def display_new_persons():
         ),
     )
 
+
 def display_status_changed_persons():
     return hg.Iterator(
-        hg.F(lambda c: c["row"].persons.filter(sync_status=SynchronizationPerson.SUBSCRIPTION_STATUS_CHANGED)),
+        hg.F(
+            lambda c: c["row"].persons.filter(
+                sync_status=SynchronizationPerson.SUBSCRIPTION_STATUS_CHANGED
+            )
+        ),
         "person",
         hg.DIV(
             hg.format(
@@ -145,6 +150,7 @@ def display_status_changed_persons():
             )
         ),
     )
+
 
 tools_group = menu.Group(_("Tools"), iconname="tool", order=99)
 

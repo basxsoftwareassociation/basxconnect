@@ -86,7 +86,9 @@ def is_valid_new_person(person: MailerPerson):
     ) and person.status in ["subscribed"]
 
 
-def _save_sync_person(mailer_person, sync_result, syn_status, old_subscription_status=""):
+def _save_sync_person(
+    mailer_person, sync_result, syn_status, old_subscription_status=""
+):
     SynchronizationPerson.objects.create(
         sync_result=sync_result,
         email=mailer_person.email,
@@ -94,7 +96,7 @@ def _save_sync_person(mailer_person, sync_result, syn_status, old_subscription_s
         last_name=mailer_person.last_name,
         sync_status=syn_status,
         new_subscription_status=mailer_person.status,
-        old_subscription_status=old_subscription_status
+        old_subscription_status=old_subscription_status,
     )
 
 
@@ -130,9 +132,9 @@ def _save_postal_address(person: models.Person, mailer_person: MailerPerson):
 
 
 def _save_subscription(
-        email: models.Email, mailer_person: MailerPerson, sync_result: SynchronizationResult
+    email: models.Email, mailer_person: MailerPerson, sync_result: SynchronizationResult
 ):
-    subscription, created = Subscription.objects.get_or_create(email=email)
+    subscription, _ = Subscription.objects.get_or_create(email=email)
     old_subscription_status = subscription.status or ""
     subscription.status = mailer_person.status
     subscription.language = mailer_person.language
@@ -143,9 +145,12 @@ def _save_subscription(
     subscription.latest_sync = sync_result
     subscription.save()
     if old_subscription_status != subscription.status:
-        _save_sync_person(mailer_person, sync_result, SynchronizationPerson.SUBSCRIPTION_STATUS_CHANGED,
-                          old_subscription_status=old_subscription_status)
+        _save_sync_person(
+            mailer_person,
+            sync_result,
+            SynchronizationPerson.SUBSCRIPTION_STATUS_CHANGED,
+            old_subscription_status=old_subscription_status,
+        )
     if global_preferences_registry.manager()["mailchimp__synchronize_language"]:
         email.person.preferred_language = mailer_person.language
         email.person.save()
-

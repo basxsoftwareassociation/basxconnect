@@ -72,8 +72,12 @@ class SynchronizationPerson(models.Model):
     email = models.CharField(max_length=100)
     first_name = models.CharField(_("First Name"), max_length=255, blank=True)
     last_name = models.CharField(_("Last Name"), max_length=255, blank=True)
-    old_subscription_status = models.CharField(_("Old subscription status"), max_length=255, blank=True)
-    new_subscription_status = models.CharField(_("New subscription status"), max_length=255, blank=True)
+    old_subscription_status = models.CharField(
+        _("Old subscription status"), max_length=255, blank=True
+    )
+    new_subscription_status = models.CharField(
+        _("New subscription status"), max_length=255, blank=True
+    )
 
     NEW = "new"
     SKIPPED = "import_error"
