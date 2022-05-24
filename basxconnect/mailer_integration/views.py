@@ -87,7 +87,11 @@ def display_previous_execution(request):
                     "sync_completed_datetime",
                     DataTableColumn(
                         _("Newly added to BasxConnect"),
-                        display_sync_persons(SynchronizationPerson.NEW),
+                        display_new_persons(),
+                    ),
+                    DataTableColumn(
+                        _("Subscription status changed"),
+                        display_status_changed_persons(),
                     ),
                 ],
                 title=_("Previous Executions"),
@@ -110,9 +114,9 @@ def display_previous_execution(request):
     )
 
 
-def display_sync_persons(sync_status):
+def display_new_persons():
     return hg.Iterator(
-        hg.F(lambda c: c["row"].persons.filter(sync_status=sync_status)),
+        hg.F(lambda c: c["row"].persons.filter(sync_status=SynchronizationPerson.NEW)),
         "person",
         hg.DIV(
             hg.format(
@@ -120,6 +124,29 @@ def display_sync_persons(sync_status):
                 hg.C("person.first_name"),
                 hg.C("person.last_name"),
                 hg.C("person.email"),
+            )
+        ),
+    )
+
+
+def display_status_changed_persons():
+    return hg.Iterator(
+        hg.F(
+            lambda c: c["row"].persons.filter(
+                sync_status=SynchronizationPerson.SUBSCRIPTION_STATUS_CHANGED
+            )
+        ),
+        "person",
+        hg.DIV(
+            hg.format(
+                "{} {} <{}>, {}: {}, {}: {}",
+                hg.C("person.first_name"),
+                hg.C("person.last_name"),
+                hg.C("person.email"),
+                _("Old"),
+                hg.C("person.old_subscription_status"),
+                _("New"),
+                hg.C("person.new_subscription_status"),
             )
         ),
     )

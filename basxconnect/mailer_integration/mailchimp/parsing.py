@@ -21,6 +21,7 @@ def create_mailer_person_from_raw(person: dict) -> MailerPerson:
         address=address(person),
         city=city(person),
         language=language(person),
+        persontype=persontype(person),
     )
 
 
@@ -107,3 +108,11 @@ def language(raw_person) -> str:
     if custom_reader:
         return custom_reader(raw_person)
     return raw_person["language"]
+
+
+def persontype(raw_person):
+    custom_reader = getattr(settings, "MAILCHIMP_PERSONTYPE_READER", None)
+    if custom_reader:
+        return custom_reader(raw_person)
+    else:
+        return ""

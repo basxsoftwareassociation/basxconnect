@@ -1,5 +1,6 @@
 import django_countries
 from django.utils import timezone
+from dynamic_preferences.registries import global_preferences_registry
 
 from basxconnect.core import models
 from basxconnect.mailer_integration.abstract.mailer import AbstractMailer, MailerPerson
@@ -85,13 +86,17 @@ def is_valid_new_person(person: MailerPerson):
     ) and person.status in ["subscribed"]
 
 
-def _save_sync_person(mailer_person, sync_result, syn_status):
+def _save_sync_person(
+    mailer_person, sync_result, syn_status, old_subscription_status=""
+):
     SynchronizationPerson.objects.create(
         sync_result=sync_result,
         email=mailer_person.email,
         first_name=mailer_person.first_name,
         last_name=mailer_person.last_name,
         sync_status=syn_status,
+        new_subscription_status=mailer_person.status,
+        old_subscription_status=old_subscription_status,
     )
 
 
@@ -101,6 +106,9 @@ def _save_person(datasource_tag: models.Term, mailer_person: MailerPerson):
         name=mailer_person.display_name,
         last_name=mailer_person.last_name,
     )
+    if mailer_person.persontype:
+        persontype = models.Term.objects.get(slug=MailerPerson.persontype)
+        person._type = persontype
     person.tags.add(datasource_tag)
     person.save()
     email = models.Email.objects.create(email=mailer_person.email, person=person)
@@ -127,6 +135,7 @@ def _save_subscription(
     email: models.Email, mailer_person: MailerPerson, sync_result: SynchronizationResult
 ):
     subscription, _ = Subscription.objects.get_or_create(email=email)
+    old_subscription_status = subscription.status or ""
     subscription.status = mailer_person.status
     subscription.language = mailer_person.language
     subscription.interests.clear()
@@ -135,3 +144,13 @@ def _save_subscription(
         subscription.interests.add(interest)
     subscription.latest_sync = sync_result
     subscription.save()
+    if old_subscription_status != subscription.status:
+        _save_sync_person(
+            mailer_person,
+            sync_result,
+            SynchronizationPerson.SUBSCRIPTION_STATUS_CHANGED,
+            old_subscription_status=old_subscription_status,
+        )
+    if global_preferences_registry.manager()["mailchimp__synchronize_language"]:
+        email.person.preferred_language = mailer_person.language
+        email.person.save()
