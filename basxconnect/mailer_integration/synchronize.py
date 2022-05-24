@@ -104,6 +104,9 @@ def _save_person(datasource_tag: models.Term, mailer_person: MailerPerson):
         name=mailer_person.display_name,
         last_name=mailer_person.last_name,
     )
+    if mailer_person.persontype:
+        persontype = models.Term.objects.get(slug=MailerPerson.persontype)
+        person._type = persontype
     person.tags.add(datasource_tag)
     person.save()
     email = models.Email.objects.create(email=mailer_person.email, person=person)

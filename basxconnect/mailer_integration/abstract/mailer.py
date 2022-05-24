@@ -16,6 +16,7 @@ class MailerPerson(NamedTuple):
     address: str = ""
     city: str = ""
     language: str = ""
+    persontype: str = ""
 
     @staticmethod
     def from_subscription(preferences: Subscription):
