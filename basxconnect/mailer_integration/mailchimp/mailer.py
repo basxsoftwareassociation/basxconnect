@@ -7,10 +7,10 @@ from dynamic_preferences.registries import global_preferences_registry
 from mailchimp_marketing.api_client import ApiClientError
 
 from basxconnect.mailer_integration.abstract import mailer
-from basxconnect.mailer_integration.abstract.mailer import MailerPerson, MailingInterest
-from basxconnect.mailer_integration.mailchimp.parsing import (
-    create_mailer_person_from_raw,
-)
+from basxconnect.mailer_integration.abstract.mailer import (MailerPerson,
+                                                            MailingInterest)
+from basxconnect.mailer_integration.mailchimp.parsing import \
+    create_mailer_person_from_raw
 from basxconnect.mailer_integration.models import Interest
 
 

@@ -11,7 +11,8 @@ from django.utils.translation import gettext_lazy as _
 from htmlgenerator import mark_safe
 
 from basxconnect.core import models
-from basxconnect.core.layouts.editperson.common.utils import tile_with_icon, tiling_col
+from basxconnect.core.layouts.editperson.common.utils import (tile_with_icon,
+                                                              tiling_col)
 
 R = layout.grid.Row
 C = layout.grid.Col

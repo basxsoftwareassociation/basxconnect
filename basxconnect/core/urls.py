@@ -1,16 +1,15 @@
 from bread import views as breadviews
-from bread.utils.urls import autopath, default_model_paths, model_urlname, reverse_model
+from bread.utils.urls import (autopath, default_model_paths, model_urlname,
+                              reverse_model)
 from bread.views import AddView, BrowseView, EditView
 from django.views.generic import RedirectView
 
 import basxconnect.core.views.tag_views
 from basxconnect.core.views import settings_views
-from basxconnect.core.views.person import (
-    person_browse_views,
-    person_details_views,
-    person_modals_views,
-    search_person_view,
-)
+from basxconnect.core.views.person import (person_browse_views,
+                                           person_details_views,
+                                           person_modals_views,
+                                           search_person_view)
 
 from . import models
 from .views.relationship_views import AddRelationshipView, EditRelationshipView

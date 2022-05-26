@@ -13,15 +13,8 @@ from django.utils.translation import gettext_lazy as _
 from dynamic_preferences.registries import global_preferences_registry
 from formtools.wizard.views import NamedUrlSessionWizardView
 
-from ..models import (
-    Email,
-    LegalPerson,
-    NaturalPerson,
-    Person,
-    PersonAssociation,
-    Postal,
-    Term,
-)
+from ..models import (Email, LegalPerson, NaturalPerson, Person,
+                      PersonAssociation, Postal, Term)
 
 ADD_FORM_LAYOUTS = {
     NaturalPerson: lambda: hg.BaseElement(
