@@ -7,7 +7,9 @@ from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.layouts.editperson.common import addresses, utils
 from basxconnect.core.layouts.editperson.common.utils import (
-    open_modal_popup_button, tile_with_icon)
+    open_modal_popup_button,
+    tile_with_icon,
+)
 
 R = layout.grid.Row
 

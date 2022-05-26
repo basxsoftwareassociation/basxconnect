@@ -4,7 +4,10 @@ from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core import models
 from basxconnect.core.layouts.editperson.common.utils import (
-    grid_inside_tab, tile_col_edit_modal, tiling_col)
+    grid_inside_tab,
+    tile_col_edit_modal,
+    tiling_col,
+)
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -14,8 +17,7 @@ def mailings_tab(request):
     from django.apps import apps
 
     if apps.is_installed("basxconnect.mailer_integration"):
-        from basxconnect.mailer_integration.layouts import \
-            mailer_integration_tile
+        from basxconnect.mailer_integration.layouts import mailer_integration_tile
 
         mailer_tile = mailer_integration_tile(request)
     else:

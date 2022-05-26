@@ -189,8 +189,7 @@ def confirm_delete_email(request, pk: int):
                     "delete_mailer_contact"
                 ):
                     try:
-                        from basxconnect.mailer_integration.settings import \
-                            MAILER
+                        from basxconnect.mailer_integration.settings import MAILER
 
                         MAILER.delete_person(email.email)
                     except Exception:

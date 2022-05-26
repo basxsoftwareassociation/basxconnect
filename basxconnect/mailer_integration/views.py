@@ -15,8 +15,10 @@ from django.utils.translation import gettext_lazy as _
 from basxconnect.mailer_integration import settings
 from basxconnect.mailer_integration.abstract.mailer import MailerPerson
 from basxconnect.mailer_integration.help import sync_help_modal
-from basxconnect.mailer_integration.models import (SynchronizationPerson,
-                                                   SynchronizationResult)
+from basxconnect.mailer_integration.models import (
+    SynchronizationPerson,
+    SynchronizationResult,
+)
 from basxconnect.mailer_integration.synchronize import synchronize
 
 C = bread.layout.grid.Col
