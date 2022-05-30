@@ -3,6 +3,7 @@ from django.utils import timezone
 from dynamic_preferences.registries import global_preferences_registry
 
 from basxconnect.core import models
+from basxconnect.core.models import Email
 from basxconnect.mailer_integration.abstract.mailer import AbstractMailer, MailerPerson
 from basxconnect.mailer_integration.models import (
     Interest,
@@ -107,8 +108,9 @@ def _save_person(datasource_tag: models.Term, mailer_person: MailerPerson):
         last_name=mailer_person.last_name,
     )
     if mailer_person.persontype:
-        persontype = models.Term.objects.get(slug=MailerPerson.persontype)
-        person._type = persontype
+        persontype = models.Term.objects.filter(slug=MailerPerson.persontype).first()
+        if persontype:
+            person._type = persontype
     person.tags.add(datasource_tag)
     person.save()
     email = models.Email.objects.create(email=mailer_person.email, person=person)
@@ -152,5 +154,6 @@ def _save_subscription(
             old_subscription_status=old_subscription_status,
         )
     if global_preferences_registry.manager()["mailchimp__synchronize_language"]:
-        email.person.preferred_language = mailer_person.language
-        email.person.save()
+        person = Email.objects.get(email=email).person
+        person.preferred_language = mailer_person.language
+        person.save()
