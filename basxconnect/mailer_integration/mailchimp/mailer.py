@@ -32,13 +32,17 @@ class Mailchimp(mailer.AbstractMailer):
         return "Mailchimp"
 
     def get_person_count(self) -> int:
-        return self._client().lists.get_segment(
-            list_id=self._dynamic_setting("mailchimp__list_id"),
-            segment_id=self._dynamic_setting("mailchimp__segment_id"),
-        )["member_count"]
+        return self._get_segment(1, 0)["total_items"]
 
     def get_persons(self, count: int, offset: int) -> List[MailerPerson]:
-        segment = self._client().lists.get_segment_members_list(
+        segment = self._get_segment(count, offset)
+        return [
+            create_mailer_person_from_raw(raw_person)
+            for raw_person in segment["members"]
+        ]
+
+    def _get_segment(self, count, offset):
+        return self._client().lists.get_segment_members_list(
             list_id=self._dynamic_setting("mailchimp__list_id"),
             segment_id=self._dynamic_setting("mailchimp__segment_id"),
             count=count,
@@ -53,10 +57,6 @@ class Mailchimp(mailer.AbstractMailer):
             #     "merge_fields.LNAME",
             # ],
         )
-        return [
-            create_mailer_person_from_raw(raw_person)
-            for raw_person in segment["members"]
-        ]
 
     def delete_person(self, email: str):
         self._client().lists.delete_list_member(
