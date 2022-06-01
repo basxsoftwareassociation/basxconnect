@@ -38,19 +38,21 @@ def tile_with_datatable(model, queryset, columns, request):
     )
 
     def editmodal():
-        return modal_with_trigger(
-            layout.modal.Modal.with_ajax_content(
-                _("Edit"),
-                ModelHref.from_object(hg.C("row"), "edit", query={"asajax": True}),
-                submitlabel=_("Save"),
-            ),
-            layout.button.Button,
-            notext=True,
-            small=True,
-            buttontype="ghost",
-            icon="edit",
-            label=_("Edit"),
-            _class="bx--overflow-menu",
+        return hg.F(
+            lambda c: modal_with_trigger(
+                layout.modal.Modal.with_ajax_content(
+                    _("Edit"),
+                    ModelHref.from_object(hg.C("row"), "edit", query={"asajax": True}),
+                    submitlabel=_("Save"),
+                ),
+                layout.button.Button,
+                notext=True,
+                small=True,
+                buttontype="ghost",
+                icon="edit",
+                label=_("Edit"),
+                _class="bx--overflow-menu",
+            )
         )
 
     return tiling_col(
