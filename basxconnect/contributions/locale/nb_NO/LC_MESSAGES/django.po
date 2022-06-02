@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-29 20:28+0700\n"
+"POT-Creation-Date: 2022-06-02 14:49+0700\n"
 "PO-Revision-Date: 2021-07-29 21:32+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.7.2-dev\n"
 
 #: basxconnect/contributions/dynamic_preferences_registry.py:7
-#: basxconnect/contributions/models.py:89 basxconnect/contributions/urls.py:50
+#: basxconnect/contributions/models.py:89 basxconnect/contributions/urls.py:53
 msgid "Contributions"
 msgstr "Bidragsytere"
 
@@ -30,11 +30,11 @@ msgstr "Foretrukket valuta"
 
 #: basxconnect/contributions/models.py:18
 #: basxconnect/contributions/models.py:71
-#: basxconnect/contributions/wizards/contributionsimport.py:132
+#: basxconnect/contributions/wizards/contributionsimport.py:140
 msgid "Date"
 msgstr "Dato"
 
-#: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:24
+#: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:25
 #, fuzzy
 msgid "Importfile"
 msgstr "Importfil"
@@ -72,7 +72,7 @@ msgid "Person"
 msgstr "Person"
 
 #: basxconnect/contributions/models.py:72
-#: basxconnect/contributions/wizards/contributionsimport.py:133
+#: basxconnect/contributions/wizards/contributionsimport.py:141
 msgid "Note"
 msgstr "Merknad"
 
@@ -86,7 +86,7 @@ msgstr "Kredittkonto"
 
 #: basxconnect/contributions/models.py:75
 #: basxconnect/contributions/models.py:82
-#: basxconnect/contributions/wizards/contributionsimport.py:164
+#: basxconnect/contributions/wizards/contributionsimport.py:172
 msgid "Amount"
 msgstr "Beløp"
 
@@ -98,93 +98,93 @@ msgstr "Valuta"
 msgid "Contribution"
 msgstr "Bidrag"
 
-#: basxconnect/contributions/urls.py:21
+#: basxconnect/contributions/urls.py:22
 msgid "Import date"
 msgstr "Importdato"
 
-#: basxconnect/contributions/urls.py:44
+#: basxconnect/contributions/urls.py:47
 msgid "Imports"
 msgstr "Importer"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:83
+#: basxconnect/contributions/wizards/contributionsimport.py:88
 msgid "Upload a file"
 msgstr "Last opp en fil"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:85
+#: basxconnect/contributions/wizards/contributionsimport.py:90
 msgid "File to import"
 msgstr "Filer å importere"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:85
+#: basxconnect/contributions/wizards/contributionsimport.py:90
 msgid "Choose a CSV file"
 msgstr "Velg en CSV-fil"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:88
+#: basxconnect/contributions/wizards/contributionsimport.py:93
 #, fuzzy
 msgid "First line is header"
 msgstr "Første linje er overskriften"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:91
+#: basxconnect/contributions/wizards/contributionsimport.py:96
 msgid "Filter out duplicates"
 msgstr "Filtrer ut duplikater"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:95
+#: basxconnect/contributions/wizards/contributionsimport.py:101
 msgid "Import options"
 msgstr "Importinnstillinger"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:103
+#: basxconnect/contributions/wizards/contributionsimport.py:110
 msgid "Required field"
 msgstr "Påkrevd felt"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:123
+#: basxconnect/contributions/wizards/contributionsimport.py:131
 #, fuzzy
 msgid "CSV import problem: "
 msgstr "CSV-importproblem: "
 
-#: basxconnect/contributions/wizards/contributionsimport.py:128
+#: basxconnect/contributions/wizards/contributionsimport.py:136
 #, fuzzy
 msgid "Assignment"
 msgstr "Tildelning"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:135
+#: basxconnect/contributions/wizards/contributionsimport.py:143
 msgid "Account"
 msgstr "Konto"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:138
+#: basxconnect/contributions/wizards/contributionsimport.py:146
 #, fuzzy
 msgid "Cost Center"
 msgstr "Kostnadssentrum"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:141
+#: basxconnect/contributions/wizards/contributionsimport.py:149
 msgid "Person Number"
 msgstr "Personnummer"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:144
+#: basxconnect/contributions/wizards/contributionsimport.py:152
 msgid "Donor Number"
 msgstr ""
 
-#: basxconnect/contributions/wizards/contributionsimport.py:147
+#: basxconnect/contributions/wizards/contributionsimport.py:155
 #, fuzzy
 msgid "Assignment state"
 msgstr "Tildelelsesdato"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:168
+#: basxconnect/contributions/wizards/contributionsimport.py:176
 msgid "Overview of contributions to import"
 msgstr "Oversikt over bidrag å importere"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:174
+#: basxconnect/contributions/wizards/contributionsimport.py:182
 msgid "contributions"
 msgstr "bidrag"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:178
+#: basxconnect/contributions/wizards/contributionsimport.py:186
 msgid "Sum"
 msgstr "Sum"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:209
+#: basxconnect/contributions/wizards/contributionsimport.py:217
 #, fuzzy
 msgid " contributions could not been assigned"
 msgstr " bidrag kunne ikke tildeles"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:212
+#: basxconnect/contributions/wizards/contributionsimport.py:220
 #, fuzzy
 msgid ""
 "Please make sure that each entry has contributor number which matches with a "
@@ -193,24 +193,24 @@ msgstr ""
 "Forsikre deg om at hver oppføring har et bidragsnummer som samsvarer med et "
 "personnummer og kjør importen igjen"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:217
+#: basxconnect/contributions/wizards/contributionsimport.py:226
 msgid "Cancel import"
 msgstr "Avbryt import"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:223
+#: basxconnect/contributions/wizards/contributionsimport.py:232
 msgid "Assignment complete"
 msgstr "Tildelning fullført"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:224
+#: basxconnect/contributions/wizards/contributionsimport.py:233
 msgid "Continue in order to complete the import"
 msgstr "Fortsett for å fullføre importen"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:283
+#: basxconnect/contributions/wizards/contributionsimport.py:294
 #, fuzzy
 msgid "Import contributions"
 msgstr "Importer bildrag"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:298
+#: basxconnect/contributions/wizards/contributionsimport.py:309
 #, fuzzy, python-format
 msgid "Successfully imported %d contributions"
 msgstr "Importerte %d bidrag"

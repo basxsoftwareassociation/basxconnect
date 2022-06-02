@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-29 20:28+0700\n"
+"POT-Creation-Date: 2022-06-02 14:49+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:10
+msgid "Mailchimp"
+msgstr ""
+
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:18
+msgid "Mailchimp server"
+msgstr ""
+
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:26
+msgid "Mailchimp list ID"
+msgstr ""
+
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:34
+msgid "Mailchimp segment ID"
+msgstr ""
+
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:42
+msgid "Mailchimp interests category ID"
+msgstr ""
+
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:50
+msgid "Mailchimp tag"
+msgstr ""
+
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:58
+msgid "BasxConnect Mailchimp tag"
+msgstr ""
+
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:66
+msgid "Mailchimp API key"
+msgstr ""
+
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:74
+msgid "synchronize preferred language of contact with Mailchimp"
+msgstr ""
+
+#: basxconnect/mailer_integration/help.py:8
+#: basxconnect/mailer_integration/views.py:69
+msgid "Help"
+msgstr ""
+
+#: basxconnect/mailer_integration/help.py:10
+msgid ""
+"The button below is currently the only way of getting new subcribers from "
+"the mailer into our system. Is it also the only way of getting updates for "
+"subscribers that we already have in our system. This is what happens when "
+"the button is pressed:"
+msgstr ""
+
+#: basxconnect/mailer_integration/help.py:16
+msgid ""
+"For all the Subscriptions that are in the relevant segment in the Mailer, we "
+"check whether the email address is already in BasxConnect."
+msgstr ""
+
+#: basxconnect/mailer_integration/help.py:22
+msgid ""
+"If an email address is already in BasxConnect, the downloaded subscription "
+"will be attached to the email address and override the current values in "
+"case there are any."
+msgstr ""
+
+#: basxconnect/mailer_integration/help.py:28
+msgid ""
+"If an email address is not yet in BasxConnect, a new person will be created "
+"with that email address."
+msgstr ""
+
 #: basxconnect/mailer_integration/layouts.py:28
 msgid "Email Subscriptions"
 msgstr ""
@@ -26,33 +94,38 @@ msgstr ""
 msgid "Person has no email addresses"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:71
+#: basxconnect/mailer_integration/layouts.py:75
+msgid "Status before archiving"
+msgstr ""
+
+#: basxconnect/mailer_integration/layouts.py:85
 msgid "Last synchronized"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:102
+#: basxconnect/mailer_integration/layouts.py:120
 msgid "No subscription yet for "
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:104
-#: basxconnect/mailer_integration/layouts.py:153
+#: basxconnect/mailer_integration/layouts.py:122
+#: basxconnect/mailer_integration/layouts.py:171
 msgid "Add subscription"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:121
+#: basxconnect/mailer_integration/layouts.py:139
+#: basxconnect/mailer_integration/layouts.py:142
 msgid "active"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:124
+#: basxconnect/mailer_integration/layouts.py:145
 msgid "inactive"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:137
+#: basxconnect/mailer_integration/layouts.py:155
 msgid "Edit subscription"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:144
-#: basxconnect/mailer_integration/layouts.py:159
+#: basxconnect/mailer_integration/layouts.py:162
+#: basxconnect/mailer_integration/layouts.py:177
 msgid "Save"
 msgstr ""
 
@@ -64,36 +137,49 @@ msgstr ""
 msgid "Date and time"
 msgstr ""
 
-#: basxconnect/mailer_integration/models.py:44
+#: basxconnect/mailer_integration/models.py:55
 msgid "Mailing Interests"
 msgstr ""
 
-#: basxconnect/mailer_integration/models.py:46
+#: basxconnect/mailer_integration/models.py:57
 msgid "Language"
 msgstr ""
 
-#: basxconnect/mailer_integration/models.py:62
+#: basxconnect/mailer_integration/models.py:73
 msgid "First Name"
 msgstr ""
 
-#: basxconnect/mailer_integration/models.py:63
+#: basxconnect/mailer_integration/models.py:74
 msgid "Last Name"
 msgstr ""
 
-#: basxconnect/mailer_integration/models.py:69
-#: basxconnect/mailer_integration/views.py:107
+#: basxconnect/mailer_integration/models.py:76
+msgid "Old subscription status"
+msgstr ""
+
+#: basxconnect/mailer_integration/models.py:79
+msgid "New subscription status"
+msgstr ""
+
+#: basxconnect/mailer_integration/models.py:87
+#: basxconnect/mailer_integration/views.py:89
 msgid "Newly added to BasxConnect"
 msgstr ""
 
-#: basxconnect/mailer_integration/models.py:70
+#: basxconnect/mailer_integration/models.py:88
 msgid "Not added to BasxConnect"
 msgstr ""
 
-#: basxconnect/mailer_integration/models.py:71
+#: basxconnect/mailer_integration/models.py:89
 msgid "Synchronized previously but not this time"
 msgstr ""
 
-#: basxconnect/mailer_integration/models.py:74
+#: basxconnect/mailer_integration/models.py:90
+#: basxconnect/mailer_integration/views.py:93
+msgid "Subscription status changed"
+msgstr ""
+
+#: basxconnect/mailer_integration/models.py:93
 msgid "Synchronization Status"
 msgstr ""
 
@@ -108,54 +194,30 @@ msgid ""
 "added to BasxConnect."
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:59
+#: basxconnect/mailer_integration/views.py:60
 msgid "Synchronization of Email Subcriptions"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:63
-msgid ""
-"The button below is currently the only way of getting new subcribers from "
-"the mailer into our system. Is it also the only way of getting updates for "
-"subscribers that we already have in our system. This is what happens when "
-"the button is pressed:"
-msgstr ""
-
-#: basxconnect/mailer_integration/views.py:68
-msgid ""
-"For all the Subscriptions that are in the relevant segment (e.g. 'UM "
-"Switzerland') in the Mailer, we check whether the email address is already "
-"in BasxConnect."
-msgstr ""
-
-#: basxconnect/mailer_integration/views.py:74
-msgid ""
-"If an email address is already in BasxConnect, the downloaded subscription "
-"will be attached to the email address and override the current values in "
-"case there are any."
-msgstr ""
-
-#: basxconnect/mailer_integration/views.py:80
-msgid ""
-"If an email address is not yet in BasxConnect, a new person will be created "
-"with that email address."
-msgstr ""
-
-#: basxconnect/mailer_integration/views.py:92
+#: basxconnect/mailer_integration/views.py:66
 msgid "Download subscriptions"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:111
-msgid "In mailer segment but not added to BasxConnect"
-msgstr ""
-
-#: basxconnect/mailer_integration/views.py:115
+#: basxconnect/mailer_integration/views.py:97
 msgid "Previous Executions"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:126
+#: basxconnect/mailer_integration/views.py:108
 msgid "Delete"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:150
+#: basxconnect/mailer_integration/views.py:146
+msgid "Old"
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:148
+msgid "New"
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:155
 msgid "Tools"
 msgstr ""
