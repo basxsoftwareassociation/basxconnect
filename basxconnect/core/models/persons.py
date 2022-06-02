@@ -284,6 +284,7 @@ class NaturalPerson(Person):
         blank=True,
     )
     date_of_birth = models.DateField(_("Date of Birth"), blank=True, null=True)
+    place_of_birth = models.CharField(_("Place of Birth"), max_length=255, blank=True)
     deceased = models.BooleanField(_("Deceased"), default=False)
     decease_date = models.DateField(_("Deceased Date"), blank=True, null=True)
     gender = models.ForeignKey(

@@ -40,6 +40,7 @@ def personal_data():
             "last_name",
             "gender",
             "date_of_birth",
+            "place_of_birth",
             "profession",
         ]
     ] + [
