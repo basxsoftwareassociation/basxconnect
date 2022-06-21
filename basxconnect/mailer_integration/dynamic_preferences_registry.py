@@ -65,10 +65,3 @@ class MailchimpApiKey(LongStringPreference):
     default = ""
     verbose_name = _("Mailchimp API key")
 
-
-@global_preferences_registry.register
-class MailchimpSynchronizeLanguage(BooleanPreference):
-    section = mailchimp_integration
-    name = "synchronize_language"
-    default = False
-    verbose_name = _("synchronize preferred language of contact with Mailchimp")

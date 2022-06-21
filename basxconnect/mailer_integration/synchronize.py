@@ -153,7 +153,3 @@ def _save_subscription(
             SynchronizationPerson.SUBSCRIPTION_STATUS_CHANGED,
             old_subscription_status=old_subscription_status,
         )
-    if global_preferences_registry.manager()["mailchimp__synchronize_language"]:
-        person = Email.objects.get(email=email).person
-        person.preferred_language = mailer_person.language
-        person.save()
