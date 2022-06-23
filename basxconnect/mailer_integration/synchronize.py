@@ -1,9 +1,7 @@
 import django_countries
 from django.utils import timezone
-from dynamic_preferences.registries import global_preferences_registry
 
 from basxconnect.core import models
-from basxconnect.core.models import Email
 from basxconnect.mailer_integration.abstract.mailer import AbstractMailer, MailerPerson
 from basxconnect.mailer_integration.models import (
     Interest,
@@ -26,7 +24,8 @@ def synchronize(mailer: AbstractMailer) -> SynchronizationResult:
     sync_result.save()
 
     # delete all subscriptions which were not synchronized
-    # and were not deactivated already using the UI (those we want to be able to reactivate, so we have to keep them)
+    # and were not deactivated already using the UI
+    # (those we want to be able to reactivate, so we have to keep them)
     Subscription.objects.exclude(latest_sync=sync_result).exclude(
         status="archived"
     ).delete()
@@ -55,8 +54,9 @@ def synchronize_batch(count, offset, mailer, sync_result):
                 )
                 _save_sync_person(mailer_person, sync_result, SynchronizationPerson.NEW)
         else:
-            # if the downloaded email address already exists in our system, update the mailing preference for this email
-            # address, without creating a new person in the database
+            # if the downloaded email address already exists in our system,
+            # update the mailing preference for this email address, without
+            # creating a new person in the database
             for email in matching_email_addresses:
                 _save_subscription(email, mailer_person, sync_result)
 
