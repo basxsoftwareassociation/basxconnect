@@ -7,7 +7,7 @@ import dateparser
 import htmlgenerator as hg
 from basxbread import layout as _layout
 from basxbread.utils.urls import reverse_model
-from basxbread.views import BreadView, generate_wizard_form
+from basxbread.views import BaseView, generate_wizard_form
 from django import forms
 from django.conf import settings
 from django.contrib import messages
@@ -242,7 +242,7 @@ class AssignmentForm(forms.Form):
 
 
 class ContributionsImportWizard(
-    PermissionRequiredMixin, BreadView, NamedUrlSessionWizardView
+    PermissionRequiredMixin, BaseView, NamedUrlSessionWizardView
 ):
     initial_dict = {"upload_file": {"delimiter": ";"}}
     urlparams = (("step", str),)

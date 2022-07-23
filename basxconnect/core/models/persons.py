@@ -3,7 +3,7 @@ import random
 
 from basxbread import layout
 from basxbread.contrib.languages.fields import LanguageField
-from basxbread.utils import get_concrete_instance, pretty_modelname
+from basxbread.utils import get_concrete_instance
 from basxbread.utils.inheritancemanager import InheritanceManager
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
@@ -137,7 +137,7 @@ class Person(models.Model):
         return self.name
 
     def maintype(self):
-        return pretty_modelname(get_concrete_instance(self))
+        return get_concrete_instance(self)._meta.verbose_name
 
     maintype.verbose_name = _("Main Type")
     maintype.sorting_name = "_maintype"

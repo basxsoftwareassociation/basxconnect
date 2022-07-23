@@ -5,7 +5,7 @@ from basxbread.layout import ObjectFieldValue
 from basxbread.layout.components.datatable import DataTableColumn
 from basxbread.layout.components.icon import Icon
 from basxbread.layout.components.modal import modal_with_trigger
-from basxbread.utils import Link, ModelHref, pretty_modelname, reverse_model
+from basxbread.utils import Link, ModelHref, reverse_model
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from htmlgenerator import mark_safe
@@ -117,7 +117,7 @@ def urls(request):
 
 
 def edit_heading(model: type):
-    return _("Edit %s") % pretty_modelname(model)
+    return _("Edit %s") % model._meta.verbose_name
 
 
 def display_postal():

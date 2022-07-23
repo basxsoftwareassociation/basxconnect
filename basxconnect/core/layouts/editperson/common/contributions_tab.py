@@ -1,5 +1,5 @@
 from basxbread import layout
-from basxbread.utils import Link, ModelHref, pretty_modelname
+from basxbread.utils import Link, ModelHref
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 
@@ -34,7 +34,7 @@ def contributions_tab(request):
                                 href=ModelHref(
                                     Contribution, "add", query={"person": person.id}
                                 ),
-                                label=_("Add %s") % pretty_modelname(Contribution),
+                                label=_("Add %s") % Contribution._meta.verbose_name,
                             ),
                             icon=layout.icon.Icon("add", size=20),
                         ),

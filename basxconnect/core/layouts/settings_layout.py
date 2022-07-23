@@ -1,6 +1,6 @@
 import htmlgenerator as hg
 from basxbread import layout
-from basxbread.utils import Link, ModelHref, pretty_modelname, reverse
+from basxbread.utils import Link, ModelHref, reverse
 from basxbread.views import BrowseView
 from django.utils.translation import gettext_lazy as _
 
@@ -30,7 +30,7 @@ def relationshipssettings(request):
                                     )
                                 },
                             ),
-                            label=_("Add %s") % pretty_modelname(RelationshipType),
+                            label=_("Add %s") % RelationshipType._meta.verbose_name,
                         ),
                         icon=layout.icon.Icon("add", size=20),
                     ),
@@ -112,7 +112,7 @@ def generate_term_datatable(title, vocabulary_slug):
                 href=ModelHref(
                     Term, "add", query={"vocabulary": cat.id}, return_to_current=True
                 ),
-                label=_("Add %s") % pretty_modelname(Term),
+                label=_("Add %s") % Term._meta.verbose_name,
             ),
             icon=layout.icon.Icon("add", size=20),
         ),

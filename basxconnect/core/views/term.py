@@ -1,5 +1,5 @@
 from basxbread import layout
-from basxbread.utils import Link, ModelHref, pretty_modelname
+from basxbread.utils import Link, ModelHref
 from basxbread.views import BrowseView
 from django.utils.translation import gettext_lazy as _
 
@@ -23,7 +23,7 @@ class TermsBrowseView(BrowseView):
                         query={"vocabulary": vocabulary.id},
                         return_to_current=True,
                     ),
-                    label=_("Add %s") % pretty_modelname(Term),
+                    label=_("Add %s") % Term._meta.verbose_name,
                 ),
                 icon=layout.icon.Icon("add", size=20),
             )

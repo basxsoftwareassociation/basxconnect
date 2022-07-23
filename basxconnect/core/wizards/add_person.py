@@ -1,9 +1,8 @@
 import htmlgenerator as hg
 from basxbread import layout
 from basxbread.forms.forms import modelform_factory
-from basxbread.utils import pretty_modelname
 from basxbread.utils.urls import reverse_model
-from basxbread.views import BreadView
+from basxbread.views import BaseView
 from django import forms
 from django.apps import apps
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -160,9 +159,9 @@ class SearchForm(forms.Form):
 
 class ChooseType(forms.Form):
     PERSON_TYPES = {
-        "core.NaturalPerson": pretty_modelname(NaturalPerson),
-        "core.LegalPerson": pretty_modelname(LegalPerson),
-        "core.PersonAssociation": pretty_modelname(PersonAssociation),
+        "core.NaturalPerson": NaturalPerson._meta.verbose_name,
+        "core.LegalPerson": LegalPerson._meta.verbose_name,
+        "core.PersonAssociation": PersonAssociation._meta.verbose_name,
     }
     persontype = forms.TypedChoiceField(
         label=_("Type of person"),
@@ -257,7 +256,7 @@ def generate_add_form_for(model, request, data, files, initial=None):
 
 
 # The WizardView contains mostly control-flow logic and some configuration
-class AddPersonWizard(PermissionRequiredMixin, BreadView, NamedUrlSessionWizardView):
+class AddPersonWizard(PermissionRequiredMixin, BaseView, NamedUrlSessionWizardView):
     kwargs = {"url_name": "core:person:add_wizard", "urlparams": {"step": "str"}}
     urlparams = (("step", str),)
     permission_required = "core.add_person"
@@ -377,7 +376,7 @@ class AddPersonWizard(PermissionRequiredMixin, BreadView, NamedUrlSessionWizardV
                     for fieldname in form.fields:
                         form.fields[fieldname].disabled = True
                         form.fields[fieldname].widget.attrs["style"] = "color: #000"
-                form.title = _("Add %s") % pretty_modelname(persontype)
+                form.title = _("Add %s") % persontype._meta.verbose_name
         return form
 
     def done(self, form_list, **kwargs):
