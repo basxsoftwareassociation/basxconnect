@@ -19,6 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from ... import models
 from ...layouts.editperson import legalperson, naturalperson, personassociation
+from ...layouts.editperson.common import history_tab
 from ...layouts.editperson.common.head import editperson_head
 from ...layouts.editperson.common.relationships_tab import relationshipstab
 
@@ -146,6 +147,7 @@ def editperson_tabs(base_data_tab, mailing_tab, request):
         from ...layouts.editperson.common import documenttemplates_tab
 
         ret.append(documenttemplates_tab.documenttemplates_tab())
+    ret.append(history_tab.history_tab())
     return ret
 
 
