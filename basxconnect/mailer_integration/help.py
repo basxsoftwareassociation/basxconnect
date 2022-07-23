@@ -1,10 +1,10 @@
-import bread.layout
+import basxbread.layout
 import htmlgenerator as hg
 from django.utils.translation import gettext_lazy as _
 
 
 def sync_help_modal():
-    return bread.layout.modal.Modal(
+    return basxbread.layout.modal.Modal(
         _("Help"),
         _(
             "The button below is currently the only way of getting new subcribers from the mailer into our system. Is it also the only way of getting updates for subscribers that we already have in our system. This is what happens when the button is pressed:"

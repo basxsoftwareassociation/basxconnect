@@ -1,8 +1,8 @@
 import htmlgenerator as hg
-from bread import layout, menu, views
-from bread.formatters import format_value
-from bread.utils.links import Link, ModelHref
-from bread.utils.urls import autopath, default_model_paths, model_urlname, reverse
+from basxbread import layout, menu, views
+from basxbread.formatters import format_value
+from basxbread.utils.links import Link, ModelHref
+from basxbread.utils.urls import autopath, default_model_paths, model_urlname, reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 

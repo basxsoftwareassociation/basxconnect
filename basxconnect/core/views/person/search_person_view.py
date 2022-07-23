@@ -1,6 +1,6 @@
 import htmlgenerator as hg
-from bread import layout as layout
-from bread.utils import reverse_model
+from basxbread import layout as layout
+from basxbread.utils import reverse_model
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _

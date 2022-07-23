@@ -1,8 +1,8 @@
-from bread import layout as layout
-from bread import menu
-from bread.layout import DEVMODE_KEY
-from bread.utils.links import Link
-from bread.utils.urls import reverse, reverse_model
+from basxbread import layout as layout
+from basxbread import menu
+from basxbread.layout import DEVMODE_KEY
+from basxbread.utils.links import Link
+from basxbread.utils.urls import reverse, reverse_model
 from django.utils.translation import gettext_lazy as _
 
 import basxconnect.core.models

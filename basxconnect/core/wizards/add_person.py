@@ -1,9 +1,9 @@
 import htmlgenerator as hg
-from bread import layout
-from bread.forms.forms import breadmodelform_factory
-from bread.utils import pretty_modelname
-from bread.utils.urls import reverse_model
-from bread.views import BreadView
+from basxbread import layout
+from basxbread.forms.forms import modelform_factory
+from basxbread.utils import pretty_modelname
+from basxbread.utils.urls import reverse_model
+from basxbread.views import BreadView
 from django import forms
 from django.apps import apps
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -226,16 +226,16 @@ class ConfirmNewPerson(forms.Form):
 
 
 def generate_add_form_for(model, request, data, files, initial=None):
-    form = breadmodelform_factory(
+    form = modelform_factory(
         request=request, model=model, layout=ADD_FORM_LAYOUTS[model]()
     )(data, files, initial=initial)
 
-    for fieldname, field in breadmodelform_factory(
+    for fieldname, field in modelform_factory(
         request, Postal, ADD_ADDRESS_LAYOUT()
     )().fields.items():
         form.fields[fieldname] = field
 
-    for fieldname, field in breadmodelform_factory(
+    for fieldname, field in modelform_factory(
         request, Email, ADD_EMAIL_LAYOUT()
     )().fields.items():
         form.fields[fieldname] = field

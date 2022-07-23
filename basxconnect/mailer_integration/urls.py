@@ -1,4 +1,4 @@
-from bread.utils.urls import autopath, default_model_paths, model_urlname
+from basxbread.utils.urls import autopath, default_model_paths, model_urlname
 
 import basxconnect.mailer_integration.views
 from basxconnect.mailer_integration import models

@@ -1,13 +1,13 @@
 import htmlgenerator as hg
-from bread import layout as layout
-from bread.layout.components.datatable import DataTableColumn
-from bread.utils import get_concrete_instance
-from bread.utils.links import Link
-from bread.utils.urls import reverse, reverse_model
-from bread.views import BrowseView, BulkAction
-from bread.views.browse import delete as breaddelete
-from bread.views.browse import export as breadexport
-from bread.views.browse import restore as breadrestore
+from basxbread import layout as layout
+from basxbread.layout.components.datatable import DataTableColumn
+from basxbread.utils import get_concrete_instance
+from basxbread.utils.links import Link
+from basxbread.utils.urls import reverse, reverse_model
+from basxbread.views import BrowseView, BulkAction
+from basxbread.views.browse import delete as breaddelete
+from basxbread.views.browse import export as breadexport
+from basxbread.views.browse import restore as breadrestore
 from django import forms
 from django.db.models import Q
 from django.http import HttpResponseRedirect

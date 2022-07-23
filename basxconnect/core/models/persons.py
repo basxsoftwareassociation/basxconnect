@@ -1,10 +1,10 @@
 import datetime
 import random
 
-from bread import layout
-from bread.contrib.languages.fields import LanguageField
-from bread.utils import get_concrete_instance, pretty_modelname
-from bread.utils.inheritancemanager import InheritanceManager
+from basxbread import layout
+from basxbread.contrib.languages.fields import LanguageField
+from basxbread.utils import get_concrete_instance, pretty_modelname
+from basxbread.utils.inheritancemanager import InheritanceManager
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone

@@ -4,7 +4,7 @@ import django.db.models.deletion
 import django_countries.fields
 import phonenumber_field.modelfields
 import simple_history.models
-from bread.contrib import languages
+from basxbread.contrib import languages
 from django.conf import settings
 from django.db import migrations, models
 

@@ -1,13 +1,13 @@
 import logging
 
-import bread
+import basxbread
 import django
 import htmlgenerator as hg
-from bread import layout, menu
-from bread.layout.components.button import Button
-from bread.layout.components.forms import Form
-from bread.utils import Link, reverse_model
-from bread.views import EditView, ReadView, layoutasreadonly
+from basxbread import layout, menu
+from basxbread.layout.components.button import Button
+from basxbread.layout.components.forms import Form
+from basxbread.utils import Link, reverse_model
+from basxbread.views import EditView, ReadView, layoutasreadonly
 from django.apps import apps
 from django.conf import settings
 from django.forms import forms
@@ -132,23 +132,21 @@ def editperson_form(request, base_data_tab, mailings_tab):
 
 
 def editperson_tabs(base_data_tab, mailing_tab, request):
-
-    from django.apps import apps
-
-    if apps.is_installed("basxconnect.contributions"):
-        from ...layouts.editperson.common import contributions_tab
-
-        return [
-            base_data_tab(request),
-            relationshipstab(request),
-            mailing_tab(request),
-            contributions_tab.contributions_tab(request),
-        ]
-    return [
+    ret = [
         base_data_tab(request),
         relationshipstab(request),
         mailing_tab(request),
     ]
+
+    if apps.is_installed("basxconnect.contributions"):
+        from ...layouts.editperson.common import contributions_tab
+
+        ret.append(contributions_tab.contributions_tab(request))
+    if apps.is_installed("basxbread.contrib.publicurls"):
+        from ...layouts.editperson.common import documenttemplates_tab
+
+        ret.append(documenttemplates_tab.documenttemplates_tab())
+    return ret
 
 
 @csrf_exempt
@@ -222,7 +220,7 @@ def confirm_delete_email(request, pk: int):
                 form,
                 hg.BaseElement(
                     hg.H3(_("Delete email %s") % email.email),
-                    *(bread.layout.forms.FormField(field) for field in fields),
+                    *(basxbread.layout.forms.FormField(field) for field in fields),
                 ),
                 hg.DIV(
                     Button.from_link(

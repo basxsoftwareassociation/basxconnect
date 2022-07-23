@@ -1,9 +1,9 @@
-import bread
+import basxbread
 import htmlgenerator as hg
-from bread import layout
-from bread.layout.components import tag
-from bread.layout.components.icon import Icon
-from bread.utils import ModelHref
+from basxbread import layout
+from basxbread.layout.components import tag
+from basxbread.layout.components.icon import Icon
+from basxbread.utils import ModelHref
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.utils.formats import localize
@@ -15,8 +15,8 @@ from basxconnect.core.layouts.editperson.common.utils import tile_with_icon
 from basxconnect.core.models import Person
 from basxconnect.mailer_integration.models import Interest, Subscription
 
-R = bread.layout.grid.Row
-C = bread.layout.grid.Col
+R = basxbread.layout.grid.Row
+C = basxbread.layout.grid.Col
 
 
 def mailer_integration_tile(request):

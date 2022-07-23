@@ -1,5 +1,5 @@
 import htmlgenerator as hg
-from bread import layout
+from basxbread import layout
 from django.utils.translation import gettext_lazy as _
 
 R = layout.grid.Row

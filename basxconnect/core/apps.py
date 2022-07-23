@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from bread.utils.celery import RepeatedTask
+from basxbread.utils.celery import RepeatedTask
 from celery import shared_task
 from django.apps import AppConfig
 from django.utils.timezone import now

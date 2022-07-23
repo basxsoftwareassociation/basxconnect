@@ -1,13 +1,13 @@
 import traceback
 
-import bread.layout.components.notification
+import basxbread.layout.components.notification
 import htmlgenerator as hg
-from bread import layout, menu
-from bread.layout.components.datatable import DataTableColumn
-from bread.layout.components.forms import Form
-from bread.utils import aslayout, reverse_model
-from bread.utils.links import Link, ModelHref
-from bread.views import AddView, EditView
+from basxbread import layout, menu
+from basxbread.layout.components.datatable import DataTableColumn
+from basxbread.layout.components.forms import Form
+from basxbread.utils import aslayout, reverse_model
+from basxbread.utils.links import Link, ModelHref
+from basxbread.views import AddView, EditView
 from django import forms
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -21,8 +21,8 @@ from basxconnect.mailer_integration.models import (
 )
 from basxconnect.mailer_integration.synchronize import synchronize
 
-C = bread.layout.grid.Col
-R = bread.layout.grid.Row
+C = basxbread.layout.grid.Col
+R = basxbread.layout.grid.Row
 
 
 @aslayout
@@ -30,7 +30,7 @@ def mailer_synchronization_view(request):
     if request.method == "POST":
         try:
             sync_result = synchronize(settings.MAILER)
-            notification = bread.layout.components.notification.InlineNotification(
+            notification = basxbread.layout.components.notification.InlineNotification(
                 _("Sychronization successful"),
                 _(
                     "Synchronized with mailer segment containing %s contacts. %s new persons were added to BasxConnect."
@@ -44,7 +44,7 @@ def mailer_synchronization_view(request):
                 kind="success",
             )
         except Exception:
-            notification = bread.layout.components.notification.InlineNotification(
+            notification = basxbread.layout.components.notification.InlineNotification(
                 "Error",
                 f"An error occured during synchronization. {traceback.format_exc()}",
                 kind="error",
@@ -56,7 +56,7 @@ def mailer_synchronization_view(request):
     return hg.BaseElement(
         Form(
             forms.Form(),
-            bread.layout.grid.Grid(
+            basxbread.layout.grid.Grid(
                 hg.H3(_("Synchronization of Email Subcriptions")),
                 notification,
                 gutter=False,

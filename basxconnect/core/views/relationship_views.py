@@ -1,6 +1,6 @@
 import htmlgenerator as hg
-from bread import layout
-from bread.views import AddView, EditView
+from basxbread import layout
+from basxbread.views import AddView, EditView
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 

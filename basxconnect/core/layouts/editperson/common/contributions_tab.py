@@ -1,5 +1,5 @@
-from bread import layout
-from bread.utils import Link, ModelHref, pretty_modelname
+from basxbread import layout
+from basxbread.utils import Link, ModelHref, pretty_modelname
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 

@@ -1,4 +1,4 @@
-from bread.contrib.languages.languages import LANGUAGES
+from basxbread.contrib.languages.languages import LANGUAGES
 from django.conf import settings
 
 DEFAULTS = {"PREFERRED_LANGUAGES": ("en",)}

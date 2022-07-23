@@ -1,7 +1,7 @@
 import htmlgenerator as hg
-from bread import layout
-from bread.layout import ObjectFieldLabel
-from bread.layout.components.icon import Icon
+from basxbread import layout
+from basxbread.layout import ObjectFieldLabel
+from basxbread.layout.components.icon import Icon
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core import models

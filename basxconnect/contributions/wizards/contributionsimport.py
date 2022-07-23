@@ -5,9 +5,9 @@ import traceback
 import chardet
 import dateparser
 import htmlgenerator as hg
-from bread import layout as _layout
-from bread.utils.urls import reverse_model
-from bread.views import BreadView, generate_wizard_form
+from basxbread import layout as _layout
+from basxbread.utils.urls import reverse_model
+from basxbread.views import BreadView, generate_wizard_form
 from django import forms
 from django.conf import settings
 from django.contrib import messages
@@ -255,7 +255,7 @@ class ContributionsImportWizard(
         ("upload_file", UploadForm),
         ("assignment", AssignmentForm),
     ]
-    template_name = "bread/base.html"
+    template_name = ""
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

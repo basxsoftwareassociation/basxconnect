@@ -6,7 +6,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 
-from bread.settings.required import *
+from basxbread.settings.required import *
 
 # the above will import a set of predefined settings to ensure required
 # settings are defined correctly and to reduce verbosity in this file
@@ -16,11 +16,11 @@ SECRET_KEY = "test"  # nosec # can ignore security check for testing key
 
 ALLOWED_HOSTS = ["*"]
 
-# BREAD_DEPENDENCIES are imported in the start import at the top
+# BASXBREAD_DEPENDENCIES are imported in the start import at the top
 INSTALLED_APPS = [
     "basxconnect.core.apps.CoreConfig",
     "basxconnect.contributions.apps.ContributionsConfig",
-] + BREAD_DEPENDENCIES
+] + BASXBREAD_DEPENDENCIES
 
 TEMPLATES[0]["OPTIONS"]["context_processors"].append(
     "basxconnect.core.context_processors.basxconnect_core"

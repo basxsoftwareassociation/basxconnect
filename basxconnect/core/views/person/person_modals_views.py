@@ -1,8 +1,8 @@
 import django.forms
 import htmlgenerator as hg
-from bread import layout
-from bread.layout.components.icon import Icon
-from bread.views import AddView, EditView
+from basxbread import layout
+from basxbread.layout.components.icon import Icon
+from basxbread.views import AddView, EditView
 from django.apps import apps
 from django.utils.translation import gettext_lazy as _
 

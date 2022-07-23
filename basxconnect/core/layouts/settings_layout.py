@@ -1,7 +1,7 @@
 import htmlgenerator as hg
-from bread import layout
-from bread.utils import Link, ModelHref, pretty_modelname, reverse
-from bread.views import BrowseView
+from basxbread import layout
+from basxbread.utils import Link, ModelHref, pretty_modelname, reverse
+from basxbread.views import BrowseView
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.models import RelationshipType, Term, Vocabulary

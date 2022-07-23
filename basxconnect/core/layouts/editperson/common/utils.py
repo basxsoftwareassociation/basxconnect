@@ -2,11 +2,11 @@ import collections
 from typing import List, Union
 
 import htmlgenerator as hg
-from bread import layout
-from bread.layout import ObjectFieldLabel, ObjectFieldValue
-from bread.layout.components.icon import Icon
-from bread.layout.components.modal import modal_with_trigger
-from bread.utils import ModelHref
+from basxbread import layout
+from basxbread.layout import ObjectFieldLabel, ObjectFieldValue
+from basxbread.layout.components.icon import Icon
+from basxbread.layout.components.modal import modal_with_trigger
+from basxbread.utils import ModelHref
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from htmlgenerator import Lazy

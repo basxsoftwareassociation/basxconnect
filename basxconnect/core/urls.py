@@ -1,6 +1,11 @@
-from bread import views as breadviews
-from bread.utils.urls import autopath, default_model_paths, model_urlname, reverse_model
-from bread.views import AddView, BrowseView, EditView
+from basxbread import views as breadviews
+from basxbread.utils.urls import (
+    autopath,
+    default_model_paths,
+    model_urlname,
+    reverse_model,
+)
+from basxbread.views import AddView, BrowseView, EditView
 from django.views.generic import RedirectView
 
 import basxconnect.core.views.tag_views

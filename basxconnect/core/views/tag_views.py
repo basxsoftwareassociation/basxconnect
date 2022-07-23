@@ -1,10 +1,10 @@
-import bread
+import basxbread
 import htmlgenerator as hg
-from bread import layout as layout
-from bread.layout.components.button import Button
-from bread.layout.components.modal import Modal, modal_with_trigger
-from bread.utils import aslayout, reverse_model
-from bread.views import AddView
+from basxbread import layout as layout
+from basxbread.layout.components.button import Button
+from basxbread.layout.components.modal import Modal, modal_with_trigger
+from basxbread.utils import aslayout, reverse_model
+from basxbread.views import AddView
 from django import forms
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
@@ -77,11 +77,11 @@ def bulk_tag_operation_view(request):
     tags_vocabulary_id = (
         getattr(Vocabulary.objects.filter(slug="tag").first(), "id", "") or ""
     )
-    return bread.layout.forms.Form(
+    return basxbread.layout.forms.Form(
         form,
         hg.H3(header),
         hg.DIV(
-            hg.DIV(bread.layout.forms.FormField("tag")),
+            hg.DIV(basxbread.layout.forms.FormField("tag")),
             hg.If(
                 operation == "add",
                 hg.DIV(

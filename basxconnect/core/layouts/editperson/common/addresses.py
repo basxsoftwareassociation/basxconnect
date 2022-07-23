@@ -1,11 +1,11 @@
 import django.db.models
 import htmlgenerator as hg
-from bread import layout
-from bread.layout import ObjectFieldValue
-from bread.layout.components.datatable import DataTableColumn
-from bread.layout.components.icon import Icon
-from bread.layout.components.modal import modal_with_trigger
-from bread.utils import Link, ModelHref, pretty_modelname, reverse_model
+from basxbread import layout
+from basxbread.layout import ObjectFieldValue
+from basxbread.layout.components.datatable import DataTableColumn
+from basxbread.layout.components.icon import Icon
+from basxbread.layout.components.modal import modal_with_trigger
+from basxbread.utils import Link, ModelHref, pretty_modelname, reverse_model
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from htmlgenerator import mark_safe

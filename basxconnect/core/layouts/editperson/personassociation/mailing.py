@@ -1,4 +1,4 @@
-from bread import layout
+from basxbread import layout
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.layouts.editperson.common.utils import grid_inside_tab, tiling_col
