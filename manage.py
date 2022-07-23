@@ -13,7 +13,7 @@ else:
         "django.contrib.auth",
         "django.contrib.contenttypes",
         "django.contrib.sites",
-        "bread",
+        "basxbread",
         "djmoney",
         "basxconnect.core",
         "basxconnect.contributions",
