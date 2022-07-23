@@ -22,7 +22,6 @@ searchbar = layout.search.Search(
     backend=layout.search.SearchBackendConfig(
         reverse_lazy("basxconnect.core.views.person.search_person_view.searchperson"),
     ),
-    width="140%",
 )
 
 
