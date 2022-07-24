@@ -37,8 +37,18 @@ def history_tab():
 
     def changes(c):
         if c["row"][1] is not None:
-            return c["row"][0].diff_against(c["row"][1]).changes
+            return list(c["row"][0].diff_against(c["row"][1]).changes)
         return ()
+
+    def haschanges(a, b):
+        return b is not None and len(a.diff_against(b).changes) > 0
+
+    def historyentries(c):
+        return (
+            (i, j)
+            for i, j in pairwise(chain(c["object"].history.all(), [None]))
+            if haschanges(i, j)
+        )
 
     def fieldname(c):
         try:
@@ -70,9 +80,7 @@ def history_tab():
             R(
                 utils.tiling_col(
                     layout.components.datatable.DataTable(
-                        row_iterator=hg.F(
-                            lambda c: pairwise(chain(c["object"].history.all(), [None]))
-                        ),
+                        row_iterator=hg.F(historyentries),
                         columns=[
                             layout.components.datatable.DataTableColumn(
                                 _("Date"),
