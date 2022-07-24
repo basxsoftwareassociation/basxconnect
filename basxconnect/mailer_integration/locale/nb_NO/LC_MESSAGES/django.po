@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-02 14:49+0700\n"
+"POT-Creation-Date: 2022-07-24 15:47+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,40 +17,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:10
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:6
 msgid "Mailchimp"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:18
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:14
 msgid "Mailchimp server"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:26
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:22
 msgid "Mailchimp list ID"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:34
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:30
 msgid "Mailchimp segment ID"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:42
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:38
 msgid "Mailchimp interests category ID"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:50
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:46
 msgid "Mailchimp tag"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:58
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:54
 msgid "BasxConnect Mailchimp tag"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:66
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:62
 msgid "Mailchimp API key"
-msgstr ""
-
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:74
-msgid "synchronize preferred language of contact with Mailchimp"
 msgstr ""
 
 #: basxconnect/mailer_integration/help.py:8

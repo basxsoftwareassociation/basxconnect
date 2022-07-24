@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-02 14:49+0700\n"
+"POT-Creation-Date: 2022-07-24 15:47+0700\n"
 "PO-Revision-Date: 2021-11-01 12:38+0700\n"
 "Last-Translator: Saksinkarn Petchkuljinda <dward.the.2nd@gmail.com>\n"
 "Language-Team: Thai <LL@li.org>\n"
@@ -18,51 +18,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:10
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:6
 msgid "Mailchimp"
 msgstr "Mailchimp"
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:18
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:14
 #, fuzzy
 #| msgid "Mailchimp"
 msgid "Mailchimp server"
 msgstr "Mailchimp"
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:26
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:22
 #, fuzzy
 #| msgid "Mailchimp"
 msgid "Mailchimp list ID"
 msgstr "Mailchimp"
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:34
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:30
 #, fuzzy
 #| msgid "Mailchimp"
 msgid "Mailchimp segment ID"
 msgstr "Mailchimp"
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:42
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:38
 msgid "Mailchimp interests category ID"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:50
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:46
 #, fuzzy
 #| msgid "Mailchimp"
 msgid "Mailchimp tag"
 msgstr "Mailchimp"
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:58
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:54
 msgid "BasxConnect Mailchimp tag"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:66
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:62
 #, fuzzy
 #| msgid "Mailchimp"
 msgid "Mailchimp API key"
 msgstr "Mailchimp"
-
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:74
-msgid "synchronize preferred language of contact with Mailchimp"
-msgstr ""
 
 #: basxconnect/mailer_integration/help.py:8
 #: basxconnect/mailer_integration/views.py:69
