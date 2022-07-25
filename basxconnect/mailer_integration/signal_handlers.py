@@ -24,10 +24,13 @@ def update_subscription_active(sender, instance, created, **kwargs):
                     MAILER.add_person(
                         MailerPerson.from_subscription(email.subscription)
                     )
-                elif email.subscription.status != "archived":
+                    email.subscription.save()
+                elif (
+                    not instance.active or instance.deleted
+                ) and email.subscription.status != "archived":
                     email.subscription.status_before_archiving = (
                         email.subscription.status
                     )
                     email.subscription.status = "archived"
                     MAILER.delete_person(email.email)
-                email.subscription.save()
+                    email.subscription.save()
