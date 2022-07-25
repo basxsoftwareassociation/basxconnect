@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-24 15:47+0700\n"
-"PO-Revision-Date: 2022-03-30 10:08+0000\n"
+"PO-Revision-Date: 2022-07-25 02:58+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: basxconnect/core/apps.py:28
 #: basxconnect/core/layouts/editperson/common/base_data.py:53
@@ -203,7 +203,7 @@ msgstr "เพิ่ม %s"
 
 #: basxconnect/core/layouts/editperson/common/documenttemplates_tab.py:19
 msgid "Documents"
-msgstr ""
+msgstr "เอกสาร"
 
 #: basxconnect/core/layouts/editperson/common/head.py:20
 #: basxconnect/core/views/person/person_browse_views.py:193
@@ -216,7 +216,7 @@ msgstr "คัดลอก"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:68
 msgid "History"
-msgstr ""
+msgstr "ประวัติ"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:78
 msgid "Date"
@@ -224,7 +224,7 @@ msgstr "วันที่"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:84
 msgid "Time"
-msgstr ""
+msgstr "เวลา"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:90
 msgid "User"
@@ -232,8 +232,6 @@ msgstr "ชื่อผู้ใช้งาน"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:94
 #: basxconnect/core/layouts/editperson/common/history_tab.py:126
-#, fuzzy
-#| msgid "Change"
 msgid "Changes"
 msgstr "เปลี่ยน"
 
@@ -276,10 +274,8 @@ msgid "Created"
 msgstr "สร้าง"
 
 #: basxconnect/core/layouts/editperson/common/utils.py:44
-#, fuzzy
-#| msgid "Base data"
 msgid "Meta data"
-msgstr "ฐานข้อมูล"
+msgstr "โครงสร้างข้อมูลข้อมูล"
 
 #: basxconnect/core/layouts/editperson/common/utils.py:52
 #: basxconnect/core/views/person/person_browse_views.py:115
@@ -320,8 +316,6 @@ msgid "Settings"
 msgstr "ตั้งค่า"
 
 #: basxconnect/core/layouts/editperson/naturalperson/base_data_tab.py:21
-#, fuzzy
-#| msgid "Personal Data"
 msgid "Personal data"
 msgstr "ข้อมูลบุคคล"
 
@@ -476,10 +470,8 @@ msgid "Primary email address"
 msgstr "อีเมล์สำหรับติดต่อ"
 
 #: basxconnect/core/models/persons.py:108
-#, fuzzy
-#| msgid "Phone number"
 msgid "Primary phonenumber"
-msgstr "เบอร์โทรศัพท์"
+msgstr "เบอร์โทรศัพท์ติดต่อ"
 
 #: basxconnect/core/models/persons.py:115
 msgid "Remarks"
@@ -540,10 +532,8 @@ msgid "Date of Birth"
 msgstr "วันเดือนปีเกิด"
 
 #: basxconnect/core/models/persons.py:287
-#, fuzzy
-#| msgid "Date of Birth"
 msgid "Place of Birth"
-msgstr "วันเดือนปีเกิด"
+msgstr "สถานที่เกิด"
 
 #: basxconnect/core/models/persons.py:288
 msgid "Deceased"
@@ -658,14 +648,12 @@ msgid "Terms"
 msgstr "หมวดหมู่"
 
 #: basxconnect/core/views/person/person_browse_views.py:175
-#, fuzzy
-#| msgid "Add %s"
 msgid "Add tag"
-msgstr "เพิ่ม %s"
+msgstr "เพิ่ม แท็ก"
 
 #: basxconnect/core/views/person/person_browse_views.py:181
 msgid "Remove tag"
-msgstr ""
+msgstr "ลบแท็ก"
 
 #: basxconnect/core/views/person/person_browse_views.py:199
 msgid "Excel"
@@ -695,10 +683,9 @@ msgid "%s is %s"
 msgstr "%s คือ %s"
 
 #: basxconnect/core/views/person/person_details_views.py:178
-#, fuzzy, python-format
-#| msgid "Delete linked email subscriptions as well"
+#, python-format
 msgid "Delete linked %s subscription as well"
-msgstr "ลบการอีเมลที่เชื่อมโยงด้วยการสมัครสมาชิก"
+msgstr "ลบการสมัครสมาชิก %s ที่แบบต่อเนื่อง"
 
 #: basxconnect/core/views/person/person_details_views.py:224
 #, python-format
@@ -757,32 +744,29 @@ msgid "Information about our organization"
 msgstr "ข้อมูลเกี่ยวกับองค์กร"
 
 #: basxconnect/core/views/tag_views.py:67
-#, fuzzy, python-format
-#| msgid "Add relationship to person"
+#, python-format
 msgid "Add tag to %(count)d person"
 msgid_plural "Add tag to %(count)d persons"
-msgstr[0] "เพิ่มสถานะความสัมพันธ์ของตนเองกับบุคคลอื่น"
+msgstr[0] "เพิ่มแท็กเพื่อ%(count)dบุคคล"
 
 #: basxconnect/core/views/tag_views.py:73
 #, python-format
 msgid "Remove tag from %(count)d person"
 msgid_plural "Remove tag from %(count)d persons"
-msgstr[0] ""
+msgstr[0] "ลบแท็กจาก %(count)dบุคคล"
 
 #: basxconnect/core/views/tag_views.py:90
 #: basxconnect/core/views/tag_views.py:112
 msgid "Create new tag"
-msgstr ""
+msgstr "สร้างแท็กใหม่"
 
 #: basxconnect/core/views/tag_views.py:121
 msgid "Submit"
-msgstr ""
+msgstr "ยืนยัน"
 
 #: basxconnect/core/views/vocabulary.py:14
-#, fuzzy
-#| msgid "Vocabulary"
 msgid "Terms of vocabulary"
-msgstr "คำศัพท์"
+msgstr "ประเภทคำศัพท์"
 
 #: basxconnect/core/wizards/add_person.py:101
 msgid "Back"
