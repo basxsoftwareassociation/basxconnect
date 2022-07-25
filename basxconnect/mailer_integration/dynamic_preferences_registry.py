@@ -1,7 +1,11 @@
 from django.utils.translation import gettext_lazy as _
 from dynamic_preferences.preferences import Section
 from dynamic_preferences.registries import global_preferences_registry
-from dynamic_preferences.types import LongStringPreference, StringPreference
+from dynamic_preferences.types import (
+    LongStringPreference,
+    StringPreference,
+    BooleanPreference,
+)
 
 mailchimp_integration = Section("mailchimp", _("Mailchimp"))
 
@@ -60,3 +64,19 @@ class MailchimpApiKey(LongStringPreference):
     name = "api_key"
     default = ""
     verbose_name = _("Mailchimp API key")
+
+
+@global_preferences_registry.register
+class MailchimpDisableInterestsKey(BooleanPreference):
+    section = mailchimp_integration
+    name = "disable_interests"
+    default = False
+    verbose_name = _("Disable mailing interests")
+
+
+@global_preferences_registry.register
+class MailchimpSynchronizeLanguage(BooleanPreference):
+    section = mailchimp_integration
+    name = "synchronize_language"
+    default = False
+    verbose_name = _("Synchronize language with Mailchimp")
