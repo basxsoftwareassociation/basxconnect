@@ -108,7 +108,7 @@ def generate_wizard_form(formlayout):
                 hg.If(
                     hg.F(
                         lambda c: c["wizard"]["steps"].last
-                                  == c["wizard"]["steps"].current
+                        == c["wizard"]["steps"].current
                     ),
                     layout.button.Button(
                         _("Complete"), type="submit", style="margin-left: 1rem"
@@ -232,12 +232,12 @@ def generate_add_form_for(model, request, data, files, initial=None):
     )(data, files, initial=initial)
 
     for fieldname, field in modelform_factory(
-            request, Postal, ADD_ADDRESS_LAYOUT()
+        request, Postal, ADD_ADDRESS_LAYOUT()
     )().fields.items():
         form.fields[fieldname] = field
 
     for fieldname, field in modelform_factory(
-            request, Email, ADD_EMAIL_LAYOUT()
+        request, Email, ADD_EMAIL_LAYOUT()
     )().fields.items():
         form.fields[fieldname] = field
 
