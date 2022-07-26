@@ -2,9 +2,9 @@ from django.utils.translation import gettext_lazy as _
 from dynamic_preferences.preferences import Section
 from dynamic_preferences.registries import global_preferences_registry
 from dynamic_preferences.types import (
+    BooleanPreference,
     LongStringPreference,
     StringPreference,
-    BooleanPreference,
 )
 
 mailchimp_integration = Section("mailchimp", _("Mailchimp"))
