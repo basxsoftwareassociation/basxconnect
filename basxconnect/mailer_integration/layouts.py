@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.formats import localize
 from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
+from dynamic_preferences.registries import global_preferences_registry
 
 from basxconnect.core import models
 from basxconnect.core.layouts.editperson.common.utils import tile_with_icon
@@ -167,12 +168,26 @@ def modal_edit_subscription(mailingpreferences):
 
 
 def modal_add_subscription(email: models.Email):
+    preferred_language = email.person.preferred_language
+    set_language = (
+        global_preferences_registry.manager()["mailchimp__synchronize_language"]
+        and preferred_language
+    )
+    disable_interests = global_preferences_registry.manager()[
+        "mailchimp__disable_interests"
+    ]
     ret = layout.modal.Modal.with_ajax_content(
         heading=_("Add subscription"),
         url=ModelHref(
             Subscription,
             "ajax_add",
-            query={"asajax": True, "email": email.pk, "status": "subscribed"},
+            query={
+                "asajax": True,
+                "email": email.pk,
+                "status": "subscribed",
+                **({"language": preferred_language} if set_language else {}),
+                **({"interests": ""} if disable_interests else {}),
+            },
         ),
         submitlabel=_("Save"),
     )
