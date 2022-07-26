@@ -40,19 +40,20 @@ def update_subscription_active(sender, instance: Person, created, **kwargs):
                     email.subscription.save()
 
             from dynamic_preferences.registries import global_preferences_registry
+
             if (
-                global_preferences_registry.manager()["mailchimp__automatically_subscribe_new_persons"]
+                global_preferences_registry.manager()[
+                    "mailchimp__automatically_subscribe_new_persons"
+                ]
                 and not hasattr(email, "subscription")
                 and instance.preferred_language != ""
                 and instance.tags.filter(term="Newsletter").count() == 1
-                and instance.history.last().history_date + datetime.timedelta(days=1) >= timezone.now()
+                and instance.history.last().history_date + datetime.timedelta(days=1)
+                >= timezone.now()
             ):
                 subscription = Subscription.objects.create(
                     email=email,
                     status="subscribed",
                     language=instance.preferred_language,
                 )
-                MAILER.add_person(
-                    MailerPerson.from_subscription(subscription)
-                )
-
+                MAILER.add_person(MailerPerson.from_subscription(subscription))
