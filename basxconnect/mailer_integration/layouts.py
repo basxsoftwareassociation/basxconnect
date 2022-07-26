@@ -170,7 +170,7 @@ def modal_edit_subscription(mailingpreferences):
 def modal_add_subscription(email: models.Email):
     preferred_language = email.person.preferred_language
     set_language = (
-        global_preferences_registry.manager()["mailchimp__language_sync"]
+        global_preferences_registry.manager()["mailchimp__synchronize_language"]
         and preferred_language
     )
     disable_interests = global_preferences_registry.manager()[
