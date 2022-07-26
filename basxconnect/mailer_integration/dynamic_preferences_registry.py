@@ -80,3 +80,10 @@ class MailchimpSynchronizeLanguage(BooleanPreference):
     name = "synchronize_language"
     default = False
     verbose_name = _("Synchronize language with Mailchimp")
+
+@global_preferences_registry.register
+class MailchimpAutomaticallySubscribeNewPersons(BooleanPreference):
+    section = mailchimp_integration
+    name = "automatically_subscribe_new_persons"
+    default = False
+    verbose_name = _("Automatically subscribe new persons")
