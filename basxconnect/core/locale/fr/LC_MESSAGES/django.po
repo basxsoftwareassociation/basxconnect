@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-24 15:47+0700\n"
-"PO-Revision-Date: 2022-02-12 10:55+0000\n"
-"Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
+"PO-Revision-Date: 2022-08-04 05:15+0000\n"
+"Last-Translator: Maxime Leroy <lisacintosh@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.11-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: basxconnect/core/apps.py:28
 #: basxconnect/core/layouts/editperson/common/base_data.py:53
@@ -204,7 +204,7 @@ msgstr "Ajouter %s"
 
 #: basxconnect/core/layouts/editperson/common/documenttemplates_tab.py:19
 msgid "Documents"
-msgstr ""
+msgstr "Documents"
 
 #: basxconnect/core/layouts/editperson/common/head.py:20
 #: basxconnect/core/views/person/person_browse_views.py:193
@@ -217,7 +217,7 @@ msgstr "Copier"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:68
 msgid "History"
-msgstr ""
+msgstr "Historique"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:78
 msgid "Date"
@@ -225,7 +225,7 @@ msgstr "Date"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:84
 msgid "Time"
-msgstr ""
+msgstr "Heure"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:90
 msgid "User"
@@ -233,9 +233,8 @@ msgstr "Utilisateur"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:94
 #: basxconnect/core/layouts/editperson/common/history_tab.py:126
-#, fuzzy
 msgid "Changes"
-msgstr "Modifier"
+msgstr "Modifications"
 
 #: basxconnect/core/layouts/editperson/common/relationships_tab.py:22
 #: basxconnect/core/layouts/settings_layout.py:16
