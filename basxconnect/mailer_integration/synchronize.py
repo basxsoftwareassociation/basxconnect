@@ -3,7 +3,6 @@ from django.utils import timezone
 from dynamic_preferences.registries import global_preferences_registry
 
 from basxconnect.core import models
-from basxconnect.core.models import Email
 from basxconnect.mailer_integration.abstract.mailer import AbstractMailer, MailerPerson
 from basxconnect.mailer_integration.models import (
     Interest,
