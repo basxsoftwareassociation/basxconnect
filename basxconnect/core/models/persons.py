@@ -309,7 +309,7 @@ class NaturalPerson(Person):
     def age(self):
         if not self.date_of_birth:
             return None
-        today = datetime.date.today()
+        today = timezone.now().date()
         birth = self.date_of_birth
         return (
             today.year
