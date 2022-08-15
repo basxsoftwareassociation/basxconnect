@@ -1,6 +1,7 @@
 import django_countries
 from django.utils import timezone
 from dynamic_preferences.registries import global_preferences_registry
+from mailchimp_marketing.api_client import ApiClientError
 
 from basxconnect.core import models
 from basxconnect.mailer_integration.abstract.mailer import AbstractMailer, MailerPerson
@@ -38,28 +39,31 @@ def synchronize_batch(count, offset, mailer, sync_result):
     mailer_persons = mailer.get_persons(count, offset)
     datasource_tag = _get_or_create_tag(mailer.tag())
     for mailer_person in mailer_persons:
-        matching_email_addresses = list(
-            models.Email.objects.filter(
-                email=mailer_person.email,
-            ).all()
-        )
-        if len(matching_email_addresses) == 0:
-            if not is_valid_new_person(mailer_person):
-                _save_sync_person(
-                    mailer_person, sync_result, SynchronizationPerson.SKIPPED
-                )
+        try:
+            matching_email_addresses = list(
+                models.Email.objects.filter(
+                    email=mailer_person.email,
+                ).all()
+            )
+            if len(matching_email_addresses) == 0:
+                if not is_valid_new_person(mailer_person):
+                    _save_sync_person(
+                        mailer_person, sync_result, SynchronizationPerson.SKIPPED
+                    )
+                else:
+                    created_person = _save_person(datasource_tag, mailer_person)
+                    _save_subscription(
+                        created_person.primary_email_address, mailer_person, sync_result, new_person=True
+                    )
+                    _save_sync_person(mailer_person, sync_result, SynchronizationPerson.NEW)
             else:
-                created_person = _save_person(datasource_tag, mailer_person)
-                _save_subscription(
-                    created_person.primary_email_address, mailer_person, sync_result, new_person=True
-                )
-                _save_sync_person(mailer_person, sync_result, SynchronizationPerson.NEW)
-        else:
-            # if the downloaded email address already exists in our system,
-            # update the mailing preference for this email address, without
-            # creating a new person in the database
-            for email in matching_email_addresses:
-                _save_subscription(email, mailer_person, sync_result, new_person=False)
+                # if the downloaded email address already exists in our system,
+                # update the mailing preference for this email address, without
+                # creating a new person in the database
+                for email in matching_email_addresses:
+                    _save_subscription(email, mailer_person, sync_result, new_person=False)
+        except ApiClientError:
+            _save_sync_person(mailer_person, sync_result, SynchronizationPerson.SKIPPED)
 
 
 def synchronize_interests(datasource):
