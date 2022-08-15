@@ -100,7 +100,6 @@ def single_item_fieldset(related_field, fieldname, queryset=None):
 
 def generate_term_datatable(title, vocabulary_slug):
     """Helper function to display a table for all terms of a certain term, currently always returns to the personsettings view"""
-    # TODO: make the backurl dynamic to return to current view (needs correct handling in the DataTable code)
 
     cat = Vocabulary.objects.filter(slug=vocabulary_slug).first() or ""
     return layout.datatable.DataTable.from_queryset(
@@ -112,7 +111,7 @@ def generate_term_datatable(title, vocabulary_slug):
                 href=ModelHref(
                     Term, "add", query={"vocabulary": cat.id}, return_to_current=True
                 ),
-                label=_("Add %s") % Term._meta.verbose_name,
+                label=_("Add %s") % cat,
             ),
             icon=layout.icon.Icon("add", size=20),
         ),
