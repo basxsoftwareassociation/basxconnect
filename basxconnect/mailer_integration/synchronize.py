@@ -63,6 +63,8 @@ def synchronize_batch(count, offset, mailer, sync_result):
                 for email in matching_email_addresses:
                     _save_subscription(email, mailer_person, sync_result, new_person=False)
         except ApiClientError:
+            # todo: "skipped" is not really the right term, since the person might already
+            #  have been added to BasxConnect before the exception happens
             _save_sync_person(mailer_person, sync_result, SynchronizationPerson.SKIPPED)
 
 
