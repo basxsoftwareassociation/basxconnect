@@ -1,8 +1,9 @@
 import htmlgenerator as hg
 from basxbread import layout
-from basxconnect.core.layouts.editperson.common import utils
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import gettext_lazy as _
+
+from basxconnect.core.layouts.editperson.common import utils
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -10,6 +11,7 @@ C = layout.grid.Col
 
 def documenttemplates_tab():
     from basxbread.contrib.document_templates.models import DocumentTemplate
+
     from basxconnect.core import models
 
     templates = DocumentTemplate.objects.filter(
