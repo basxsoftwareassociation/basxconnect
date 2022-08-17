@@ -56,4 +56,4 @@ jobs:
       run: safety check
 
     - name: Test basxconnect
-      run: python manage.py test bread .
+      run: python manage.py test basxbread .
