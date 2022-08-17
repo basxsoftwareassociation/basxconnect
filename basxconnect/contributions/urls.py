@@ -19,7 +19,7 @@ urlpatterns = [
         browseview=views.BrowseView._with(
             columns=(
                 layout.datatable.DataTableColumn(
-                    _("Import date"), layout.FC("row.date.date"), None
+                    _("Import date"), layout.ObjectFieldValue("date.date", "row"), None
                 ),
                 layout.datatable.DataTableColumn(
                     _("Importfile"),
