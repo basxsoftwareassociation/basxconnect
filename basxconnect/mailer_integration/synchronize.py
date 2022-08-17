@@ -53,15 +53,22 @@ def synchronize_batch(count, offset, mailer, sync_result):
                 else:
                     created_person = _save_person(datasource_tag, mailer_person)
                     _save_subscription(
-                        created_person.primary_email_address, mailer_person, sync_result, new_person=True
+                        created_person.primary_email_address,
+                        mailer_person,
+                        sync_result,
+                        new_person=True,
                     )
-                    _save_sync_person(mailer_person, sync_result, SynchronizationPerson.NEW)
+                    _save_sync_person(
+                        mailer_person, sync_result, SynchronizationPerson.NEW
+                    )
             else:
                 # if the downloaded email address already exists in our system,
                 # update the mailing preference for this email address, without
                 # creating a new person in the database
                 for email in matching_email_addresses:
-                    _save_subscription(email, mailer_person, sync_result, new_person=False)
+                    _save_subscription(
+                        email, mailer_person, sync_result, new_person=False
+                    )
         except ApiClientError:
             # todo: "skipped" is not really the right term, since the person might already
             #  have been added to BasxConnect before the exception happens
@@ -141,7 +148,10 @@ def _save_postal_address(person: models.Person, mailer_person: MailerPerson):
 
 
 def _save_subscription(
-    email: models.Email, mailer_person: MailerPerson, sync_result: SynchronizationResult, new_person: bool
+    email: models.Email,
+    mailer_person: MailerPerson,
+    sync_result: SynchronizationResult,
+    new_person: bool,
 ):
     subscription, _ = Subscription.objects.get_or_create(email=email)
     old_subscription_status = subscription.status or ""
@@ -160,7 +170,10 @@ def _save_subscription(
             SynchronizationPerson.SUBSCRIPTION_STATUS_CHANGED,
             old_subscription_status=old_subscription_status,
         )
-    if new_person and global_preferences_registry.manager()["mailchimp__synchronize_language"]:
+    if (
+        new_person
+        and global_preferences_registry.manager()["mailchimp__synchronize_language"]
+    ):
         person = email.person
         person.preferred_language = mailer_person.language
         person.save()
