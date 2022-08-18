@@ -1,5 +1,6 @@
 import htmlgenerator as hg
 from basxbread import layout
+from basxbread.utils import ModelHref
 from django.utils.translation import gettext_lazy as _
 
 R = layout.grid.Row
@@ -12,32 +13,19 @@ def editperson_toolbar(request):
         buttontype="ghost",
         icon="trash-can",
         notext=True,
-        **layout.aslink_attributes(
-            hg.F(lambda c: layout.objectaction(c["object"], "delete"))
-        ),
-    )
+    ).as_href(ModelHref.from_object(hg.C("object"), "delete"))
     restorebutton = layout.button.Button(
         _("Restore"),
         buttontype="ghost",
         icon="undo",
         notext=True,
-        **layout.aslink_attributes(
-            hg.F(
-                lambda c: layout.objectaction(
-                    c["object"], "delete", query={"restore": True}
-                )
-            )
-        ),
-    )
+    ).as_href(ModelHref.from_object(hg.C("object"), "delete", query={"restore": True}))
     copybutton = layout.button.Button(
         _("Copy"),
         buttontype="ghost",
         icon="copy",
         notext=True,
-        **layout.aslink_attributes(
-            hg.F(lambda c: layout.objectaction(c["object"], "copy"))
-        ),
-    )
+    ).as_href(ModelHref.from_object(hg.C("object"), "copy"))
 
     return hg.SPAN(
         hg.If(hg.C("object.deleted"), restorebutton, deletebutton),
