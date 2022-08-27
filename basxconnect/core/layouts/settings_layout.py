@@ -86,18 +86,6 @@ def personsettings(request):
     return ret
 
 
-def single_item_fieldset(related_field, fieldname, queryset=None):
-    """Helper function to show only a single item of a (foreign-key) related item list"""
-    return layout.forms.FormsetField.as_plain(
-        related_field,
-        F(fieldname),
-        formsetinitial={"queryset": queryset},
-        can_delete=False,
-        max_num=1,
-        extra=1,
-    )
-
-
 def generate_term_datatable(title, vocabulary_slug):
     """Helper function to display a table for all terms of a certain term, currently always returns to the personsettings view"""
 
