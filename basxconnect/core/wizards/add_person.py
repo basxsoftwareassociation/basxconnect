@@ -239,6 +239,7 @@ def generate_add_form_for(model, request, data, files, initial=None):
     for fieldname, field in modelform_factory(
         request, Email, ADD_EMAIL_LAYOUT()
     )().fields.items():
+        field.required = False
         form.fields[fieldname] = field
 
     formlayout = hg.BaseElement(
@@ -395,7 +396,7 @@ class AddPersonWizard(PermissionRequiredMixin, BaseView, NamedUrlSessionWizardVi
                 if k in ("address", "city", "postcode", "country")
             }
         )
-        if "email" in personform.cleaned_data:
+        if "email" in personform.cleaned_data and personform.cleaned_data["email"]:
             newperson.core_email_list.create(
                 email=personform.cleaned_data["email"],
                 type=personform.cleaned_data["type"],
