@@ -9,11 +9,9 @@ from basxbread.layout.components.forms import Form
 from basxbread.utils import Link, reverse_model
 from basxbread.views import EditView, ReadView, layoutasreadonly
 from django.apps import apps
-from django.conf import settings
 from django.forms import forms
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
@@ -216,7 +214,7 @@ def confirm_delete_email(request, pk: int):
 
     return layout.render(
         request,
-        import_string(settings.DEFAULT_PAGE_LAYOUT)(
+        layout.skeleton.default_page_layout(
             menu.main,
             Form(
                 form,

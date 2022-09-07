@@ -63,15 +63,19 @@ def tile_with_datatable(model, queryset, columns, request):
             columns=columns,
             rowactions=[
                 editmodal(),
-                Link(
+                layout.button.Button(
+                    _("Delete"),
+                    icon="trash-can",
+                    notext=True,
+                    small=True,
+                    buttontype="ghost",
+                ).as_submit(
                     href=ModelHref(
                         model,
                         "delete",
                         kwargs={"pk": hg.C("row.pk")},
                         query={"next": request.get_full_path()},
                     ),
-                    iconname="trash-can",
-                    label=_("Delete"),
                 ),
             ],
             primary_button=layout.button.Button(
