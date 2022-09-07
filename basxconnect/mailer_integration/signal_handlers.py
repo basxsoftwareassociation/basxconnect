@@ -21,23 +21,11 @@ def update_subscription_active(sender, instance: Person, created, **kwargs):
                     and not instance.deleted
                     and email.subscription.status == "archived"
                 ):
-                    email.subscription.status = (
-                        email.subscription.status_before_archiving
-                    )
-                    email.subscription.status_before_archiving = None
-                    MAILER.add_person(
-                        MailerPerson.from_subscription(email.subscription)
-                    )
-                    email.subscription.save()
+                    unarchive_subscription_from_mailer(email)
                 elif (
                     not instance.active or instance.deleted
                 ) and email.subscription.status != "archived":
-                    email.subscription.status_before_archiving = (
-                        email.subscription.status
-                    )
-                    email.subscription.status = "archived"
-                    MAILER.delete_person(email.email)
-                    email.subscription.save()
+                    archive_subscription_from_mailer(email)
 
             from dynamic_preferences.registries import global_preferences_registry
 
@@ -57,3 +45,17 @@ def update_subscription_active(sender, instance: Person, created, **kwargs):
                     language=instance.preferred_language,
                 )
                 MAILER.add_person(MailerPerson.from_subscription(subscription))
+
+
+def archive_subscription_from_mailer(email):
+    email.subscription.status_before_archiving = email.subscription.status
+    email.subscription.status = "archived"
+    MAILER.delete_person(email.email)
+    email.subscription.save()
+
+
+def unarchive_subscription_from_mailer(email):
+    email.subscription.status = email.subscription.status_before_archiving
+    email.subscription.status_before_archiving = None
+    MAILER.add_person(MailerPerson.from_subscription(email.subscription))
+    email.subscription.save()
