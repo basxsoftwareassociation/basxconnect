@@ -163,45 +163,47 @@ class Person(models.Model):
 
         if not self._maintype:
             self._maintype = "person"
-        if hasattr(self, "core_postal_list"):
-            active_postals = [
-                postal
-                for postal in self.core_postal_list.all()
-                if postal.valid_until is None
-                or postal.valid_until >= timezone.now().date()
-            ]
-            if len(active_postals) == 0:
+        if self.pk is not None:
+            if hasattr(self, "core_postal_list"):
+                active_postals = [
+                    postal
+                    for postal in self.core_postal_list.all()
+                    if postal.valid_until is None
+                    or postal.valid_until >= timezone.now().date()
+                ]
+                if len(active_postals) == 0:
+                    self.primary_postal_address = None
+                elif (
+                    len(active_postals) == 1
+                    or self.primary_postal_address is None
+                    or (
+                        self.primary_postal_address.valid_until
+                        and self.primary_postal_address.valid_until
+                        < timezone.now().date()
+                    )
+                ):
+                    self.primary_postal_address = active_postals[0]
+
+            else:
                 self.primary_postal_address = None
-            elif (
-                len(active_postals) == 1
-                or self.primary_postal_address is None
-                or (
-                    self.primary_postal_address.valid_until
-                    and self.primary_postal_address.valid_until < timezone.now().date()
-                )
-            ):
-                self.primary_postal_address = active_postals[0]
 
-        else:
-            self.primary_postal_address = None
+            if hasattr(self, "core_email_list"):
+                if (
+                    self.core_email_list.all().count() == 1
+                    or self.primary_email_address is None
+                ):
+                    self.primary_email_address = self.core_email_list.first()
+            else:
+                self.primary_email_address = None
 
-        if hasattr(self, "core_email_list"):
-            if (
-                self.core_email_list.all().count() == 1
-                or self.primary_email_address is None
-            ):
-                self.primary_email_address = self.core_email_list.first()
-        else:
-            self.primary_email_address = None
-
-        if hasattr(self, "core_phone_list"):
-            if (
-                self.core_phone_list.all().count() == 1
-                or self.primary_phonenumber is None
-            ):
-                self.primary_phonenumber = self.core_phone_list.first()
-        else:
-            self.primary_phonenumber = None
+            if hasattr(self, "core_phone_list"):
+                if (
+                    self.core_phone_list.all().count() == 1
+                    or self.primary_phonenumber is None
+                ):
+                    self.primary_phonenumber = self.core_phone_list.first()
+            else:
+                self.primary_phonenumber = None
 
         super().save(*args, **kwargs)
         if self.personnumber.startswith("__placeholder__"):
