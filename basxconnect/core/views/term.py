@@ -27,6 +27,9 @@ class TermsBrowseView(BrowseView):
                 ),
                 icon=layout.icon.Icon("add", size=20),
             )
+            self.title = Vocabulary.objects.get(
+                slug=self.request.GET.get("vocabulary_slug")
+            ).name
         return super().get(*args, **kwargs)
 
     def get_queryset(self):
