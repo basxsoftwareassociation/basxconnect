@@ -20,7 +20,7 @@ def documenttemplates_tab():
     prefixes = {}
     for template in templates:
         prefix = hg.mark_safe("<wbr/>")
-        if "-" in template.name:
+        if " - " in template.name:
             prefix = template.name.split("-", 1)[0].strip()
         if prefix not in prefixes:
             prefixes[prefix] = []
