@@ -9,6 +9,7 @@ from basxconnect.core.models import Term, Vocabulary
 class TermsBrowseView(BrowseView):
     rowclickaction = BrowseView.gen_rowclickaction("edit", return_to_current=True)
     rowactions = [BrowseView.deletelink()]
+    columns = ["term", "slug"]
 
     def get(self, *args, **kwargs):
         vocabulary = Vocabulary.objects.filter(

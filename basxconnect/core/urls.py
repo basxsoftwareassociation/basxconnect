@@ -5,7 +5,7 @@ from basxbread.utils.urls import (
     model_urlname,
     reverse_model,
 )
-from basxbread.views import AddView, BrowseView, EditView
+from basxbread.views import AddView, EditView
 from django.views.generic import RedirectView
 
 import basxconnect.core.views.tag_views
