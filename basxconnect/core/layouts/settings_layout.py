@@ -105,14 +105,6 @@ def generate_term_datatable(title, vocabulary_slug):
         ),
         prevent_automatic_sortingnames=True,
         rowclickaction=BrowseView.gen_rowclickaction("edit", return_to_current=True),
-        rowactions=[
-            Link(
-                label=_("Delete"),
-                href=ModelHref.from_object(
-                    hg.C("row"), "delete", return_to_current=True
-                ),
-                iconname="trash-can",
-            )
-        ],
+        rowactions=[BrowseView.deletelink()],
         backurl=reverse("basxconnect.core.views.settings_views.personsettings"),
     )

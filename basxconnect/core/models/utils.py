@@ -9,6 +9,19 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 
+class VocabularyManager(models.Manager):
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .annotate(
+                termcount=models.Count(
+                    "term", output_field=models.IntegerField(_("Terms"))
+                )
+            )
+        )
+
+
 class Vocabulary(models.Model):
     name = models.CharField(_("Name"), max_length=255, unique=True)
     slug = models.SlugField(
@@ -16,6 +29,8 @@ class Vocabulary(models.Model):
         unique=True,
         help_text=_("slug is human-readable, to make referencing easier"),
     )
+
+    objects = VocabularyManager()
 
     def __str__(self):
         return self.name

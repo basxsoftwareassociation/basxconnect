@@ -7,8 +7,8 @@ from basxconnect.core.models import Term, Vocabulary
 
 
 class TermsBrowseView(BrowseView):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    rowclickaction = BrowseView.gen_rowclickaction("edit", return_to_current=True)
+    rowactions = [BrowseView.deletelink()]
 
     def get(self, *args, **kwargs):
         vocabulary = Vocabulary.objects.filter(

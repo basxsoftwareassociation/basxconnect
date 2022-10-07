@@ -15,3 +15,4 @@ class VocabularyBrowseView(BrowseView):
             iconname="tree-view--alt",
         ),
     ]
+    columns = ["name", "slug", "termcount"]
