@@ -17,14 +17,17 @@ def documenttemplates_tab():
     templates = DocumentTemplate.objects.filter(
         model=ContentType.objects.get_for_model(models.NaturalPerson)
     )
-    prefixes = {}
-    for template in templates:
-        prefix = hg.mark_safe("<wbr/>")
-        if " - " in template.name:
-            prefix = template.name.split("-", 1)[0].strip()
-        if prefix not in prefixes:
-            prefixes[prefix] = []
-        prefixes[prefix].append(template)
+
+    def prefixes(context):
+        ret = {}
+        for template in templates:
+            prefix = hg.mark_safe("<wbr/>")
+            if " - " in template.name:
+                prefix = template.name.split("-", 1)[0].strip()
+            if prefix not in ret:
+                ret[prefix] = []
+            ret[prefix].append(template)
+        return ret
 
     return layout.tabs.Tab(
         _("Series letters"),
@@ -33,7 +36,7 @@ def documenttemplates_tab():
                 utils.tiling_col(
                     hg.DIV(
                         hg.Iterator(
-                            prefixes.items(),
+                            hg.F(prefixes).items(),
                             "group",
                             hg.DIV(
                                 hg.H3(hg.C("group.0")),
