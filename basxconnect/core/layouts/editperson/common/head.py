@@ -13,19 +13,34 @@ def editperson_toolbar(request):
         buttontype="ghost",
         icon="trash-can",
         notext=True,
-    ).as_href(ModelHref.from_object(hg.C("object"), "delete"))
+    ).as_submit(
+        ModelHref.from_object(hg.C("object"), "delete"),
+        confirm_text=hg.format(
+            _("Are you sure you want to delete {}?"), hg.EM(hg.C("object"))
+        ),
+    )
     restorebutton = layout.button.Button(
         _("Restore"),
         buttontype="ghost",
         icon="undo",
         notext=True,
-    ).as_href(ModelHref.from_object(hg.C("object"), "delete", query={"restore": True}))
+    ).as_submit(
+        ModelHref.from_object(hg.C("object"), "delete", query={"restore": True}),
+        confirm_text=hg.format(
+            _("Are you sure you want to restore {}?"), hg.EM(hg.C("object"))
+        ),
+    )
     copybutton = layout.button.Button(
         _("Copy"),
         buttontype="ghost",
         icon="copy",
         notext=True,
-    ).as_href(ModelHref.from_object(hg.C("object"), "copy"))
+    ).as_submit(
+        ModelHref.from_object(hg.C("object"), "copy"),
+        confirm_text=hg.format(
+            _("Are you sure you want to copy {}?"), hg.EM(hg.C("object"))
+        ),
+    )
 
     return hg.SPAN(
         hg.If(hg.C("object.deleted"), restorebutton, deletebutton),
