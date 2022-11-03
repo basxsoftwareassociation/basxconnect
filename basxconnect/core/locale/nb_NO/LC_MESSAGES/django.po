@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 12:15+0700\n"
+"POT-Creation-Date: 2022-11-03 19:53+0700\n"
 "PO-Revision-Date: 2021-11-05 02:35+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -232,15 +232,27 @@ msgstr "Legg til %s"
 msgid "Series letters"
 msgstr ""
 
-#: basxconnect/core/layouts/editperson/common/head.py:18
+#: basxconnect/core/layouts/editperson/common/head.py:19
+msgid "Are you sure you want to delete {}?"
+msgstr ""
+
+#: basxconnect/core/layouts/editperson/common/head.py:23
 #: basxconnect/core/views/person/person_browse_views.py:193
 msgid "Restore"
 msgstr "Gjenopprett"
 
-#: basxconnect/core/layouts/editperson/common/head.py:24
+#: basxconnect/core/layouts/editperson/common/head.py:30
+msgid "Are you sure you want to restore {}?"
+msgstr ""
+
+#: basxconnect/core/layouts/editperson/common/head.py:34
 #, fuzzy
 msgid "Copy"
 msgstr "Kopier"
+
+#: basxconnect/core/layouts/editperson/common/head.py:41
+msgid "Are you sure you want to copy {}?"
+msgstr ""
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:66
 msgid "<Value has been deleted>"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 12:15+0700\n"
+"POT-Creation-Date: 2022-11-03 19:53+0700\n"
 "PO-Revision-Date: 2021-04-08 02:26+0000\n"
 "Last-Translator: Frederik Bugglin <bugglin@basx.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/basxconnect/"
@@ -204,14 +204,26 @@ msgstr "%s hinzufügen"
 msgid "Series letters"
 msgstr "Serienbriefe"
 
-#: basxconnect/core/layouts/editperson/common/head.py:18
+#: basxconnect/core/layouts/editperson/common/head.py:19
+msgid "Are you sure you want to delete {}?"
+msgstr "Sind Sie sicher, dass Sie {} löschen möchten?"
+
+#: basxconnect/core/layouts/editperson/common/head.py:23
 #: basxconnect/core/views/person/person_browse_views.py:193
 msgid "Restore"
 msgstr "Wiederherstellen"
 
-#: basxconnect/core/layouts/editperson/common/head.py:24
+#: basxconnect/core/layouts/editperson/common/head.py:30
+msgid "Are you sure you want to restore {}?"
+msgstr "Sind Sie sicher, dass Sie {} wiederherstellen möchten?"
+
+#: basxconnect/core/layouts/editperson/common/head.py:34
 msgid "Copy"
 msgstr "Kopieren"
+
+#: basxconnect/core/layouts/editperson/common/head.py:41
+msgid "Are you sure you want to copy {}?"
+msgstr "Sind Sie sicher, dass Sie {} kopieren möchten?"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:66
 msgid "<Value has been deleted>"
