@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-24 15:47+0700\n"
+"POT-Creation-Date: 2022-11-03 12:15+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,36 +18,48 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:6
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:10
 msgid "Mailchimp"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:14
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:18
 msgid "Mailchimp server"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:22
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:26
 msgid "Mailchimp list ID"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:30
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:34
 msgid "Mailchimp segment ID"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:38
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:42
 msgid "Mailchimp interests category ID"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:46
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:50
 msgid "Mailchimp tag"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:54
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:58
 msgid "BasxConnect Mailchimp tag"
 msgstr ""
 
-#: basxconnect/mailer_integration/dynamic_preferences_registry.py:62
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:66
 msgid "Mailchimp API key"
+msgstr ""
+
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:74
+msgid "Disable mailing interests"
+msgstr ""
+
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:82
+msgid "Synchronize language with Mailchimp"
+msgstr ""
+
+#: basxconnect/mailer_integration/dynamic_preferences_registry.py:90
+msgid "Automatically subscribe new persons"
 msgstr ""
 
 #: basxconnect/mailer_integration/help.py:8
@@ -82,46 +94,46 @@ msgid ""
 "with that email address."
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:28
+#: basxconnect/mailer_integration/layouts.py:29
 msgid "Email Subscriptions"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:32
+#: basxconnect/mailer_integration/layouts.py:33
 msgid "Person has no email addresses"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:75
+#: basxconnect/mailer_integration/layouts.py:76
 msgid "Status before archiving"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:85
+#: basxconnect/mailer_integration/layouts.py:86
 msgid "Last synchronized"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:120
+#: basxconnect/mailer_integration/layouts.py:121
 msgid "No subscription yet for "
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:122
-#: basxconnect/mailer_integration/layouts.py:171
+#: basxconnect/mailer_integration/layouts.py:123
+#: basxconnect/mailer_integration/layouts.py:180
 msgid "Add subscription"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:139
-#: basxconnect/mailer_integration/layouts.py:142
+#: basxconnect/mailer_integration/layouts.py:140
+#: basxconnect/mailer_integration/layouts.py:143
 msgid "active"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:145
+#: basxconnect/mailer_integration/layouts.py:146
 msgid "inactive"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:155
+#: basxconnect/mailer_integration/layouts.py:156
 msgid "Edit subscription"
 msgstr ""
 
-#: basxconnect/mailer_integration/layouts.py:162
-#: basxconnect/mailer_integration/layouts.py:177
+#: basxconnect/mailer_integration/layouts.py:163
+#: basxconnect/mailer_integration/layouts.py:192
 msgid "Save"
 msgstr ""
 
