@@ -247,6 +247,8 @@ class NaturalPerson(Person):
     first_name = models.CharField(_("First Name"), max_length=255, blank=True)
     middle_name = models.CharField(_("Middle Name"), max_length=255, blank=True)
     last_name = models.CharField(_("Last Name"), max_length=255, blank=True)
+    maiden_name = models.CharField(_("Maiden Name"), max_length=255, blank=True)
+
     autogenerate_displayname = models.BooleanField(
         _("Autogenerate Display Name"), default=True
     )

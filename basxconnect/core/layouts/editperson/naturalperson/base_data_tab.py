@@ -30,32 +30,46 @@ def base_data_tab(request):
 
 
 def personal_data():
-    displayed_fields = [
-        utils.display_field_label_and_value(field)
-        for field in [
-            "salutation",
-            "title",
-            "name",
-            "first_name",
-            "last_name",
-            "gender",
-            "date_of_birth",
-            "place_of_birth",
-            "profession",
+    displayed_fields = (
+        [
+            utils.display_field_label_and_value(field)
+            for field in [
+                "salutation",
+                "title",
+                "name",
+                "first_name",
+                "last_name",
+            ]
         ]
-    ] + [
-        hg.If(
-            hg.C("object.deceased"),
-            display_label_and_value(
-                ObjectFieldLabel("deceased"),
-                hg.If(hg.C("object.deceased"), _("Yes"), _("No")),
+        + [
+            hg.If(
+                hg.C("object.maiden_name"),
+                utils.display_field_label_and_value("maiden_name"),
+            )
+        ]
+        + [
+            utils.display_field_label_and_value(field)
+            for field in [
+                "gender",
+                "date_of_birth",
+                "place_of_birth",
+                "profession",
+            ]
+        ]
+        + [
+            hg.If(
+                hg.C("object.deceased"),
+                display_label_and_value(
+                    ObjectFieldLabel("deceased"),
+                    hg.If(hg.C("object.deceased"), _("Yes"), _("No")),
+                ),
             ),
-        ),
-        hg.If(
-            hg.C("object.deceased"),
-            utils.display_field_label_and_value("decease_date"),
-        ),
-    ]
+            hg.If(
+                hg.C("object.deceased"),
+                utils.display_field_label_and_value("decease_date"),
+            ),
+        ]
+    )
     return utils.tile_col_edit_modal_displayed_fields(
         _("Personal Data"),
         models.NaturalPerson,
