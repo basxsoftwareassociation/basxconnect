@@ -14,11 +14,10 @@ def documenttemplates_tab():
 
     from basxconnect.core import models
 
-    templates = DocumentTemplate.objects.filter(
-        model=ContentType.objects.get_for_model(models.NaturalPerson)
-    )
-
     def prefixes(context):
+        templates = DocumentTemplate.objects.filter(
+            model=ContentType.objects.get_for_model(models.NaturalPerson)
+        )
         ret = {}
         for template in templates:
             prefix = hg.mark_safe("<wbr/>")
