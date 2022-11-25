@@ -41,11 +41,26 @@ class Vocabulary(models.Model):
         verbose_name_plural = _("Vocabularies")
 
 
+class TermManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(disabled=False)
+
+    def including_disabled(self):
+        return super().get_queryset()
+
+
 class Term(models.Model):
     vocabulary = models.ForeignKey(Vocabulary, null=False, on_delete=models.CASCADE)
     vocabulary.verbose_name = _("Vocabulary")
     term = models.CharField(_("Term"), max_length=255)
     slug = models.CharField(_("Slug"), max_length=255, unique=True, blank=True)
+    disabled = models.BooleanField(
+        _("Disabled"),
+        default=False,
+        help_text=_("Do not allow this term to be selected"),
+    )
+
+    objects = TermManager()
 
     def save(self, *args, **kwargs):
         if not self.slug:

@@ -34,7 +34,7 @@ class TermsBrowseView(BrowseView):
         return super().get(*args, **kwargs)
 
     def get_queryset(self):
-        qs = super().get_queryset()
+        qs = Term.objects.including_disabled()
         vocabulary_slug = self.request.GET.get("vocabulary_slug")
         if vocabulary_slug:
             qs = qs.filter(vocabulary__slug=vocabulary_slug)

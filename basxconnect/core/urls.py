@@ -126,7 +126,7 @@ urlpatterns = [
     *default_model_paths(
         models.Term,
         addview=AddView._with(fields=["term", "vocabulary"]),
-        editview=EditView._with(fields=["term", "slug"]),
+        editview=EditView._with(fields=["term", "slug", "disabled"]),
         browseview=TermsBrowseView,
     ),
     *default_model_paths(
