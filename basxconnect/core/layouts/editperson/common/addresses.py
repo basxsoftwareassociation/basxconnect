@@ -21,7 +21,7 @@ def numbers(request):
     return tile_with_datatable(
         models.Phone,
         hg.F(lambda c: c["object"].core_phone_list.all()),
-        ["type", "number"],
+        ["number", "type"],
         request,
     )
 
@@ -92,6 +92,7 @@ def email(request):
         models.Email,
         hg.F(lambda c: c["object"].core_email_list.all()),
         [
+            "email",
             DataTableColumn(
                 layout.ObjectFieldLabel("type", models.Email),
                 hg.SPAN(
@@ -105,7 +106,6 @@ def email(request):
                     ),
                 ),
             ),
-            "email",
         ],
         request,
     )
@@ -115,7 +115,7 @@ def urls(request):
     return tile_with_datatable(
         models.Web,
         hg.F(lambda c: c["object"].core_web_list.all()),
-        ["type", "url"],
+        ["url", "type"],
         request,
     )
 

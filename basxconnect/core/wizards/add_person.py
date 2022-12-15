@@ -29,8 +29,10 @@ ADD_FORM_LAYOUTS = {
             layout.grid.Col(layout.forms.FormField("last_name")),
         ),
         layout.grid.Row(
-            layout.grid.Col(layout.forms.FormField("salutation")),
-            layout.grid.Col(layout.forms.FormField("gender")),
+            layout.grid.Col(layout.forms.FormField("salutation"), width=2),
+            layout.grid.Col(layout.forms.FormField("gender"), width=2),
+            layout.grid.Col(width=4),
+            layout.grid.Col(layout.forms.FormField("preferred_language")),
         ),
     ),
     LegalPerson: lambda: hg.DIV(
@@ -234,6 +236,8 @@ def generate_add_form_for(model, request, data, files, initial=None):
     for fieldname, field in modelform_factory(
         request, Postal, ADD_ADDRESS_LAYOUT()
     )().fields.items():
+        if fieldname == "country":
+            field.required = False
         form.fields[fieldname] = field
 
     for fieldname, field in modelform_factory(
@@ -389,13 +393,15 @@ class AddPersonWizard(PermissionRequiredMixin, BaseView, NamedUrlSessionWizardVi
         if subtype:
             personform.instance.type = subtype
         newperson = personform.save()
-        newperson.core_postal_list.create(
-            **{
-                k: v
-                for k, v in personform.cleaned_data.items()
-                if k in ("address", "city", "postcode", "country")
-            }
-        )
+
+        if personform.cleaned_data["country"] != "":
+            newperson.core_postal_list.create(
+                **{
+                    k: v
+                    for k, v in personform.cleaned_data.items()
+                    if k in ("address", "city", "postcode", "country")
+                }
+            )
         if "email" in personform.cleaned_data and personform.cleaned_data["email"]:
             newperson.core_email_list.create(
                 email=personform.cleaned_data["email"],

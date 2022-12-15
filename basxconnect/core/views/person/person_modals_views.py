@@ -128,11 +128,11 @@ class LegalPersonEditMailingsView(EditView):
 class EditPostalAddressView(EditView):
     model = models.Postal
     fields = [
-        "type",
         "address",
         "postcode",
         "city",
         "country",
+        "type",
         "valid_from",
         "valid_until",
     ]
@@ -178,7 +178,7 @@ class AddPostalAddressView(AddView):
 
 class EditEmailAddressView(EditView):
     model = models.Email
-    fields = ["type", "email"]
+    fields = ["email", "type"]
 
     def form_valid(self, form, *args, **kwargs):
 

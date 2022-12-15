@@ -1,5 +1,6 @@
 import htmlgenerator as hg
 from basxbread.layout import button
+from django import forms
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
@@ -35,8 +36,9 @@ class Email(Address):
         blank=True,
         related_name="type_%(app_label)s_%(class)s_list",
         limit_choices_to={"vocabulary__slug": "emailtype"},
+        verbose_name=_("Type"),
     )
-    type.verbose_name = _("Type")
+    type.formfield_kwargs = {"widget": forms.RadioSelect()}
 
     def asbutton(self):
         return hg.DIV(
@@ -70,8 +72,9 @@ class Web(Address):
         blank=True,
         related_name="type_%(app_label)s_%(class)s_list",
         limit_choices_to={"vocabulary__slug": "urltype"},
+        verbose_name=_("Type"),
     )
-    type.verbose_name = _("Type")
+    type.formfield_kwargs = {"widget": forms.RadioSelect()}
 
     def __str__(self):
         return str(self.url)
@@ -89,8 +92,9 @@ class Phone(Address):
         null=True,
         blank=True,
         limit_choices_to={"vocabulary__slug": "phonetype"},
+        verbose_name=_("Type"),
     )
-    type.verbose_name = _("Type")
+    type.formfield_kwargs = {"widget": forms.RadioSelect()}
 
     def __str__(self):
         if self.type:
@@ -110,8 +114,9 @@ class Fax(Address):
         null=True,
         blank=True,
         limit_choices_to={"vocabulary__slug": "phonetype"},
+        verbose_name=_("Type"),
     )
-    type.verbose_name = _("Type")
+    type.formfield_kwargs = {"widget": forms.RadioSelect()}
 
     def __str__(self):
         if self.type:
@@ -135,8 +140,10 @@ class Postal(Address):
         blank=True,
         related_name="type_%(app_label)s_%(class)s_list",
         limit_choices_to={"vocabulary__slug": "addresstype"},
+        verbose_name=_("Type"),
     )
-    type.verbose_name = _("Type")
+    type.formfield_kwargs = {"widget": forms.RadioSelect()}
+
     valid_from = models.DateField(_("Valid from"), blank=True, null=True)
     valid_until = models.DateField(_("Valid until"), blank=True, null=True)
 

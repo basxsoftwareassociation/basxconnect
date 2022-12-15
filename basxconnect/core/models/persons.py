@@ -4,6 +4,7 @@ from basxbread import layout
 from basxbread.contrib.languages.fields import LanguageField
 from basxbread.utils import get_concrete_instance
 from basxbread.utils.inheritancemanager import InheritanceManager
+from django import forms
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
@@ -259,8 +260,10 @@ class NaturalPerson(Person):
         blank=True,
         limit_choices_to={"vocabulary__slug": "title"},
         related_name="title_persons",
+        verbose_name=_("Title"),
     )
-    title.verbose_name = _("Title")
+    title.formfield_kwargs = {"widget": forms.RadioSelect()}
+
     salutation = models.ForeignKey(
         Term,
         on_delete=models.SET_NULL,
@@ -268,8 +271,9 @@ class NaturalPerson(Person):
         blank=True,
         limit_choices_to={"vocabulary__slug": "salutation"},
         related_name="+",
+        verbose_name=_("Salutation"),
     )
-    salutation.verbose_name = _("Salutation")
+    salutation.formfield_kwargs = {"widget": forms.RadioSelect()}
 
     form_of_address = models.ForeignKey(
         Term,
@@ -278,8 +282,9 @@ class NaturalPerson(Person):
         blank=True,
         limit_choices_to={"vocabulary__slug": "form_of_address"},
         related_name="+",
+        verbose_name=_("Form of address"),
     )
-    form_of_address.verbose_name = _("Form of address")
+    form_of_address.formfield_kwargs = {"widget": forms.RadioSelect()}
 
     profession = models.CharField(
         _("Profession"),
@@ -297,8 +302,9 @@ class NaturalPerson(Person):
         blank=True,
         limit_choices_to={"vocabulary__slug": "gender"},
         related_name="gender_persons",
+        verbose_name=_("Gender"),
     )
-    gender.verbose_name = _("Gender")
+    gender.formfield_kwargs = {"widget": forms.RadioSelect()}
 
     type = models.ForeignKey(
         Term,
