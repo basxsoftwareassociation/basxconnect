@@ -122,7 +122,7 @@ def _save_person(datasource_tag: models.Term, mailer_person: MailerPerson):
         last_name=mailer_person.last_name,
     )
     if mailer_person.persontype:
-        persontype = models.Term.objects.filter(slug=MailerPerson.persontype).first()
+        persontype = models.Term.objects.filter(slug=mailer_person.persontype).first()
         if persontype:
             person._type = persontype
     person.tags.add(datasource_tag)
