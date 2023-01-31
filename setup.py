@@ -27,7 +27,7 @@ setup(
     license="New BSD License",
     install_requires=[
         "basx-bread",
-        "django-formtools",
+        "django-formtools == 2.3",
         "djangorestframework",
         "chardet",
         "tablib",
