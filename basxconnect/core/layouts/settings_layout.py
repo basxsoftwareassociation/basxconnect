@@ -74,18 +74,6 @@ def relationshipssettings(request):
     )
 
 
-def personsettings(request):
-    ret = layout.grid.Grid(R(C(hg.H3(_("Persons")))), gutter=False)
-    for vocabulary in Vocabulary.objects.all():
-        ret.append(
-            R(
-                C(generate_term_datatable(vocabulary.name, vocabulary.slug)),
-                style="margin-bottom: 2rem",
-            )
-        )
-    return ret
-
-
 def generate_term_datatable(title, vocabulary_slug):
     """Helper function to display a table for all terms of a certain term, currently always returns to the personsettings view"""
 

@@ -5,8 +5,6 @@ from basxbread.utils.links import Link
 from basxbread.utils.urls import reverse, reverse_model
 from django.utils.translation import gettext_lazy as _
 
-import basxconnect.core.models
-
 from .. import models
 
 
@@ -29,21 +27,18 @@ F = layout.forms.FormField
 
 # MENU ENTRIES ---------------------------------------------------------------------
 
-menu.registeritem(
-    menu.Item(
-        Link(
-            reverse("core.vocabulary.browse"),
-            basxconnect.core.models.Vocabulary._meta.verbose_name_plural,
-        ),
-        menu.admingroup,
-    )
-)
-
 persongroup = menu.Group(_("Persons"), iconname="group")
 
 menu.registeritem(
     menu.Item(
-        Link(reverse_model(models.Person, "browse"), _("Persons"), iconname="group"),
+        Link(
+            reverse_model(models.Person, "browse"),
+            _("Persons"),
+            iconname="group",
+            permissions=[
+                f"{models.Person._meta.app_label}.view_{models.Person._meta.model_name}"
+            ],
+        ),
         persongroup,
     )
 )
@@ -51,18 +46,11 @@ menu.registeritem(
 menu.registeritem(
     menu.Item(
         Link(
-            reverse("basxconnect.core.views.settings_views.generalsettings"),
-            _("General"),
-        ),
-        menu.settingsgroup,
-    )
-)
-
-menu.registeritem(
-    menu.Item(
-        Link(
-            reverse("basxconnect.core.views.settings_views.personsettings"),
-            _("Persons"),
+            reverse_model(models.Vocabulary, "browse"),
+            _("Taxonomy"),
+            permissions=[
+                f"{models.Vocabulary._meta.app_label}.view_{models.Vocabulary._meta.model_name}"
+            ],
         ),
         menu.settingsgroup,
     )
@@ -73,6 +61,9 @@ menu.registeritem(
         Link(
             reverse("basxconnect.core.views.settings_views.relationshipssettings"),
             _("Relationships"),
+            permissions=[
+                f"{models.RelationshipType._meta.app_label}.view_{models.RelationshipType._meta.model_name}"
+            ],
         ),
         menu.settingsgroup,
     )

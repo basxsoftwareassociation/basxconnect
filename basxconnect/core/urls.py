@@ -136,12 +136,10 @@ urlpatterns = [
     *default_model_paths(models.Postal),
     *default_model_paths(models.Phone),
     *default_model_paths(models.Web),
-    autopath(settings_views.generalsettings),
     autopath(
         person_details_views.togglepersonstatus,
         model_urlname(models.Person, "togglestatus"),
     ),
-    autopath(settings_views.personsettings),
     autopath(settings_views.relationshipssettings),
     autopath(search_person_view.searchperson),
     autopath(
