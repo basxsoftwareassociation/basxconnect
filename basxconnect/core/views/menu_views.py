@@ -1,8 +1,6 @@
 from basxbread import layout as layout
-from basxbread import menu
+from basxbread import menu, utils
 from basxbread.layout import DEVMODE_KEY
-from basxbread.utils.links import Link
-from basxbread.utils.urls import reverse, reverse_model
 from django.utils.translation import gettext_lazy as _
 
 from .. import models
@@ -31,13 +29,11 @@ persongroup = menu.Group(_("Persons"), iconname="group")
 
 menu.registeritem(
     menu.Item(
-        Link(
-            reverse_model(models.Person, "browse"),
+        utils.Link(
+            utils.reverse_model(models.Person, "browse"),
             _("Persons"),
             iconname="group",
-            permissions=[
-                f"{models.Person._meta.app_label}.view_{models.Person._meta.model_name}"
-            ],
+            permissions=[utils.permissionname(models.Person, "view")],
         ),
         persongroup,
     )
@@ -45,12 +41,10 @@ menu.registeritem(
 
 menu.registeritem(
     menu.Item(
-        Link(
-            reverse_model(models.Vocabulary, "browse"),
+        utils.Link(
+            utils.reverse_model(models.Vocabulary, "browse"),
             _("Taxonomy"),
-            permissions=[
-                f"{models.Vocabulary._meta.app_label}.view_{models.Vocabulary._meta.model_name}"
-            ],
+            permissions=[utils.permissionname(models.Vocabulary, "view")],
         ),
         menu.settingsgroup,
     )
@@ -58,12 +52,12 @@ menu.registeritem(
 
 menu.registeritem(
     menu.Item(
-        Link(
-            reverse("basxconnect.core.views.settings_views.relationshipssettings"),
+        utils.Link(
+            utils.reverse(
+                "basxconnect.core.views.settings_views.relationshipssettings"
+            ),
             _("Relationships"),
-            permissions=[
-                f"{models.RelationshipType._meta.app_label}.view_{models.RelationshipType._meta.model_name}"
-            ],
+            permissions=[utils.permissionname(models.RelationshipType, "view")],
         ),
         menu.settingsgroup,
     )
