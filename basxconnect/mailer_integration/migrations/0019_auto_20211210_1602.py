@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mailer_integration", "0018_alter_synchronizationperson_sync_status"),
     ]

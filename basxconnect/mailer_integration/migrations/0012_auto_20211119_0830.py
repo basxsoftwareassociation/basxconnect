@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mailer_integration", "0011_invalidperson_newperson_synchronizationresult"),
     ]

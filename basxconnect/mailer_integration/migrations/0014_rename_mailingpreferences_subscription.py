@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("core", "0023_auto_20211030_0955"),
         ("mailer_integration", "0013_mailingpreferences_latest_sync"),

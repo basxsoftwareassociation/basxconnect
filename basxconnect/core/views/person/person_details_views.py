@@ -168,7 +168,6 @@ def confirm_delete_email(request, pk: int):
 
     fields = []
     if enable_delete_mailer_contact_checkbox:
-
         from basxconnect.mailer_integration.settings import MAILER
 
         class DeleteMailerSubscriptionForm(forms.Form):

@@ -12,7 +12,6 @@ from basxconnect.mailer_integration.settings import MAILER
 
 @receiver(post_save, sender=Person)
 def update_subscription_active(sender, instance: Person, created, **kwargs):
-
     if hasattr(instance, "core_email_list"):
         for email in instance.core_email_list.all():
             if hasattr(email, "subscription"):

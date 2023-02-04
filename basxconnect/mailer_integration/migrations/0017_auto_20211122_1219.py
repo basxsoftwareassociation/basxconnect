@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mailer_integration", "0016_remove_synchronizationperson_successfully_added"),
     ]

@@ -6,7 +6,6 @@ import basxconnect.core.models.persons
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("core", "0010_auto_20210523_1140"),
     ]

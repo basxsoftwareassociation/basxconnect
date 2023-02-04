@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("core", "0033_historicalnaturalperson_maiden_name_and_more"),
     ]

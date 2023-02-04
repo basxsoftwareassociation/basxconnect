@@ -7,7 +7,6 @@ R = layout.grid.Row
 
 
 def mailings_tab(request):
-
     from django.apps import apps
 
     if apps.is_installed("basxconnect.mailer_integration"):

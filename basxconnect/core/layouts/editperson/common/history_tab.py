@@ -27,7 +27,6 @@ C = layout.grid.Col
 
 
 def history_tab():
-
     """
     new_record, old_record = p.history.all()
     delta = new_record.diff_against(old_record)

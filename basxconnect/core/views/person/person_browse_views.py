@@ -58,7 +58,6 @@ def export(request, queryset):
     form = PersonBrowseView.FilterForm({"status": ["active"], **request.GET})
     columns = list(PersonBrowseView.columns)
     if form.is_valid():
-
         # only the tags selected in the filter should be visible in the export
         tags = models.Term.objects.all()
         if form.cleaned_data.get("tags"):

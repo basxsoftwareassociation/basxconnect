@@ -181,7 +181,6 @@ class EditEmailAddressView(EditView):
     fields = ["email", "type"]
 
     def form_valid(self, form, *args, **kwargs):
-
         ret = super().form_valid(form, *args, **kwargs)
         is_primary = form.cleaned_data["is_primary"]
         if is_primary:

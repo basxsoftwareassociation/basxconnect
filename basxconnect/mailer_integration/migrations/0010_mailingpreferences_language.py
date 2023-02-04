@@ -5,7 +5,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("mailer_integration", "0009_alter_mailingpreferences_email"),
     ]
