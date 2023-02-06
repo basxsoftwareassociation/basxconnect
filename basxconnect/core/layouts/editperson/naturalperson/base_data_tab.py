@@ -42,6 +42,12 @@ def personal_data():
         ]
         + [
             hg.If(
+                hg.C("object.middle_name"),
+                utils.display_field_label_and_value("middle_name"),
+            )
+        ]
+        + [
+            hg.If(
                 hg.C("object.maiden_name"),
                 utils.display_field_label_and_value("maiden_name"),
             )

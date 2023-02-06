@@ -2,6 +2,7 @@ import htmlgenerator as hg
 from basxbread.layout import button
 from django import forms
 from django.db import models
+from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
@@ -146,6 +147,9 @@ class Postal(Address):
 
     valid_from = models.DateField(_("Valid from"), blank=True, null=True)
     valid_until = models.DateField(_("Valid until"), blank=True, null=True)
+
+    def is_active(self):
+        return self.valid_from <= now.date() <= self.valid_until
 
     def __str__(self):
         ret = [self.address]
