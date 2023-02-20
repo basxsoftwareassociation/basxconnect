@@ -118,7 +118,8 @@ def _save_sync_person(
             first_name_lower=mailer_person.first_name.lower(),
             last_name_lower=mailer_person.last_name.lower(),
         )
-        .exists()
+        .count()
+        > 1
     )
     SynchronizationPerson.objects.create(
         sync_result=sync_result,
