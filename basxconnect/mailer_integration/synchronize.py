@@ -1,4 +1,5 @@
 import django_countries
+from django.db.models.functions import Lower
 from django.utils import timezone
 from dynamic_preferences.registries import global_preferences_registry
 from mailchimp_marketing.api_client import ApiClientError
@@ -52,6 +53,7 @@ def synchronize_batch(count, offset, mailer, sync_result):
                     )
                 else:
                     created_person = _save_person(datasource_tag, mailer_person)
+                    # simplified duplication detection, only yield warning
                     _save_subscription(
                         created_person.primary_email_address,
                         mailer_person,
@@ -104,12 +106,27 @@ def is_valid_new_person(person: MailerPerson):
 def _save_sync_person(
     mailer_person, sync_result, syn_status, old_subscription_status=""
 ):
+    # slighly complicated ignore-case comparison due to Sqlite's
+    # behaviour with ignore-case-comparison of non-ascii strings
+    # See https://docs.djangoproject.com/en/dev/ref/databases/#sqlite-string-matching
+    maybe_duplicate = (
+        syn_status == SynchronizationPerson.NEW
+        and models.NaturalPerson.objects.annotate(
+            first_name_lower=Lower("first_name"), last_name_lower=Lower("last_name")
+        )
+        .filter(
+            first_name_lower=mailer_person.first_name.lower(),
+            last_name_lower=mailer_person.last_name.lower(),
+        )
+        .exists()
+    )
     SynchronizationPerson.objects.create(
         sync_result=sync_result,
         email=mailer_person.email,
         first_name=mailer_person.first_name,
         last_name=mailer_person.last_name,
         sync_status=syn_status,
+        maybe_duplicate=maybe_duplicate,
         new_subscription_status=mailer_person.status,
         old_subscription_status=old_subscription_status,
     )

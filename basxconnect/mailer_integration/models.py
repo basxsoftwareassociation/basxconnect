@@ -95,6 +95,11 @@ class SynchronizationPerson(models.Model):
         max_length=255,
         blank=True,
     )
+    maybe_duplicate = models.BooleanField(
+        _("Possible duplicate"),
+        default=False,
+        help_text=_("Other person with same first and last name already exists"),
+    )
 
     def __str__(self):
         return self.email

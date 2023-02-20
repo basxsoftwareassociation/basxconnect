@@ -27,30 +27,45 @@ R = basxbread.layout.grid.Row
 
 @aslayout
 def mailer_synchronization_view(request):
+    notifications = []
     if request.method == "POST":
         try:
             sync_result = synchronize(settings.MAILER)
-            notification = basxbread.layout.components.notification.InlineNotification(
-                _("Sychronization successful"),
-                _(
-                    "Synchronized with mailer segment containing %s contacts. %s new persons were added to BasxConnect."
+            notifications.append(
+                basxbread.layout.components.notification.InlineNotification(
+                    _("Sychronization successful"),
+                    _(
+                        "Synchronized with mailer segment containing %s contacts. %s new persons were added to BasxConnect."
+                    )
+                    % (
+                        sync_result.total_synchronized_persons,
+                        sync_result.persons.filter(
+                            sync_status=SynchronizationPerson.NEW
+                        ).count(),
+                    ),
+                    kind="success",
                 )
-                % (
-                    sync_result.total_synchronized_persons,
-                    sync_result.persons.filter(
-                        sync_status=SynchronizationPerson.NEW
-                    ).count(),
-                ),
-                kind="success",
             )
+            for person in sync_result.persons.all():
+                if person.maybe_duplicate:
+                    notifications.append(
+                        basxbread.layout.components.notification.InlineNotification(
+                            _("Possible duplicate"),
+                            _(
+                                f"New person '{person.first_name} {person.last_name}' might be "
+                                "a duplicate, there is another person with the same name."
+                            ),
+                            kind="warning",
+                        )
+                    )
         except Exception:
-            notification = basxbread.layout.components.notification.InlineNotification(
-                "Error",
-                f"An error occured during synchronization. {traceback.format_exc()}",
-                kind="error",
+            notifications.append(
+                basxbread.layout.components.notification.InlineNotification(
+                    _("Error"),
+                    f"An error occured during synchronization. {traceback.format_exc()}",
+                    kind="error",
+                )
             )
-    else:
-        notification = None
 
     help_modal = sync_help_modal()
     return hg.BaseElement(
@@ -58,7 +73,7 @@ def mailer_synchronization_view(request):
             forms.Form(),
             basxbread.layout.grid.Grid(
                 hg.H3(_("Synchronization of Email Subcriptions")),
-                notification,
+                hg.BaseElement(*notifications),
                 gutter=False,
             ),
             help_modal,
