@@ -8,15 +8,15 @@ from .. import models
 
 # New menu group with developer mode checking
 class DevGroup(menu.Group):
-    def has_permission(self, request):
-        return super().has_permission(request) and request.session.get(
+    def has_permission(self, context):
+        return super().has_permission(context) and context["request"].session.get(
             DEVMODE_KEY, False
         )
 
 
 class SuperUserItem(menu.Item):
-    def has_permission(self, request):
-        return super().has_permission(request) and request.user.is_superuser
+    def has_permission(self, context):
+        return super().has_permission(context) and context["request"].user.is_superuser
 
 
 R = layout.grid.Row
