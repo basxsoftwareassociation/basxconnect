@@ -60,6 +60,8 @@ def contributions_from_csv(filedata, has_header, filter_duplicates, delimiter=";
 
     ret = []
     for row in csv.reader(data, delimiter=delimiter):
+        if len(row) == 0:
+            continue
         data = {k: row[mapping[k]] for k in mapping.keys() if mapping[k] is not None}
         data.setdefault("currency", global_preferences["contributions__currency"])
         data["date"] = dateparser.parse(data["date"], languages=[get_language()])
