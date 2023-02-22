@@ -71,7 +71,10 @@ def history_tab():
         try:
             field = c["object"]._meta.get_field(c["change"].field)
             if isinstance(field, RelatedField):
-                return field.related_model.objects.get(id=int(c["change"].old))
+                ret = field.related_model.objects.filter(
+                    id=int(c["change"].old)
+                ).first()
+                return ret or hg.SPAN(_("<Value has been deleted>"), style="color: red")
         except FieldDoesNotExist:
             pass
         return c["change"].old
