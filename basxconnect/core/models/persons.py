@@ -189,9 +189,9 @@ class Person(models.Model):
                 self.primary_postal_address = None
 
             if hasattr(self, "core_email_list"):
-                if (
-                    self.core_email_list.all().count() == 1
-                    or self.primary_email_address is None
+                if self.core_email_list.all().count() == 1 or (
+                    self.core_email_list.all().count() > 0
+                    and self.primary_email_address is None
                 ):
                     self.primary_email_address = self.core_email_list.first()
             else:
