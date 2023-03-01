@@ -1,5 +1,5 @@
 from basxbread import layout
-from basxbread.utils import Link, ModelHref
+from basxbread.utils import Link, ModelHref, permissionname
 from basxbread.views import BrowseView
 from django.utils.translation import gettext_lazy as _
 
@@ -25,6 +25,7 @@ class TermsBrowseView(BrowseView):
                         return_to_current=True,
                     ),
                     label=_("Add %s") % Term._meta.verbose_name,
+                    permissions=[permissionname(Term, "add")],
                 ),
                 icon=layout.icon.Icon("add", size=20),
             )
