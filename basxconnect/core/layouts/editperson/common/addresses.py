@@ -17,16 +17,15 @@ R = layout.grid.Row
 C = layout.grid.Col
 
 
-def numbers(request):
+def numbers():
     return tile_with_datatable(
         models.Phone,
         hg.F(lambda c: c["object"].core_phone_list.all()),
         ["number", "type"],
-        request,
     )
 
 
-def tile_with_datatable(model, queryset, columns, request):
+def tile_with_datatable(model, queryset, columns):
     addmodal = layout.modal.Modal.with_ajax_content(
         _("Add"),
         ModelHref(
@@ -74,7 +73,6 @@ def tile_with_datatable(model, queryset, columns, request):
                         model,
                         "delete",
                         kwargs={"pk": hg.C("row.pk")},
-                        query={"next": request.get_full_path()},
                     ),
                 ),
             ],
@@ -87,7 +85,7 @@ def tile_with_datatable(model, queryset, columns, request):
     )
 
 
-def email(request):
+def email():
     return tile_with_datatable(
         models.Email,
         hg.F(lambda c: c["object"].core_email_list.all()),
@@ -107,16 +105,14 @@ def email(request):
                 ),
             ),
         ],
-        request,
     )
 
 
-def urls(request):
+def urls():
     return tile_with_datatable(
         models.Web,
         hg.F(lambda c: c["object"].core_web_list.all()),
         ["url", "type"],
-        request,
     )
 
 

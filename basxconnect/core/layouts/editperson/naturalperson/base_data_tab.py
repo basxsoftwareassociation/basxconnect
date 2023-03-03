@@ -15,7 +15,7 @@ R = layout.grid.Row
 C = layout.grid.Col
 
 
-def base_data_tab(request):
+def base_data_tab():
     return layout.tabs.Tab(
         _("Personal data"),
         utils.grid_inside_tab(
@@ -23,7 +23,7 @@ def base_data_tab(request):
                 personal_data(),
                 person_metadata(models.NaturalPerson),
             ),
-            base_data.common_tiles(request),
+            base_data.common_tiles(),
         ),
     )
 

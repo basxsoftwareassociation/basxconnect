@@ -15,7 +15,7 @@ R = layout.grid.Row
 C = layout.grid.Col
 
 
-def base_data_tab(request):
+def base_data_tab():
     return layout.tabs.Tab(
         _("Base data"),
         hg.BaseElement(
@@ -33,7 +33,7 @@ def base_data_tab(request):
                     ),
                     person_metadata(models.LegalPerson),
                 ),
-                common_tiles(request),
+                common_tiles(),
             ),
         ),
     )

@@ -14,19 +14,19 @@ from basxconnect.core.layouts.editperson.common.utils import (
 R = layout.grid.Row
 
 
-def common_tiles(request):
+def common_tiles():
     return hg.BaseElement(
         R(
             tags(),
-            addresses.email(request),
+            addresses.email(),
         ),
         R(
             addresses.postals(),
-            addresses.numbers(request),
+            addresses.numbers(),
         ),
         R(
             other(),
-            addresses.urls(request),
+            addresses.urls(),
         ),
     )
 

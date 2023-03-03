@@ -13,7 +13,7 @@ from basxconnect.core.layouts.editperson.common.utils import (
 R = layout.grid.Row
 
 
-def base_data_tab(request):
+def base_data_tab():
     return layout.tabs.Tab(
         _("Base data"),
         grid_inside_tab(
@@ -31,6 +31,6 @@ def base_data_tab(request):
                 ),
                 person_metadata(models.PersonAssociation),
             ),
-            base_data.common_tiles(request),
+            base_data.common_tiles(),
         ),
     )

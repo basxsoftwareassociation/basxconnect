@@ -132,7 +132,7 @@ def editperson_form(request, base_data_tab, mailings_tab):
 
 def editperson_tabs(base_data_tab, mailing_tab, request):
     ret = [
-        base_data_tab(request),
+        base_data_tab(),
         relationshipstab(request),
         mailing_tab(request),
     ]
@@ -186,7 +186,8 @@ def confirm_delete_email(request, pk: int):
                     "delete_mailer_contact"
                 ):
                     try:
-                        from basxconnect.mailer_integration.settings import MAILER
+                        from basxconnect.mailer_integration.settings import \
+                            MAILER
 
                         MAILER.delete_person(email.email)
                     except Exception:
