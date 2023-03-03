@@ -7,7 +7,7 @@ R = layout.grid.Row
 C = layout.grid.Col
 
 
-def editperson_toolbar(request):
+def editperson_toolbar():
     deletebutton = layout.button.Button(
         _("Delete"),
         buttontype="ghost",
@@ -52,7 +52,7 @@ def editperson_toolbar(request):
     )
 
 
-def editperson_head(request):
+def editperson_head():
     return hg.BaseElement(
         R(
             C(
@@ -63,7 +63,7 @@ def editperson_head(request):
                             hg.C("object.deleted"), "text-decoration: line-through"
                         ),
                     ),
-                    editperson_toolbar(request),
+                    editperson_toolbar(),
                 ),
                 width=12,
             ),

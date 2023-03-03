@@ -38,7 +38,7 @@ ADD_FORM_LAYOUTS = {
     LegalPerson: lambda: hg.DIV(
         layout.forms.FormField("name"), layout.forms.FormField("name_addition")
     ),
-    PersonAssociation: hg.DIV(layout.forms.FormField("name")),
+    PersonAssociation: lambda: hg.DIV(layout.forms.FormField("name")),
 }
 
 

@@ -7,7 +7,7 @@ from basxbread import layout, menu
 from basxbread.layout.components.button import Button
 from basxbread.layout.components.forms import Form
 from basxbread.utils import Link, reverse_model
-from basxbread.views import EditView, ReadView, layoutasreadonly
+from basxbread.views import EditView, ReadView
 from django.apps import apps
 from django.forms import forms
 from django.http import HttpResponse, HttpResponseRedirect
@@ -28,7 +28,6 @@ C = layout.grid.Col
 class NaturalPersonEditView(EditView):
     def get_layout(self):
         return personform_shortcut(
-            self.request,
             editnaturalperson_form(self.request),
         )
 
@@ -36,49 +35,34 @@ class NaturalPersonEditView(EditView):
 class NaturalPersonReadView(ReadView):
     def get_layout(self):
         return personform_shortcut(
-            self.request,
             editnaturalperson_form(self.request),
         )
 
 
 class LegalPersonEditView(EditView):
     def get_layout(self):
-        return personform_shortcut(
-            self.request,
-            editlegalperson_form(self.request),
-        )
+        return personform_shortcut(editlegalperson_form(self.request))
 
 
 class LegalPersonReadView(ReadView):
     def get_layout(self):
-        return layoutasreadonly(
-            personform_shortcut(
-                self.request,
-                editlegalperson_form(self.request),
-            )
-        )
+        return personform_shortcut(editlegalperson_form(self.request))
 
 
 class PersonAssociationEditView(EditView):
     def get_layout(self):
-        return personform_shortcut(
-            self.request,
-            editpersonassociation_form(self.request),
-        )
+        return personform_shortcut(editpersonassociation_form(self.request))
 
 
 class PersonAssociationReadView(ReadView):
     def get_layout(self):
-        return personform_shortcut(
-            self.request,
-            editpersonassociation_form(self.request),
-        )
+        return personform_shortcut(editpersonassociation_form(self.request))
 
 
-def personform_shortcut(request, formlayout):
+def personform_shortcut(formlayout):
     return hg.BaseElement(
         layout.grid.Grid(
-            editperson_head(request),
+            editperson_head(),
             formlayout,
             gutter=False,
         )
@@ -186,8 +170,7 @@ def confirm_delete_email(request, pk: int):
                     "delete_mailer_contact"
                 ):
                     try:
-                        from basxconnect.mailer_integration.settings import \
-                            MAILER
+                        from basxconnect.mailer_integration.settings import MAILER
 
                         MAILER.delete_person(email.email)
                     except Exception:
