@@ -12,11 +12,9 @@ C = layout.grid.Col
 def documenttemplates_tab():
     from basxbread.contrib.document_templates.models import DocumentTemplate
 
-    from basxconnect.core import models
-
     def prefixes(context):
         templates = DocumentTemplate.objects.filter(
-            model=ContentType.objects.get_for_model(models.NaturalPerson)
+            model=ContentType.objects.get_for_model(context["object"])
         )
         ret = {}
         for template in templates:
