@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 19:53+0700\n"
+"POT-Creation-Date: 2023-03-22 11:33+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,54 +20,52 @@ msgstr ""
 
 #: basxconnect/mailer_integration/dynamic_preferences_registry.py:10
 msgid "Mailchimp"
-msgstr ""
+msgstr "Mailchimp"
 
 #: basxconnect/mailer_integration/dynamic_preferences_registry.py:18
 msgid "Mailchimp server"
-msgstr ""
+msgstr "Mailchimp Server"
 
 #: basxconnect/mailer_integration/dynamic_preferences_registry.py:26
 msgid "Mailchimp list ID"
-msgstr ""
+msgstr "Mailchimp Listen-ID"
 
 #: basxconnect/mailer_integration/dynamic_preferences_registry.py:34
 msgid "Mailchimp segment ID"
-msgstr ""
+msgstr "Mailchimp Segment-ID"
 
 #: basxconnect/mailer_integration/dynamic_preferences_registry.py:42
 msgid "Mailchimp interests category ID"
-msgstr ""
+msgstr "Mailchimp Interessenskategorie-ID"
 
 #: basxconnect/mailer_integration/dynamic_preferences_registry.py:50
 msgid "Mailchimp tag"
-msgstr ""
+msgstr "Mailchimp-Tag"
 
 #: basxconnect/mailer_integration/dynamic_preferences_registry.py:58
 msgid "BasxConnect Mailchimp tag"
-msgstr ""
+msgstr "BasxConnect Mailchimp-Tag"
 
 #: basxconnect/mailer_integration/dynamic_preferences_registry.py:66
 msgid "Mailchimp API key"
-msgstr ""
+msgstr "Mailchimp API-Key"
 
 #: basxconnect/mailer_integration/dynamic_preferences_registry.py:74
-#, fuzzy
-#| msgid "Mailing Interests"
 msgid "Disable mailing interests"
-msgstr "Mailing Interessen"
+msgstr "Mailing Interessen deaktivieren"
 
 #: basxconnect/mailer_integration/dynamic_preferences_registry.py:82
 msgid "Synchronize language with Mailchimp"
-msgstr ""
+msgstr "Synchronisiere Sprache mit Mailchimp"
 
 #: basxconnect/mailer_integration/dynamic_preferences_registry.py:90
 msgid "Automatically subscribe new persons"
-msgstr ""
+msgstr "Füge automatisch Abonements für neue Personen hinzu"
 
 #: basxconnect/mailer_integration/help.py:8
-#: basxconnect/mailer_integration/views.py:69
+#: basxconnect/mailer_integration/views.py:84
 msgid "Help"
-msgstr ""
+msgstr "Hilfe"
 
 #: basxconnect/mailer_integration/help.py:10
 msgid ""
@@ -106,7 +104,7 @@ msgstr "Person hat keine Email Adressen"
 
 #: basxconnect/mailer_integration/layouts.py:76
 msgid "Status before archiving"
-msgstr ""
+msgstr "Status vor dem Archivieren"
 
 #: basxconnect/mailer_integration/layouts.py:86
 msgid "Last synchronized"
@@ -164,19 +162,15 @@ msgid "Last Name"
 msgstr "Nachname"
 
 #: basxconnect/mailer_integration/models.py:76
-#, fuzzy
-#| msgid "Add subscription"
 msgid "Old subscription status"
-msgstr "Abonnement hinzufügen"
+msgstr "Alter Abonnement-Status"
 
 #: basxconnect/mailer_integration/models.py:79
-#, fuzzy
-#| msgid "No subscription yet for "
 msgid "New subscription status"
-msgstr "Noch kein Abonnement für "
+msgstr "Neuer Abonnement-Status"
 
 #: basxconnect/mailer_integration/models.py:87
-#: basxconnect/mailer_integration/views.py:89
+#: basxconnect/mailer_integration/views.py:104
 msgid "Newly added to BasxConnect"
 msgstr "Neu zu BasxConnect hinzugefügt"
 
@@ -189,19 +183,28 @@ msgid "Synchronized previously but not this time"
 msgstr "Schon mal synchronisiert, aber nicht diesmal"
 
 #: basxconnect/mailer_integration/models.py:90
-#: basxconnect/mailer_integration/views.py:93
+#: basxconnect/mailer_integration/views.py:108
 msgid "Subscription status changed"
-msgstr ""
+msgstr "Abonement-Status geändert"
 
 #: basxconnect/mailer_integration/models.py:93
 msgid "Synchronization Status"
 msgstr "Synchronisationsstatus"
 
-#: basxconnect/mailer_integration/views.py:34
+#: basxconnect/mailer_integration/models.py:99
+#: basxconnect/mailer_integration/views.py:53
+msgid "Possible duplicate"
+msgstr "Mögliche Duplikate"
+
+#: basxconnect/mailer_integration/models.py:101
+msgid "Other person with same first and last name already exists"
+msgstr "Andere Person mit dem selben Vor- und Nachnamen exisiert schon"
+
+#: basxconnect/mailer_integration/views.py:36
 msgid "Sychronization successful"
 msgstr "Synchronisation erfolgreich"
 
-#: basxconnect/mailer_integration/views.py:36
+#: basxconnect/mailer_integration/views.py:38
 #, python-format
 msgid ""
 "Synchronized with mailer segment containing %s contacts. %s new persons were "
@@ -210,31 +213,42 @@ msgstr ""
 "Das synchronisierte Segment auf dem Mailer beinhhaltet %s Kontakte. %s neue "
 "personen wurden zu BasxConnect hinzugefügt."
 
-#: basxconnect/mailer_integration/views.py:60
+#: basxconnect/mailer_integration/views.py:55
+#, python-brace-format
+msgid ""
+"New person '{person.first_name} {person.last_name}' might be a duplicate, "
+"there is another person with the same name."
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:64
+msgid "Error"
+msgstr "Fehler"
+
+#: basxconnect/mailer_integration/views.py:75
 msgid "Synchronization of Email Subcriptions"
 msgstr "Synchronisation von Email Abonnementen"
 
-#: basxconnect/mailer_integration/views.py:66
+#: basxconnect/mailer_integration/views.py:81
 msgid "Download subscriptions"
 msgstr "Abonnemente herunterladen"
 
-#: basxconnect/mailer_integration/views.py:97
+#: basxconnect/mailer_integration/views.py:112
 msgid "Previous Executions"
 msgstr "Vergangene Ausführungen"
 
-#: basxconnect/mailer_integration/views.py:108
+#: basxconnect/mailer_integration/views.py:123
 msgid "Delete"
 msgstr "Löschen"
 
-#: basxconnect/mailer_integration/views.py:146
+#: basxconnect/mailer_integration/views.py:161
 msgid "Old"
-msgstr ""
+msgstr "Alt"
 
-#: basxconnect/mailer_integration/views.py:148
+#: basxconnect/mailer_integration/views.py:163
 msgid "New"
-msgstr ""
+msgstr "Neu"
 
-#: basxconnect/mailer_integration/views.py:155
+#: basxconnect/mailer_integration/views.py:170
 msgid "Tools"
 msgstr "Werkzeuge"
 

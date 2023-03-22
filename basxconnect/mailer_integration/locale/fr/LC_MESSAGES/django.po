@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 19:53+0700\n"
+"POT-Creation-Date: 2023-03-22 11:33+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgid "Automatically subscribe new persons"
 msgstr ""
 
 #: basxconnect/mailer_integration/help.py:8
-#: basxconnect/mailer_integration/views.py:69
+#: basxconnect/mailer_integration/views.py:84
 msgid "Help"
 msgstr ""
 
@@ -170,7 +170,7 @@ msgid "New subscription status"
 msgstr ""
 
 #: basxconnect/mailer_integration/models.py:87
-#: basxconnect/mailer_integration/views.py:89
+#: basxconnect/mailer_integration/views.py:104
 msgid "Newly added to BasxConnect"
 msgstr ""
 
@@ -183,7 +183,7 @@ msgid "Synchronized previously but not this time"
 msgstr ""
 
 #: basxconnect/mailer_integration/models.py:90
-#: basxconnect/mailer_integration/views.py:93
+#: basxconnect/mailer_integration/views.py:108
 msgid "Subscription status changed"
 msgstr ""
 
@@ -191,41 +191,61 @@ msgstr ""
 msgid "Synchronization Status"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:34
-msgid "Sychronization successful"
+#: basxconnect/mailer_integration/models.py:99
+#: basxconnect/mailer_integration/views.py:53
+msgid "Possible duplicate"
+msgstr ""
+
+#: basxconnect/mailer_integration/models.py:101
+msgid "Other person with same first and last name already exists"
 msgstr ""
 
 #: basxconnect/mailer_integration/views.py:36
+msgid "Sychronization successful"
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:38
 #, python-format
 msgid ""
 "Synchronized with mailer segment containing %s contacts. %s new persons were "
 "added to BasxConnect."
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:60
+#: basxconnect/mailer_integration/views.py:55
+#, python-brace-format
+msgid ""
+"New person '{person.first_name} {person.last_name}' might be a duplicate, "
+"there is another person with the same name."
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:64
+msgid "Error"
+msgstr ""
+
+#: basxconnect/mailer_integration/views.py:75
 msgid "Synchronization of Email Subcriptions"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:66
+#: basxconnect/mailer_integration/views.py:81
 msgid "Download subscriptions"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:97
+#: basxconnect/mailer_integration/views.py:112
 msgid "Previous Executions"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:108
+#: basxconnect/mailer_integration/views.py:123
 msgid "Delete"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:146
+#: basxconnect/mailer_integration/views.py:161
 msgid "Old"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:148
+#: basxconnect/mailer_integration/views.py:163
 msgid "New"
 msgstr ""
 
-#: basxconnect/mailer_integration/views.py:155
+#: basxconnect/mailer_integration/views.py:170
 msgid "Tools"
 msgstr ""

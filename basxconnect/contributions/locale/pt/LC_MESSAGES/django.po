@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-03 19:53+0700\n"
+"POT-Creation-Date: 2023-03-22 11:33+0700\n"
 "PO-Revision-Date: 2021-05-08 22:32+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/basxconnect/"
@@ -30,7 +30,7 @@ msgstr "Moeda de preferência"
 
 #: basxconnect/contributions/models.py:18
 #: basxconnect/contributions/models.py:71
-#: basxconnect/contributions/wizards/contributionsimport.py:140
+#: basxconnect/contributions/wizards/contributionsimport.py:142
 msgid "Date"
 msgstr "Data"
 
@@ -71,7 +71,7 @@ msgid "Person"
 msgstr "Pessoa"
 
 #: basxconnect/contributions/models.py:72
-#: basxconnect/contributions/wizards/contributionsimport.py:141
+#: basxconnect/contributions/wizards/contributionsimport.py:143
 msgid "Note"
 msgstr "Nota"
 
@@ -85,7 +85,7 @@ msgstr "Conta de crédito"
 
 #: basxconnect/contributions/models.py:75
 #: basxconnect/contributions/models.py:82
-#: basxconnect/contributions/wizards/contributionsimport.py:172
+#: basxconnect/contributions/wizards/contributionsimport.py:174
 msgid "Amount"
 msgstr "Montante"
 
@@ -105,79 +105,79 @@ msgstr "Data de Importação"
 msgid "Imports"
 msgstr "Importações"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:88
+#: basxconnect/contributions/wizards/contributionsimport.py:90
 msgid "Upload a file"
 msgstr "Carregue um ficheiro"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:90
+#: basxconnect/contributions/wizards/contributionsimport.py:92
 msgid "File to import"
 msgstr "Ficheiro para importar"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:90
+#: basxconnect/contributions/wizards/contributionsimport.py:92
 msgid "Choose a CSV file"
 msgstr "Escolha um ficheiro CSV"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:93
+#: basxconnect/contributions/wizards/contributionsimport.py:95
 msgid "First line is header"
 msgstr "Primeira linha é o cabeçalho"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:96
+#: basxconnect/contributions/wizards/contributionsimport.py:98
 msgid "Filter out duplicates"
 msgstr "Filtrar duplicados"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:101
+#: basxconnect/contributions/wizards/contributionsimport.py:103
 msgid "Import options"
 msgstr "Opções de importação"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:110
+#: basxconnect/contributions/wizards/contributionsimport.py:112
 msgid "Required field"
 msgstr "Campo obrigatório"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:131
+#: basxconnect/contributions/wizards/contributionsimport.py:133
 msgid "CSV import problem: "
 msgstr "Problema de importação do CSV: "
 
-#: basxconnect/contributions/wizards/contributionsimport.py:136
+#: basxconnect/contributions/wizards/contributionsimport.py:138
 msgid "Assignment"
 msgstr "Assinatura"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:143
+#: basxconnect/contributions/wizards/contributionsimport.py:145
 msgid "Account"
 msgstr "Conta"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:146
+#: basxconnect/contributions/wizards/contributionsimport.py:148
 msgid "Cost Center"
 msgstr "Centro de Custos"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:149
+#: basxconnect/contributions/wizards/contributionsimport.py:151
 msgid "Person Number"
 msgstr "Número da Pessoa"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:152
+#: basxconnect/contributions/wizards/contributionsimport.py:154
 msgid "Donor Number"
 msgstr "Número de Doador"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:155
+#: basxconnect/contributions/wizards/contributionsimport.py:157
 msgid "Assignment state"
 msgstr "Estado de atribuição"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:176
+#: basxconnect/contributions/wizards/contributionsimport.py:178
 msgid "Overview of contributions to import"
 msgstr "Visão geral das contribuições para a importação"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:182
+#: basxconnect/contributions/wizards/contributionsimport.py:184
 msgid "contributions"
 msgstr "contribuições"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:186
+#: basxconnect/contributions/wizards/contributionsimport.py:188
 msgid "Sum"
 msgstr "Soma"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:217
+#: basxconnect/contributions/wizards/contributionsimport.py:219
 msgid " contributions could not been assigned"
 msgstr " as contribuições não puderam ser atribuídas"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:220
+#: basxconnect/contributions/wizards/contributionsimport.py:222
 msgid ""
 "Please make sure that each entry has contributor number which matches with a "
 "person number and do the import again"
@@ -185,23 +185,23 @@ msgstr ""
 "Certifique-se de que cada entrada tem um número de contribuinte que coincide "
 "com um número da pessoa e faça novamente a importação"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:226
+#: basxconnect/contributions/wizards/contributionsimport.py:228
 msgid "Cancel import"
 msgstr "Cancelar importação"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:232
+#: basxconnect/contributions/wizards/contributionsimport.py:234
 msgid "Assignment complete"
 msgstr "Cessão completa"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:233
+#: basxconnect/contributions/wizards/contributionsimport.py:235
 msgid "Continue in order to complete the import"
 msgstr "Continuar de forma a completar a importação"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:294
+#: basxconnect/contributions/wizards/contributionsimport.py:296
 msgid "Import contributions"
 msgstr "Importação de contribuições"
 
-#: basxconnect/contributions/wizards/contributionsimport.py:309
+#: basxconnect/contributions/wizards/contributionsimport.py:311
 #, python-format
 msgid "Successfully imported %d contributions"
 msgstr "Contribuições %d importadas com sucesso"
