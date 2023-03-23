@@ -104,7 +104,7 @@ class PersonBrowseView(BrowseView):
                 hg.C("row.personnumber"),
                 style=hg.If(hg.C("row.deleted"), "text-decoration:line-through"),
             ),
-            "personnumber__int",
+            sortingname="personnumber__int",
         ),
         DataTableColumn(
             hg.DIV(
