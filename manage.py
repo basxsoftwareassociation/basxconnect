@@ -18,6 +18,8 @@ else:
         "basxconnect.core",
         "basxconnect.contributions",
         "basxconnect.mailer_integration",
+        "basxconnect.invoicing",
+        "basxconnect.projects",
     ]
     settings.configure(
         DEBUG=True,

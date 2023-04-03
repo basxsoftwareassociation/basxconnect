@@ -18,7 +18,7 @@ ALLOWED_HOSTS = ["*"]
 
 # BASXBREAD_DEPENDENCIES are imported in the start import at the top
 INSTALLED_APPS = [
-    "basxconnect.core.apps.CoreConfig",
+    "basxconnect.core",
     "basxconnect.contributions.apps.ContributionsConfig",
 ] + BASXBREAD_DEPENDENCIES
 
