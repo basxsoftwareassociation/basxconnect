@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-22 11:33+0700\n"
+"POT-Creation-Date: 2023-04-04 10:14+0700\n"
 "PO-Revision-Date: 2021-11-05 02:35+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -19,77 +19,81 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.9-dev\n"
 
-#: basxconnect/core/apps.py:28
+#: basxconnect/core/apps.py:13
+msgid "BasxConnect Core"
+msgstr ""
+
+#: basxconnect/core/apps.py:29
 #: basxconnect/core/layouts/editperson/common/base_data.py:53
 #: basxconnect/core/models/persons.py:73
 msgid "Tags"
 msgstr "Etiketter"
 
-#: basxconnect/core/apps.py:29
+#: basxconnect/core/apps.py:30
 #, fuzzy
 #| msgid "Title"
 msgid "Titles"
 msgstr "Tittel"
 
-#: basxconnect/core/apps.py:30
+#: basxconnect/core/apps.py:31
 #, fuzzy
 #| msgid "Relationship"
 msgid "Salutations"
 msgstr "Relasjon"
 
-#: basxconnect/core/apps.py:31
+#: basxconnect/core/apps.py:32
 #, fuzzy
 msgid "Forms Of Address"
 msgstr "Adressetype"
 
-#: basxconnect/core/apps.py:32
+#: basxconnect/core/apps.py:33
 #, fuzzy
 #| msgid "Gender"
 msgid "Genders"
 msgstr "Kjønn"
 
-#: basxconnect/core/apps.py:33
+#: basxconnect/core/apps.py:34
 #, fuzzy
 #| msgid "Person A"
 msgid "Natural Person Types"
 msgstr "Person A"
 
-#: basxconnect/core/apps.py:34
+#: basxconnect/core/apps.py:35
 #, fuzzy
 #| msgid "Person A"
 msgid "Legal Person Types"
 msgstr "Person A"
 
-#: basxconnect/core/apps.py:35
+#: basxconnect/core/apps.py:36
 #, fuzzy
 #| msgid "Person A"
 msgid "Association Person Types"
 msgstr "Person A"
 
-#: basxconnect/core/apps.py:36
+#: basxconnect/core/apps.py:37
 #, fuzzy
 #| msgid "Address"
 msgid "Address statuses"
 msgstr "Adresse"
 
-#: basxconnect/core/apps.py:37
+#: basxconnect/core/apps.py:38
 #, fuzzy
 msgid "Email Types"
 msgstr "Hovedtype"
 
-#: basxconnect/core/apps.py:38
+#: basxconnect/core/apps.py:39
 #, fuzzy
 #| msgid "Type"
 msgid "URL Types"
 msgstr "Type"
 
-#: basxconnect/core/apps.py:39
+#: basxconnect/core/apps.py:40
 #, fuzzy
 #| msgid "Person A"
 msgid "Phone Types"
 msgstr "Person A"
 
-#: basxconnect/core/apps.py:40
+#: basxconnect/core/apps.py:41
 #, fuzzy
 #| msgid "Address"
 msgid "Address Types"

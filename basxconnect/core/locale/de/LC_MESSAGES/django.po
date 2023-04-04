@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-22 11:33+0700\n"
+"POT-Creation-Date: 2023-04-04 10:14+0700\n"
 "PO-Revision-Date: 2021-04-08 02:26+0000\n"
 "Last-Translator: Frederik Bugglin <bugglin@basx.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/basxconnect/"
@@ -19,57 +19,61 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.6-dev\n"
 
-#: basxconnect/core/apps.py:28
+#: basxconnect/core/apps.py:13
+msgid "BasxConnect Core"
+msgstr ""
+
+#: basxconnect/core/apps.py:29
 #: basxconnect/core/layouts/editperson/common/base_data.py:53
 #: basxconnect/core/models/persons.py:73
 msgid "Tags"
 msgstr "Tags"
 
-#: basxconnect/core/apps.py:29
+#: basxconnect/core/apps.py:30
 msgid "Titles"
 msgstr "Titel"
 
-#: basxconnect/core/apps.py:30
+#: basxconnect/core/apps.py:31
 msgid "Salutations"
 msgstr "Anreden"
 
-#: basxconnect/core/apps.py:31
+#: basxconnect/core/apps.py:32
 msgid "Forms Of Address"
 msgstr "Anredeform"
 
-#: basxconnect/core/apps.py:32
+#: basxconnect/core/apps.py:33
 msgid "Genders"
 msgstr "Geschlechter"
 
-#: basxconnect/core/apps.py:33
+#: basxconnect/core/apps.py:34
 msgid "Natural Person Types"
 msgstr "Natürliche Personen Typen"
 
-#: basxconnect/core/apps.py:34
+#: basxconnect/core/apps.py:35
 msgid "Legal Person Types"
 msgstr "Juristische Personen Typen"
 
-#: basxconnect/core/apps.py:35
+#: basxconnect/core/apps.py:36
 msgid "Association Person Types"
 msgstr "Personenverbindungen Typen"
 
-#: basxconnect/core/apps.py:36
+#: basxconnect/core/apps.py:37
 msgid "Address statuses"
 msgstr "Adressen Stati"
 
-#: basxconnect/core/apps.py:37
+#: basxconnect/core/apps.py:38
 msgid "Email Types"
 msgstr "Email Typen"
 
-#: basxconnect/core/apps.py:38
+#: basxconnect/core/apps.py:39
 msgid "URL Types"
 msgstr "URL Typen"
 
-#: basxconnect/core/apps.py:39
+#: basxconnect/core/apps.py:40
 msgid "Phone Types"
 msgstr "Telefon Typen"
 
-#: basxconnect/core/apps.py:40
+#: basxconnect/core/apps.py:41
 msgid "Address Types"
 msgstr "Adressen Typen"
 

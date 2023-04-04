@@ -19,189 +19,189 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: basxconnect/invoicing/apps.py:9
 msgid "BasxConnect Invoicing"
-msgstr ""
+msgstr "BasxConnect Rechnungen"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:22
 #: basxconnect/invoicing/urls.py:250
 msgid "Invoicing"
-msgstr ""
+msgstr "Rechnungen"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:29
 msgid "Default currency"
-msgstr ""
+msgstr "Standardwährung"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:38
 msgid "Use VAT by default"
-msgstr ""
+msgstr "MwSt benutzen (Default)"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:46
 msgid "Default VAT"
-msgstr ""
+msgstr "MwSt (Default)"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:54
 msgid "Use WHT by default"
-msgstr ""
+msgstr "Quellensteuer benutzen (Default)"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:62
 msgid "Default WHT"
-msgstr ""
+msgstr "Quellensteuer (Default)"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:70
 msgid "Provided invoicing amounts include VAT by default"
-msgstr ""
+msgstr "Angegebene Rechnungsbeträge beinhalten MwSt schon (Default)"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:78
 msgid "Invoice number grouping regex"
-msgstr ""
+msgstr "Regex für Rechnungsnummern-Gruppierung"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:99
 msgid "Invoice number extraction regex"
-msgstr ""
+msgstr "Regex für Rechnungsnummern-Extrahierung"
 
 #: basxconnect/invoicing/models.py:24
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: basxconnect/invoicing/models.py:24
 msgid "Internal name of this payment method"
-msgstr ""
+msgstr "Interner Name diese Zahlungsmethode"
 
 #: basxconnect/invoicing/models.py:27
 msgid "Payment information"
-msgstr ""
+msgstr "Zahlungsinformation"
 
 #: basxconnect/invoicing/models.py:28
 msgid "Instructions for the client"
-msgstr ""
+msgstr "Zahlungsanweisungen für den Kunden"
 
 #: basxconnect/invoicing/models.py:36
 msgid "Payment type"
-msgstr ""
+msgstr "Zahlungsart"
 
 #: basxconnect/invoicing/models.py:37
 msgid "Payment types"
-msgstr ""
+msgstr "Zahlungsarten"
 
 #: basxconnect/invoicing/models.py:96
 msgid "Invoice number"
-msgstr ""
+msgstr "Rechnungsnummer"
 
 #: basxconnect/invoicing/models.py:102
 msgid "Client"
-msgstr ""
+msgstr "Kunde"
 
 #: basxconnect/invoicing/models.py:105
 msgid "Currency"
-msgstr ""
+msgstr "Währung"
 
 #: basxconnect/invoicing/models.py:113
 msgid "Created on"
-msgstr ""
+msgstr "Erstellt am"
 
 #: basxconnect/invoicing/models.py:114
 msgid "Payed on"
-msgstr ""
+msgstr "Bezahlt am"
 
 #: basxconnect/invoicing/models.py:115
 msgid "Invoice sent"
-msgstr ""
+msgstr "Rechnung gesendet am"
 
 #: basxconnect/invoicing/models.py:116
 msgid "Cancelled"
-msgstr ""
+msgstr "Anulliert"
 
 #: basxconnect/invoicing/models.py:118
 msgid "Note to client"
-msgstr ""
+msgstr "Notiz für den Kunden"
 
 #: basxconnect/invoicing/models.py:120
 msgid "Can be displayed on invoice and/or receipt"
-msgstr ""
+msgstr "Kann auf der Rechnung oder dem Zahlungsbeleg angezeigt werden"
 
 #: basxconnect/invoicing/models.py:125
 msgid "Amounts include VAT"
-msgstr ""
+msgstr "Angegebene Rechnungsbeträge beinhalten MwSt"
 
 #: basxconnect/invoicing/models.py:128
 msgid "VAT"
-msgstr ""
+msgstr "MwSt"
 
 #: basxconnect/invoicing/models.py:131
 msgid "WHT"
-msgstr ""
+msgstr "Quellensteuer"
 
 #: basxconnect/invoicing/models.py:139
 msgid "Has VAT"
-msgstr ""
+msgstr "Hat MwSt"
 
 #: basxconnect/invoicing/models.py:144
 msgid "Has WHT"
-msgstr ""
+msgstr "Hat Quellensteuer"
 
 #: basxconnect/invoicing/models.py:153
 msgid "Net amount"
-msgstr ""
+msgstr "Betrag Netto"
 
 #: basxconnect/invoicing/models.py:158
 msgid "VAT amount"
-msgstr ""
+msgstr "Betrag MwSt"
 
 #: basxconnect/invoicing/models.py:163
 msgid "WHT amount"
-msgstr ""
+msgstr "Betrag Quellensteuer"
 
 #: basxconnect/invoicing/models.py:168
 msgid "Total amount"
-msgstr ""
+msgstr "Betrag Total"
 
 #: basxconnect/invoicing/models.py:185 basxconnect/invoicing/urls.py:133
 msgid "Invoice"
-msgstr ""
+msgstr "Rechnung"
 
 #: basxconnect/invoicing/models.py:186
 msgid "Invoices"
-msgstr ""
+msgstr "Rechnungen"
 
 #: basxconnect/invoicing/models.py:213
 msgid "Item"
-msgstr ""
+msgstr "Rechnungsposten"
 
 #: basxconnect/invoicing/models.py:214
 msgid "Items"
-msgstr ""
+msgstr "Rechnungsposten"
 
 #: basxconnect/invoicing/urls.py:40
 msgid "Net"
-msgstr ""
+msgstr "Netto"
 
 #: basxconnect/invoicing/urls.py:69
 msgid "New"
-msgstr ""
+msgstr "Neu"
 
 #: basxconnect/invoicing/urls.py:95
 msgid "Dates"
-msgstr ""
+msgstr "Daten"
 
 #: basxconnect/invoicing/urls.py:103
 msgid "Currency and taxes"
-msgstr ""
+msgstr "Währung und Steuern"
 
 #: basxconnect/invoicing/urls.py:144
 msgid "Select a default invoice template first in the global preferences"
-msgstr ""
+msgstr "Bitte zuerst eine Default Rechnungsvorlage in den Globalen Präferenzen auswählen"
 
 #: basxconnect/invoicing/urls.py:151
 msgid "Receipt"
-msgstr ""
+msgstr "Zahlungsbeleg"
 
 #: basxconnect/invoicing/urls.py:168
 msgid "Select a default receipt template first in the global preferences"
-msgstr ""
+msgstr "Bitte zuerst eine Default Zahlungsbelegvorlage in den Globalen Präferenzen auswählen"
 
 #: basxconnect/invoicing/urls.py:184 basxconnect/invoicing/urls.py:190
 msgid "Mark payed"
-msgstr ""
+msgstr "Als bezahlt markieren"
 
 #: basxconnect/invoicing/urls.py:212 basxconnect/invoicing/urls.py:218
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"

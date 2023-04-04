@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-22 11:33+0700\n"
+"POT-Creation-Date: 2023-04-04 10:14+0700\n"
 "PO-Revision-Date: 2022-07-25 02:58+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
@@ -19,57 +19,61 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.14-dev\n"
 
-#: basxconnect/core/apps.py:28
+#: basxconnect/core/apps.py:13
+msgid "BasxConnect Core"
+msgstr ""
+
+#: basxconnect/core/apps.py:29
 #: basxconnect/core/layouts/editperson/common/base_data.py:53
 #: basxconnect/core/models/persons.py:73
 msgid "Tags"
 msgstr "แท็ก"
 
-#: basxconnect/core/apps.py:29
+#: basxconnect/core/apps.py:30
 msgid "Titles"
 msgstr "หัวเรื่อง"
 
-#: basxconnect/core/apps.py:30
+#: basxconnect/core/apps.py:31
 msgid "Salutations"
 msgstr "คำนำหน้านาม"
 
-#: basxconnect/core/apps.py:31
+#: basxconnect/core/apps.py:32
 msgid "Forms Of Address"
 msgstr "ประเภทที่อยู่อาศัย"
 
-#: basxconnect/core/apps.py:32
+#: basxconnect/core/apps.py:33
 msgid "Genders"
 msgstr "เพศ"
 
-#: basxconnect/core/apps.py:33
+#: basxconnect/core/apps.py:34
 msgid "Natural Person Types"
 msgstr "บุคคลธรรมดา"
 
-#: basxconnect/core/apps.py:34
+#: basxconnect/core/apps.py:35
 msgid "Legal Person Types"
 msgstr "นิติบุคคล"
 
-#: basxconnect/core/apps.py:35
+#: basxconnect/core/apps.py:36
 msgid "Association Person Types"
 msgstr "กลุ่มบุคคล สมาคม"
 
-#: basxconnect/core/apps.py:36
+#: basxconnect/core/apps.py:37
 msgid "Address statuses"
 msgstr "ประเภทที่อยู่"
 
-#: basxconnect/core/apps.py:37
+#: basxconnect/core/apps.py:38
 msgid "Email Types"
 msgstr "อีเมล์"
 
-#: basxconnect/core/apps.py:38
+#: basxconnect/core/apps.py:39
 msgid "URL Types"
 msgstr "ประเภทของ URL"
 
-#: basxconnect/core/apps.py:39
+#: basxconnect/core/apps.py:40
 msgid "Phone Types"
 msgstr "ประเภทโทรศัพท์"
 
-#: basxconnect/core/apps.py:40
+#: basxconnect/core/apps.py:41
 msgid "Address Types"
 msgstr "ประเภทที่อยู่"
 
