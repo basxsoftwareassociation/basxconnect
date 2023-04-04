@@ -3,205 +3,207 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-04 10:14+0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2023-04-05 02:46+0000\n"
+"Last-Translator: Tidaphan <tida@basx.dev>\n"
+"Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
+"basxconnect-invoicing/th/>\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.17-dev\n"
+
 #: basxconnect/invoicing/apps.py:9
 msgid "BasxConnect Invoicing"
-msgstr ""
+msgstr "ใบแจ้งหนี้ BasxConnect"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:22
 #: basxconnect/invoicing/urls.py:250
 msgid "Invoicing"
-msgstr ""
+msgstr "ใบแจ้งหนี้"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:29
 msgid "Default currency"
-msgstr ""
+msgstr "สกุลเงินเริ่มต้น"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:38
 msgid "Use VAT by default"
-msgstr ""
+msgstr "ใช้ภาษีมูลค่าเพิ่มเป็นค่าเริ่มต้น"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:46
 msgid "Default VAT"
-msgstr ""
+msgstr "ภาษีมูลค่าเพิ่มเป็นค่าเริ่มต้น"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:54
 msgid "Use WHT by default"
-msgstr ""
+msgstr "ใช้ภาษีหัก ณ ที่จ่ายเป็นค่าเริ่มต้น"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:62
 msgid "Default WHT"
-msgstr ""
+msgstr "ภาษีหัก ณ ที่จ่าย เป็นค่าเริ่มต้น"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:70
 msgid "Provided invoicing amounts include VAT by default"
-msgstr ""
+msgstr "จำนวนเงินในใบแจ้งหนี้ที่ระบุรวมภาษีมูลค่าเพิ่มตามค่าเริ่มต้น"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:78
 msgid "Invoice number grouping regex"
-msgstr ""
+msgstr "การจัดกลุ่มหมายเลขใบแจ้งหนี้ regex"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:99
 msgid "Invoice number extraction regex"
-msgstr ""
+msgstr "การแยกหมายเลขใบแจ้งหนี้ regex"
 
 #: basxconnect/invoicing/models.py:24
 msgid "Name"
-msgstr ""
+msgstr "ชื่อ"
 
 #: basxconnect/invoicing/models.py:24
 msgid "Internal name of this payment method"
-msgstr ""
+msgstr "ชื่อภายในของวิธีการชำระเงินนี้"
 
 #: basxconnect/invoicing/models.py:27
 msgid "Payment information"
-msgstr ""
+msgstr "รายละเอียดการชำระเงิน"
 
 #: basxconnect/invoicing/models.py:28
 msgid "Instructions for the client"
-msgstr ""
+msgstr "คำแนะนำสำหรับลูกค้า"
 
 #: basxconnect/invoicing/models.py:36
 msgid "Payment type"
-msgstr ""
+msgstr "ประเภทการชำระเงิน"
 
 #: basxconnect/invoicing/models.py:37
 msgid "Payment types"
-msgstr ""
+msgstr "ประเภทการชำระเงิน"
 
 #: basxconnect/invoicing/models.py:96
 msgid "Invoice number"
-msgstr ""
+msgstr "หมายเลขใบแจ้งหนี้"
 
 #: basxconnect/invoicing/models.py:102
 msgid "Client"
-msgstr ""
+msgstr "ลูกค้า"
 
 #: basxconnect/invoicing/models.py:105
 msgid "Currency"
-msgstr ""
+msgstr "สกุลเงิน"
 
 #: basxconnect/invoicing/models.py:113
 msgid "Created on"
-msgstr ""
+msgstr "จัดทำเมื่อ"
 
 #: basxconnect/invoicing/models.py:114
 msgid "Payed on"
-msgstr ""
+msgstr "ชำระเมื่อ"
 
 #: basxconnect/invoicing/models.py:115
 msgid "Invoice sent"
-msgstr ""
+msgstr "นำส่งใบแจ้งหนี้เรียบร้อย"
 
 #: basxconnect/invoicing/models.py:116
 msgid "Cancelled"
-msgstr ""
+msgstr "ยกเลิก"
 
 #: basxconnect/invoicing/models.py:118
 msgid "Note to client"
-msgstr ""
+msgstr "หมายเหตุ"
 
 #: basxconnect/invoicing/models.py:120
 msgid "Can be displayed on invoice and/or receipt"
-msgstr ""
+msgstr "สามารถแสดงในใบแจ้งหนี้และ/หรือใบเสร็จรับเงิน"
 
 #: basxconnect/invoicing/models.py:125
 msgid "Amounts include VAT"
-msgstr ""
+msgstr "จำนวนเงินรวมภาษีมูลค่าเพิ่ม"
 
 #: basxconnect/invoicing/models.py:128
 msgid "VAT"
-msgstr ""
+msgstr "ภาษีมูลค่าเพิ่ม"
 
 #: basxconnect/invoicing/models.py:131
 msgid "WHT"
-msgstr ""
+msgstr "ภาษีหัก ณ ที่จ่าย"
 
 #: basxconnect/invoicing/models.py:139
 msgid "Has VAT"
-msgstr ""
+msgstr "มีภาษีมูลค่าเพิ่ม"
 
 #: basxconnect/invoicing/models.py:144
 msgid "Has WHT"
-msgstr ""
+msgstr "มีภาษีหัก ณ ที่จ่าย"
 
 #: basxconnect/invoicing/models.py:153
 msgid "Net amount"
-msgstr ""
+msgstr "รวมจำนวนสุทธิ"
 
 #: basxconnect/invoicing/models.py:158
 msgid "VAT amount"
-msgstr ""
+msgstr "จำนวนภาษีมูลค่าเพิ่ม"
 
 #: basxconnect/invoicing/models.py:163
 msgid "WHT amount"
-msgstr ""
+msgstr "จำนวนหัก ณ ที่จ่าย"
 
 #: basxconnect/invoicing/models.py:168
 msgid "Total amount"
-msgstr ""
+msgstr "ยอดรวมจำนวน"
 
 #: basxconnect/invoicing/models.py:185 basxconnect/invoicing/urls.py:133
 msgid "Invoice"
-msgstr ""
+msgstr "ใบเรียกเก็บ"
 
 #: basxconnect/invoicing/models.py:186
 msgid "Invoices"
-msgstr ""
+msgstr "ใบเรียกเก็บ"
 
 #: basxconnect/invoicing/models.py:213
 msgid "Item"
-msgstr ""
+msgstr "รายการ"
 
 #: basxconnect/invoicing/models.py:214
 msgid "Items"
-msgstr ""
+msgstr "รายการ"
 
 #: basxconnect/invoicing/urls.py:40
 msgid "Net"
-msgstr ""
+msgstr "สุทธิ"
 
 #: basxconnect/invoicing/urls.py:69
 msgid "New"
-msgstr ""
+msgstr "ใหม่"
 
 #: basxconnect/invoicing/urls.py:95
 msgid "Dates"
-msgstr ""
+msgstr "วันที่"
 
 #: basxconnect/invoicing/urls.py:103
 msgid "Currency and taxes"
-msgstr ""
+msgstr "สกุลเงินและภาษีมูลค่าเพิ่ม"
 
 #: basxconnect/invoicing/urls.py:144
 msgid "Select a default invoice template first in the global preferences"
-msgstr ""
+msgstr "เลือกเทมเพลตใบแจ้งหนี้เริ่มต้นก่อนในการตั้งค่าส่วนกลาง"
 
 #: basxconnect/invoicing/urls.py:151
 msgid "Receipt"
-msgstr ""
+msgstr "ใบเสร็จรับเงิน"
 
 #: basxconnect/invoicing/urls.py:168
 msgid "Select a default receipt template first in the global preferences"
-msgstr ""
+msgstr "เลือกเทมเพลตใบเสร็จเริ่มต้นก่อนในการตั้งค่าส่วนกลาง"
 
 #: basxconnect/invoicing/urls.py:184 basxconnect/invoicing/urls.py:190
 msgid "Mark payed"
-msgstr ""
+msgstr "ทำเครื่องหมายชำระแล้ว"
 
 #: basxconnect/invoicing/urls.py:212 basxconnect/invoicing/urls.py:218
 msgid "Cancel"
-msgstr ""
+msgstr "ยกเลิก"
