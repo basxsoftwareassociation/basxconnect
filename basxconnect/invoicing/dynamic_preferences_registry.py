@@ -3,7 +3,6 @@ import re
 
 import htmlgenerator as hg
 from basxbread.contrib.document_templates.models import DocumentTemplate
-from django.contrib.contenttypes.models import ContentType
 from django.forms import ValidationError
 from django.utils.translation import gettext_lazy as _
 from djmoney import settings
@@ -16,8 +15,6 @@ from dynamic_preferences.types import (
     ModelChoicePreference,
     StringPreference,
 )
-
-from .models import Invoice
 
 invoicing = Section("invoicing", _("Invoicing"))
 
@@ -130,7 +127,7 @@ class DefaultInvoiceTemplate(ModelChoicePreference):
     section = invoicing
     name = "default_invoice_template"
     queryset = DocumentTemplate.objects.filter(
-        model=ContentType.objects.get_for_model(Invoice)
+        model__app_label="basxconnect_invoicing", model__model="invoice"
     )
     default = None
 
@@ -140,6 +137,6 @@ class DefaultReceiptTemplate(ModelChoicePreference):
     section = Section("invoicing")
     name = "default_receipt_template"
     queryset = DocumentTemplate.objects.filter(
-        model=ContentType.objects.get_for_model(Invoice)
+        model__app_label="basxconnect_invoicing", model__model="invoice"
     )
     default = None
