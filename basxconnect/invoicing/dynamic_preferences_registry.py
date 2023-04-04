@@ -19,7 +19,7 @@ from dynamic_preferences.types import (
 
 from .models import Invoice
 
-invoicing = Section("invoicing")
+invoicing = Section("invoicing", _("Invoicing"))
 
 
 @global_preferences_registry.register

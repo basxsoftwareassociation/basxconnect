@@ -86,7 +86,7 @@ invoice_form = layout.grid.Grid(
             layout.forms.Formset.as_inline_datatable(
                 "items", ["project", "description", "amount"]
             ),
-            width=8,
+            width=10,
         ),
         layout.grid.Col(
             layout.tile.Tile(
@@ -111,7 +111,7 @@ invoice_form = layout.grid.Grid(
                 ),
                 light=True,
             ),
-            width=8,
+            width=6,
         ),
     ),
     style="margin-bottom: 4rem",
