@@ -206,6 +206,9 @@ class Item(models.Model):
     )
     project.lazy_choices = project_choices
 
+    def amount_with_currency(self):
+        return Money(self.amount, self.invoice.currency)
+
     def __str__(self):
         return f"{self.description}: {Money(self.amount, self.invoice.currency)}: "
 
