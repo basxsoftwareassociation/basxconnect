@@ -34,12 +34,18 @@ What we have so far
 - CRUD-framework (*"Quick generation of create/read/update/delete views"*)
 - HTML-layout framework which allows a more flexible hooking-in than the standard HTML-rendering mechanisms (*"DOM on the server side"*)
 - Core model to manage people, communication and relationships
+- Additional modules for:
+  - Generating reports
+  - Generating documents and PDFs from word templates
+  - Custom add/edit forms
+  - Data import from PDFs with form-fields
+  - Customiable Database triggers to send notification emails
+  - Invoicing module
 - Demo project which implements a bare-bone version of a *product* (this repository)
 
 What we still need to do
 ------------------------
 
-- Adding a workflow engine which allows code-based configuration of manual and automated workflows (e.g. uploading a file, waiting for approval from a certain role, sending out an email automatically, etc.)
 - Improving the existing code base to have better support for extendability
 - Write documentation where necessary and add code-examples and how-to's
 - Implement revisions completely to allow going to a certain date and maybe display diffs
@@ -51,3 +57,4 @@ We would like to thank the following projects for their work, they provide a val
 
 - Translation: https://weblate.org/
 - Design System: https://www.carbondesignsystem.com/
+
