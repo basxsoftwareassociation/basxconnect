@@ -178,7 +178,7 @@ urlpatterns = [
                     None,
                     layout.modal.Modal.with_ajax_content(
                         hg.C("row"),
-                        utils.ModelHref.from_object(
+                        utils.ModelHref(
                             hg.C("row"), "markpayed", query={"asajax": True}
                         ),
                         submitlabel=_("Mark payed"),
@@ -206,9 +206,7 @@ urlpatterns = [
                 views.BrowseView.editlink(),
                 layout.modal.Modal.with_ajax_content(
                     hg.C("row"),
-                    utils.ModelHref.from_object(
-                        hg.C("row"), "cancel", query={"asajax": True}
-                    ),
+                    utils.ModelHref(hg.C("row"), "cancel", query={"asajax": True}),
                     submitlabel=_("Cancel"),
                     id=hg.format("cancel-{}", hg.C("row").id),
                 ).with_trigger(

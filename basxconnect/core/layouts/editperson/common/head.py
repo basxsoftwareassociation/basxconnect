@@ -14,7 +14,7 @@ def editperson_toolbar():
         icon="trash-can",
         notext=True,
     ).as_submit(
-        ModelHref.from_object(hg.C("object"), "delete"),
+        ModelHref(hg.C("object"), "delete"),
         confirm_text=hg.format(
             _("Are you sure you want to delete {}?"), hg.EM(hg.C("object"))
         ),
@@ -25,7 +25,7 @@ def editperson_toolbar():
         icon="undo",
         notext=True,
     ).as_submit(
-        ModelHref.from_object(hg.C("object"), "delete", query={"restore": True}),
+        ModelHref(hg.C("object"), "delete", query={"restore": True}),
         confirm_text=hg.format(
             _("Are you sure you want to restore {}?"), hg.EM(hg.C("object"))
         ),
@@ -36,7 +36,7 @@ def editperson_toolbar():
         icon="copy",
         notext=True,
     ).as_submit(
-        ModelHref.from_object(hg.C("object"), "copy"),
+        ModelHref(hg.C("object"), "copy"),
         confirm_text=hg.format(
             _("Are you sure you want to copy {}?"), hg.EM(hg.C("object"))
         ),
