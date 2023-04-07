@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-04 10:14+0700\n"
-"PO-Revision-Date: 2022-07-25 02:58+0000\n"
+"PO-Revision-Date: 2023-04-05 02:46+0000\n"
 "Last-Translator: Tidaphan <tida@basx.dev>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: basxconnect/core/apps.py:13
 msgid "BasxConnect Core"
-msgstr ""
+msgstr "BasxConnect Core"
 
 #: basxconnect/core/apps.py:29
 #: basxconnect/core/layouts/editperson/common/base_data.py:53
@@ -783,15 +783,15 @@ msgstr "ข้อกำหนด"
 
 #: basxconnect/core/models/utils.py:58
 msgid "Disabled"
-msgstr ""
+msgstr "ไม่มีสิทธิ์"
 
 #: basxconnect/core/models/utils.py:60
 msgid "Do not allow this term to be selected"
-msgstr ""
+msgstr "ไม่อนุญาตให้เลือกคำนี้"
 
 #: basxconnect/core/views/menu_views.py:46
 msgid "Taxonomy"
-msgstr ""
+msgstr "อนุกรมวิธาน"
 
 #: basxconnect/core/views/person/person_browse_views.py:174
 #: basxconnect/core/views/person/person_browse_views.py:175
