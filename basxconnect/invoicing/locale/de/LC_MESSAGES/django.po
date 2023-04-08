@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-04 10:14+0700\n"
+"POT-Creation-Date: 2023-04-08 16:43+0700\n"
 "PO-Revision-Date: 2023-04-05 02:46+0000\n"
 "Last-Translator: Sam <saemideluxe@gmx.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/basxconnect/"
@@ -24,7 +24,7 @@ msgid "BasxConnect Invoicing"
 msgstr "BasxConnect Rechnungen"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:22
-#: basxconnect/invoicing/urls.py:250
+#: basxconnect/invoicing/urls.py:332
 msgid "Invoicing"
 msgstr "Rechnungen"
 
@@ -59,6 +59,38 @@ msgstr "Regex für Rechnungsnummern-Gruppierung"
 #: basxconnect/invoicing/dynamic_preferences_registry.py:99
 msgid "Invoice number extraction regex"
 msgstr "Regex für Rechnungsnummern-Extrahierung"
+
+#: basxconnect/invoicing/dynamic_preferences_registry.py:118
+msgid "Invoice number template"
+msgstr "Rechnungsnummern-Vorlage"
+
+#: basxconnect/invoicing/dynamic_preferences_registry.py:133
+msgid "Default invoice template"
+msgstr "Defaultvorlage für Rechnungen"
+
+#: basxconnect/invoicing/dynamic_preferences_registry.py:144
+msgid "Default receipt template"
+msgstr "Defaultvorlage für Zahlungsbelege"
+
+#: basxconnect/invoicing/dynamic_preferences_registry.py:155
+msgid "Invoice email subject"
+msgstr "Rechnung Email Betreff"
+
+#: basxconnect/invoicing/dynamic_preferences_registry.py:168
+msgid "Invoice email body"
+msgstr "Rechnung Email Nachrichtentext"
+
+#: basxconnect/invoicing/dynamic_preferences_registry.py:186
+msgid "Default invoice email"
+msgstr "Default Rechnungs-Email"
+
+#: basxconnect/invoicing/dynamic_preferences_registry.py:194
+msgid "Receipt email subject"
+msgstr "Zahlungsbelege Email Betreff"
+
+#: basxconnect/invoicing/dynamic_preferences_registry.py:207
+msgid "Receipt email body"
+msgstr "Zahlungsbelege Email Nachrichtentext"
 
 #: basxconnect/invoicing/models.py:24
 msgid "Name"
@@ -109,101 +141,137 @@ msgid "Invoice sent"
 msgstr "Rechnung gesendet am"
 
 #: basxconnect/invoicing/models.py:116
+msgid "Receipt sent"
+msgstr "Zahlungsbeleg verschickt"
+
+#: basxconnect/invoicing/models.py:117
 msgid "Cancelled"
 msgstr "Anulliert"
 
-#: basxconnect/invoicing/models.py:118
+#: basxconnect/invoicing/models.py:119
 msgid "Note to client"
 msgstr "Notiz für den Kunden"
 
-#: basxconnect/invoicing/models.py:120
+#: basxconnect/invoicing/models.py:121
 msgid "Can be displayed on invoice and/or receipt"
 msgstr "Kann auf der Rechnung oder dem Zahlungsbeleg angezeigt werden"
 
-#: basxconnect/invoicing/models.py:125
+#: basxconnect/invoicing/models.py:126
 msgid "Amounts include VAT"
 msgstr "Angegebene Rechnungsbeträge beinhalten MwSt"
 
-#: basxconnect/invoicing/models.py:128
+#: basxconnect/invoicing/models.py:129
 msgid "VAT"
 msgstr "MwSt"
 
-#: basxconnect/invoicing/models.py:131
+#: basxconnect/invoicing/models.py:132
 msgid "WHT"
 msgstr "Quellensteuer"
 
-#: basxconnect/invoicing/models.py:139
+#: basxconnect/invoicing/models.py:140
 msgid "Has VAT"
 msgstr "Hat MwSt"
 
-#: basxconnect/invoicing/models.py:144
+#: basxconnect/invoicing/models.py:145
 msgid "Has WHT"
 msgstr "Hat Quellensteuer"
 
-#: basxconnect/invoicing/models.py:153
+#: basxconnect/invoicing/models.py:154
 msgid "Net amount"
 msgstr "Betrag Netto"
 
-#: basxconnect/invoicing/models.py:158
+#: basxconnect/invoicing/models.py:159
 msgid "VAT amount"
 msgstr "Betrag MwSt"
 
-#: basxconnect/invoicing/models.py:163
+#: basxconnect/invoicing/models.py:164
 msgid "WHT amount"
 msgstr "Betrag Quellensteuer"
 
-#: basxconnect/invoicing/models.py:168
+#: basxconnect/invoicing/models.py:169
 msgid "Total amount"
 msgstr "Betrag Total"
 
-#: basxconnect/invoicing/models.py:185 basxconnect/invoicing/urls.py:133
+#: basxconnect/invoicing/models.py:186 basxconnect/invoicing/urls.py:243
 msgid "Invoice"
 msgstr "Rechnung"
 
-#: basxconnect/invoicing/models.py:186
+#: basxconnect/invoicing/models.py:187
 msgid "Invoices"
 msgstr "Rechnungen"
 
-#: basxconnect/invoicing/models.py:213
+#: basxconnect/invoicing/models.py:217
 msgid "Item"
 msgstr "Rechnungsposten"
 
-#: basxconnect/invoicing/models.py:214
+#: basxconnect/invoicing/models.py:218
 msgid "Items"
 msgstr "Rechnungsposten"
 
-#: basxconnect/invoicing/urls.py:40
+#: basxconnect/invoicing/urls.py:42
 msgid "Net"
 msgstr "Netto"
 
-#: basxconnect/invoicing/urls.py:69
+#: basxconnect/invoicing/urls.py:71
 msgid "New"
 msgstr "Neu"
 
-#: basxconnect/invoicing/urls.py:95
+#: basxconnect/invoicing/urls.py:97
 msgid "Dates"
 msgstr "Daten"
 
-#: basxconnect/invoicing/urls.py:103
+#: basxconnect/invoicing/urls.py:106
 msgid "Currency and taxes"
 msgstr "Währung und Steuern"
 
-#: basxconnect/invoicing/urls.py:144
-msgid "Select a default invoice template first in the global preferences"
-msgstr "Bitte zuerst eine Default Rechnungsvorlage in den Globalen Präferenzen auswählen"
+#: basxconnect/invoicing/urls.py:140
+msgid "Send invoice {} to {}"
+msgstr "Sende Rechnung {} an {}"
 
-#: basxconnect/invoicing/urls.py:151
-msgid "Receipt"
-msgstr "Zahlungsbeleg"
+#: basxconnect/invoicing/urls.py:147 basxconnect/invoicing/urls.py:154
+msgid "Send invoice"
+msgstr "Rechnung senden"
 
-#: basxconnect/invoicing/urls.py:168
-msgid "Select a default receipt template first in the global preferences"
-msgstr "Bitte zuerst eine Default Zahlungsbelegvorlage in den Globalen Präferenzen auswählen"
-
-#: basxconnect/invoicing/urls.py:184 basxconnect/invoicing/urls.py:190
+#: basxconnect/invoicing/urls.py:181 basxconnect/invoicing/urls.py:187
 msgid "Mark payed"
 msgstr "Als bezahlt markieren"
 
-#: basxconnect/invoicing/urls.py:212 basxconnect/invoicing/urls.py:218
+#: basxconnect/invoicing/urls.py:211
+msgid "Send receipt for invoice {} to {}"
+msgstr "Sende Zahlungsbeleg für Rechnung {} an {}"
+
+#: basxconnect/invoicing/urls.py:218 basxconnect/invoicing/urls.py:225
+msgid "Send receipt"
+msgstr "Zahlungsbeleg senden"
+
+#: basxconnect/invoicing/urls.py:254
+msgid "Select a default invoice template first in the global preferences"
+msgstr ""
+"Bitte zuerst eine Default Rechnungsvorlage in den Globalen Präferenzen "
+"auswählen"
+
+#: basxconnect/invoicing/urls.py:261
+msgid "Receipt"
+msgstr "Zahlungsbeleg"
+
+#: basxconnect/invoicing/urls.py:278
+msgid "Select a default receipt template first in the global preferences"
+msgstr ""
+"Bitte zuerst eine Default Zahlungsbelegvorlage in den Globalen Präferenzen "
+"auswählen"
+
+#: basxconnect/invoicing/urls.py:290 basxconnect/invoicing/urls.py:296
 msgid "Cancel"
 msgstr "Abbrechen"
+
+#: basxconnect/invoicing/views.py:97
+msgid "Email successfully sent"
+msgstr "Email wurde erfolgreich gesendet"
+
+#: basxconnect/invoicing/views.py:104
+msgid "Recepients"
+msgstr "Empfänger"
+
+#: basxconnect/invoicing/views.py:108
+msgid "Add recipient"
+msgstr "Empfänger hinzufügen"

@@ -1,0 +1,203 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-08 16:43+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: basxconnect/contributions/dynamic_preferences_registry.py:7
+#: basxconnect/contributions/models.py:89 basxconnect/contributions/urls.py:53
+msgid "Contributions"
+msgstr ""
+
+#: basxconnect/contributions/dynamic_preferences_registry.py:15
+msgid "Preferred Currency"
+msgstr ""
+
+#: basxconnect/contributions/models.py:18
+#: basxconnect/contributions/models.py:71
+#: basxconnect/contributions/wizards/contributionsimport.py:142
+msgid "Date"
+msgstr ""
+
+#: basxconnect/contributions/models.py:19 basxconnect/contributions/urls.py:25
+msgid "Importfile"
+msgstr ""
+
+#: basxconnect/contributions/models.py:23
+msgid "User"
+msgstr ""
+
+#: basxconnect/contributions/models.py:28
+msgid "Booking range"
+msgstr ""
+
+#: basxconnect/contributions/models.py:33
+msgid "Number of bookings"
+msgstr ""
+
+#: basxconnect/contributions/models.py:46
+msgid "Total amount"
+msgstr ""
+
+#: basxconnect/contributions/models.py:52
+msgid "Contribution Import"
+msgstr ""
+
+#: basxconnect/contributions/models.py:53
+msgid "Contributions Imports"
+msgstr ""
+
+#: basxconnect/contributions/models.py:65
+msgid "Import"
+msgstr ""
+
+#: basxconnect/contributions/models.py:69
+msgid "Person"
+msgstr ""
+
+#: basxconnect/contributions/models.py:72
+#: basxconnect/contributions/wizards/contributionsimport.py:143
+msgid "Note"
+msgstr ""
+
+#: basxconnect/contributions/models.py:73
+msgid "Debit Account"
+msgstr ""
+
+#: basxconnect/contributions/models.py:74
+msgid "Credit Account"
+msgstr ""
+
+#: basxconnect/contributions/models.py:75
+#: basxconnect/contributions/models.py:82
+#: basxconnect/contributions/wizards/contributionsimport.py:174
+msgid "Amount"
+msgstr ""
+
+#: basxconnect/contributions/models.py:76
+msgid "Currency"
+msgstr ""
+
+#: basxconnect/contributions/models.py:88
+msgid "Contribution"
+msgstr ""
+
+#: basxconnect/contributions/urls.py:22
+msgid "Import date"
+msgstr ""
+
+#: basxconnect/contributions/urls.py:47
+msgid "Imports"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:90
+msgid "Upload a file"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:92
+msgid "File to import"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:92
+msgid "Choose a CSV file"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:95
+msgid "First line is header"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:98
+msgid "Filter out duplicates"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:103
+msgid "Import options"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:112
+msgid "Required field"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:133
+msgid "CSV import problem: "
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:138
+msgid "Assignment"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:145
+msgid "Account"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:148
+msgid "Cost Center"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:151
+msgid "Person Number"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:154
+msgid "Donor Number"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:157
+msgid "Assignment state"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:178
+msgid "Overview of contributions to import"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:184
+msgid "contributions"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:188
+msgid "Sum"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:219
+msgid " contributions could not been assigned"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:222
+msgid ""
+"Please make sure that each entry has contributor number which matches with a "
+"person number and do the import again"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:228
+msgid "Cancel import"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:234
+msgid "Assignment complete"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:235
+msgid "Continue in order to complete the import"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:296
+msgid "Import contributions"
+msgstr ""
+
+#: basxconnect/contributions/wizards/contributionsimport.py:311
+#, python-format
+msgid "Successfully imported %d contributions"
+msgstr ""
