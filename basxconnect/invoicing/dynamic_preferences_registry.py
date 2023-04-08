@@ -12,9 +12,12 @@ from dynamic_preferences.types import (
     BooleanPreference,
     ChoicePreference,
     DecimalPreference,
+    LongStringPreference,
     ModelChoicePreference,
     StringPreference,
 )
+
+from basxconnect.core.models import Term
 
 invoicing = Section("invoicing", _("Invoicing"))
 
@@ -112,6 +115,7 @@ class InvoiceNumberExtractionRegex(StringPreference):
 class InvoiceNumberTemplate(StringPreference):
     section = invoicing
     name = "invoice_number_template"
+    verbose_name = _("Invoice number template")
     help_text = hg.UL(
         hg.LI("Jinja template to generate invoice number"),
         hg.LI("Context variable 'date': current date"),
@@ -126,6 +130,7 @@ class InvoiceNumberTemplate(StringPreference):
 class DefaultInvoiceTemplate(ModelChoicePreference):
     section = invoicing
     name = "default_invoice_template"
+    verbose_name = _("Default invoice template")
     queryset = DocumentTemplate.objects.filter(
         model__app_label="basxconnect_invoicing", model__model="invoice"
     )
@@ -134,9 +139,79 @@ class DefaultInvoiceTemplate(ModelChoicePreference):
 
 @global_preferences_registry.register
 class DefaultReceiptTemplate(ModelChoicePreference):
-    section = Section("invoicing")
+    section = invoicing
     name = "default_receipt_template"
+    verbose_name = _("Default receipt template")
     queryset = DocumentTemplate.objects.filter(
         model__app_label="basxconnect_invoicing", model__model="invoice"
     )
     default = None
+
+
+@global_preferences_registry.register
+class InvoiceEmailSubject(StringPreference):
+    section = invoicing
+    name = "invoice_message_subject_template"
+    verbose_name = _("Invoice email subject")
+    help_text = hg.UL(
+        hg.LI("Jinja template to generate invoice email subject"),
+        hg.LI("Context variable 'invoice'"),
+        hg.LI("Context variable 'our_company_name'"),
+    )
+    default = "Invoice {{ invoice.number }} from {{ our_company_name }}"
+
+
+@global_preferences_registry.register
+class InvoiceEmailBody(LongStringPreference):
+    section = invoicing
+    name = "invoice_message_body_template"
+    verbose_name = _("Invoice email body")
+    help_text = hg.UL(
+        hg.LI("Jinja template to generate invoice email body"),
+        hg.LI("Context variable 'invoice'"),
+        hg.LI("Context variable 'our_company_name'"),
+    )
+    default = """Hi {{ invoice.client }}
+
+This is the latest invoice for our services, please find it attached to this message.
+
+Have a nice day!"""
+
+
+@global_preferences_registry.register
+class DefaultInvoiceEmail(ModelChoicePreference):
+    section = invoicing
+    name = "default_invoice_email_type"
+    queryset = Term.objects.filter(vocabulary__slug="emailtype")
+    verbose_name = _("Default invoice email")
+    default = None
+
+
+@global_preferences_registry.register
+class ReceiptEmailSubject(StringPreference):
+    section = invoicing
+    name = "receipt_message_subject_template"
+    verbose_name = _("Receipt email subject")
+    help_text = hg.UL(
+        hg.LI("Jinja template to generate receipt email subject"),
+        hg.LI("Context variable 'invoice'"),
+        hg.LI("Context variable 'our_company_name'"),
+    )
+    default = "Receipt for invoice {{ invoice.number }} from {{ our_company_name }}"
+
+
+@global_preferences_registry.register
+class ReceiptEmailBody(LongStringPreference):
+    section = invoicing
+    name = "receipt_message_body_template"
+    verbose_name = _("Receipt email body")
+    help_text = hg.UL(
+        hg.LI("Jinja template to generate receipt email body"),
+        hg.LI("Context variable 'invoice'"),
+        hg.LI("Context variable 'our_company_name'"),
+    )
+    default = """Hi {{ invoice.client }}
+
+This is the receipt for invoice {{ invoice.number }}, please find it in the attachment.
+
+Have a nice day!"""

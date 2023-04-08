@@ -113,6 +113,7 @@ class Invoice(models.Model):
     created = models.DateField(_("Created on"), default=datetime.date.today)
     payed = models.DateField(_("Payed on"), null=True, blank=True)
     invoice_sent = models.DateField(_("Invoice sent"), null=True, blank=True)
+    receipt_sent = models.DateField(_("Receipt sent"), null=True, blank=True)
     cancelled = models.DateField(_("Cancelled"), null=True, blank=True)
     note = models.TextField(
         _("Note to client"),

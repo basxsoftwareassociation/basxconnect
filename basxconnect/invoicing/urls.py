@@ -2,9 +2,11 @@ import datetime
 
 import htmlgenerator as hg
 from basxbread import layout, menu, utils, views
+from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 from . import models
+from .views import send_invoice, send_receipt
 
 
 def invoice_download(context):
@@ -96,6 +98,7 @@ invoice_form = layout.grid.Grid(
                         layout.forms.FormField("created"),
                         layout.forms.FormField("invoice_sent"),
                         layout.forms.FormField("payed"),
+                        layout.forms.FormField("receipt_sent"),
                         layout.forms.FormField("cancelled", style="margin-top: 3rem"),
                     ),
                     layout.grid.Col(
@@ -127,8 +130,115 @@ urlpatterns = [
                 "number",
                 "client",
                 "total_amount",
-                "invoice_sent",
-                "payed",
+                layout.datatable.DataTableColumn(
+                    layout.ObjectFieldLabel("invoice_sent", hg.C("object_list").model),
+                    hg.If(
+                        hg.C("row").invoice_sent,
+                        hg.C("row").invoice_sent,
+                        layout.modal.Modal.with_ajax_content(
+                            hg.format(
+                                _("Send invoice {} to {}"),
+                                hg.C("row").number,
+                                hg.C("row").client,
+                            ),
+                            utils.ModelHref(
+                                hg.C("row"), "sendinvoice", query={"asajax": True}
+                            ),
+                            submitlabel=_("Send invoice"),
+                            size="md",
+                            id=hg.format("send-invoice-{}", hg.C("row").id),
+                        ).with_trigger(
+                            layout.button.Button.from_link(
+                                utils.Link(
+                                    href="",
+                                    label=_("Send invoice"),
+                                    iconname="mail--all",
+                                    permissions=[
+                                        hg.F(
+                                            lambda c: utils.permissionname(
+                                                c["row"], "change"
+                                            )
+                                        )
+                                    ],
+                                ),
+                                notext=True,
+                                small=True,
+                                buttontype="ghost",
+                            )
+                        ),
+                    ),
+                ),
+                layout.datatable.DataTableColumn(
+                    layout.ObjectFieldLabel("payed", hg.C("object_list").model),
+                    hg.If(
+                        hg.C("row").payed,
+                        hg.C("row").payed,
+                        layout.modal.Modal.with_ajax_content(
+                            hg.C("row"),
+                            utils.ModelHref(
+                                hg.C("row"), "markpayed", query={"asajax": True}
+                            ),
+                            submitlabel=_("Mark payed"),
+                            id=hg.format("mark-payed-{}", hg.C("row").id),
+                        ).with_trigger(
+                            layout.button.Button.from_link(
+                                utils.Link(
+                                    href="",
+                                    label=_("Mark payed"),
+                                    iconname="checkmark",
+                                    permissions=[
+                                        hg.F(
+                                            lambda c: utils.permissionname(
+                                                c["row"], "change"
+                                            )
+                                        )
+                                    ],
+                                ),
+                                notext=True,
+                                small=True,
+                                buttontype="ghost",
+                            )
+                        ),
+                    ),
+                ),
+                layout.datatable.DataTableColumn(
+                    layout.ObjectFieldLabel("receipt_sent", hg.C("object_list").model),
+                    hg.If(
+                        hg.C("row").receipt_sent,
+                        hg.C("row").receipt_sent,
+                        layout.modal.Modal.with_ajax_content(
+                            hg.format(
+                                _("Send receipt for invoice {} to {}"),
+                                hg.C("row").number,
+                                hg.C("row").client,
+                            ),
+                            utils.ModelHref(
+                                hg.C("row"), "sendreceipt", query={"asajax": True}
+                            ),
+                            submitlabel=_("Send receipt"),
+                            size="md",
+                            id=hg.format("send-receipt-{}", hg.C("row").id),
+                        ).with_trigger(
+                            layout.button.Button.from_link(
+                                utils.Link(
+                                    href="",
+                                    label=_("Send receipt"),
+                                    iconname="mail--all",
+                                    permissions=[
+                                        hg.F(
+                                            lambda c: utils.permissionname(
+                                                c["row"], "change"
+                                            )
+                                        )
+                                    ],
+                                ),
+                                notext=True,
+                                small=True,
+                                buttontype="ghost",
+                            )
+                        ),
+                    ),
+                ),
                 layout.datatable.DataTableColumn(
                     _("Invoice"),
                     hg.If(
@@ -173,36 +283,6 @@ urlpatterns = [
                 ),
             ],
             rowactions=[
-                hg.If(
-                    hg.C("row").payed,
-                    None,
-                    layout.modal.Modal.with_ajax_content(
-                        hg.C("row"),
-                        utils.ModelHref(
-                            hg.C("row"), "markpayed", query={"asajax": True}
-                        ),
-                        submitlabel=_("Mark payed"),
-                        id=hg.format("mark-payed-{}", hg.C("row").id),
-                    ).with_trigger(
-                        layout.button.Button.from_link(
-                            utils.Link(
-                                href="",
-                                label=_("Mark payed"),
-                                iconname="checkmark",
-                                permissions=[
-                                    hg.F(
-                                        lambda c: utils.permissionname(
-                                            c["row"], "change"
-                                        )
-                                    )
-                                ],
-                            ),
-                            notext=True,
-                            small=True,
-                            buttontype="ghost",
-                        )
-                    ),
-                ),
                 views.BrowseView.editlink(),
                 layout.modal.Modal.with_ajax_content(
                     hg.C("row"),
@@ -236,11 +316,15 @@ urlpatterns = [
                 models.Invoice, "edit", kwargs={"pk": s.object.pk}
             ),
         ),
-        markpayed=views.EditView._with(fields=["payed"]),
+        markpayed=views.EditView._with(
+            fields=["payed"], get_initial=lambda s: {"payed": now().date}
+        ),
         cancel=views.EditView._with(
             fields=["cancelled"],
             get_initial=lambda s: {"cancelled": datetime.date.today()},
         ),
+        sendinvoice=send_invoice,
+        sendreceipt=send_receipt,
     ),
     *utils.default_model_paths(models.PaymentType),
 ]
