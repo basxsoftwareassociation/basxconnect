@@ -206,36 +206,39 @@ urlpatterns = [
                     hg.If(
                         hg.C("row").receipt_sent,
                         hg.C("row").receipt_sent,
-                        layout.modal.Modal.with_ajax_content(
-                            hg.format(
-                                _("Send receipt for invoice {} to {}"),
-                                hg.C("row").number,
-                                hg.C("row").client,
-                            ),
-                            utils.ModelHref(
-                                hg.C("row"), "sendreceipt", query={"asajax": True}
-                            ),
-                            submitlabel=_("Send receipt"),
-                            size="md",
-                            id=hg.format("send-receipt-{}", hg.C("row").id),
-                        ).with_trigger(
-                            layout.button.Button.from_link(
-                                utils.Link(
-                                    href="",
-                                    label=_("Send receipt"),
-                                    iconname="mail--all",
-                                    permissions=[
-                                        hg.F(
-                                            lambda c: utils.permissionname(
-                                                c["row"], "change"
-                                            )
-                                        )
-                                    ],
+                        hg.If(
+                            hg.C("row").payed,
+                            layout.modal.Modal.with_ajax_content(
+                                hg.format(
+                                    _("Send receipt for invoice {} to {}"),
+                                    hg.C("row").number,
+                                    hg.C("row").client,
                                 ),
-                                notext=True,
-                                small=True,
-                                buttontype="ghost",
-                            )
+                                utils.ModelHref(
+                                    hg.C("row"), "sendreceipt", query={"asajax": True}
+                                ),
+                                submitlabel=_("Send receipt"),
+                                size="md",
+                                id=hg.format("send-receipt-{}", hg.C("row").id),
+                            ).with_trigger(
+                                layout.button.Button.from_link(
+                                    utils.Link(
+                                        href="",
+                                        label=_("Send receipt"),
+                                        iconname="mail--all",
+                                        permissions=[
+                                            hg.F(
+                                                lambda c: utils.permissionname(
+                                                    c["row"], "change"
+                                                )
+                                            )
+                                        ],
+                                    ),
+                                    notext=True,
+                                    small=True,
+                                    buttontype="ghost",
+                                )
+                            ),
                         ),
                     ),
                 ),
