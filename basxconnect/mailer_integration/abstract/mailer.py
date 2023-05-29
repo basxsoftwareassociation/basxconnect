@@ -39,6 +39,7 @@ class MailerPerson(NamedTuple):
             ],
             status=preferences.status,
             language=preferences.language,
+            persontype=person.type.slug,
         )
 
 
