@@ -39,7 +39,7 @@ class MailerPerson(NamedTuple):
             ],
             status=preferences.status,
             language=preferences.language,
-            persontype=person.type.slug,
+            persontype=person.type.slug if hasattr(person, "type") else "",
         )
 
 
