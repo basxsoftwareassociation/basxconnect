@@ -82,7 +82,11 @@ def send_message(
             email = EmailMessage(
                 subject=send_form.cleaned_data["subject"],
                 body=send_form.cleaned_data["body"],
-                to=[recp["recipient"] for recp in recipient_formset.cleaned_data],
+                to=[
+                    recp["recipient"]
+                    for recp in recipient_formset.cleaned_data
+                    if "recipient" in recp
+                ],
             )
             filename, data = send_form.cleaned_data["template"].generate_document_pdf(
                 invoice
