@@ -64,7 +64,9 @@ def contributions_from_csv(filedata, has_header, filter_duplicates, delimiter=";
             continue
         data = {k: row[mapping[k]] for k in mapping.keys() if mapping[k] is not None}
         data.setdefault("currency", global_preferences["contributions__currency"])
-        data["date"] = dateparser.parse(data["date"], languages=[get_language()])
+        data["date"] = dateparser.parse(
+            data["date"], languages=[get_language().split("-")[0]]
+        )
 
         externalnumber = data.pop("donornumber")
         person = Person.objects.filter(personnumber=externalnumber)
