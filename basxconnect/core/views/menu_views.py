@@ -5,20 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 from .. import models
 
-
-# New menu group with developer mode checking
-class DevGroup(menu.Group):
-    def has_permission(self, context):
-        return super().has_permission(context) and context["request"].session.get(
-            DEVMODE_KEY, False
-        )
-
-
-class SuperUserItem(menu.Item):
-    def has_permission(self, context):
-        return super().has_permission(context) and context["request"].user.is_superuser
-
-
 R = layout.grid.Row
 C = layout.grid.Col
 F = layout.forms.FormField

@@ -80,8 +80,8 @@ class Person(models.Model):
         related_name="primary_address_for",
     )
     primary_postal_address.verbose_name = _("Primary postal address")
-    primary_postal_address.lazy_choices = (
-        lambda field, request, instance: instance.core_postal_list.all()
+    primary_postal_address.lazy_choices = lambda field, request, instance: (
+        instance.core_postal_list.all()
         if hasattr(instance, "core_postal_list")
         else None
     )
@@ -93,10 +93,8 @@ class Person(models.Model):
         related_name="primary_email_for",
     )
     primary_email_address.verbose_name = _("Primary email address")
-    primary_email_address.lazy_choices = (
-        lambda field, request, instance: instance.core_email_list.all()
-        if hasattr(instance, "core_email_list")
-        else None
+    primary_email_address.lazy_choices = lambda field, request, instance: (
+        instance.core_email_list.all() if hasattr(instance, "core_email_list") else None
     )
     primary_phonenumber = models.ForeignKey(
         "core.Phone",
@@ -106,10 +104,8 @@ class Person(models.Model):
         related_name="primary_phone_for",
     )
     primary_phonenumber.verbose_name = _("Primary phonenumber")
-    primary_phonenumber.lazy_choices = (
-        lambda field, request, instance: instance.core_phone_list.all()
-        if hasattr(instance, "core_phone_list")
-        else None
+    primary_phonenumber.lazy_choices = lambda field, request, instance: (
+        instance.core_phone_list.all() if hasattr(instance, "core_phone_list") else None
     )
 
     remarks = models.TextField(_("Remarks"), blank=True)

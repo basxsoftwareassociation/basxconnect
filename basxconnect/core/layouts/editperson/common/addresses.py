@@ -226,13 +226,15 @@ def postals():
             C(
                 hg.Iterator(
                     hg.F(
-                        lambda c: getattr(c["object"], "core_postal_list")
-                        .order_by(
-                            django.db.models.F("valid_until").desc(nulls_first=True)
+                        lambda c: (
+                            getattr(c["object"], "core_postal_list")
+                            .order_by(
+                                django.db.models.F("valid_until").desc(nulls_first=True)
+                            )
+                            .all()
+                            if hasattr(c["object"], "core_postal_list")
+                            else []
                         )
-                        .all()
-                        if hasattr(c["object"], "core_postal_list")
-                        else []
                     ),
                     "i",
                     display_postal(),
