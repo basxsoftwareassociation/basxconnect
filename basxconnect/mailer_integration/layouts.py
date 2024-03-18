@@ -28,9 +28,11 @@ def mailer_integration_tile(request):
         hg.H4(
             _("Email Subscriptions"),
         ),
-        *[_display_subscription(email) for email in addresses]
-        if hasattr(person, "core_email_list") and person.core_email_list.count() > 0
-        else C(_("Person has no email addresses")),
+        *(
+            [_display_subscription(email) for email in addresses]
+            if hasattr(person, "core_email_list") and person.core_email_list.count() > 0
+            else C(_("Person has no email addresses"))
+        ),
     )
 
 
@@ -85,12 +87,14 @@ def _display_subscription(email):
         R(
             C(_("Last synchronized"), width=6, breakpoint="lg"),
             C(
-                localize(
-                    localtime(subscription.latest_sync.sync_completed_datetime),
-                    use_l10n=settings.USE_L10N,
-                )
-                if hasattr(subscription.latest_sync, "sync_completed_datetime")
-                else "",
+                (
+                    localize(
+                        localtime(subscription.latest_sync.sync_completed_datetime),
+                        use_l10n=settings.USE_L10N,
+                    )
+                    if hasattr(subscription.latest_sync, "sync_completed_datetime")
+                    else ""
+                ),
                 breakpoint="lg",
             ),
             style="padding-bottom: 24px;",
