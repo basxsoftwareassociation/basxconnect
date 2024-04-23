@@ -286,7 +286,7 @@ urlpatterns = [
                 ),
             ],
             rowactions=[
-                views.BrowseView.editlink(),
+                views.editlink(),
                 layout.modal.Modal.with_ajax_content(
                     hg.C("row"),
                     utils.ModelHref(hg.C("row"), "cancel", query={"asajax": True}),

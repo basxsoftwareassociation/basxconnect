@@ -1,6 +1,6 @@
 from basxbread import layout
 from basxbread.utils import Link, ModelHref, permissionname
-from basxbread.views import BrowseView
+from basxbread.views import BrowseView, deletelink
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.models import Term, Vocabulary
@@ -8,7 +8,7 @@ from basxconnect.core.models import Term, Vocabulary
 
 class TermsBrowseView(BrowseView):
     rowclickaction = BrowseView.gen_rowclickaction("edit", return_to_current=True)
-    rowactions = [BrowseView.deletelink()]
+    rowactions = [deletelink()]
     columns = ["term", "slug"]
 
     def get(self, *args, **kwargs):
