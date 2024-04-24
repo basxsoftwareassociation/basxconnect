@@ -1,7 +1,7 @@
 import htmlgenerator as hg
 from basxbread import layout
 from basxbread.utils import Link, ModelHref, reverse
-from basxbread.views import BrowseView
+from basxbread.views import BrowseView, deletelink
 from django.utils.translation import gettext_lazy as _
 
 from basxconnect.core.models import RelationshipType, Term, Vocabulary
@@ -93,5 +93,5 @@ def generate_term_datatable(title, vocabulary_slug):
         ),
         prevent_automatic_sortingnames=True,
         rowclickaction=BrowseView.gen_rowclickaction("edit", return_to_current=True),
-        rowactions=[BrowseView.deletelink()],
+        rowactions=[deletelink()],
     )
