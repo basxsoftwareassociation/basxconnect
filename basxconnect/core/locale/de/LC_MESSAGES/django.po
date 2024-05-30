@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-04 10:14+0700\n"
-"PO-Revision-Date: 2023-05-14 22:48+0000\n"
+"PO-Revision-Date: 2024-05-31 22:09+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: basxconnect/core/apps.py:13
 msgid "BasxConnect Core"
@@ -237,7 +237,7 @@ msgstr "Benutzer"
 #: basxconnect/core/layouts/editperson/common/history_tab.py:107
 #: basxconnect/core/layouts/editperson/common/history_tab.py:139
 msgid "Changes"
-msgstr "Geändert"
+msgstr "Änderungen"
 
 #: basxconnect/core/layouts/editperson/common/relationships_tab.py:22
 #: basxconnect/core/layouts/settings_layout.py:16
