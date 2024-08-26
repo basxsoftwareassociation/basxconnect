@@ -35,16 +35,3 @@ menu.registeritem(
         menu.settingsgroup,
     )
 )
-
-menu.registeritem(
-    menu.Item(
-        utils.Link(
-            utils.reverse(
-                "basxconnect.core.views.settings_views.relationshipssettings"
-            ),
-            _("Relationships"),
-            permissions=[utils.permissionname(models.RelationshipType, "view")],
-        ),
-        menu.settingsgroup,
-    )
-)
