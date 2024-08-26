@@ -6,6 +6,7 @@ from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
+from simple_history.models import HistoricalRecords
 
 from .persons import Person
 from .utils import Term
@@ -18,6 +19,7 @@ class Address(models.Model):
         related_name="%(app_label)s_%(class)s_list",
     )
     person.verbose_name = _("Person")
+    history = HistoricalRecords(inherit=True)
 
     @classmethod
     def get_contact_related_fieldnames(cls):
