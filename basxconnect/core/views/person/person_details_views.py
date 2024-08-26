@@ -19,7 +19,8 @@ from ... import models
 from ...layouts.editperson import legalperson, naturalperson, personassociation
 from ...layouts.editperson.common import history_tab
 from ...layouts.editperson.common.head import editperson_head
-from ...layouts.editperson.common.relationships_tab import relationshipstab
+
+# from ...layouts.editperson.common.relationships_tab import relationshipstab
 
 R = layout.grid.Row
 C = layout.grid.Col
@@ -117,8 +118,8 @@ def editperson_form(request, base_data_tab, mailings_tab):
 def editperson_tabs(base_data_tab, mailing_tab, request):
     ret = [
         base_data_tab(),
-        relationshipstab(request),
-        mailing_tab(request),
+        # relationshipstab(request),
+        # mailing_tab(request),
     ]
 
     if apps.is_installed("basxconnect.contributions"):
