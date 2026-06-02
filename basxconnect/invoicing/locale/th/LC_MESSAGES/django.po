@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-08 16:43+0700\n"
-"PO-Revision-Date: 2023-04-05 02:46+0000\n"
-"Last-Translator: Tidaphan <tida@basx.dev>\n"
+"PO-Revision-Date: 2026-06-03 06:01+0000\n"
+"Last-Translator: khemmachat meechai <kammachat.att@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect-invoicing/th/>\n"
 "Language: th\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: basxconnect/invoicing/apps.py:9
 msgid "BasxConnect Invoicing"
@@ -61,42 +61,36 @@ msgid "Invoice number extraction regex"
 msgstr "การแยกหมายเลขใบแจ้งหนี้ regex"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:118
-#, fuzzy
-#| msgid "Invoice number"
 msgid "Invoice number template"
 msgstr "หมายเลขใบแจ้งหนี้"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:133
 msgid "Default invoice template"
-msgstr ""
+msgstr "แบบฟอร์มใบแจ้งหนี้มาตรฐาน"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:144
 msgid "Default receipt template"
-msgstr ""
+msgstr "แบบฟอร์มใบเสร็จรับเงินมาตรฐาน"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:155
-#, fuzzy
-#| msgid "Invoice sent"
 msgid "Invoice email subject"
-msgstr "นำส่งใบแจ้งหนี้เรียบร้อย"
+msgstr "หัวข้ออีเมลใบแจ้งหนี้"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:168
-#, fuzzy
-#| msgid "Invoice number"
 msgid "Invoice email body"
-msgstr "หมายเลขใบแจ้งหนี้"
+msgstr "เนื้อหาอีเมลใบแจ้งหนี้"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:186
 msgid "Default invoice email"
-msgstr ""
+msgstr "อีเมลใบแจ้งหนี้เริ่มต้น"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:194
 msgid "Receipt email subject"
-msgstr ""
+msgstr "ชื่อเรื่องอีเมลใบเสร็จรับเงิน"
 
 #: basxconnect/invoicing/dynamic_preferences_registry.py:207
 msgid "Receipt email body"
-msgstr ""
+msgstr "เนื้อหาอีเมลใบเสร็จรับเงิน"
 
 #: basxconnect/invoicing/models.py:24
 msgid "Name"
@@ -147,10 +141,8 @@ msgid "Invoice sent"
 msgstr "นำส่งใบแจ้งหนี้เรียบร้อย"
 
 #: basxconnect/invoicing/models.py:116
-#, fuzzy
-#| msgid "Receipt"
 msgid "Receipt sent"
-msgstr "ใบเสร็จรับเงิน"
+msgstr "ส่งใบเสร็จรับเงินแล้ว"
 
 #: basxconnect/invoicing/models.py:117
 msgid "Cancelled"
@@ -234,13 +226,11 @@ msgstr "สกุลเงินและภาษีมูลค่าเพิ
 
 #: basxconnect/invoicing/urls.py:140
 msgid "Send invoice {} to {}"
-msgstr ""
+msgstr "ส่งใบแจ้งหนี้ {} ไปยัง {}"
 
 #: basxconnect/invoicing/urls.py:147 basxconnect/invoicing/urls.py:154
-#, fuzzy
-#| msgid "Invoice"
 msgid "Send invoice"
-msgstr "ใบเรียกเก็บ"
+msgstr "ส่งใบแจ้งหนี้"
 
 #: basxconnect/invoicing/urls.py:181 basxconnect/invoicing/urls.py:187
 msgid "Mark payed"
@@ -248,13 +238,11 @@ msgstr "ทำเครื่องหมายชำระแล้ว"
 
 #: basxconnect/invoicing/urls.py:211
 msgid "Send receipt for invoice {} to {}"
-msgstr ""
+msgstr "ส่งใบเสร็จรับเงินสำหรับใบแจ้งหนี้ {} ไปยัง {}"
 
 #: basxconnect/invoicing/urls.py:218 basxconnect/invoicing/urls.py:225
-#, fuzzy
-#| msgid "Receipt"
 msgid "Send receipt"
-msgstr "ใบเสร็จรับเงิน"
+msgstr "ส่งใบเสร็จรับเงิน"
 
 #: basxconnect/invoicing/urls.py:254
 msgid "Select a default invoice template first in the global preferences"
@@ -274,14 +262,12 @@ msgstr "ยกเลิก"
 
 #: basxconnect/invoicing/views.py:97
 msgid "Email successfully sent"
-msgstr ""
+msgstr "ส่งอีเมลเรียบร้อยแล้ว"
 
 #: basxconnect/invoicing/views.py:104
-#, fuzzy
-#| msgid "Receipt"
 msgid "Recepients"
-msgstr "ใบเสร็จรับเงิน"
+msgstr "ผู้รับ"
 
 #: basxconnect/invoicing/views.py:108
 msgid "Add recipient"
-msgstr ""
+msgstr "เพิ่มผู้รับ"
