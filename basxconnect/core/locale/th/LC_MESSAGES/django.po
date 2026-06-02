@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-08 16:43+0700\n"
-"PO-Revision-Date: 2023-04-05 02:46+0000\n"
-"Last-Translator: Tidaphan <tida@basx.dev>\n"
+"PO-Revision-Date: 2026-06-03 06:01+0000\n"
+"Last-Translator: khemmachat meechai <kammachat.att@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/basxconnect/"
 "basxconnect/th/>\n"
 "Language: th\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: basxconnect/core/apps.py:13
 msgid "BasxConnect Core"
@@ -216,7 +216,7 @@ msgstr "คุณแน่ใจหรือไม่ว่าต้องกา
 #: basxconnect/core/layouts/editperson/common/history_tab.py:65
 #: basxconnect/core/layouts/editperson/common/history_tab.py:77
 msgid "<Value has been deleted>"
-msgstr "<ค่าถูกลบ>"
+msgstr "<ค่าถูกลบแล้ว>"
 
 #: basxconnect/core/layouts/editperson/common/history_tab.py:83
 msgid "History"
@@ -237,7 +237,7 @@ msgstr "ชื่อผู้ใช้งาน"
 #: basxconnect/core/layouts/editperson/common/history_tab.py:107
 #: basxconnect/core/layouts/editperson/common/history_tab.py:139
 msgid "Changes"
-msgstr "เปลี่ยน"
+msgstr "การเปลี่ยนแปลง"
 
 #: basxconnect/core/layouts/editperson/common/relationships_tab.py:22
 #: basxconnect/core/layouts/settings_layout.py:16
@@ -376,7 +376,7 @@ msgstr "ที่อยู่อีเมล์"
 
 #: basxconnect/core/models/addresses.py:68
 msgid "Url"
-msgstr "URL เว็บไซต์ / เฟซบุคเพจ"
+msgstr "ที่อยู่เว็บไซต์"
 
 #: basxconnect/core/models/addresses.py:84
 msgid "Web address"
